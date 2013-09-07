@@ -1,7 +1,35 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+
+crews = Crew.create([
+	{ name: "Bells", native_name: 'Колокольчики' },
+	{ name: "Castaway", active: false },
+	{ name: "Chesapeake", active: false },
+	{ name: "Chetakticha", active: false },
+	{ name: "Drummers", native_name: 'Барабанщики' },
+	{ name: "Dubki", native_name: 'Дубки' },
+	{ name: "Elki-Palki", native_name: 'Ёлки-Палки' },
+	{ name: "El-Tor" },
+	{ name: "Green Carriage", native_name: 'Зелёная Карета', active: false },
+	{ name: "GTO", native_name: 'ГТО' },
+	{ name: "Guests", native_name: 'Гости', active: false },
+	{ name: "Happy Crew", active: false },
+	{ name: "Inner Voice", native_name: 'Внутренний Голос' },
+	{ name: "JVP", active: false },
+	{ name: "Kazaki-Razboiniki", native_name: 'Казаки-Разбойники' },
+	{ name: "Left Coast", native_name: 'Левый Берег' },
+	{ name: "My People", native_name: 'Свои Люди' },
+	{ name: "Na Bis", native_name: 'На Бис', active: false },
+	{ name: "Okhotnyj Ryad", native_name: 'Охотный Ряд' },
+	{ name: "Palata #6", native_name: 'Палата №6' },
+	{ name: "Pegassus", native_name: 'Пегас' },
+	{ name: "POA", active: false },
+	{ name: "Pshik & Co", native_name: 'Пшик и Ко.', active: false },
+	{ name: "Station Razliv", native_name: 'Станция Разлив' },
+	{ name: "Stranniki", native_name: 'Странники' },
+	{ name: "Tom Sawyer", native_name: 'Том Сойер', active: false },
+	{ name: "Trojan Donkeys", native_name: 'Троянские Ослики' },
+	{ name: "Volchij Hvost", native_name: 'Волчий Хвост' },
+	{ name: "White Crow", native_name: 'Белая Ворона' },
+	{ name: "Zorro", native_name: 'Зорро', active: false }
+])
