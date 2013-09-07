@@ -1,0 +1,9 @@
+<h1>Blue Trolley Crews:</h1>
+<table>
+	<% @crews.each do |crew| %>
+		<tr>
+			<td> <%= crew.name %></td>
+			<td> <%= crew.native_name %></td>
+		</tr>
+	<% end %>
+</table>
