@@ -4,19 +4,8 @@ class TicketsController < ApplicationController
 	end
 
 
-	class TestDocument < Prawn::Document
-		def to_pdf
-			text 'Maryika, tell me about the book you reading!'
-			render
-		end
-	end
-
-
 	def create
-		output = TestDocument.new.to_pdf
-		respond_to do |format|
-			format.pdf { send_data output, filename: 'sample.pdf', type: 'application/pdf', disposition: 'inline'}
-			format.html { render text: "<h1>Use .pdf</h1>".html_safe }
-		end
+		output = Disclaimer.new.to_pdf
+		send_data output, filename: 'sample_ticket.pdf', type: 'application/pdf', disposition: 'inline'
 	end
 end
