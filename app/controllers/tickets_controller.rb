@@ -5,7 +5,11 @@ class TicketsController < ApplicationController
 
 
 	def create
-		output = Disclaimer.new.to_pdf
-		send_data output, filename: 'sample_ticket.pdf', type: 'application/pdf', disposition: 'inline'
+		respond_to_pdf Disclaimer.new
+	end
+
+
+	def respond_to_pdf(disclaimer)
+		send_data disclaimer.to_pdf, filename: disclaimer.file_name, type: 'application/pdf', disposition: 'inline'
 	end
 end
