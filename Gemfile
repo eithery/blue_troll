@@ -4,6 +4,7 @@ gem 'rails'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
+gem 'prawn'
 
 
 group :development, :test do
