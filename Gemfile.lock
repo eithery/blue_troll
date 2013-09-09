@@ -29,6 +29,7 @@ GEM
     afm (0.2.0)
     arel (4.0.0)
     atomic (1.1.13)
+    barby (0.5.1)
     builder (3.1.4)
     capybara (2.1.0)
       mime-types (>= 1.16)
@@ -161,6 +162,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  barby
   capybara
   coffee-rails
   cucumber-rails

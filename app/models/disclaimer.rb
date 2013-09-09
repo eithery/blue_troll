@@ -1,3 +1,7 @@
+require 'barby'
+require 'barby/barcode/code_39'
+require 'barby/outputter/prawn_outputter'
+
 class Disclaimer < Prawn::Document
 	def initialize
 		super()
@@ -10,12 +14,19 @@ class Disclaimer < Prawn::Document
 
 		font 'calibri'
 
-		bounding_box [30, cursor-10], width: 200 do
-			image 'app/assets/images/bar_code.png', scale: 0.9
+		bar_code_value = "099999333"
+		bar_code_path = 'app/assets/images/bar_code_1.png'
+		bar_code = Barby::Code39.new(bar_code_value)
+
+
+		move_down 80
+		bounding_box [30, cursor+20], width: 200 do
+#			image 'app/assets/images/bar_code.png', scale: 0.9
+			bar_code.annotate_pdf(self, x: 0, y: cursor)
 			move_down 2
 			text "*123456789*", size: 10
 		end
-		bounding_box [300, cursor+80], width: 220 do
+		bounding_box [300, cursor+60], width: 220 do
 			text "Volchij Hvost", size: 20, :align => :right
 			text "Волчий Хвост", size: 16, :align => :right
 			text "Maria Romanova", size: 20, :align => :right
