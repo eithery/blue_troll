@@ -6,21 +6,20 @@ class Disclaimer < Prawn::Document
 	def to_pdf
 		register_fonts
 		self.line_width = 1
-#		stroke_color "0000FF"
 		transparent(0.5) { stroke_bounds }
 
 		font 'calibri'
 
-		table([[
-			"<font size='11'>{BarCode}</font>\n" +
-			"<font size='10'>*123456789*</font>",
-			"<font size='20'>Volchij Hvost</font>\n" +
-			"<font size='16'>Волчий Хвост</font>\n" +
-			"<font size='20'>Maria Romanova</font>\n" +
-			"<font size='24'>A</font>"
-		]], cell_style: { inline_format: true, borders: [] }) do
-			column(0).style :align => :left
-			column(1).style :align => :right
+		bounding_box [30, cursor-10], width: 200 do
+			image 'app/assets/images/bar_code.png', scale: 0.9
+			move_down 2
+			text "*123456789*", size: 10
+		end
+		bounding_box [300, cursor+80], width: 220 do
+			text "Volchij Hvost", size: 20, :align => :right
+			text "Волчий Хвост", size: 16, :align => :right
+			text "Maria Romanova", size: 20, :align => :right
+			text "A", size: 24, :align => :right
 		end
 
 		move_down 25
@@ -40,7 +39,7 @@ class Disclaimer < Prawn::Document
 		move_down 30
 		fill_color '000000'
 		font 'calibri-bold'
-		text "Delaware Water Gap KOA, 233 Hollow Road, East Stroudsburg, PA 18301\nJune 7, 2013 - June 9, 2013.",
+		text "Delaware Water Gap KOA, 233 Hollow Road, East Stroudsburg, PA 18301\nSeptember 27, 2013 - September 29, 2013.",
 			size: 14, :align => :center
 
 		move_down 12
