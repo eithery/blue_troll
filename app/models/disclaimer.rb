@@ -3,21 +3,25 @@ require 'barby/barcode/code_39'
 require 'barby/outputter/prawn_outputter'
 
 class Disclaimer < Prawn::Document
-	def initialize(code, participant_name, group_name, group_native_name, address, age)
+
+	# Creates the new disclaimer.
+	def initialize(attributes)
 		super()
-		@code = code
-		@participant_name = participant_name
-		@group_name = group_name
-		@group_native_name = group_native_name
-		@address = address
-		@age_category = age
+		@unknown = "Unknown Participant"
+		@code = attributes[:id] || "0000000000"
+		@participant_name = attributes[:name] || @unknown
+		@group_name = attributes[:group] || "Unknown Group"
+		@group_native_name = attributes[:group_native] || @group_name
+		@address = attributes[:address] || ""
+		@age_category = attributes[:age] || "A"
 	end
 
+
+	# Generates the disclaimer content in PDF format.
 	def to_pdf
 		register_fonts
 		self.line_width = 1
 		transparent(0.5) { stroke_bounds }
-
 		font 'calibri'
 
 		move_down 80
@@ -34,12 +38,10 @@ class Disclaimer < Prawn::Document
 			text @age_category, size: 24, :align => :right
 		end
 
-		move_down 25
+		move_down 5
 		fill_color '17365D'
 		indent 30 do
-			font 'Times-Roman', size: 36 do 
-				text 'Blue Trolley'
-			end
+			text 'Blue Trolley', size: 40
 			stroke do
 				stroke_color "1736A0"
 				line_width 1
@@ -48,7 +50,7 @@ class Disclaimer < Prawn::Document
 		end
 
 
-		move_down 30
+		move_down 20
 		fill_color '000000'
 		font 'calibri-bold'
 		text "Delaware Water Gap KOA, 233 Hollow Road, East Stroudsburg, PA 18301\nSeptember 27, 2013 - September 29, 2013.",
@@ -86,36 +88,36 @@ class Disclaimer < Prawn::Document
 				"the Event organizers or any party acting on their behalf, harmless for all such fees and costs."
 		end
 
-		move_down 20
-		bounding_box([40, cursor], width: 450) do
-			text "On this day of ____________________, 2013, I, _________________________________________ ,\n" +
+		move_down 10
+		bounding_box([40, cursor], width: 460) do
+			text "On this day of ____________________, 2013, I, ___________________________________________ ,\n" +
 				"of my own free will, have read, understand and acknowledge the risks and liability for myself " +
 				"and on behalf of all persons for who I am the legal guardian during the Event."
 		end
 
-		move_down 20
+		move_down 30
 		stroke do
 			stroke_color "000000"
 			horizontal_line 40, 240, at: cursor
 		end
 		font_size 9
-		move_down 2
+		move_down 3
 		indent 40 do
 			text 'Participant Signature'
 		end
 
-		move_down 20
+		move_down 30
 		stroke do
 			horizontal_line 40, 240, at: cursor
 			horizontal_line 290, 490, at: cursor
 		end
 
-		move_down 2
+		move_down 3
 		indent 40 do
-			text "Parent/Guardian Signature" + (" " * 80) + "Printed Parent/Guardian Name"
+			text "Parent/Guardian Signature" + spaces(75) + "Printed Parent/Guardian Name"
 		end
 
-		move_down 5
+		move_down @address.blank? ? 30 : 15
 		indent 40 do
 			text @address, size: 12
 		end
@@ -123,9 +125,9 @@ class Disclaimer < Prawn::Document
 		stroke do
 			horizontal_line 40, 490, at: cursor
 		end
-		move_down 2
+		move_down 3
 		indent 40 do
-			text 'Address   City   State   Zip'
+			text "Address" + spaces(80) + "City" + spaces(30) + "State" + spaces(30) + "Zip"
 		end
 
 		render
@@ -133,7 +135,9 @@ class Disclaimer < Prawn::Document
 
 
 	def file_name
-		'sample_ticket.pdf'
+		return "unknown_participant.pdf" if @participant_name == @unknown
+		first_name, last_name = @participant_name.split
+		"#{last_name}_#{first_name}_Fall2013.pdf"
 	end
 
 
@@ -148,5 +152,10 @@ private
 		font_families.update('arial' => {
 			normal: "app/assets/fonts/arial.ttf"
 		})
+	end
+
+
+	def spaces(number)
+		" " * number
 	end
 end
