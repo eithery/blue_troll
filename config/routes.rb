@@ -2,7 +2,7 @@ BlueTroll::Application.routes.draw do
   resources :crews
 
   get 'tickets/download'
-  get 'tickets/create'
+  get 'ticket', to: 'tickets#create'
 
   root 'crews#index'
 end

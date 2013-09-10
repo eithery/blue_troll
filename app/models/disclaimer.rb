@@ -3,8 +3,14 @@ require 'barby/barcode/code_39'
 require 'barby/outputter/prawn_outputter'
 
 class Disclaimer < Prawn::Document
-	def initialize
+	def initialize(code, participant_name, group_name, group_native_name, address, age)
 		super()
+		@code = code
+		@participant_name = participant_name
+		@group_name = group_name
+		@group_native_name = group_native_name
+		@address = address
+		@age_category = age
 	end
 
 	def to_pdf
@@ -14,23 +20,18 @@ class Disclaimer < Prawn::Document
 
 		font 'calibri'
 
-		bar_code_value = "099999333"
-		bar_code_path = 'app/assets/images/bar_code_1.png'
-		bar_code = Barby::Code39.new(bar_code_value)
-
-
 		move_down 80
-		bounding_box [30, cursor+20], width: 200 do
-#			image 'app/assets/images/bar_code.png', scale: 0.9
+		bounding_box [30, cursor+20], width: 400 do
+			bar_code = Barby::Code39.new(@code)
 			bar_code.annotate_pdf(self, x: 0, y: cursor)
 			move_down 2
-			text "*123456789*", size: 10
+			text "*#{@code}*", size: 10
 		end
 		bounding_box [300, cursor+60], width: 220 do
-			text "Volchij Hvost", size: 20, :align => :right
-			text "Волчий Хвост", size: 16, :align => :right
-			text "Maria Romanova", size: 20, :align => :right
-			text "A", size: 24, :align => :right
+			text @group_name, size: 20, :align => :right
+			text @group_native_name, size: 16, :align => :right
+			text @participant_name, size: 20, :align => :right
+			text @age_category, size: 24, :align => :right
 		end
 
 		move_down 25
@@ -116,7 +117,7 @@ class Disclaimer < Prawn::Document
 
 		move_down 5
 		indent 40 do
-			text '31 Gadsen Place, Apt 1F Staten Island, NY 10314', size: 12
+			text @address, size: 12
 		end
 
 		stroke do

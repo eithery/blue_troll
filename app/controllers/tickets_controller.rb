@@ -5,7 +5,14 @@ class TicketsController < ApplicationController
 
 
 	def create
-		respond_to_pdf Disclaimer.new
+		code = params[:id] || "0000000000"
+		name = params[:name] || "Unknown Participant"
+		group = params[:group] || "Unknown Group"
+		group_native = group
+		address = params[:address] || ""
+		age_category = params[:age] || "A"
+
+		respond_to_pdf Disclaimer.new(code, name, group, group_native, address, age_category)
 	end
 
 
