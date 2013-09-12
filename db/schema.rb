@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130907231620) do
+ActiveRecord::Schema.define(version: 20130912224234) do
 
   create_table "crews", force: true do |t|
     t.string   "name",                       null: false
@@ -22,6 +22,38 @@ ActiveRecord::Schema.define(version: 20130907231620) do
     t.string   "web_site"
     t.string   "email"
     t.boolean  "active",      default: true, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "event_crews", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "event_participants", force: true do |t|
+    t.integer  "event_id",           null: false
+    t.integer  "participant_id",     null: false
+    t.integer  "event_crew_id",      null: false
+    t.integer  "event_ticket_id"
+    t.string   "ticket_status",      null: false
+    t.integer  "ticket_code"
+    t.string   "reservation_number"
+    t.string   "source"
+    t.date     "registered_at"
+    t.string   "registered_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "events", force: true do |t|
+    t.string   "name",                         null: false
+    t.text     "description"
+    t.string   "event_type",  default: "slet", null: false
+    t.integer  "lead_id"
+    t.date     "from",                         null: false
+    t.date     "to",                           null: false
+    t.string   "location",                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

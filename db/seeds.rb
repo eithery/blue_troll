@@ -1,6 +1,12 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+events = Event.create([
+	{ name: 'Blue Trolley 2013 Fall', from: '2013-06-27', to: '2013-06-27',
+		location: 'Delaware Water Gap / Pocono Mountain KOA  233 Hollow Road, East Stroudsburg, PA 18302' }
+])
+
+
 crews = Crew.create([
 	{ name: 'Bells', native_name: 'Звон Вечерний' },
 	{ name: 'Besprizorniki', native_name: 'Беспризорники' },
