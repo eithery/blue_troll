@@ -4,7 +4,7 @@ class CreateCrews < ActiveRecord::Migration
       t.string :name, null: false
       t.string :native_name
       t.text :description
-      t.string :commander
+      t.integer :lead_id
       t.string :location
       t.string :web_site
       t.string :email
