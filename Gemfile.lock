@@ -30,6 +30,8 @@ GEM
     arel (4.0.0)
     atomic (1.1.13)
     barby (0.5.1)
+    bootstrap-sass (2.3.2.2)
+      sass (~> 3.2)
     builder (3.1.4)
     capybara (2.1.0)
       mime-types (>= 1.16)
@@ -163,6 +165,7 @@ PLATFORMS
 
 DEPENDENCIES
   barby
+  bootstrap-sass
   capybara
   coffee-rails
   cucumber-rails
