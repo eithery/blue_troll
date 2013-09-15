@@ -1,9 +1,21 @@
-<h1>Blue Trolley Crews:</h1>
-<table>
-	<% @crews.each do |crew| %>
+<h1>Crews:</h1>
+<table class="table table-bordered table-striped table-hover">
+	<thead>
 		<tr>
-			<td> <%= crew.name %></td>
-			<td> <%= crew.native_name %></td>
+			<th class="span1">#</th>
+			<th class="span3">Crew Name</th>
+			<th class="span3">Native Name</th>
+			<th>Actions</th>
 		</tr>
-	<% end %>
+	</thead>
+	<tbody>
+		<% @crews.each.with_index do |crew, idx| %>
+			<tr>
+				<td><%= idx+1 %></td>
+				<td><%= crew.name %></td>
+				<td><%= crew.native_name %></td>
+				<td></td>
+			</tr>
+		<% end %>
+	</tbody>
 </table>
