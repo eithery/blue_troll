@@ -1,8 +1,10 @@
 BlueTroll::Application.routes.draw do
   resources :crews
+  resources :participants
 
-	get 'static_pages/home'
+  # Tickets generator.
   get 'ticket', to: 'tickets#create'
 
+  # Root home page.
   root 'static_pages#home'
 end
