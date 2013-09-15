@@ -36,3 +36,9 @@ crews = Crew.create([
 	{ name: 'Volchij Hvost', native_name: 'Шайка-Лейка Волчий Хвост' },
 	{ name: 'White Crow', native_name: 'Белая Ворона' },
 ])
+
+
+participants = Participant.create([
+	{ last_name: 'Romanova', first_name: 'Maryika' },
+	{ last_name: 'Protsenko', first_name: 'Michael' }
+])
