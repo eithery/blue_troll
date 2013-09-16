@@ -11,37 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130912224234) do
+ActiveRecord::Schema.define(version: 20130912222703) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "crews", force: true do |t|
     t.string   "name",                       null: false
     t.string   "native_name"
     t.text     "description"
-    t.string   "commander"
+    t.integer  "lead_id"
     t.string   "location"
     t.string   "web_site"
     t.string   "email"
     t.boolean  "active",      default: true, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "event_crews", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "event_participants", force: true do |t|
-    t.integer  "event_id",           null: false
-    t.integer  "participant_id",     null: false
-    t.integer  "event_crew_id",      null: false
-    t.integer  "event_ticket_id"
-    t.string   "ticket_status",      null: false
-    t.integer  "ticket_code"
-    t.string   "reservation_number"
-    t.string   "source"
-    t.date     "registered_at"
-    t.string   "registered_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -59,19 +42,26 @@ ActiveRecord::Schema.define(version: 20130912224234) do
   end
 
   create_table "participants", force: true do |t|
-    t.integer  "crew_id"
-    t.integer  "family_id"
-    t.string   "last_name"
-    t.string   "first_name"
+    t.integer  "crew_id",                            null: false
+    t.string   "last_name",                          null: false
+    t.string   "first_name",                         null: false
     t.string   "middle_name"
-    t.string   "gender"
+    t.integer  "gender"
     t.date     "birth_date"
     t.string   "home_phone"
     t.string   "cell_phone"
     t.string   "email"
-    t.integer  "address_id"
-    t.string   "child"
-    t.boolean  "active"
+    t.text     "address"
+    t.integer  "child",              default: 0,     null: false
+    t.boolean  "active",             default: true,  null: false
+    t.string   "ticket_code"
+    t.boolean  "paid",               default: false, null: false
+    t.boolean  "sent",               default: false, null: false
+    t.string   "sent_by"
+    t.integer  "import_id"
+    t.string   "reservation_number"
+    t.datetime "registered_at"
+    t.string   "registered_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

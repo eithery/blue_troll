@@ -38,7 +38,7 @@ crews = Crew.create([
 ])
 
 
-participants = Participant.create([
-	{ last_name: 'Romanova', first_name: 'Maryika' },
-	{ last_name: 'Protsenko', first_name: 'Michael' }
-])
+#participants = Participant.create([
+#	{ last_name: 'Romanova', first_name: 'Maryika' },
+#	{ last_name: 'Protsenko', first_name: 'Michael' }
+#])
