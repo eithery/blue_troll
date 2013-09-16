@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails'
+gem 'pg'
 gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem 'turbolinks'
@@ -10,7 +11,7 @@ gem 'barby'
 
 
 group :development, :test do
-	gem 'sqlite3'
+#	gem 'sqlite3'
 #	gem 'tiny_tds'
 # gem 'activerecord-sqlserver-adapter'
 end
@@ -25,7 +26,6 @@ end
 
 
 group :production do
-	gem 'pg'
 end
 
 

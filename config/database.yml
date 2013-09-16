@@ -1,8 +1,33 @@
 development:
-  adapter: sqlite3
-  database: db/blue_trolley.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: blue_trolley_dev
   pool: 5
-  timeout: 5000
+  username: admin
+  password: admin
+
+
+test: &test
+  adapter: postgresql
+  encoding: unicode
+  database: blue_trolley_test
+  pool: 5
+  username: admin
+  password: admin
+
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: blue_trolley
+  pool: 5
+  username: admin
+  password: admin
+
+
+cucumber:
+  <<: *test
+
 
 # SQL server settings:
 # adapter: sqlserver
@@ -10,21 +35,3 @@ development:
 # database: blue_trolley
 # username: rails
 # password: blue_troll
-
-
-test: &test
-  adapter: sqlite3
-  database: db/blue_trolley_test.sqlite3
-  pool: 5
-  timeout: 5000
-
-
-production:
-  adapter: sqlite3
-  database: db/blue_trolley.sqlite3
-  pool: 5
-  timeout: 5000
-
-
-cucumber:
-  <<: *test
