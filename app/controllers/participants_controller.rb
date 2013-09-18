@@ -3,6 +3,7 @@ class ParticipantsController < ApplicationController
 
   def index
   	@participants = Participant.all
+    @crew = Crew.find(params[:crew_id])
   end
 
 
