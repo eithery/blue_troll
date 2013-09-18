@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails'
 gem 'pg'
 gem 'bootstrap-sass'
+gem 'bcrypt-ruby', '3.0.1'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
@@ -20,7 +21,7 @@ end
 
 group :test do
   gem 'rspec-rails'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', require: false
 	gem 'capybara'
 	gem 'database_cleaner'
 end
