@@ -14,7 +14,10 @@
 				<td><%= idx+1 %></td>
 				<td><%= crew.name %></td>
 				<td><%= crew.native_name %></td>
-				<td><%= link_to "Participants...", participants_path(crew_id: crew.id), class: "btn btn-small btn-primary" %></td>
+				<td>
+					<%= link_to "View", participants_path(crew_id: crew.id), class: "btn btn-small btn-primary" %>
+					<%= link_to "Add Participant", new_participant_path(crew_id: crew.id), class: "btn btn-small btn-primary" %>
+				</td>
 			</tr>
 		<% end %>
 	</tbody>

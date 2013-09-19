@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20130918201202) do
 
   create_table "crews", force: true do |t|
     t.string   "name",                       null: false
-    t.string   "native_name"
+    t.string   "native_name",                null: false
     t.text     "description"
     t.integer  "lead_id"
     t.string   "location"

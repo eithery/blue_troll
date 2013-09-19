@@ -3,7 +3,8 @@ class ParticipantsController < ApplicationController
 
   def index
   	@participants = Participant.all
-    @crew = Crew.find(params[:crew_id])
+    crew_id = params[:crew_id]
+    @crew = Crew.find(crew_id) unless crew_id.nil?
   end
 
 
@@ -13,6 +14,9 @@ class ParticipantsController < ApplicationController
 
   def new
   	@participant = Participant.new
+    @crews = Crew.all
+    crew_id = params[:crew_id]
+    @selected_crew = Crew.find(crew_id) unless crew_id.nil?
   end
 
 
@@ -21,10 +25,13 @@ class ParticipantsController < ApplicationController
 
 
   def create
-    @participant = Participant.new(participant_params)
+#    corrected_params = participant_params.dup
+#    crew = Crew.find_by_name(participant_params[:crew])
+#    corrected_params[:crew] = crew
+    @participant = Participant.new(crew_id: 2, last_name: 'Romanova', first_name: 'Maryika', ticket_code: '123')
 
     respond_to do |format|
-      if @participant.save
+      if @participant.save!
         format.html { redirect_to participants_url, notice: 'Participant was successfully created.' }
         format.json { render action: 'show', status: :created, location: @participant }
       else
@@ -64,6 +71,6 @@ class ParticipantsController < ApplicationController
 
 
   def participant_params
-    params.require(:participant).permit(:last_name, :first_name)
+    params.require(:participant).permit(:last_name, :first_name, :crew)
   end
 end
