@@ -14,13 +14,11 @@ class ParticipantsController < ApplicationController
 
 
   def edit
-    @crews = Crew.order(:name)
   end
 
 
   def new
   	@participant = Participant.new(crew_id: params[:crew_id])
-    @crews = Crew.order(:name)
   end
 
 

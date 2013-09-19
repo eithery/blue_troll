@@ -17,7 +17,7 @@
     <div class="field control-group">
       <%= f.label :crew, class: "control-label" %>
       <div class="controls">
-        <%= collection_select :participant, :crew_id, @crews, :id, :name, include_blank: true %>
+        <%= collection_select :participant, :crew_id, all_crews, :id, :name, include_blank: true %>
       </div>
     </div>
 
@@ -37,7 +37,7 @@
 
     <div class="actions form-actions">
       <%= f.submit class: "btn btn-primary" %>
-      <%= link_to "Cancel", participants_path, class: "btn" %>
+      <%= link_to "Cancel", redirect_by_cancel, class: "btn" %>
     </div>
   </fieldset>
 <% end %>
