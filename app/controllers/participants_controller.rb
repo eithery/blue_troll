@@ -14,6 +14,7 @@ class ParticipantsController < ApplicationController
 
 
   def edit
+    @crews = Crew.order(:name)
   end
 
 
@@ -28,7 +29,8 @@ class ParticipantsController < ApplicationController
 
     respond_to do |format|
       if @participant.save
-        format.html { redirect_to crews_path, notice: 'Participant was successfully created.' }
+        format.html { redirect_to participants_path(crew_id: @participant.crew_id),
+          notice: 'Participant was successfully created.' }
         format.json { render action: 'show', status: :created, location: @participant }
       else
         format.html { render action: 'new' }
@@ -41,7 +43,8 @@ class ParticipantsController < ApplicationController
   def update
     respond_to do |format|
       if @participant.update(participant_params)
-        format.html { redirect_to participants_url, notice: 'Participant was successfully updated.' }
+        format.html { redirect_to participants_path(crew_id: @participant.crew_id),
+          notice: 'Participant was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -52,9 +55,10 @@ class ParticipantsController < ApplicationController
 
 
   def destroy
+    crew_id = @participant.crew_id
     @participant.destroy
     respond_to do |format|
-      format.html { redirect_to participants_url }
+      format.html { redirect_to participants_path(crew_id: crew_id) }
       format.json { head :no_content }
     end
   end

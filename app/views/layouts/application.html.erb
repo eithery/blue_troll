@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>BlueTroll</title>
+  <title>Blue Troll</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -15,7 +15,7 @@
 					<ul class="nav pull-right">
 						<li><%= link_to "Home", root_path %></li>
 						<li><%= link_to "Crews", crews_path %></li>
-						<li><%= link_to "New Participant", new_participant_path %></li>
+						<li><%= link_to "New Participant", new_participant_path(crew_id: yield(:crew_id)) %></li>
 						<li><%= link_to "Sign in", '#' %></li>
 					</ul>
 				</nav>
