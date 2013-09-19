@@ -1,6 +1,6 @@
 class CrewsController < ApplicationController
   def index
-  	@crews = Crew.all
+  	@crews = Crew.order(:name)
   end
 
 

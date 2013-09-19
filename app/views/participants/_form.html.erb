@@ -17,7 +17,7 @@
     <div class="field control-group">
       <%= f.label :crew, class: "control-label" %>
       <div class="controls">
-        <%= f.select :crew, options_for_select(@crews, @selected_crew), include_blank: true %>
+        <%= collection_select :participant, :crew_id, @crews, :id, :name, include_blank: true %>
       </div>
     </div>
 
