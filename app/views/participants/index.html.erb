@@ -22,7 +22,10 @@
 						<%= link_to image_tag('delete_participant.png', alt: 'Delete Participant', class: "img-small"),
 							participant_path(participant), method: :delete, title: "Delete the participant", rel: 'tooltip',
 							data: { confirm: "Are you sure to delete the participant?" } %>
-						<%= link_to image_tag('ticket.png', alt: 'Generate ticket', class: "img-small"), '#',
+						<%= link_to image_tag('ticket.png', alt: 'Generate ticket', class: "img-small"),
+							ticket_path(id: participant.ticket_code.to_i(16), group: participant.crew.name,
+							name: "#{participant.first_name} #{participant.last_name}"),
+							address: participant.address, group_native: participant.crew.native_name,
 							title: 'Generate the ticket for the participant', rel: 'tooltip' %>
 					</div>
 				</td>
