@@ -1,4 +1,4 @@
-/*@import 'bootstrap';*/
+@import 'bootstrap';
 
 /* universal */
 
@@ -68,4 +68,16 @@ p {
 #logo:hover {
 	color: #fff;
 	text-decoration: none;
+}
+
+
+/* Blue Trolley specific assets. */
+
+.img-small {
+	margin-right: 4px;
+	height: 22px;
+}
+
+.bt-actions {
+	text-align: left;
 }
