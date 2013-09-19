@@ -4,8 +4,8 @@
 	<thead>
 		<tr>
 			<th class="span1">#</th>
-			<th class="span3">Last Name</th>
-			<th class="span3">First Name</th>
+			<th class="span4">Name</th>
+			<th class="span3">Email</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
@@ -13,8 +13,8 @@
 		<% @participants.each.with_index do |participant, idx| %>
 			<tr>
 				<td><%= idx+1 %></td>
-				<td><%= participant.last_name %></td>
-				<td><%= participant.first_name %></td>
+				<td><%= participant.full_name %></td>
+				<td><%= participant.email %></td>
 				<td>
 					<div>
 						<%= link_to image_tag('edit_participant.png', alt: 'Edit Participant', class: "img-small"),
