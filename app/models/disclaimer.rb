@@ -130,14 +130,14 @@ class Disclaimer < Prawn::Document
 			text "Address" + spaces(80) + "City" + spaces(30) + "State" + spaces(30) + "Zip"
 		end
 
-		render
+		return self
 	end
 
 
 	def file_name
 		return "unknown_participant.pdf" if @participant_name == @unknown
 		first_name, last_name = @participant_name.split
-		"#{last_name}_#{first_name}_Fall2013.pdf"
+		"#{last_name}_#{first_name}_fall_2013.pdf".downcase
 	end
 
 

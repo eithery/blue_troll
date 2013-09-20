@@ -6,4 +6,8 @@ class Crew < ActiveRecord::Base
   def to_s
   	name
   end
+
+  def to_file_name
+    name.gsub(/\s/, '_').downcase
+  end
 end

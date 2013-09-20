@@ -20,8 +20,8 @@
 							participants_path(crew_id: crew), title: 'Show all participants in the crew', rel: 'tooltip' %>
 						<%= link_to image_tag('new_participant.png', alt: 'Add Participant', class: "img-small"),
 							new_participant_path(crew_id: crew.id), title: 'Add a new participant', rel: 'tooltip' %>
-						<%= link_to image_tag('ticket.png', alt: 'Generate ticket', class: "img-small"), '#',
-							title: 'Generate tickets for the crew', rel: 'tooltip' %>
+						<%= link_to image_tag('ticket.png', alt: 'Generate ticket', class: "img-small"),
+							crew_tickets_path(crew_id: crew), title: 'Generate tickets for the crew', rel: 'tooltip' %>
 					</div>
 				</td>
 			</tr>

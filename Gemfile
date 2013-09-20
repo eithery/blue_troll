@@ -9,6 +9,8 @@ gem 'turbolinks'
 gem 'jbuilder'
 gem 'prawn'
 gem 'barby'
+gem 'rubyzip'
+gem 'paperclip'
 
 
 group :development do
