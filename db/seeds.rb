@@ -9,14 +9,12 @@ events = Event.create([
 
 crews = Crew.create([
 	{ name: 'Bells', native_name: 'Звон Вечерний', captain: 'Yanina Pogorelsky', email: 'ypogorelsky@hotmail.com' },
-	{ name: 'Besprizorniki', native_name: 'Беспризорники', captain: 'Alex Shaykevich', email: 'alexshayk@yahoo.com' },
-	{ name: 'Carolinian Robins', native_name: 'Каролинские красношейки' },
+	{ name: 'Homeless', native_name: 'Беспризорники', captain: 'Alex Shaykevich', email: 'alexshayk@yahoo.com' },
 	{ name: 'Drummers', native_name: 'Барабанщики', captain: 'Roman Hamon; Boris Serebrenik',
 		email: 'romanhamon3@yahoo.com; bserebrenik@gmail.com' },
 	{ name: 'Dubki', native_name: 'Дубки', captain: 'Irina Tuchina', email: 'iratuchin@netscape.net' },
 	{ name: 'Elki-Palki', native_name: 'Ёлки-Палки', captain: 'Alex Polyakov', email: 'alekspolyakov@yahoo.com' },
 	{ name: 'El-Tor', native_name: 'Эль-Тор', captain: 'Alexandr Belyaev', email: 'alexander@belyayev.com' },
-	{ name: 'Green Carriage', native_name: 'Зелёная Карета' },
 	{ name: 'GTO', native_name: 'ГТО', captain: 'Margarita Brandis', email: 'leto4you@yahoo.com' },
 	{ name: 'Guests', native_name: 'Гости Слета', captain: 'Alex Shaykevich', email: 'alexshayk@yahoo.com' },
 	{ name: 'Happy Crew', native_name: 'Веселые Ребята', captain: 'Bella Zaytseva', email: 'bzaytseva@aol.com' },
@@ -28,14 +26,10 @@ crews = Crew.create([
 	{ name: 'Mandamus', native_name: 'Мандамус', captain: 'Gennady Palitsky', email: 'superblin@gmail.com' },
 	{ name: 'My People', native_name: 'Свои Люди', captain: 'Vika Eidelstein', email: 'vishinka@yahoo.com' },
 	{ name: 'North People', native_name: 'Люди Севера', captain: 'Igor Bely', email: 'igor.bely@gmail.com' },
-	{ name: 'Okhotnyj Ryad', native_name: 'Охотный Ряд' },
 	{ name: 'Palata #6', native_name: 'Палата №6', captain: 'Rita Yeliseyev',
 		email: 'ryeliseyev@gmail.com; igarvel@gmail.com' },
 	{ name: 'Pegassus', native_name: 'Пегас', captain: 'Irina Aks', email: 'irina.akc@gmail.com' },
-	{ name: 'Pshik & Co', native_name: 'Пшик и Ко.' },
-	{ name: 'Sentjabrjata', native_name: 'Сентябрята'},
 	{ name: 'Station Razliv', native_name: 'Станция Разлив', captain: 'Alex Zaks', email: 'demzak@yahoo.com' },
-	{ name: 'Stranniki', native_name: 'Странники' },
 	{ name: 'Tom Sawyer', native_name: 'Том Сойер', captain: 'Andrei Stolov', email: 'andrei_stolov@yahoo.com' },
 	{ name: 'Trojan Donkeys', native_name: 'Троянские Ослики', captain: 'Lev Rapoport', email: 'lvrapoport@gmail.com' },
 	{ name: 'Trjam', native_name: 'ТRЯМ', captain: 'Kate Karpova', email: 'katekarpova@yahoo.com' },
@@ -43,9 +37,3 @@ crews = Crew.create([
 	{ name: 'White Crow', native_name: 'Белая Ворона', captain: 'Inna Mashkovich',
 		email: 'inna.mashkovich@power.alstom.com' }
 ])
-
-
-#participants = Participant.create([
-#	{ last_name: 'Romanova', first_name: 'Maryika' },
-#	{ last_name: 'Protsenko', first_name: 'Michael' }
-#])
