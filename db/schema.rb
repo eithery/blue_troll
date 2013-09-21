@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20130918201202) do
     t.string   "name",                       null: false
     t.string   "native_name",                null: false
     t.text     "description"
-    t.integer  "lead_id"
+    t.string   "captain"
     t.string   "location"
     t.string   "web_site"
     t.string   "email"
