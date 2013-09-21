@@ -1,2 +1,5 @@
-<h1>Upload#select</h1>
-<p>Find me in app/views/upload/select.html.erb</p>
+<h1>Upload Data File</h1>
+<%= form_for :file_upload, html: { multipart: true } do |f| %>
+	<%= f.file_field :selected_file %>
+	<%= f.submit "Upload" %>
+<% end %>
