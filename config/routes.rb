@@ -1,4 +1,5 @@
 BlueTroll::Application.routes.draw do
+  get "upload/select"
   get "users/new"
   resources :crews
   resources :participants

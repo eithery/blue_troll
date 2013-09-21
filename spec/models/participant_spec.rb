@@ -40,8 +40,8 @@ describe Participant do
 
 
   describe "ticket code" do
-    it "length should always be 20 symbols" do
-      @participant.ticket_code.length.should == 20
+    it "length should always be 10 symbols" do
+      @participant.ticket_code.length.should == 10
     end
   end
 end
