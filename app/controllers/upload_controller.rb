@@ -1,11 +1,12 @@
 class UploadController < ApplicationController
-  def select
+  def select_file
   end
 
-  def file_upload
+
+  def upload_file
   	tmp = params[:file_upload][:selected_file].tempfile
 		file = File.join("data", params[:file_upload][:selected_file].original_filename)
 		FileUtils.cp tmp.path, file
-		render 'select'
+		render 'select_file'
   end
 end

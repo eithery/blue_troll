@@ -10,8 +10,8 @@ BlueTroll::Application.routes.draw do
   get 'participant_ticket', to: 'tickets#generate_participant_ticket'
 
   # Administration tasks.
-  get 'upload', to: 'upload#select'
-  post 'upload', to: 'upload#file_upload'
+  get 'upload', to: 'upload#select_file'
+  post 'upload', to: 'upload#upload_file'
 
   # Root home page.
   root 'static_pages#home'
