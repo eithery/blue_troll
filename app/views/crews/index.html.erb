@@ -3,8 +3,10 @@
 	<thead>
 		<tr>
 			<th class="span1">#</th>
-			<th class="span3">Crew Name</th>
+			<th class="span2">Crew Name</th>
 			<th class="span3">Native Name</th>
+			<th class="span2">Captain</th>
+			<th class="span2">Email</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
@@ -14,6 +16,8 @@
 				<td><%= idx+1 %></td>
 				<td><%= crew.name %></td>
 				<td><%= crew.native_name %></td>
+				<td><%= crew.captain %></td>
+				<td><a href="mailto:<%= crew.email %>"><%= crew.email %></a></td>
 				<td>
 					<div class="bt-actions">
 						<%= link_to image_tag('participants.png', alt: 'Participants', class: "img-small"),
