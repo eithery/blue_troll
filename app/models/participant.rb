@@ -19,6 +19,13 @@ class Participant < ActiveRecord::Base
   end
 
 
+  # Participant age category.
+  def category
+    return :adult if child == 0
+    return :child if child == 1
+    return :baby if child == 2
+  end
+
 private
   def generate_ticket_code
     self.ticket_code = SecureRandom.hex[0, 10] if self.ticket_code.blank?

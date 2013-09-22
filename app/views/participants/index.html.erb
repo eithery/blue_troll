@@ -5,6 +5,7 @@
 		<tr>
 			<th class="span1">#</th>
 			<th class="span4">Name</th>
+			<th class="span1">Age</th>
 			<th class="span3">Email</th>
 			<th>Actions</th>
 		</tr>
@@ -14,6 +15,7 @@
 			<tr>
 				<td><%= idx+1 %></td>
 				<td><%= participant.full_name %></td>
+				<td><%= participant.category.to_s[0].upcase %></td>
 				<td><%= participant.email %></td>
 				<td>
 					<div>
