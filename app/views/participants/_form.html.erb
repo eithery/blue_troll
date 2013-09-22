@@ -42,6 +42,24 @@
       </div>
     </div>
 
+    <div class="field control-group">
+      <%= f.label 'Age Category', class: "control-label" %>
+      <div class="controls">
+        <div class="radio">
+          <%= f.radio_button :child, '0' %>
+          <%= f.label 'Adult'%>
+        </div>
+        <div class="radio">
+          <%= f.radio_button :child, '1' %>
+          <%= f.label 'Child'%>
+        </div>
+        <div class="radio">
+          <%= f.radio_button :child, '2' %>
+          <%= f.label 'Baby'%>
+        </div>
+      </div>
+    </div>
+
     <div class="actions form-actions">
       <%= f.submit class: "btn btn-primary" %>
       <%= link_to "Cancel", redirect_by_cancel, class: "btn" %>
