@@ -18,8 +18,10 @@ class TicketsController < ApplicationController
 		Dir.mkdir(crew_ticket_path) unless Dir.exists?(crew_ticket_path)
 
 		crew.participants.each do |participant|
-			ticket = create_ticket(participant)
-			ticket.to_pdf.render_file("#{crew_ticket_path}/#{ticket.file_name}")
+			if participant.import_id == 0
+				ticket = create_ticket(participant)
+				ticket.to_pdf.render_file("#{crew_ticket_path}/#{ticket.file_name}")
+			end
 		end
 
 		Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|

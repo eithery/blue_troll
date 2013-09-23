@@ -13,6 +13,7 @@ class UploadController < ApplicationController
 		CSV.foreach(tmp.path) do |row|
 			participant = Participant.new(last_name: row[1].strip, first_name: row[2].strip, crew: crews[row[0].strip],
 				child: age_category(row[3]))
+			participant.import_id = row[4].to_i unless row[4].blank?
 			participant.save!
 		end
 
