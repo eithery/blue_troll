@@ -7,6 +7,7 @@
 			<th class="span4">Name</th>
 			<th class="span1">Age</th>
 			<th class="span3">Email</th>
+			<th class="span3">Registered</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
@@ -14,9 +15,11 @@
 		<% @participants.each.with_index do |participant, idx| %>
 			<tr>
 				<td class="bt-table-cell"><%= idx+1 %></td>
-				<td class="bt-table-cell"><%= participant.full_name %></td>
+				<td class="bt-table-cell"><%= participant_here_image(participant) %> 
+					<%= participant.full_name %> <%= participant_image(participant) %></td>
 				<td class="bt-table-cell"><%= participant.category.to_s[0].upcase %></td>
 				<td class="bt-table-cell"><%= participant.email %></td>
+				<td class="bt-table-cell"><%= participant.registered_at %></td>
 				<td class="bt-table-cell">
 					<div>
 						<%= link_to image_tag('edit_participant.png', alt: 'Edit Participant', class: "img-small"),
