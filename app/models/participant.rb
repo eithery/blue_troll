@@ -26,6 +26,15 @@ class Participant < ActiveRecord::Base
     return :baby if child == 2
   end
 
+
+  def Participant.find_by_ticket(ticket_code)
+    Participant.all.each do |participant|
+      return participant if participant.ticket_code.to_i(16).to_s == ticket_code.strip
+    end
+    nil
+  end
+
+
 private
   def generate_ticket_code
     self.ticket_code = SecureRandom.hex[0, 10] if self.ticket_code.blank?
