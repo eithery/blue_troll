@@ -26,14 +26,16 @@ textarea {
 
 /* typography */
 
-h1 h2 h3 h4 h5 h6 {
+h1, h2, h3, h4, h5, h6 {
 	line-height: 1;
 }
 
 h1 {
-	font-size: 3em;
-	letter-spacing: -2px;
+	font-size: 2.5em;
+	letter-spacing: -1px;
 	margin-bottom: 30px;
+	font-family: Calibri;
+	text-shadow: 0 0 1px rgba(0,0,0,0.3);	
 }
 
 h2 {
@@ -60,7 +62,7 @@ p {
 	color: #fff;
 	text-transform: uppercase;
 	letter-spacing: -1px;
-	padding-top: 9px;
+	padding-top: 12px;
 	font-weight: bold;
 	line-height: 1;
 }
@@ -80,4 +82,15 @@ p {
 
 .bt-actions {
 	text-align: left;
+}
+
+
+.bt-table-cell {
+	font-family: Calibri;
+	font-size: 1.1em;
+}
+
+
+.bt-bold-cell {
+	font-weight: bold;
 }

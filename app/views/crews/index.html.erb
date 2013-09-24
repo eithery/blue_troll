@@ -1,24 +1,28 @@
 <h1>Crews:</h1>
-<table class="table table-bordered table-striped table-hover">
+<table class="table table-bordered table-striped table-hover table-condensed">
 	<thead>
 		<tr>
 			<th class="span1">#</th>
 			<th class="span2">Crew Name</th>
-			<th class="span3">Native Name</th>
+			<th class="span2">Native Name</th>
 			<th class="span2">Captain</th>
 			<th class="span2">Email</th>
+			<th class="span2">Total (A/C/B)</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>
 		<% @crews.each.with_index do |crew, idx| %>
 			<tr>
-				<td><%= idx+1 %></td>
-				<td><%= crew.name %></td>
-				<td><%= crew.native_name %></td>
-				<td><%= crew.captain %></td>
-				<td><a href="mailto:<%= crew.email %>"><%= crew.email %></a></td>
-				<td>
+				<td class="bt-table-cell"><%= idx+1 %></td>
+				<td class="bt-table-cell"><%= crew.name %></td>
+				<td class="bt-table-cell"><%= crew.native_name %></td>
+				<td class="bt-table-cell"><%= crew.captain %></td>
+				<td class="bt-table-cell"><a href="mailto:<%= crew.email %>"><%= crew.email %></a></td>
+				<td class="bt-table-cell bt-bold-cell">
+					<%= "#{crew.count} (#{crew.adults}/#{crew.children}/#{crew.babies})" %>
+				</td>
+				<td class="bt-table-cell">
 					<div class="bt-actions">
 						<%= link_to image_tag('participants.png', alt: 'Participants', class: "img-small"),
 							participants_path(crew_id: crew), title: 'Show all participants in the crew', rel: 'tooltip' %>

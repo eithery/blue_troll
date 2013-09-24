@@ -1,3 +1,4 @@
+<h1><%= form_header %></h1>
 <%= form_for(@participant, html: { class: "form-horizontal well" }) do |f| %>
   <% if @participant.errors.any? %>
     <div id="error_explanation" class="alert alert-block alert-error">
@@ -12,8 +13,6 @@
   <% end %>
 
   <fieldset>
-    <legend><%= form_header %></legend>
-
     <div class="field control-group">
       <%= f.label :crew, class: "control-label" %>
       <div class="controls">
