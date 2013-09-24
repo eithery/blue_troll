@@ -1,1 +1,13 @@
 <h1>Check In</h1>
+<%= form_for :registration, html: { class: "form-horizontal well" } do |f| %>
+  <div class="field control-group">
+    <%= f.label :registration_code, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :registration_code, autofocus: true, class: "input-xlarge" %>
+    </div>
+  </div>
+
+  <div class="actions form-actions">
+    <%= f.submit "Register", class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>

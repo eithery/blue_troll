@@ -11,6 +11,7 @@ BlueTroll::Application.routes.draw do
 
   # Check in page.
   get 'checkin', to: 'registration#checkin'
+  post 'checkin', to: 'registration#check_ticket'
 
   # Administration tasks.
   get 'upload', to: 'upload#select_file'

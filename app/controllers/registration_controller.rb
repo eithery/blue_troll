@@ -3,6 +3,7 @@ class RegistrationController < ApplicationController
   end
 
 
-  def register
+  def check_ticket
+    render 'checkin'
   end
 end
