@@ -16,8 +16,9 @@
 						<li><%= link_to "Home", root_path %></li>
 						<li><%= link_to "Crews", crews_path %></li>
 						<li><%= link_to "New Participant", new_participant_path(crew_id: yield(:crew_id)) %></li>
+						<li><%= link_to "Check In", checkin_path %></li>
 						<li><%= link_to "Upload Data", upload_path %></li>
-						<li><%= link_to "Sign in", '#' %></li>
+						<li><%= link_to "Sign In", '#' %></li>
 					</ul>
 				</nav>
 			</div>
