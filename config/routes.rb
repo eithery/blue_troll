@@ -3,6 +3,8 @@ BlueTroll::Application.routes.draw do
   resources :participants
   resources :users
 
+  post 'search', to: 'participants#search'
+
   # Tickets generator.
   get 'ticket', to: 'tickets#create'
   get 'crew_tickets', to: 'tickets#generate_crew_tickets'

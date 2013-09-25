@@ -9,6 +9,10 @@ class ParticipantsController < ApplicationController
   end
 
 
+  def search
+  end
+
+
   def show
   end
 
