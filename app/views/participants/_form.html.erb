@@ -59,6 +59,19 @@
       </div>
     </div>
 
+    <div class="field control-group">
+      <div class="controls">
+        <label class="checkbox">
+          <%= f.check_box :flagged %>
+          Red flag to pay attention
+        </label>
+      </div>
+      <%= f.label :notes, class: "control-label" %>
+      <div class="controls">
+        <%= f.text_area :notes, class: "input-xlarge", rows: 4 %>
+      </div>
+    </div>
+
     <div class="actions form-actions">
       <%= f.submit class: "btn btn-primary" %>
       <%= link_to "Cancel", redirect_by_cancel, class: "btn" %>

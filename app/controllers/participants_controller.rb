@@ -32,30 +32,21 @@ class ParticipantsController < ApplicationController
 
   def create
     @participant = Participant.new(participant_params)
-
-    respond_to do |format|
-      if @participant.save
-        format.html { redirect_to participants_path(crew_id: @participant.crew_id),
-          notice: 'Participant was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @participant }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @participant.errors, status: :unprocessable_entity }
-      end
+    if @participant.save
+      flash[:success] = "Participant #{@participant.full_name} was successfully created."
+      redirect_to participants_path(crew_id: @participant.crew_id)
+    else
+      render action: 'new'
     end
   end
 
 
   def update
-    respond_to do |format|
-      if @participant.update(participant_params)
-        format.html { redirect_to participants_path(crew_id: @participant.crew_id),
-          notice: 'Participant was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @participant.errors, status: :unprocessable_entity }
-      end
+    if @participant.update(participant_params)
+      flash[:success] = "Participant #{@participant.full_name} was successfully updated."
+      redirect_to participants_path(crew_id: @participant.crew_id)
+    else
+      render action: 'edit'
     end
   end
 
@@ -78,6 +69,6 @@ class ParticipantsController < ApplicationController
 
   def participant_params
     params.require(:participant).permit(:last_name, :first_name, :crew, :crew_id, :ticket_code, :email, :address,
-      :child, :import_id, :sent, :sent_by, :reservation_number, :registered_at, :registered_by)
+      :child, :import_id, :sent, :sent_by, :reservation_number, :registered_at, :registered_by, :flagged, :notes)
   end
 end
