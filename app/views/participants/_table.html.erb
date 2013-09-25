@@ -22,12 +22,12 @@
         <td class="bt-table-cell"><%= participant.registered_at %></td>
         <td class="bt-table-cell">
           <div>
-            <%= link_to image_tag('edit_participant.png', alt: 'Edit Participant', class: "img-small"),
+            <%= link_to image_tag('edit.png', alt: 'Edit Participant', class: "bt-img"),
               edit_participant_path(participant), title: "Edit participant properties", rel: 'tooltip' %>
-            <%= link_to image_tag('delete_participant.png', alt: 'Delete Participant', class: "img-small"),
+            <%= link_to image_tag('delete.png', alt: 'Delete Participant', class: "bt-img"),
               participant_path(participant), method: :delete, title: "Delete the participant", rel: 'tooltip',
               data: { confirm: "Are you sure to delete the participant?" } %>
-            <%= link_to image_tag('ticket.png', alt: 'Generate ticket', class: "img-small"),
+            <%= link_to image_tag('ticket.png', alt: 'Generate ticket', class: "bt-img bt-img-reduced"),
               participant_ticket_path(participant_id: participant),
               title: 'Generate the ticket for the participant', rel: 'tooltip' %>
           </div>

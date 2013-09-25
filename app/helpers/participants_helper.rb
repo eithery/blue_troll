@@ -16,7 +16,7 @@ module ParticipantsHelper
 
 
   def participant_image(participant)
-    image_tag("baby.png", class: "img-small") if participant.category == :baby
+    image_tag("baby.png", class: "bt-img-reduced") if participant.category == :baby
   end
 
 
