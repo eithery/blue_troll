@@ -10,6 +10,10 @@ class ParticipantsController < ApplicationController
 
 
   def search
+    pattern = params[:search][:pattern].strip
+    @participants = Participant.order(:last_name, :first_name).select do |p|
+      p.last_name =~ /#{pattern}/ || p.first_name =~ /#{pattern}/
+    end
   end
 
 

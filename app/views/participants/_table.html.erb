@@ -1,0 +1,36 @@
+<table class="table table-bordered table-striped table-hover table-condensed">
+  <thead>
+    <tr>
+      <th class="span1">#</th>
+      <th class="span4">Name</th>
+      <th class="span1">Age</th>
+      <th class="span1">BT ID</th>
+      <th class="span3">Registered</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @participants.each.with_index do |participant, idx| %>
+      <tr>
+        <td class="bt-table-cell"><%= idx+1 %></td>
+        <td class="bt-table-cell"><%= participant_here_image(participant) %> 
+          <%= participant.full_name %> <%= participant_image(participant) %></td>
+        <td class="bt-table-cell"><%= participant.category.to_s[0].upcase %></td>
+        <td class="bt-table-cell"><%= participant.import_id %></td>
+        <td class="bt-table-cell"><%= participant.registered_at %></td>
+        <td class="bt-table-cell">
+          <div>
+            <%= link_to image_tag('edit_participant.png', alt: 'Edit Participant', class: "img-small"),
+              edit_participant_path(participant), title: "Edit participant properties", rel: 'tooltip' %>
+            <%= link_to image_tag('delete_participant.png', alt: 'Delete Participant', class: "img-small"),
+              participant_path(participant), method: :delete, title: "Delete the participant", rel: 'tooltip',
+              data: { confirm: "Are you sure to delete the participant?" } %>
+            <%= link_to image_tag('ticket.png', alt: 'Generate ticket', class: "img-small"),
+              participant_ticket_path(participant_id: participant),
+              title: 'Generate the ticket for the participant', rel: 'tooltip' %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
