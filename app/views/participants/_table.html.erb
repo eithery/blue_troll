@@ -15,7 +15,7 @@
       <tr>
         <td class="bt-table-cell"><%= idx+1 %></td>
         <td class="bt-table-cell"><%= participant_here_image(participant) %> 
-          <%= participant.full_name %> <%= participant_image(participant) %></td>
+          <%= participant.full_name %> <%= baby_image(participant) %><%= red_flag_image(participant) %></td>
         <td class="bt-table-cell"><%= participant.category.to_s[0].upcase %></td>
         <td class="bt-table-cell"><%= participant.crew.name %></td>
         <td class="bt-table-cell"><%= participant.import_id %></td>

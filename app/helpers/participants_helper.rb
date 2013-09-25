@@ -15,8 +15,13 @@ module ParticipantsHelper
   end
 
 
-  def participant_image(participant)
+  def baby_image(participant)
     image_tag("baby.png", class: "bt-img-reduced") if participant.category == :baby
+  end
+
+
+  def red_flag_image(participant)
+    image_tag("red_flag.png", class: "bt-img") if participant.flagged?
   end
 
 
