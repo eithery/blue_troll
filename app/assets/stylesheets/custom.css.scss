@@ -35,7 +35,7 @@ h1 {
 	letter-spacing: -1px;
 	margin-bottom: 30px;
 	font-family: Calibri;
-	text-shadow: 0 0 1px rgba(0,0,0,0.3);	
+	text-shadow: 0 0 1px rgba(0,0,0,0.3);
 }
 
 h2 {
@@ -94,4 +94,27 @@ p {
 
 .bt-bold-cell {
 	font-weight: bold;
+}
+
+
+.bt-stats {
+	font-family: Calibri;
+	font-size: 1.2em;
+	font-weight: bold;
+	text-shadow: 0 0 1px rgba(0,0,0,0.3);
+}
+
+
+.bt-total {
+	font-size: 1.5em;
+}
+
+
+.bt-onsite {
+	color: #006600;
+}
+
+
+.bt-registered {
+	color: #660000;
 }
