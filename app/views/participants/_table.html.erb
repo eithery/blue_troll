@@ -4,6 +4,7 @@
       <th class="span1">#</th>
       <th class="span4">Name</th>
       <th class="span1">Age</th>
+      <th class="span2">Crew</th>
       <th class="span1">BT ID</th>
       <th class="span3">Registered</th>
       <th>Actions</th>
@@ -16,6 +17,7 @@
         <td class="bt-table-cell"><%= participant_here_image(participant) %> 
           <%= participant.full_name %> <%= participant_image(participant) %></td>
         <td class="bt-table-cell"><%= participant.category.to_s[0].upcase %></td>
+        <td class="bt-table-cell"><%= participant.crew.name %></td>
         <td class="bt-table-cell"><%= participant.import_id %></td>
         <td class="bt-table-cell"><%= participant.registered_at %></td>
         <td class="bt-table-cell">
