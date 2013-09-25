@@ -1,8 +1,7 @@
 BlueTroll::Application.routes.draw do
-  get "users/new"
-
   resources :crews
   resources :participants
+  resources :users
 
   # Tickets generator.
   get 'ticket', to: 'tickets#create'
@@ -16,6 +15,9 @@ BlueTroll::Application.routes.draw do
   # Administration tasks.
   get 'upload', to: 'upload#select_file'
   post 'upload', to: 'upload#upload_file'
+
+  # Static pages.
+  get 'statistics', to: 'static_pages#statistics'
 
   # Root home page.
   root 'static_pages#home'
