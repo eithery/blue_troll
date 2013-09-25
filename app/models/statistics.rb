@@ -41,6 +41,6 @@ class Statistics
 
 private
   def self.participants
-    @all_participants ||= Participant.all.to_a
+    Participant.all.to_a
   end
 end
