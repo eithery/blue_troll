@@ -2,6 +2,7 @@ BlueTroll::Application.routes.draw do
   resources :crews
   resources :participants
   resources :users
+  resources :sessions, only: [:new, :create, :destroy]
 
   post 'search', to: 'participants#search'
 
@@ -23,6 +24,8 @@ BlueTroll::Application.routes.draw do
 
   # Authentication pages.
   get 'signup', to: 'users#new'
+  get 'signin', to: 'sessions#new'
+  match 'signout', to: 'sessions#destroy', via: :delete
 
   # Root home page.
   root 'static_pages#home'
