@@ -1,6 +1,8 @@
 <%= provide(:title, 'Sign up') %>
 <h1>Sign Up</h1>
 <%= form_for(@user, html: { class: "form-horizontal well" }) do |f| %>
+  <%= render 'shared/error_messages' %>
+
   <fieldset>
     <div class="field control-group">
       <%= f.label :name, class: "control-label" %>
