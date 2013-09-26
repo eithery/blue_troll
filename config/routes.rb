@@ -21,6 +21,9 @@ BlueTroll::Application.routes.draw do
   # Static pages.
   get 'statistics', to: 'static_pages#statistics'
 
+  # Authentication pages.
+  get 'signup', to: 'users#new'
+
   # Root home page.
   root 'static_pages#home'
 end
