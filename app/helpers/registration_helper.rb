@@ -10,8 +10,13 @@ module RegistrationHelper
       flash.now[:error] = "Participant with code '#{ticket_code}' is not registered."
       return false
     else
-      flash.now[:success] = "#{participant.full_name}, Welcome to Blue Trolley event!"
-      return participant
+      if participant.registered_at.nil?
+        flash.now[:success] = "#{participant.full_name}, Welcome to Blue Trolley event!"
+        return participant
+      else
+        flash.now[:notice] = "Participant #{participant.full_name} already registered."
+        return false
+      end
     end
   end
 end
