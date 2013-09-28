@@ -10,23 +10,33 @@
   <tbody>
     <tr>
       <td class="bt-stats">Adults:</td>
-      <td class="bt-stats bt-registered"><%= Statistics.adults_registered %></td>
-      <td class="bt-stats bt-onsite"><%= Statistics.adults_onsite %></td>
+      <td class="bt-stats bt-registered"><%= link_to Statistics.adults_registered, adults_path %></td>
+      <td class="bt-stats bt-onsite"><%= link_to Statistics.adults_onsite, adults_onsite_path %></td>
     </tr>
     <tr>
       <td class="bt-stats">Children:</td>
-      <td class="bt-stats bt-registered"><%= Statistics.children_registered %></td>
-      <td class="bt-stats bt-onsite"><%= Statistics.children_onsite %></td>
+      <td class="bt-stats bt-registered"><%= link_to Statistics.children_registered, children_path %></td>
+      <td class="bt-stats bt-onsite"><%= link_to Statistics.children_onsite, children_onsite_path %></td>
     </tr>
     <tr>
       <td class="bt-stats">Babies:</td>
-      <td class="bt-stats bt-registered"><%= Statistics.babies_registered %></td>
-      <td class="bt-stats bt-onsite"><%= Statistics.babies_onsite %></td>
+      <td class="bt-stats bt-registered"><%= link_to Statistics.babies_registered, babies_path %></td>
+      <td class="bt-stats bt-onsite"><%= link_to Statistics.babies_onsite, babies_onsite_path %></td>
     </tr>
     <tr>
       <td class="bt-stats">Total Participants</td>
-      <td class="bt-stats bt-total bt-registered"><%= Statistics.participants_registered %></td>
-      <td class="bt-stats bt-total bt-onsite"><%= Statistics.participants_onsite %></td>
+      <td class="bt-stats bt-total bt-registered"><%= link_to Statistics.participants_registered, total_registered_path %></td>
+      <td class="bt-stats bt-total bt-onsite"><%= link_to Statistics.participants_onsite, total_onsite_path %></td>
+    </tr>
+    <tr>
+      <td class="bt-stats">Flagged:</td>
+      <td class="bt-stats bt-registered"></td>
+      <td class="bt-stats bt-onsite"><%= link_to Statistics.flagged, flagged_path %></td>
+    </tr>
+    <tr>
+      <td class="bt-stats">Expected:</td>
+      <td class="bt-stats bt-registered"><%= link_to Statistics.expected, expected_path %></td>
+      <td class="bt-stats bt-onsite"></td>
     </tr>
   </tbody>
 </table>

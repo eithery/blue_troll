@@ -39,6 +39,16 @@ class Statistics
   end
 
 
+  def self.flagged
+    participants.count { |p| p.flagged? }
+  end
+
+
+  def self.expected
+    participants.count { |p| !p.registered_at }
+  end
+
+
 private
   def self.participants
     Participant.all.to_a

@@ -17,6 +17,74 @@ class ParticipantsController < ApplicationController
   end
 
 
+  def flagged
+    @participants = Participant.order(:last_name, :first_name).select do |p|
+      p.flagged
+    end
+  end
+
+
+  def adults
+    @participants = Participant.order(:last_name, :first_name).select do |p|
+      p.category == :adult
+    end
+  end
+
+
+  def adults_onsite
+    @participants = Participant.order(:last_name, :first_name).select do |p|
+      p.category == :adult && !p.registered_at.nil?
+    end
+  end
+
+
+  def children
+    @participants = Participant.order(:last_name, :first_name).select do |p|
+      p.category == :child
+    end
+  end
+
+
+  def children_onsite
+    @participants = Participant.order(:last_name, :first_name).select do |p|
+      p.category == :child && !p.registered_at.nil?
+    end
+  end
+
+
+  def babies
+    @participants = Participant.order(:last_name, :first_name).select do |p|
+      p.category == :baby
+    end
+  end
+
+
+  def babies_onsite
+    @participants = Participant.order(:last_name, :first_name).select do |p|
+      p.category == :baby && !p.registered_at.nil?
+    end
+  end
+
+
+  def total_registered
+    @participants = Participant.order(:last_name, :first_name)
+  end
+
+
+  def total_onsite
+    @participants = Participant.order(:last_name, :first_name).select do |p|
+      !p.registered_at.nil?
+    end
+  end
+
+
+  def expected
+    @participants = Participant.order(:last_name, :first_name).select do |p|
+      p.registered_at.nil?
+    end
+  end
+
+
   def show
   end
 

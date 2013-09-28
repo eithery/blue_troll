@@ -5,6 +5,16 @@ BlueTroll::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
 
   post 'search', to: 'participants#search'
+  get 'flagged', to: 'participants#flagged'
+  get 'adults', to: 'participants#adults'
+  get 'children', to: 'participants#children'
+  get 'babies', to: 'participants#babies'
+  get 'total_registered', to: 'participants#total_registered'
+  get 'adults_onsite', to: 'participants#adults_onsite'
+  get 'children_onsite', to: 'participants#children_onsite'
+  get 'babies_onsite', to: 'participants#babies_onsite'
+  get 'total_onsite', to: 'participants#total_onsite'
+  get 'expected', to: 'participants#expected'
 
   # Tickets generator.
   get 'ticket', to: 'tickets#create'
