@@ -4,8 +4,8 @@
       <%= link_to "Blue Trolley", '#', id: 'logo', class: "navbar-brand" %>
       <nav>
         <ul class="nav navbar-nav pull-left">
-          <li><%= link_to "Home", root_path %></li>
           <% if signed_in? %>
+            <li><%= link_to "Home", root_path %></li>
             <li><%= link_to "Crews", crews_path %></li>
             <li><%= link_to "New Participant", new_participant_path(crew_id: yield(:crew_id)) %></li>
             <li><%= link_to "Check in", checkin_path %></li>
