@@ -69,9 +69,10 @@ ActiveRecord::Schema.define(version: 20130925213101) do
   end
 
   create_table "user_accounts", force: true do |t|
-    t.string   "email",           null: false
-    t.string   "password_digest", null: false
-    t.string   "remember_token",  null: false
+    t.string   "email",                           null: false
+    t.string   "password_digest",                 null: false
+    t.string   "remember_token",                  null: false
+    t.boolean  "active",          default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
