@@ -1,16 +1,16 @@
 require 'spec_helper'
 
 describe UserAccount do
-  before { @user_account = UserAccount.new(email: 'jsmith@gmail.com', password: 'secret', password_confirmation: 'secret') }
-
+  before { @user_account = UserAccount.new(email: 'jsmith@gmail.com', email_confirmation: 'jsmith@gmail.com',
+    password: 'secret', password_confirmation: 'secret') }
   subject { @user_account }
 
   it { should respond_to :email }
+  it { should respond_to :email_confirmation }
   it { should respond_to :password_digest }
   it { should respond_to :password }
   it { should respond_to :password_confirmation }
   it { should respond_to :authenticate }
-
   it { should be_valid }
 
 
@@ -20,11 +20,29 @@ describe UserAccount do
   end
 
 
+  context "when email confirmation is not entered" do
+    before { @user_account.email_confirmation = " " }
+    it { should_not be_valid }
+  end
+
+
+  context "when email does not match confirmation" do
+    before { @user_account.email_confirmation = 'mismatch' }
+    it { should_not be_valid }
+  end
+
+
+  context "when email confirmation is nil" do
+    before { @user_account.email_confirmation = nil }
+    it { should_not be_valid }
+  end
+
+
   context "when email format is invalid" do
     it "should be invalid" do
-      addresses = %w[user@foo,com user_at_foo.org example.user@foo.foo@bar_baz.com foo_bar+baz.com]
-      addresses.each do |invalid_address|
-        @user_account.email = invalid_address
+      emails = %w[user@foo,com user_at_foo.org example.user@foo.foo@bar_baz.com foo_bar+baz.com]
+      emails.each do |invalid_email|
+        @user_account.email = @user_account.email_confirmation = invalid_email
         @user_account.should_not be_valid
       end
     end
@@ -33,9 +51,9 @@ describe UserAccount do
 
   context "when email format is valid" do
     it "should be valid" do
-      addresses = %w[user@foo.COM A_US-ER@f.b.org first.last@foo.jp a+b@baz.cn]
-      addresses.each do |a|
-        @user_account.email = a
+      emails = %w[user@foo.COM A_US-ER@f.b.org first.last@foo.jp a+b@baz.cn]
+      emails.each do |valid_email|
+        @user_account.email = @user_account.email_confirmation = valid_email
         @user_account.should be_valid
       end
     end
@@ -45,10 +63,9 @@ describe UserAccount do
   context "when email address is duplicated" do
     before do
       existing_user_account = @user_account.dup
-      existing_user_account.email = @user_account.email.upcase
+      existing_user_account.email = existing_user_account.email_confirmation = @user_account.email.upcase
       existing_user_account.save
     end
-
     it { should_not be_valid }
   end
 
