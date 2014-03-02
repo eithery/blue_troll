@@ -9,6 +9,7 @@
 </head>
 <body>
 	<%= render 'layouts/header' %>
+  <%= render 'layouts/banner' %>
 	<div class="container">
 		<% flash.each do |key, value| %>
       <%= content_tag(:div, value, class: "alert alert-#{key}") %>
