@@ -1,7 +1,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: blue_trolley
+  database: blue_trolley_dev
   pool: 5
   username: admin
   password: admin

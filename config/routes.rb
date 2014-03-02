@@ -1,8 +1,9 @@
 BlueTroll::Application.routes.draw do
   resources :crews
   resources :participants
-  resources :users
+  resources :user_accounts
   resources :sessions, only: [:new, :create, :destroy]
+
 
   post 'search', to: 'participants#search'
   get 'flagged', to: 'participants#flagged'
@@ -32,8 +33,8 @@ BlueTroll::Application.routes.draw do
   # Static pages.
   get 'statistics', to: 'static_pages#statistics'
 
-  # Authentication pages.
-  get 'signup', to: 'users#new'
+  # Authentication and user registration pages.
+  get 'signup', to: 'user_accounts#new'
   get 'signin', to: 'sessions#new'
   match 'signout', to: 'sessions#destroy', via: :delete
 
