@@ -1,23 +1,27 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.2'
+gem 'rails', '4.0.3'
 gem 'pg', '0.17.0'
 gem 'bootstrap-sass', '3.1.1'
-gem 'bcrypt-ruby', '3.1.2'
+gem 'bcrypt-ruby', '3.1.5'
 gem 'jquery-rails', '3.1.0'
 gem 'turbolinks', '2.2.1'
 gem 'jbuilder', '2.0.3'
 gem 'prawn', '0.15.0'
 gem 'barby', '0.5.1'
 gem 'rubyzip', '1.1.0'
-gem 'paperclip', '4.1.0'
+gem 'paperclip', '4.1.1'
+gem 'sass-rails', '4.0.1'
+gem 'coffee-rails', '4.0.1'
+gem 'uglifier', '2.4.0'
+
+#	gem 'sqlite3'
+#	gem 'tiny_tds'
+# gem 'activerecord-sqlserver-adapter'
 
 
 group :development, :test do
   gem 'rspec-rails', '2.14.1'
-#	gem 'sqlite3'
-#	gem 'tiny_tds'
-# gem 'activerecord-sqlserver-adapter'
 end
 
 
@@ -29,13 +33,6 @@ end
 
 
 group :production do
-end
-
-
-group :assets do
-	gem 'sass-rails', '4.0.1'
-	gem 'coffee-rails', '4.0.1'
-	gem 'uglifier', '2.4.0'
 end
 
 
