@@ -1,12 +1,10 @@
 require 'spec_helper'
 
-describe User do
-  before { @user = User.new(name: 'John Smith', email: 'jsmith@gmail.com',
-    password: 'secret', password_confirmation: 'secret') }
+describe UserAccount do
+  before { @user_account = UserAccount.new(email: 'jsmith@gmail.com', password: 'secret', password_confirmation: 'secret') }
 
-  subject { @user }
+  subject { @user_account }
 
-  it { should respond_to :name }
   it { should respond_to :email }
   it { should respond_to :password_digest }
   it { should respond_to :password }
@@ -16,20 +14,8 @@ describe User do
   it { should be_valid }
 
 
-  context "when name is not present" do
-    before { @user.name = "  " }
-    it { should_not be_valid }
-  end
-
-
   context "when email is not entered" do
-    before { @user.email = "  " }
-    it { should_not be_valid }
-  end
-
-
-  context "when the name is too long" do
-    before { @user.name = "a" * 51 }
+    before { @user_account.email = "  " }
     it { should_not be_valid }
   end
 
@@ -38,8 +24,8 @@ describe User do
     it "should be invalid" do
       addresses = %w[user@foo,com user_at_foo.org example.user@foo.foo@bar_baz.com foo_bar+baz.com]
       addresses.each do |invalid_address|
-        @user.email = invalid_address
-        @user.should_not be_valid
+        @user_account.email = invalid_address
+        @user_account.should_not be_valid
       end
     end
   end
@@ -49,8 +35,8 @@ describe User do
     it "should be valid" do
       addresses = %w[user@foo.COM A_US-ER@f.b.org first.last@foo.jp a+b@baz.cn]
       addresses.each do |a|
-        @user.email = a
-        @user.should be_valid
+        @user_account.email = a
+        @user_account.should be_valid
       end
     end
   end
@@ -58,9 +44,9 @@ describe User do
 
   context "when email address is duplicated" do
     before do
-      existing_user = @user.dup
-      existing_user.email = @user.email.upcase
-      existing_user.save
+      existing_user_account = @user_account.dup
+      existing_user_account.email = @user_account.email.upcase
+      existing_user_account.save
     end
 
     it { should_not be_valid }
@@ -68,41 +54,41 @@ describe User do
 
 
   context "when password is not present" do
-    before { @user.password = @user.password_confirmation = "  " }
+    before { @user_account.password = @user_account.password_confirmation = "  " }
     it { should_not be_valid }
   end
 
 
   context "when password does not match confirmation" do
-    before { @user.password_confirmation = 'mismatch'}
+    before { @user_account.password_confirmation = 'mismatch'}
     it { should_not be_valid }
   end
 
 
   context "when password confirmation is nil" do
-    before { @user.password_confirmation = nil }
+    before { @user_account.password_confirmation = nil }
     it { should_not be_valid }
   end
 
 
   context "with a password that's too short" do
-    before { @user.password = @user.password_confirmation = "a" * 5 }
+    before { @user_account.password = @user_account.password_confirmation = "a" * 5 }
     it { should_not be_valid }
   end
 
 
   describe "return value of authenticate method" do
-    before { @user.save }
-    let(:found_user) { User.find_by_email(@user.email) }
+    before { @user_account.save }
+    let(:found_user_account) { UserAccount.find_by_email(@user_account.email) }
 
     context "with valid password" do
-      it { should == found_user.authenticate(@user.password) }
+      it { should == found_user_account.authenticate(@user_account.password) }
     end
 
     context "with invalid password" do
-      let(:user_for_invalid_password) { found_user.authenticate('invalid') }
-      it { should_not == user_for_invalid_password }
-      specify { user_for_invalid_password.should be_false }
+      let(:user_account_for_invalid_password) { found_user_account.authenticate('invalid') }
+      it { should_not == user_account_for_invalid_password }
+      specify { user_account_for_invalid_password.should be_false }
     end
   end
 end
