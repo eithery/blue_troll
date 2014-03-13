@@ -42,42 +42,50 @@ ActiveRecord::Schema.define(version: 20130925213101) do
   end
 
   create_table "participants", force: true do |t|
-    t.integer  "crew_id",                            null: false
-    t.string   "last_name",                          null: false
-    t.string   "first_name",                         null: false
+    t.integer  "crew_id",                                        null: false
+    t.integer  "user_account_id",                                null: false
+    t.string   "last_name",                                      null: false
+    t.string   "first_name",                                     null: false
     t.string   "middle_name"
     t.integer  "gender"
-    t.date     "birth_date"
+    t.integer  "child",                          default: 0,     null: false
+    t.date     "born_on"
     t.string   "home_phone"
     t.string   "cell_phone"
     t.string   "email"
-    t.text     "address"
-    t.integer  "child",              default: 0,     null: false
-    t.boolean  "active",             default: true,  null: false
+    t.string   "address_line_1"
+    t.string   "address_line_2"
+    t.string   "city"
+    t.string   "state",                limit: 2
+    t.string   "zip",                  limit: 5
     t.string   "ticket_code"
-    t.boolean  "paid",               default: false, null: false
-    t.boolean  "sent",               default: false, null: false
-    t.string   "sent_by"
-    t.integer  "import_id"
-    t.string   "reservation_number"
+    t.datetime "approved_at"
+    t.string   "approved_by"
+    t.datetime "payment_sent_at"
+    t.string   "payment_sent_by"
+    t.datetime "payment_confirmed_at"
+    t.string   "payment_confirmed_by"
     t.datetime "registered_at"
     t.string   "registered_by"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "flagged",            default: false, null: false
+    t.boolean  "flagged",                        default: false, null: false
     t.text     "notes"
   end
 
   create_table "user_accounts", force: true do |t|
+    t.string   "login",                           null: false
     t.string   "email",                           null: false
     t.string   "password_digest",                 null: false
     t.string   "remember_token",                  null: false
     t.boolean  "active",          default: false, null: false
+    t.datetime "activated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "user_accounts", ["email"], name: "index_user_accounts_on_email", unique: true, using: :btree
+  add_index "user_accounts", ["login"], name: "index_user_accounts_on_login", unique: true, using: :btree
   add_index "user_accounts", ["remember_token"], name: "index_user_accounts_on_remember_token", using: :btree
 
 end

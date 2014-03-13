@@ -1,31 +1,38 @@
 class CreateParticipants < ActiveRecord::Migration
   def change
     create_table :participants do |t|
-      # Main Participant info.
+      # Crew and user account info.
       t.integer :crew_id, null: false
+      t.integer :user_account_id, null: false
+
+      # Personal info.
       t.string :last_name, null: false
       t.string :first_name, null: false
       t.string :middle_name
       t.integer :gender
-      t.date :birth_date
+      t.integer :child, null: false, default: 0
+      t.date :born_on
+
+      # Contacts and address.
       t.string :home_phone
       t.string :cell_phone
       t.string :email
-      t.text :address
-      t.integer :child, null: false, default: 0
-      t.boolean :active, null: false, default: true
+      t.string :address_line_1
+      t.string :address_line_2
+      t.string :city
+      t.string :state, limit: 2
+      t.string :zip, limit: 5
 
-      # Ticket related info.
+      # Ticket info.
       t.string :ticket_code
-      t.boolean :paid, null: false, default: false
-      t.boolean :sent, null: false, default: false
-      t.string :sent_by
 
-      # Fields used for integration with Igor's DB.
-      t.integer :import_id
-      t.string :reservation_number
-
-      # Registration fields.
+      # Registration and status.
+      t.datetime :approved_at
+      t.string :approved_by
+      t.datetime :payment_sent_at
+      t.string :payment_sent_by
+      t.datetime :payment_confirmed_at
+      t.string :payment_confirmed_by
       t.datetime :registered_at
       t.string :registered_by
 
