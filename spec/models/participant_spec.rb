@@ -13,6 +13,8 @@ describe Participant do
   it { should respond_to :first_name }
   it { should respond_to :middle_name }
   it { should respond_to :ticket_code }
+  it { should respond_to :created_at }
+  it { should respond_to :updated_at }
 
   it { should be_valid }
 

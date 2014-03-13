@@ -15,6 +15,9 @@ describe UserAccount do
   it { should respond_to :activated_at }
   it { should respond_to :authenticate }
   it { should respond_to :participants }
+  it { should respond_to :created_at }
+  it { should respond_to :updated_at }
+
   it { should be_valid }
   it { should_not be_active }
 
