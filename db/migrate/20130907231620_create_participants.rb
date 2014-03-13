@@ -26,7 +26,7 @@ class CreateParticipants < ActiveRecord::Migration
       # Ticket info.
       t.string :ticket_code
 
-      # Registration and status.
+      # Registration status.
       t.datetime :approved_at
       t.string :approved_by
       t.datetime :payment_sent_at
@@ -36,6 +36,9 @@ class CreateParticipants < ActiveRecord::Migration
       t.datetime :registered_at
       t.string :registered_by
 
+      # Misc fields.
+      t.boolean :flagged, :bool, null: false, default: false
+      t.text :notes, :text
       t.timestamps
     end
   end

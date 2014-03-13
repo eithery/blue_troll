@@ -3,13 +3,10 @@ class CreateCrews < ActiveRecord::Migration
     create_table :crews do |t|
       t.string :name, null: false
       t.string :native_name, null: false
-      t.text :description
-      t.string :captain
-      t.string :location
-      t.string :web_site
-      t.string :email
       t.boolean :active, null: false, default: true
-
+      t.string :location
+      t.string :email
+      t.text :notes
       t.timestamps
     end
   end
