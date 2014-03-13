@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe UserAccount do
-  before { @user_account = UserAccount.new(login: 'jsmith', email: 'jsmith@gmail.com', email_confirmation: 'jsmith@gmail.com',
-    password: 'secret', password_confirmation: 'secret') }
+  before { @user_account = UserAccount.new(login: 'jsmith', email: 'jsmith@gmail.com',
+    email_confirmation: 'jsmith@gmail.com', password: 'secret', password_confirmation: 'secret') }
   subject { @user_account }
 
   it { should respond_to :login }
@@ -11,6 +11,7 @@ describe UserAccount do
   it { should respond_to :password_digest }
   it { should respond_to :password }
   it { should respond_to :password_confirmation }
+  it { should respond_to :remember_token }
   it { should respond_to :active? }
   it { should respond_to :activated_at }
   it { should respond_to :authenticate }
@@ -19,12 +20,18 @@ describe UserAccount do
   it { should respond_to :updated_at }
 
   it { should be_valid }
+
   it { should_not be_active }
 
 
   describe "when login" do
     context "is not entered" do
       before { @user_account.login = "  " }
+      it { should_not be_valid }
+    end
+
+    context "is nil" do
+      before { @user_account.login = nil }
       it { should_not be_valid }
     end
 
@@ -56,7 +63,7 @@ describe UserAccount do
     end
 
     context "does not match confirmation" do
-      before { @user_account.email_confirmation = 'mismatch' }
+      before { @user_account.email_confirmation = 'mismatch@gmail.com' }
       it { should_not be_valid }
     end
 
@@ -97,8 +104,13 @@ describe UserAccount do
 
 
   describe "when password" do
-    context "is not present" do
+    context "is not entered" do
       before { @user_account.password = @user_account.password_confirmation = "  " }
+      it { should_not be_valid }
+    end
+
+    context "confirmation is not entered" do
+      before { @user_account.password_confirmation = "  " }
       it { should_not be_valid }
     end
 
@@ -119,7 +131,7 @@ describe UserAccount do
   end
 
 
-  describe "return value of authenticate method" do
+  describe "authenticate method return value" do
     before { @user_account.save }
     let(:found_user_account) { UserAccount.find_by_email(@user_account.email) }
 
