@@ -21,11 +21,13 @@ ActiveRecord::Schema.define(version: 20130918193218) do
     t.string   "native_name",                null: false
     t.boolean  "active",      default: true, null: false
     t.string   "location"
-    t.string   "email"
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "crews", ["name"], name: "index_crews_on_name", unique: true, using: :btree
+  add_index "crews", ["native_name"], name: "index_crews_on_native_name", unique: true, using: :btree
 
   create_table "events", force: true do |t|
     t.string   "name",                         null: false

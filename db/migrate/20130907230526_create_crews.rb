@@ -5,9 +5,11 @@ class CreateCrews < ActiveRecord::Migration
       t.string :native_name, null: false
       t.boolean :active, null: false, default: true
       t.string :location
-      t.string :email
       t.text :notes
       t.timestamps
     end
+
+    add_index :crews, :name, unique: true
+    add_index :crews, :native_name, unique: true
   end
 end
