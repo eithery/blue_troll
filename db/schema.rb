@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130925213101) do
+ActiveRecord::Schema.define(version: 20130918193218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,12 +19,10 @@ ActiveRecord::Schema.define(version: 20130925213101) do
   create_table "crews", force: true do |t|
     t.string   "name",                       null: false
     t.string   "native_name",                null: false
-    t.text     "description"
-    t.string   "captain"
-    t.string   "location"
-    t.string   "web_site"
-    t.string   "email"
     t.boolean  "active",      default: true, null: false
+    t.string   "location"
+    t.string   "email"
+    t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -67,10 +65,12 @@ ActiveRecord::Schema.define(version: 20130925213101) do
     t.string   "payment_confirmed_by"
     t.datetime "registered_at"
     t.string   "registered_by"
+    t.boolean  "flagged",                        default: false, null: false
+    t.boolean  "bool",                           default: false, null: false
+    t.text     "notes"
+    t.text     "text"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "flagged",                        default: false, null: false
-    t.text     "notes"
   end
 
   create_table "user_accounts", force: true do |t|
