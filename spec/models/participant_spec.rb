@@ -7,10 +7,12 @@ describe Participant do
   end
   subject { @participant }
 
-  it { should respond_to(:last_name) }
-  it { should respond_to(:first_name) }
-  it { should respond_to(:crew) }
-  it { should respond_to(:ticket_code) }
+  it { should respond_to :crew }
+  it { should respond_to :user_account }
+  it { should respond_to :last_name }
+  it { should respond_to :first_name }
+  it { should respond_to :middle_name }
+  it { should respond_to :ticket_code }
 
   it { should be_valid }
 

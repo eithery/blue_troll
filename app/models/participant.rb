@@ -1,12 +1,14 @@
 class Participant < ActiveRecord::Base
-	validates :last_name, :first_name, presence: true
+  belongs_to :user_account
+  belongs_to :crew
+
+  validates :last_name, :first_name, presence: true
   validates :ticket_code, presence: true, uniqueness: true, length: { minimum: 10 }
   validates :crew, presence: true
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
 
-  belongs_to :crew
 
   def initialize(attributes={})
     super(attributes)
