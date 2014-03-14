@@ -14,10 +14,7 @@ gem 'paperclip', '4.1.1'
 gem 'sass-rails', '4.0.1'
 gem 'coffee-rails', '4.0.1'
 gem 'uglifier', '2.4.0'
-
-#	gem 'sqlite3'
-#	gem 'tiny_tds'
-# gem 'activerecord-sqlserver-adapter'
+gem 'enumerate_it', '1.2.1'
 
 
 group :development, :test do
@@ -29,6 +26,7 @@ group :test do
   gem 'cucumber-rails', '1.4.0', require: false
 	gem 'capybara', '2.2.1'
 	gem 'database_cleaner', '1.2.0'
+  gem 'factory_girl_rails', '4.4.1'
 end
 
 
