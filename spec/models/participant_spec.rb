@@ -2,8 +2,10 @@ require 'spec_helper'
 
 describe Participant do
   before do
+    maryika = UserAccount.new(login: 'maryika', email: 'maryika@gmail.com',
+    email_confirmation: 'maryika@gmail.com', password: 'secret', password_confirmation: 'secret')
     hvost = Crew.new(name: 'Volchij Hvost', native_name: 'Волчий Хвост')
-    @participant = Participant.new(last_name: 'Romanova', first_name: 'Maria', crew: hvost)
+    @participant = Participant.new(last_name: 'Romanova', first_name: 'Maria', crew: hvost, user_account: maryika)
   end
   subject { @participant }
 
@@ -42,26 +44,40 @@ describe Participant do
   it { should be_valid }
 
 
-  context "when last name is not present" do
-    before { @participant.last_name = "  " }
-    it { should_not be_valid }
+  describe "when last_name" do
+    context "is not present" do
+      before { @participant.last_name = "  " }
+      it { should_not be_valid }
+    end
+
+    context "is nil" do
+      before { @participant.last_name = nil }
+      it { should_not be_valid }
+    end
   end
 
 
-  context "when first name is not present" do
-    before { @participant.first_name = "  " }
-    it { should_not be_valid }
-  end
+  describe "when first name" do
+    context "is not present" do
+      before { @participant.first_name = "  " }
+      it { should_not be_valid }
+    end
 
-
-  context "when ticket code is not present" do
-    before { @participant.ticket_code = "  " }
-    it { should_not be_valid }
+    context "is nil" do
+      before { @participant.first_name = nil }
+      it { should_not be_valid }
+    end
   end
 
 
   context "when crew is not set" do
     before { @participant.crew = nil }
+    it { should_not be_valid }
+  end
+
+
+  context "when user account is not set" do
+    before { @participant.user_account = nil }
     it { should_not be_valid }
   end
 
