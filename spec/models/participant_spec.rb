@@ -70,6 +70,13 @@ describe Participant do
   end
 
 
+  describe "#full_name" do
+    it "concatenates last name and first name" do
+      @participant.full_name.should == "Romanova, Maria"
+    end
+  end
+
+
   context "when crew is not set" do
     before { @participant.crew = nil }
     it { should_not be_valid }
