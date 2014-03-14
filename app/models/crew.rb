@@ -24,16 +24,16 @@ class Crew < ActiveRecord::Base
 
 
   def total_adults
-    participants.to_a.count { |p| p.category == :adult }
+    participants.to_a.count { |p| p.age_category == AgeCategory::ADULT }
   end
 
 
   def total_children
-    participants.to_a.count { |p| p.category == :child }
+    participants.to_a.count { |p| p.age_category == AgeCategory::CHILD }
   end
 
 
   def total_babies
-    participants.to_a.count { |p| p.category == :baby }
+    participants.to_a.count { |p| p.age_category == AgeCategory::BABY }
   end
 end

@@ -3,7 +3,7 @@ class Participant < ActiveRecord::Base
   belongs_to :crew
 
   validates :last_name, :first_name, presence: true
-  validates :ticket_code, presence: true, uniqueness: true, length: { minimum: 10 }
+  validates :ticket_code, uniqueness: true, length: { minimum: 10 }
   validates :crew, presence: true
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -18,14 +18,6 @@ class Participant < ActiveRecord::Base
 
   def full_name
     "#{last_name}, #{first_name}"
-  end
-
-
-  # Participant age category.
-  def category
-    return :adult if child == 0
-    return :child if child == 1
-    return :baby if child == 2
   end
 
 
