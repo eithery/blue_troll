@@ -7,7 +7,7 @@
       <div class="form-group">
         <%= f.label :login, 'Login or Email', class: "control-label col-sm-3" %>
         <div class="col-sm-4">
-          <%= f.text_field :login, class: "form-control", maxlength: 64 %>
+          <%= f.text_field :login, class: "form-control", maxlength: 64, autofocus: true %>
         </div>
       </div>
 
@@ -22,7 +22,7 @@
       <div class="form-group">
         <div class="col-sm-offset-3 col-sm-7">
           <%= f.submit "Sign in", class: "btn btn-primary btn-lg" %>
-          <%= link_to "Register new", new_user_account_path, class: "btn btn-success btn-lg" %>
+          <%= link_to "Register new", new_user_account_path, class: "btn btn-info btn-lg" %>
         </div>
       </div>
     </fieldset>
