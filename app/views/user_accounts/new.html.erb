@@ -1,10 +1,9 @@
 <%= provide(:title, 'New User Account') %>
 <div class="shadowed-form">
   <%= form_for(@user_account, html: { class: "form-horizontal well" }) do |f| %>
-  <%= render 'shared/error_messages' %>
   <fieldset>
     <legend>New User Account Registration</legend>
-
+    <%= render 'shared/error_messages' %>
     <div class="form-group">
       <%= f.label :login, class: "control-label col-sm-3" %>
       <div class="col-sm-4">

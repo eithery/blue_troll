@@ -36,3 +36,12 @@
 .shadowed-form {
   box-shadow: 5px 4px 10px 2px gray;
 }
+
+
+.panel {
+  button.close {
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    color: white;
+  }
+}
