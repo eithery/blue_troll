@@ -12,6 +12,11 @@ describe UserAccount do
   it { should respond_to :password }
   it { should respond_to :password_confirmation }
   it { should respond_to :remember_token }
+  it { should respond_to :crew_lead? }
+  it { should respond_to :financier? }
+  it { should respond_to :gatekeeper? }
+  it { should respond_to :admin? }
+  it { should respond_to :dev? }
   it { should respond_to :active? }
   it { should respond_to :activated_at }
   it { should respond_to :authenticate }
@@ -22,6 +27,11 @@ describe UserAccount do
   it { should be_valid }
 
   it { should_not be_active }
+  it { should_not be_crew_lead }
+  it { should_not be_financier }
+  it { should_not be_gatekeeper }
+  it { should_not be_admin }
+  it { should_not be_dev }
 
 
   describe "when login" do

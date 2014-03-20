@@ -82,6 +82,11 @@ ActiveRecord::Schema.define(version: 20130918193218) do
     t.string   "email",                           null: false
     t.string   "password_digest",                 null: false
     t.string   "remember_token",                  null: false
+    t.boolean  "crew_lead",       default: false, null: false
+    t.boolean  "financier",       default: false, null: false
+    t.boolean  "gatekeeper",      default: false, null: false
+    t.boolean  "admin",           default: false, null: false
+    t.boolean  "dev",             default: false, null: false
     t.boolean  "active",          default: false, null: false
     t.datetime "activated_at"
     t.datetime "created_at"

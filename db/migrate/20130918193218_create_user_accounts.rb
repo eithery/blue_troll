@@ -5,6 +5,11 @@ class CreateUserAccounts < ActiveRecord::Migration
       t.string :email, null: false
       t.string :password_digest, null: false
       t.string :remember_token, null: false
+      t.boolean :crew_lead, null: false, default: false
+      t.boolean :financier, null: false, default: false
+      t.boolean :gatekeeper, null: false, default: false
+      t.boolean :admin, null: false, default: false
+      t.boolean :dev, null: false, default: false
       t.boolean :active, null: false, default: false
       t.datetime :activated_at
       t.timestamps
