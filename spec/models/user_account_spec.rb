@@ -110,6 +110,15 @@ describe UserAccount do
       end
       it { should_not be_valid }
     end
+
+    describe "address with mixed case" do
+      let(:mixed_case_email) { "Foo@ExAPMle.CoM" }
+      it "should be saved as all lower case" do
+        @user_account.email = @user_account.email_confirmation = mixed_case_email
+        @user_account.save
+        @user_account.reload.email.should == mixed_case_email.downcase
+      end
+    end
   end
 
 
