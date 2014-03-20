@@ -3,9 +3,11 @@ class UserAccountsController < ApplicationController
     @user_account = UserAccount.new
   end
 
+
   def show
     @user_account = UserAccount.find(params[:id])
   end
+
 
   def create
     @user_account = UserAccount.new(user_account_params)
@@ -20,6 +22,7 @@ class UserAccountsController < ApplicationController
 
 private
   def user_account_params
-    params.require(:user_account).permit(:email, :email_confirmation, :password, :password_confirmation, :remember_token)
+    params.require(:user_account).permit(:login, :email, :email_confirmation, :password, :password_confirmation,
+      :remember_token)
   end
 end

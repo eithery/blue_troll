@@ -6,6 +6,7 @@ describe UserAccount do
   subject { @user_account }
 
   it { should respond_to :login }
+  it { should respond_to :name }
   it { should respond_to :email }
   it { should respond_to :email_confirmation }
   it { should respond_to :password_digest }
@@ -163,5 +164,10 @@ describe UserAccount do
       it { should_not == user_account_for_invalid_password }
       specify { user_account_for_invalid_password.should be_false }
     end
+  end
+
+
+  describe "name" do
+    specify { @user_account.name.should == @user_account.login }
   end
 end

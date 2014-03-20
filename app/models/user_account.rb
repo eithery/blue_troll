@@ -19,6 +19,11 @@ class UserAccount < ActiveRecord::Base
   before_save :create_remember_token
 
 
+  def name
+    login
+  end
+
+
 private
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64
