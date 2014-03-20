@@ -1,24 +1,30 @@
 <%= provide(:title, "Sign in") %>
-<h1>Sign in</h1>
-<%= form_for(:session, url: sessions_path, html: { class: "form-horizontal well" }) do |f| %>
-  <fieldset>
-    <div class="field control-group">
-      <%= f.label :email, class: "control-label" %>
-      <div class="controls">
-        <%= f.text_field :email, class: "input-xlarge" %>
-      </div>
-    </div>
+<div class="shadowed-form">
+  <%= form_for(:session, url: sessions_path, html: { class: "form-horizontal well" }) do |f| %>
+    <fieldset>
+      <legend>Sign in</legend>
 
-    <div class="field control-group">
-      <%= f.label :password, class: "control-label" %>
-      <div class="controls">
-        <%= f.password_field :password, class: "input-xlarge" %>
+      <div class="form-group">
+        <%= f.label :login, 'Login or Email', class: "control-label col-sm-3" %>
+        <div class="col-sm-4">
+          <%= f.text_field :login, class: "form-control", maxlength: 64 %>
+        </div>
       </div>
-    </div>
 
-    <div class="actions form-actions">
-      <%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
-    </div>
-  </fieldset>
-<% end %>
-<p>New User? <%= link_to 'Sign up now!', '#' %></p>
+      <div class="form-group">
+        <%= f.label :password, class: "control-label col-sm-3" %>
+        <div class="col-sm-4">
+          <%= f.password_field :password, class: "form-control", maxlength: 16 %>
+        </div>
+      </div>
+
+      <br />
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-7">
+          <%= f.submit "Sign in", class: "btn btn-primary btn-lg" %>
+          <%= link_to "Register new", new_user_account_path, class: "btn btn-success btn-lg" %>
+        </div>
+      </div>
+    </fieldset>
+  <% end %>
+</div>

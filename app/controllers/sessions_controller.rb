@@ -2,16 +2,19 @@ class SessionsController < ApplicationController
   def new
   end
 
+
   def create
-    user = User.find_by_email(session_params[:email])
-    if user && user.authenticate(session_params[:password])
-      sign_in user
-      redirect_to user
+    login = session_params[:login]
+    user_account = UserAccount.find_by_login(login) || UserAccount.find_by_email(login)
+    if user_account && user_account.authenticate(session_params[:password])
+      sign_in user_account
+      redirect_to user_account
     else
-      flash.now[:error] = "Invalid email/password combination."
+      flash.now[:error] = "Invalid login/password combination."
       render 'new'
     end
   end
+
 
   def destroy
   end
@@ -19,6 +22,6 @@ class SessionsController < ApplicationController
 
 private
   def session_params
-    params.require(:session).permit(:email, :password)
+    params.require(:session).permit(:login, :password)
   end
 end
