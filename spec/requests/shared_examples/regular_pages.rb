@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 shared_examples_for "Page with header" do
   it { should have_link 'Blue Trolley', href: root_path }
   it { should have_link 'Sign in', href: signin_path }
