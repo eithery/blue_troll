@@ -1,0 +1,32 @@
+<%= provide(:title, 'Account Activation') %>
+<div>
+  <h4>Hello <%= @user_account.name %>,</h4>
+  <p>
+    Your registration has been successful. Within few minutes,
+    you will receive an email with your activation link and activation code.
+    <br />
+    The email is sent to the following address: <%= @user_account.email %>
+    <br />
+    In order to activate your account enter the code or click on the link in your email.
+  </p>
+  <br />
+
+  <%= form_for(:activate, html: { class: "form-horizontal well" }) do |f| %>
+    <div class="form-group">
+      <%= f.label :activation_code, class: "control-label col-sm-2" %>
+      <div class="col-sm-4">
+        <%= f.email_field :activation_code, class: "form-control", maxlength: 12 %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-7">
+        <%= f.submit "Activate my account", class: "btn btn-primary"%>
+      </div>
+    </div>
+  <% end %>
+
+  <hr />
+  <h4>No email received?</h4>
+  <p>Sometimes the email is moved to the spam folder. To resend activation email please cleck here.</p>
+</div>
