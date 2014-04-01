@@ -13,6 +13,7 @@ describe UserAccount do
   it { should respond_to :password }
   it { should respond_to :password_confirmation }
   it { should respond_to :remember_token }
+  it { should respond_to :activation_code }
   it { should respond_to :crew_lead? }
   it { should respond_to :financier? }
   it { should respond_to :gatekeeper? }
@@ -47,7 +48,7 @@ describe UserAccount do
     end
 
     context "is too short" do
-      before { @user_account.login = "a" * 5 }
+      before { @user_account.login = 'a' }
       it { should_not be_valid }
     end
 
