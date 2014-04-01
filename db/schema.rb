@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20130918193218) do
     t.boolean  "admin",           default: false, null: false
     t.boolean  "dev",             default: false, null: false
     t.boolean  "active",          default: false, null: false
+    t.string   "activation_code"
     t.datetime "activated_at"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -10,7 +10,9 @@ class CreateUserAccounts < ActiveRecord::Migration
       t.boolean :gatekeeper, null: false, default: false
       t.boolean :admin, null: false, default: false
       t.boolean :dev, null: false, default: false
+
       t.boolean :active, null: false, default: false
+      t.string :activation_code
       t.datetime :activated_at
       t.timestamps
     end
@@ -19,4 +21,10 @@ class CreateUserAccounts < ActiveRecord::Migration
     add_index :user_accounts, :email, unique: true
     add_index :user_accounts, :remember_token
   end
+
+
+  UserAccount.create!(login: 'dev',
+    email: 'michael.protsenko@gmail.com', email_confirmation: 'michael.protsenko@gmail.com',
+    password: 'maryika', password_confirmation: 'maryika', active: true, dev: true, gatekeeper: true,
+    financier: true, admin: true)
 end
