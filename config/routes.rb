@@ -5,6 +5,7 @@ BlueTroll::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
 
   get 'request_to_activate', to: 'user_accounts#request_to_activate'
+  post 'activate', to: 'user_accounts#activate'
 
   post 'search', to: 'participants#search'
   get 'flagged', to: 'participants#flagged'
