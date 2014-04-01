@@ -13,10 +13,15 @@ class UserAccountsController < ApplicationController
     @user_account = UserAccount.new(user_account_params)
     if @user_account.save
       flash[:success] = "Welcome to Blue Troll application!"
-      redirect_to @user_account
+      redirect_to request_to_activate_path(@user_account)
     else
       render 'new'
     end
+  end
+
+
+  def request_to_activate
+    @user_account = UserAccount.find(params[:id])
   end
 
 
