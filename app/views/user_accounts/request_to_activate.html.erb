@@ -5,17 +5,17 @@
     Your registration has been successful. Within few minutes,
     you will receive an email with your activation link and activation code.
     <br />
-    The email is sent to the following address: <%= @user_account.email %>
+    The email is sent to the following address: <strong><%= @user_account.email %></strong>
     <br />
     In order to activate your account enter the code or click on the link in your email.
   </p>
   <br />
 
-  <%= form_for(:activate, html: { class: "form-horizontal well" }) do |f| %>
+  <%= form_for(:activation, url: activate_path, html: { class: "form-horizontal well" }) do |f| %>
     <div class="form-group">
-      <%= f.label :activation_code, class: "control-label col-sm-2" %>
+      <%= f.label :code, 'Activation Code:', class: "control-label col-sm-2" %>
       <div class="col-sm-4">
-        <%= f.email_field :activation_code, class: "form-control", maxlength: 12 %>
+        <%= f.text_field :code, class: "form-control", maxlength: 12, required: true %>
       </div>
     </div>
 
@@ -28,5 +28,6 @@
 
   <hr />
   <h4>No email received?</h4>
-  <p>Sometimes the email is moved to the spam folder. To resend activation email please cleck here.</p>
+  <p>Sometimes the email is moved to the spam folder. To resend activation email please click
+    <%= link_to 'here', request_to_activate_path(@user_account) %>.</p>
 </div>
