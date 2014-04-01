@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe "Authentication" do
   describe "sign in" do
     let(:user_account) { FactoryGirl.create(:user_account) }
