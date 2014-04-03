@@ -6,25 +6,26 @@ describe UserAccount do
   subject { @user_account }
 
   it { should respond_to :login }
-  it { should respond_to :name }
   it { should respond_to :email }
   it { should respond_to :email_confirmation }
-  it { should respond_to :password_digest }
   it { should respond_to :password }
   it { should respond_to :password_confirmation }
+  it { should respond_to :password_digest }
   it { should respond_to :remember_token }
-  it { should respond_to :activation_code }
   it { should respond_to :crew_lead? }
   it { should respond_to :financier? }
   it { should respond_to :gatekeeper? }
   it { should respond_to :admin? }
   it { should respond_to :dev? }
   it { should respond_to :active? }
+  it { should respond_to :activation_code }
   it { should respond_to :activated_at }
-  it { should respond_to :authenticate }
-  it { should respond_to :participants }
   it { should respond_to :created_at }
   it { should respond_to :updated_at }
+
+  it { should respond_to :name }
+  it { should respond_to :authenticate }
+  it { should respond_to :participants }
 
   it { should be_valid }
 

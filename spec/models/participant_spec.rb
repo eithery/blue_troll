@@ -16,6 +16,7 @@ describe Participant do
   it { should respond_to :middle_name }
   it { should respond_to :gender }
   it { should respond_to :age_category }
+  it { should respond_to :age }
   it { should respond_to :born_on }
   it { should respond_to :home_phone }
   it { should respond_to :cell_phone }
@@ -27,17 +28,22 @@ describe Participant do
   it { should respond_to :zip }
   it { should respond_to :country }
   it { should respond_to :ticket_code }
+  it { should respond_to :flagged? }
+  it { should respond_to :notes }
   it { should respond_to :approved_at }
   it { should respond_to :approved_by }
+  it { should respond_to :registered_at }
+  it { should respond_to :registered_by }
+  it { should respond_to :payment_type }
   it { should respond_to :payment_sent_at }
   it { should respond_to :payment_sent_by }
   it { should respond_to :payment_notes }
+  it { should respond_to :payment_received_at }
+  it { should respond_to :payment_received_by }
   it { should respond_to :payment_confirmed_at }
   it { should respond_to :payment_confirmed_by }
-  it { should respond_to :registered_at }
-  it { should respond_to :registered_by }
-  it { should respond_to :flagged? }
-  it { should respond_to :notes }
+  it { should respond_to :created_by }
+  it { should respond_to :updated_by }
   it { should respond_to :created_at }
   it { should respond_to :updated_at }
 
