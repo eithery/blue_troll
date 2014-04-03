@@ -20,6 +20,6 @@ describe "New user registration" do
       click_button 'Create my account'
     end
 
-    it { should have_title('Account activation') }
+    it { should have_title('Account Activation') }
   end
 end
