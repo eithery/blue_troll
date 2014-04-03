@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130918193218) do
+ActiveRecord::Schema.define(version: 20140403213123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,18 +29,6 @@ ActiveRecord::Schema.define(version: 20130918193218) do
   add_index "crews", ["name"], name: "index_crews_on_name", unique: true, using: :btree
   add_index "crews", ["native_name"], name: "index_crews_on_native_name", unique: true, using: :btree
 
-  create_table "events", force: true do |t|
-    t.string   "name",                         null: false
-    t.text     "description"
-    t.string   "event_type",  default: "slet", null: false
-    t.integer  "lead_id"
-    t.date     "from",                         null: false
-    t.date     "to",                           null: false
-    t.string   "location",                     null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "participants", force: true do |t|
     t.integer  "crew_id",                                        null: false
     t.integer  "user_account_id",                                null: false
@@ -49,6 +37,7 @@ ActiveRecord::Schema.define(version: 20130918193218) do
     t.string   "middle_name"
     t.integer  "gender"
     t.integer  "age_category",                   default: 0,     null: false
+    t.integer  "age"
     t.date     "born_on"
     t.string   "home_phone"
     t.string   "cell_phone"
@@ -60,19 +49,24 @@ ActiveRecord::Schema.define(version: 20130918193218) do
     t.string   "zip",                  limit: 5
     t.string   "country"
     t.string   "ticket_code"
-    t.datetime "approved_at"
-    t.string   "approved_by"
-    t.datetime "payment_sent_at"
-    t.string   "payment_sent_by"
-    t.string   "payment_notes"
-    t.datetime "payment_confirmed_at"
-    t.string   "payment_confirmed_by"
-    t.datetime "registered_at"
-    t.string   "registered_by"
     t.boolean  "flagged",                        default: false, null: false
     t.boolean  "bool",                           default: false, null: false
     t.text     "notes"
     t.text     "text"
+    t.datetime "approved_at"
+    t.string   "approved_by"
+    t.datetime "registered_at"
+    t.string   "registered_by"
+    t.integer  "payment_type"
+    t.datetime "payment_sent_at"
+    t.string   "payment_sent_by"
+    t.string   "payment_notes"
+    t.datetime "payment_received_at"
+    t.string   "payment_received_by"
+    t.datetime "payment_confirmed_at"
+    t.string   "payment_confirmed_by"
+    t.string   "created_by"
+    t.string   "updated_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

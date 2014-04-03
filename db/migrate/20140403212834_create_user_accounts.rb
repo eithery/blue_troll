@@ -1,10 +1,11 @@
 class CreateUserAccounts < ActiveRecord::Migration
-  def change
+  def up
     create_table :user_accounts do |t|
       t.string :login, null: false
       t.string :email, null: false
       t.string :password_digest, null: false
       t.string :remember_token, null: false
+
       t.boolean :crew_lead, null: false, default: false
       t.boolean :financier, null: false, default: false
       t.boolean :gatekeeper, null: false, default: false
@@ -20,11 +21,16 @@ class CreateUserAccounts < ActiveRecord::Migration
     add_index :user_accounts, :login, unique: true
     add_index :user_accounts, :email, unique: true
     add_index :user_accounts, :remember_token
+
+
+    UserAccount.create!(login: 'dev',
+      email: 'michael.protsenko@gmail.com', email_confirmation: 'michael.protsenko@gmail.com',
+      password: 'maryika', password_confirmation: 'maryika', active: true, dev: true, gatekeeper: true,
+      financier: true, admin: true)
   end
 
 
-  UserAccount.create!(login: 'dev',
-    email: 'michael.protsenko@gmail.com', email_confirmation: 'michael.protsenko@gmail.com',
-    password: 'maryika', password_confirmation: 'maryika', active: true, dev: true, gatekeeper: true,
-    financier: true, admin: true)
+  def down
+    drop_table :user_accounts
+  end
 end
