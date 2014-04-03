@@ -7,7 +7,7 @@ development:
   password: admin
 
 
-test: &test
+test:
   adapter: postgresql
   encoding: unicode
   database: blue_trolley_test
@@ -23,15 +23,3 @@ production:
   pool: 5
   username: admin
   password: admin
-
-
-cucumber:
-  <<: *test
-
-
-# SQL server settings:
-# adapter: sqlserver
-# dataserver: localhost\SQL2012
-# database: blue_trolley
-# username: rails
-# password: blue_troll
