@@ -33,6 +33,7 @@ private
     self.remember_token = SecureRandom.urlsafe_base64
   end
 
+
   def generate_activation_code
     self.activation_code = SecureRandom.hex[0, 10] if self.activation_code.blank?
   end

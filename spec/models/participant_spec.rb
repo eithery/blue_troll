@@ -47,6 +47,9 @@ describe Participant do
   it { should respond_to :created_at }
   it { should respond_to :updated_at }
 
+  it { should respond_to :full_name }
+  specify { Participant.should respond_to :find_by_ticket }
+
   it { should be_valid }
 
 
