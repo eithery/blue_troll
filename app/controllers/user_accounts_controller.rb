@@ -12,7 +12,8 @@ class UserAccountsController < ApplicationController
   def create
     @user_account = UserAccount.new(user_account_params)
     if @user_account.save
-      flash[:success] = "Welcome to Blue Troll application!"
+      flash[:success] = "New user account for #{@user_account.name} is created."
+      RegistrationNotifier.registered(@user_account).deliver
       redirect_to request_to_activate_path(account_id: @user_account.id)
     else
       render 'new'
