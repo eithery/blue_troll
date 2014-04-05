@@ -1,8 +1,27 @@
 require 'spec_helper'
 
+shared_examples_for "user is signed out" do
+  it { should have_link sign_in }
+  it { should_not have_link sign_out }
+end
+
+shared_examples_for "successfully redirected to user profile page" do
+  it { should have_title(user.name) }
+  it { should have_link sign_out }
+  it { should_not have_link sign_in }
+end
+
+shared_examples_for "sign in failed" do
+  it_behaves_like "user is signed out"
+  it { should have_title sign_in }
+  it { should have_selector '.alert', text: 'Invalid login/password combination' }
+end
+
+
 describe "Sign in" do
   subject { page }
-  let(:user_account) { FactoryGirl.create(:user_account) }
+  let(:user) { FactoryGirl.create(:active_user) }
+  let(:inactive_user) { FactoryGirl.create(:inactive_user) }
   let(:sign_in) { 'Sign in' }
   let(:sign_out) { 'Sign out' }
   before do
@@ -17,20 +36,8 @@ describe "Sign in" do
 
 
   context "with valid information" do
-    shared_examples_for "user is signed out" do
-      it { should have_link sign_in }
-      it { should_not have_link sign_out }
-    end
-
-    shared_examples_for "successfully redirected to user profile page" do
-      it { should have_title(user_account.name) }
-      it { should have_link sign_out }
-      it { should_not have_link sign_in }
-    end
-
-
     context "based on login" do
-      before { submit_form user_account.login }
+      before { submit_form user.login }
       it_behaves_like "successfully redirected to user profile page"
 
       describe "followed by sign out" do
@@ -42,19 +49,21 @@ describe "Sign in" do
 
 
     context "based on email" do
-      before { submit_form user_account.email }
+      before { submit_form user.email }
       it_behaves_like "successfully redirected to user profile page"
+    end
+
+
+    context "when account is not activated" do
+      before { submit_form inactive_user.login }
+      it_behaves_like "user is signed out"
+      it { should have_title sign_in }
+      it { should have_selector '.alert', text: 'User account is not activated' }
     end
   end
 
 
   context "witn invalid information" do
-    shared_examples_for "sign in failed" do
-      it_behaves_like "user is signed out"
-      it { should have_title sign_in }
-      it { should have_selector 'div.alert', text: 'Invalid login/password combination' }
-    end
-
     context "when login does not exist" do
       before { submit_form 'incorrect_login' }
       it_behaves_like "sign in failed"
@@ -66,14 +75,14 @@ describe "Sign in" do
     end
 
     context "when password is incorrect" do
-      before { submit_form user_account.login, 'incorrect_password' }
+      before { submit_form user.login, 'incorrect_password' }
       it_behaves_like "sign in failed"
     end
   end
 
 
 private
-    def submit_form(login_or_email, password=user_account.password)
+    def submit_form(login_or_email, password=user.password)
       fill_in 'Login or Email', with: login_or_email
       fill_in 'Password', with: password
       click_button sign_in
