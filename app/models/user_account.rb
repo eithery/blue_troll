@@ -8,14 +8,13 @@ class UserAccount < ActiveRecord::Base
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :email, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
   validates :email, confirmation: true
-  validates :email_confirmation, presence: true
   validates :password, length: { minimum: 6 }, allow_blank: true
 
   before_save do
     self.login.downcase!
     self.email.downcase!
   end
-  before_save :create_remember_token
+  before_save :create_remember_token, :generate_activation_code
 
 
   def initialize(attributes={})
@@ -28,10 +27,8 @@ class UserAccount < ActiveRecord::Base
   end
 
 
-  def activate(activation_code)
-    activated = self.activation_code == activation_code
-    update_attributes(active: true, activated_at: Time.now) if activated
-    activated
+  def activate(code)
+    self.activation_code == code && update_attributes!(active: true, activated_at: Time.now)
   end
 
 
@@ -42,6 +39,6 @@ private
 
 
   def generate_activation_code
-    self.activation_code = SecureRandom.hex[0, 10] if self.activation_code.blank?
+    self.activation_code = SecureRandom.hex[0, 6].to_i(16).to_s if self.activation_code.blank?
   end
 end

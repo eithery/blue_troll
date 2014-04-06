@@ -12,7 +12,7 @@ class UserAccountsController < ApplicationController
   def create
     @user = UserAccount.new(user_account_params)
     if @user.save
-      flash[:success] = "New user account for #{@user.name} is created."
+      flash[:success] = "New user account for #{@user.name} has been created."
       RegistrationNotifier.registered(@user).deliver
       redirect_to request_to_activate_path(account_id: @user.id)
     else
@@ -31,8 +31,11 @@ class UserAccountsController < ApplicationController
     activation_code = params[:activation][:code].strip
     user = UserAccount.find(user_id)
     if user.activate(activation_code)
-      flash[:success] = "Congratulation! Your account has been successfully activated."
+      flash[:success] = "Congratulation! Your account has been successfully activated"
       redirect_to signin_path
+    else
+      flash[:warning] = "Incorrect activation code"
+      redirect_to request_to_activate_path(account_id: user.id)
     end
   end
 
