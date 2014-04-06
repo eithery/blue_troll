@@ -1,17 +1,18 @@
 <%= provide(:title, 'Account Activation') %>
 <div>
-  <h4>Hello <%= @user_account.name %>, Welcome to Blue Trolley club!</h4>
+  <h4>Hello <%= @user.name %>, Welcome to Blue Trolley club!</h4>
   <p>
     Your registration has been successful. Within few minutes,
     you will receive an email with your activation link and activation code.
     <br />
-    The email is sent to the following address: <strong><%= @user_account.email %></strong>
+    The email is sent to the following address: <strong><%= @user.email %></strong>
     <br />
     In order to activate your account enter the code or click on the link in your email.
   </p>
   <br />
 
   <%= form_for(:activation, url: activate_path, html: { class: "form-horizontal well" }) do |f| %>
+    <%= f.hidden_field :user_account, value: @user.id %>
     <div class="form-group">
       <%= f.label :code, 'Activation Code:', class: "control-label col-sm-2" %>
       <div class="col-sm-4">
@@ -29,5 +30,5 @@
   <hr />
   <h4>No email received?</h4>
   <p>Sometimes the email is moved to the spam folder. To resend activation email please click
-    <%= link_to 'here', request_to_activate_path(@user_account) %>.</p>
+    <%= link_to 'here', request_to_activate_path(@user) %>.</p>
 </div>

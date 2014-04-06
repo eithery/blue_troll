@@ -1,20 +1,20 @@
 class UserAccountsController < ApplicationController
   def new
-    @user_account = UserAccount.new
+    @user = UserAccount.new
   end
 
 
   def show
-    @user_account = UserAccount.find(params[:id])
+    @user = UserAccount.find(params[:id])
   end
 
 
   def create
-    @user_account = UserAccount.new(user_account_params)
-    if @user_account.save
-      flash[:success] = "New user account for #{@user_account.name} is created."
-      RegistrationNotifier.registered(@user_account).deliver
-      redirect_to request_to_activate_path(account_id: @user_account.id)
+    @user = UserAccount.new(user_account_params)
+    if @user.save
+      flash[:success] = "New user account for #{@user.name} is created."
+      RegistrationNotifier.registered(@user).deliver
+      redirect_to request_to_activate_path(account_id: @user.id)
     else
       render 'new'
     end
@@ -22,13 +22,18 @@ class UserAccountsController < ApplicationController
 
 
   def request_to_activate
-    @user_account = UserAccount.find(params[:account_id])
+    @user = UserAccount.find(params[:account_id])
   end
 
 
   def activate
-    flash[:success] = "User account has been successfully activated."
-    redirect_to signin_path
+    user_id = params[:activation][:user_account]
+    activation_code = params[:activation][:code].strip
+    user = UserAccount.find(user_id)
+    if user.activate(activation_code)
+      flash[:success] = "Congratulation! Your account has been successfully activated."
+      redirect_to signin_path
+    end
   end
 
 

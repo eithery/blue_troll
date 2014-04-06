@@ -28,6 +28,13 @@ class UserAccount < ActiveRecord::Base
   end
 
 
+  def activate(activation_code)
+    activated = self.activation_code == activation_code
+    update_attributes(active: true, activated_at: Time.now) if activated
+    activated
+  end
+
+
 private
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64
