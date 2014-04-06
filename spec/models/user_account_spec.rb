@@ -26,6 +26,7 @@ describe UserAccount do
   it { should respond_to :name }
   it { should respond_to :authenticate }
   it { should respond_to :participants }
+  it { should respond_to :activate }
 
   it { should be_valid }
 

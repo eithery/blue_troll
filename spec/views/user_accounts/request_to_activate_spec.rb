@@ -5,7 +5,7 @@ describe "user_accounts/request_to_activate.html.erb" do
   let(:user_login) { 'johnsmith' }
   let(:user_email) { 'johnsmith@gmail.com' }
   before do
-    assign(:user_account, stub_model(UserAccount, name: user_login, email: user_email))
+    assign(:user, stub_model(UserAccount, name: user_login, email: user_email))
     render
   end
 
