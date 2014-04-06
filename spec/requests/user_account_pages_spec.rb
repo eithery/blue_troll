@@ -48,10 +48,10 @@ describe "User account pages" do
 
 
   describe "profile page" do
-    let(:user_account) { FactoryGirl.create(:user_account) }
-    before { visit user_account_path(user_account) }
+    let(:user) { FactoryGirl.create(:active_user) }
+    before { visit user_account_path(user) }
 
-    it { should have_title "Blue Troll | #{user_account.name} profile" }
+    it { should have_title "Blue Troll | #{user.name} profile" }
 
     it_behaves_like "Page with header"
     it_behaves_like "Page with footer"

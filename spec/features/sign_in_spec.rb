@@ -82,9 +82,9 @@ describe "Sign in" do
 
 
 private
-    def submit_form(login_or_email, password=user.password)
-      fill_in 'Login or Email', with: login_or_email
-      fill_in 'Password', with: password
-      click_button sign_in
-    end
+  def submit_form(login_or_email, password=user.password)
+    fill_in 'Login or Email', with: login_or_email
+    fill_in 'Password', with: password
+    click_button sign_in
+  end
 end
