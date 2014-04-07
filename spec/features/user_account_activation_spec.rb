@@ -1,68 +1,69 @@
 require 'spec_helper'
+include UserRegistrationHelper
 
 describe "User account activation" do
-  let(:user) { FactoryGirl.build(:inactive_user) }
+  let(:invalid_code) { '12345678' }
   let(:create_account) { 'Create my account' }
+  let(:activate_account) { 'Activate my account' }
+  let(:base_activation_url) { "http://localhost:3000/activate?activation_id=" }
+  let(:user) { FactoryGirl.build(:inactive_user) }
   before do
-    visit root_path
-    click_link 'Register now!'
-
-    fill_in 'Login', with: user.login
-    fill_in 'Password', with: user.password
-    fill_in 'Password Confirmation', with: user.password
-    fill_in 'Email', with: user.email
-    fill_in 'Email Confirmation', with: user.email
-
-    click_button create_account
+    register user
   end
 
-  describe "with correct activation code" do
-    before do
-      inactive_user = UserAccount.find_by_email(user.email)
-      fill_in 'Activation Code', with: inactive_user.activation_code
-      click_button 'Activate my account'
+  describe "by activation code" do
+    describe "with correct activation code" do
+      before { activate_by_code registered_user.activation_code }
+
+      it_behaves_like "account is activated"
+      it_behaves_like "sign in page with success activation message"
     end
 
-    describe "user account" do
-      subject { active_user }
-      let(:active_user) { UserAccount.find_by_email(user.email) }
-      it { should be_active }
-    end
 
-    describe "navigated page" do
-      subject { page }
-      it { should have_title('Sign in') }
-      it { should have_selector('.alert-success',
-        text: 'Congratulation! Your account has been successfully activated') }
+    describe "with incorrect activation code" do
+      before { activate_by_code invalid_code }
+
+      it_behaves_like "account is not activated"
+      it_behaves_like "activation page"
+      it_behaves_like "invalid activation code message"
     end
   end
 
 
-  describe "with incorrect activation code" do
-    let(:incorrect_code) { '123456' }
-    before do
-      fill_in 'Activation Code', with: incorrect_code
-      click_button 'Activate my account'
+  describe "by activation link" do
+    describe "with correct activation link" do
+      before { activate_by_link registered_user.activation_code }
+
+      it_behaves_like "account is activated"
+      it_behaves_like "sign in page with success activation message"
     end
 
-    describe "user account" do
-      subject { active_user }
-      let(:active_user) { UserAccount.find_by_email(user.email) }
-      it { should_not be_active }
-    end
 
-    describe "navigated page" do
-      subject { page }
-      it { should have_title('Account Activation') }
-      it { should have_selector('.alert-warning', text: 'Incorrect activation code') }
+    describe "with incorrect activation link" do
+      before { activate_by_link invalid_code }
+
+      it_behaves_like "account is not activated"
+      it_behaves_like "home page"
+      it_behaves_like "invalid activation code message"
     end
   end
 
 
-  describe "with correct activation link" do
+private
+  def activate_by_code(activation_code)
+    fill_in 'Activation Code', with: activation_code
+    click_button activate_account
+    @user = registered_user
   end
 
 
-  describe "with incorrect activation link" do
+  def activate_by_link(activation_code)
+    visit base_activation_url + activation_code
+    @user = registered_user
+  end
+
+
+  def registered_user
+    UserAccount.find_by_login(user.login)
   end
 end
