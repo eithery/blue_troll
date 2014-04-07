@@ -3,6 +3,10 @@ module PageExamples
     specify { page.should have_title('Home') }
   end
 
+  shared_examples_for "registration page" do
+    specify { page.should have_title('New User Account') }
+  end
+
   shared_examples_for "sign in page" do
     specify { page.should have_title('Sign in') }
   end

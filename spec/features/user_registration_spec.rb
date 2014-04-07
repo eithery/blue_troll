@@ -1,54 +1,41 @@
 require 'spec_helper'
+include UserRegistrationHelper
 
 describe "User account registration:" do
   let(:user) { FactoryGirl.build(:inactive_user) }
-  let(:create_account) { 'Create my account' }
   subject { page }
-  before do
-    visit root_path
-    click_link 'Register now!'
-  end
+  before { visit_registration_page }
 
-
-  describe "user is navigated to new user account page" do
-    it { should have_title('New User Account') }
-  end
+  it_behaves_like "registration page"
 
 
   describe "when user is not registered yet" do
     describe "and enters and submit all valid information (happy path)" do
-      before do
-        fill_in 'Login', with: user.login
-        fill_in 'Password', with: user.password
-        fill_in 'Password Confirmation', with: user.password
-        fill_in 'Email', with: user.email
-        fill_in 'Email Confirmation', with: user.email
-      end
-
+      before { fill_registration_form(user) }
 
       specify "new user account should be created" do
-        expect { click_button create_account }.to change{ UserAccount.count }.by(1)
+        expect { submit_registration_form }.to change{ UserAccount.count }.by(1)
       end
 
 
       describe "user is navigated to account activation page" do
-        before { click_button create_account }
+        before { submit_registration_form }
 
-        it { should have_title('Account Activation') }
+        it_behaves_like "activation page"
         it { should have_content("Hello #{user.login}, Welcome to Blue Trolley club!") }
         it { should have_content("Within few minutes, you will receive an email " +
           "with your activation link and activation code.") }
         it { should have_content("The email is sent to the following address: #{user.email}") }
         it { should have_content("In order to activate your account enter the code or " +
           "click on the link in your email.") }
-        it { should have_selector('.alert-success', text: "New user account for #{user.login} is created.") }
+        it { should have_selector('.alert-success', text: "New user account for #{user.login} has been created.") }
       end
 
 
       describe "user receives email" do
         let(:mail) { RegistrationNotifier.deliveries.first }
         subject { mail }
-        before { click_button create_account }
+        before { submit_registration_form }
 
         specify { mail.to.should include(user.email) }
         specify { mail.subject.should == "Blue Trolley club account activation" }
@@ -56,7 +43,7 @@ describe "User account registration:" do
         describe "body" do
           subject { mail.body.encoded }
           it { should =~ /https:\/\/bluetrolley2014\./ }
-          it { should =~ /Your account activation code is: [0-9]{10}/ }
+          it { should =~ /Your account activation code is: [0-9]+/ }
         end
       end
     end

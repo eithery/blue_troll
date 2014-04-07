@@ -3,7 +3,6 @@ include UserRegistrationHelper
 
 describe "User account activation" do
   let(:invalid_code) { '12345678' }
-  let(:create_account) { 'Create my account' }
   let(:activate_account) { 'Activate my account' }
   let(:base_activation_url) { "http://localhost:3000/activate?activation_id=" }
   let(:user) { FactoryGirl.build(:inactive_user) }
