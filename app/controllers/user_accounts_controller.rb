@@ -30,13 +30,20 @@ class UserAccountsController < ApplicationController
     user_id = params[:activation][:user_account]
     activation_code = params[:activation][:code].strip
     user = UserAccount.find(user_id)
-    if user.activate(activation_code)
-      flash[:success] = "Congratulation! Your account has been successfully activated"
-      redirect_to signin_path
-    else
-      flash[:warning] = "Incorrect activation code"
-      redirect_to request_to_activate_path(account_id: user.id)
-    end
+    return valid_activation user if user.activate(activation_code)
+
+    invalid_activation
+    redirect_to request_to_activate_path(account_id: user.id)
+  end
+
+
+  def activate_by_link
+    activation_code = params[:activation_id]
+    user = UserAccount.find_by_activation_code(activation_code)
+    return valid_activation user if user && user.activate(activation_code)
+
+    invalid_activation
+    redirect_to root_path
   end
 
 
@@ -44,5 +51,16 @@ private
   def user_account_params
     params.require(:user_account).permit(:id, :login, :email, :email_confirmation, :password, :password_confirmation,
       :remember_token)
+  end
+
+
+  def invalid_activation
+    flash[:danger] = "Invalid activation code"
+  end
+
+
+  def valid_activation(user)
+    flash[:success] = "Congratulation, #{user.name}! Your account has been successfully activated"
+    redirect_to signin_path
   end
 end
