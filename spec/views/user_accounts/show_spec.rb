@@ -9,5 +9,5 @@ describe "user_accounts/show.html.erb" do
   end
 
   it { should have_selector('table') }
-  it { should have_link 'Create new participant' }
+  it { should have_link 'Register new participant' }
 end

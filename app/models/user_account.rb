@@ -29,7 +29,8 @@ class UserAccount < ActiveRecord::Base
 
 
   def activate(code)
-    self.activation_code == code && update_attributes!(active: true, activated_at: Time.now)
+    self.activation_code == code &&
+      update_attributes!(email_confirmation: email, active: true, activated_at: Time.now)
   end
 
 
