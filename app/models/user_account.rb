@@ -8,6 +8,7 @@ class UserAccount < ActiveRecord::Base
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :email, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
   validates :email, confirmation: true
+  validates :email_confirmation, presence: true
   validates :password, length: { minimum: 6 }, allow_blank: true
 
   before_save do

@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 describe UserAccount do
-  before { @user_account = UserAccount.new(login: 'jsmith', email: 'jsmith@gmail.com',
-    email_confirmation: 'jsmith@gmail.com', password: 'secret', password_confirmation: 'secret') }
+  before { @user_account = FactoryGirl.build(:inactive_user) }
   subject { @user_account }
 
   it { should respond_to :login }
@@ -11,13 +10,15 @@ describe UserAccount do
   it { should respond_to :password }
   it { should respond_to :password_confirmation }
   it { should respond_to :password_digest }
-  it { should respond_to :remember_token }
   it { should respond_to :crew_lead? }
   it { should respond_to :financier? }
   it { should respond_to :gatekeeper? }
   it { should respond_to :admin? }
   it { should respond_to :dev? }
+  it { should respond_to :remember_token }
+  it { should respond_to :reset_password_token }
   it { should respond_to :active? }
+  it { should respond_to :activation_token }
   it { should respond_to :activation_code }
   it { should respond_to :activated_at }
   it { should respond_to :created_at }

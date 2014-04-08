@@ -27,7 +27,9 @@ class Participant < ActiveRecord::Base
 
 
   def email
-    self[:email].empty? ? user_account.email : self[:email]
+    return self[:email] unless self[:email].blank?
+    return user_account.email unless user_account.nil?
+    nil
   end
 
 
