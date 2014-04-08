@@ -135,7 +135,7 @@ class ParticipantsController < ApplicationController
 
   def participant_params
     params.require(:participant).permit(:user_account_id, :crew_id, :last_name, :first_name,
-      :ticket_code, :email, :address_line_1, :child, :import_id, :sent, :sent_by,
+      :ticket_code, :email, :address_line_1, :age_category, :age, :cell_phone, :import_id, :sent, :sent_by,
       :registered_at, :registered_by, :flagged, :notes)
   end
 end

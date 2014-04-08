@@ -64,13 +64,14 @@ private
 	def create_ticket(participant)
 		Disclaimer.new(id: participant.ticket_code.to_i(16).to_s, group: participant.crew.name,
 			group_native: participant.crew.native_name, name: "#{participant.first_name} #{participant.last_name}",
-			address: participant.address, age: age_category(participant.category))
+			address: participant.address, age: age_label(participant))
 	end
 
 
 private
-	def age_category(participant_category)
-		age_mark = participant_category[0].upcase
-		age_mark == 'A' ? age_mark : age_mark + "___"
+	def age_label(participant)
+		return 'A' if participant.age_category == AgeCategory::ADULT
+		return 'C' if participant.age_category == AgeCategory::CHILD
+		return "B #{participant.age.nil? ? ____ : participant.age}"
 	end
 end
