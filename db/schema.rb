@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(version: 20140403213123) do
     t.string   "zip",                  limit: 5
     t.string   "country"
     t.string   "ticket_code"
+    t.boolean  "primary",                        default: true,  null: false
     t.boolean  "flagged",                        default: false, null: false
-    t.boolean  "bool",                           default: false, null: false
     t.text     "notes"
     t.text     "text"
     t.datetime "approved_at"
@@ -72,16 +72,18 @@ ActiveRecord::Schema.define(version: 20140403213123) do
   end
 
   create_table "user_accounts", force: true do |t|
-    t.string   "login",                           null: false
-    t.string   "email",                           null: false
-    t.string   "password_digest",                 null: false
-    t.string   "remember_token",                  null: false
-    t.boolean  "crew_lead",       default: false, null: false
-    t.boolean  "financier",       default: false, null: false
-    t.boolean  "gatekeeper",      default: false, null: false
-    t.boolean  "admin",           default: false, null: false
-    t.boolean  "dev",             default: false, null: false
-    t.boolean  "active",          default: false, null: false
+    t.string   "login",                                null: false
+    t.string   "email",                                null: false
+    t.string   "password_digest",                      null: false
+    t.boolean  "crew_lead",            default: false, null: false
+    t.boolean  "financier",            default: false, null: false
+    t.boolean  "gatekeeper",           default: false, null: false
+    t.boolean  "admin",                default: false, null: false
+    t.boolean  "dev",                  default: false, null: false
+    t.string   "remember_token",                       null: false
+    t.string   "reset_password_token"
+    t.boolean  "active",               default: false, null: false
+    t.string   "activation_token"
     t.string   "activation_code"
     t.datetime "activated_at"
     t.datetime "created_at"

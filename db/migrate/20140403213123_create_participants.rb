@@ -29,7 +29,8 @@ class CreateParticipants < ActiveRecord::Migration
       t.string :ticket_code
 
       # Misc fields.
-      t.boolean :flagged, :bool, null: false, default: false
+      t.boolean :primary, null: false, default: true
+      t.boolean :flagged, null: false, default: false
       t.text :notes, :text
 
       # Registration status.
