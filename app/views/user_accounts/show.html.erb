@@ -48,7 +48,7 @@
     </tbody>
   </table>
 </div>
-<%= link_to 'Register new participant', new_participant_path(user_account_id: @user.id, crew_id: 7),
+<%= link_to 'Register new participant', new_participant_path(user_account_id: @user.id, crew_id: @user.crew),
   class: "btn btn-lg btn-primary" %>
-<%= link_to 'Download my tickets', new_participant_path(user_account_id: @user.id, crew_id: 3),
+<%= link_to 'Download my tickets', new_participant_path(user_account_id: @user.id, crew_id: @user.crew),
   class: "btn btn-lg btn-info" %>

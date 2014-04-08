@@ -34,6 +34,11 @@ class UserAccount < ActiveRecord::Base
   end
 
 
+  def crew
+    participants.any? ? participants.first.crew : nil
+  end
+
+
 private
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64

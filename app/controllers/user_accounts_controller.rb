@@ -1,11 +1,12 @@
 class UserAccountsController < ApplicationController
+  before_action :set_user_account, only: [:show, :request_to_activate]
+
   def new
     @user = UserAccount.new
   end
 
 
   def show
-    @user = UserAccount.find(params[:id])
   end
 
 
@@ -22,7 +23,6 @@ class UserAccountsController < ApplicationController
 
 
   def request_to_activate
-    @user = UserAccount.find(params[:account_id])
   end
 
 
@@ -48,6 +48,11 @@ class UserAccountsController < ApplicationController
 
 
 private
+  def set_user_account
+    @user = UserAccount.find(params[:id])
+  end
+
+
   def user_account_params
     params.require(:user_account).permit(:id, :login, :email, :email_confirmation, :password, :password_confirmation,
       :remember_token)

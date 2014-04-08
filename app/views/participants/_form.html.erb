@@ -4,14 +4,13 @@
     <fieldset>
       <legend><%= form_header %></legend>
       <%= render 'shared/error_messages', errors: @participant.errors, entity_name: 'participant' %>
-      <%= f.hidden_field :crew_id %>
       <%= f.hidden_field :user_account_id %>
 
       <div class="form-group">
         <%= f.label :crew, class: "control-label col-sm-3" %>
         <div class="col-sm-5">
           <%= collection_select :participant, :crew_id, all_crews, :id, :name,
-            { include_blank: true }, { class: "form-control", disabled: true } %>
+            { include_blank: true }, { class: "form-control" } %>
         </div>
       </div>
 
