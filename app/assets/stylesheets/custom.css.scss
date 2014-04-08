@@ -19,7 +19,6 @@ body {
 }
 
 
-
 /* sidebar */
 .gravatar {
 	float: left;
@@ -36,8 +35,8 @@ body {
 /* Blue Trolley specific assets. */
 
 .bt-img {
-	margin-right: 2px;
-	margin-left: 2px;
+	margin-right: 1px;
+	margin-left: 1px;
 }
 
 
@@ -45,19 +44,9 @@ body {
 	height: 22px;
 }
 
-.bt-img {
-	margin-right: 2px;
-	margin-left: 2px;
-}
 
 .bt-actions {
 	text-align: left;
-}
-
-
-.bt-table-cell {
-	font-family: $tableFont;
-	font-size: 1.1em;
 }
 
 

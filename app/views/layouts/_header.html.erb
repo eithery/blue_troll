@@ -5,22 +5,26 @@
       <nav>
         <ul class="nav navbar-nav pull-left">
           <% if signed_in? %>
-            <li><%= link_to "Home", root_path %></li>
+<!--            
             <li><%= link_to "Crews", crews_path %></li>
             <li><%= link_to "New Participant", new_participant_path(crew_id: yield(:crew_id)) %></li>
             <li><%= link_to "Check in", checkin_path %></li>
             <li><%= link_to "Statistics", statistics_path %></li>
+-->
           <% end %>
         </ul>
+<!--
         <% if signed_in? %>
           <%= form_for(:search, url: search_path, html: { class: "navbar-form navbar-left" }) do |f| %>
             <%= f.text_field :pattern, class: "form-control col-lg-8", placeholder: 'Search' %>
           <% end %>
         <% end %>
+-->
         <ul class="nav navbar-nav pull-right">
           <% unless signed_in? %>
             <li><%= link_to "Sign in", signin_path %></li>
           <% else %>
+            <li><%= link_to "My Profile", root_path %></li>
             <li><%= link_to "Sign out", signout_path, method: 'delete' %></li>
           <% end %>
         </ul>

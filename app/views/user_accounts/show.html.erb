@@ -11,41 +11,43 @@
 </div>
 <br />
 <h4>Registered Participants</h4>
-<table class="table table-bordered table-striped table-hover shadowed-form">
-  <thead>
-    <tr>
-      <th class="span1">#</th>
-      <th class="span4">Last Name</th>
-      <th class="span4">First Name</th>
-      <th class="span1">Age</th>
-      <th class="span1">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @user.participants.each.with_index do |participant, idx| %>
+<div class="shadowed-form">
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
       <tr>
-        <td class="bt-table-cell"><%= idx+1 %></td>
-        <td class="bt-table-cell"><%= participant.last_name %></td>
-        <td class="bt-table-cell"><%= participant.first_name %></td>
-        <td class="bt-table-cell"><%= participant.age %></td>
-        <td class="bt-table-cell">
-          <div>
-            <%= link_to image_tag('edit.png', alt: 'Edit Participant', class: "bt-img"),
-              edit_participant_path(participant), title: "Click here to edit #{participant.display_name} profile",
-              rel: 'tooltip' %>
-            <%= link_to image_tag('delete.png', alt: 'Delete Participant', class: "bt-img"),
-              participant_path(participant), method: :delete,
-              title: "Click here to delete #{participant.display_name} from Blue Trolley participants list", rel: 'tooltip',
-              data: { confirm: "Are you sure to delete #{participant.display_name} from the participants list?" } %>
-            <%= link_to image_tag('ticket.png', alt: 'Generate ticket', class: "bt-img bt-img-reduced"),
-              participant_ticket_path(participant_id: participant),
-              title: "Click here to download a ticket for #{participant.display_name}", rel: 'tooltip' %>
-          </div>
-        </td>
+        <th class="col-sm-1">#</th>
+        <th class="col-sm-5">Name</th>
+        <th class="col-sm-4">Email</th>
+        <th class="col-sm-1">Age</th>
+        <th class="col-sm-1">Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @user.participants.each.with_index do |participant, idx| %>
+        <tr>
+          <td><%= idx+1 %></td>
+          <td><%= participant.full_name %></td>
+          <td><%= link_to participant.email, "mailto:#{participant.email}" %></td>
+          <td><%= participant.age %></td>
+          <td>
+            <div>
+              <%= link_to image_tag('edit.png', alt: 'Edit Participant', class: "bt-img"),
+                edit_participant_path(participant), title: "Click here to edit #{participant.display_name} profile",
+                rel: 'tooltip' %>
+              <%= link_to image_tag('delete.png', alt: 'Delete Participant', class: "bt-img"),
+                participant_path(participant), method: :delete,
+                title: "Click here to delete #{participant.display_name} from Blue Trolley participants list", rel: 'tooltip',
+                data: { confirm: "Are you sure to delete #{participant.display_name} from the participants list?" } %>
+              <%= link_to image_tag('ticket.png', alt: 'Generate ticket', class: "bt-img bt-img-reduced"),
+                participant_ticket_path(participant_id: participant),
+                title: "Click here to download a ticket for #{participant.display_name}", rel: 'tooltip' %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 <%= link_to 'Register new participant', new_participant_path(user_account_id: @user.id, crew_id: 7),
   class: "btn btn-lg btn-primary" %>
 <%= link_to 'Download my tickets', new_participant_path(user_account_id: @user.id, crew_id: 3),
