@@ -1,14 +1,14 @@
-<% if @user.errors.any? %>
+<% if errors.any? %>
   <div class="panel panel-danger">
     <button type="button" class="close" data-dismiss="alert">×</button>
     <div class="panel-heading">
       <div class="panel-title">
-        <strong><%= pluralize(@user.errors.count, "error") %> prohibited this user account from being saved:</strong>
+        <strong><%= pluralize(errors.count, "error") %> prohibited this <%= entity_name %> from being saved:</strong>
       </div>
     </div>
     <div class="panel-body">
       <ul>
-        <% @user.errors.full_messages.each do |msg| %>
+        <% errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
       </ul>

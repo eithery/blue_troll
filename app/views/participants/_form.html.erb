@@ -1,80 +1,83 @@
-<h1><%= form_header %></h1>
-<%= form_for(@participant, html: { class: "form-horizontal well" }) do |f| %>
-  <% if @participant.errors.any? %>
-    <div id="error_explanation" class="alert alert-block alert-error">
-      <a class="close">×</a>
-      <strong><%= pluralize(@participant.errors.count, "error") %> prohibited this participant from being saved:</strong>
-      <ul>
-      <% @participant.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+<div class="shadowed-form">
+  <%= form_for(@participant, html: { class: "form-horizontal well" }) do |f| %>
+
+    <fieldset>
+      <legend><%= form_header %></legend>
+      <%= render 'shared/error_messages', errors: @participant.errors, entity_name: 'participant' %>
+
+      <div class="form-group">
+        <%= f.label :crew, class: "control-label col-sm-3" %>
+        <div class="col-sm-5">
+          <%= collection_select :participant, :crew_id, all_crews, :id, :name,
+            { include_blank: true }, { class: "form-control", disabled: true } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :last_name, class: "control-label col-sm-3" %>
+        <div class="col-sm-5">
+          <%= f.text_field :last_name, class: "form-control", autofocus: true %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :first_name, class: "control-label col-sm-3" %>
+        <div class="col-sm-5">
+          <%= f.text_field :first_name, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'Age Category', class: "control-label col-sm-3" %>
+        <div class="col-sm-5">
+          <div class="radio">
+            <label><%= f.radio_button :age_category, AgeCategory::ADULT %>Adult<label>
+          </div>
+          <div class="radio">
+            <label><%= f.radio_button :age_category, AgeCategory::CHILD %>Child (more than 9 years)</label>
+          </div>
+          <div class="radio">
+            <label><%= f.radio_button :age_category, AgeCategory::BABY %>Child (0 - 9 years)</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :age, class: "control-label col-sm-3" %>
+        <div class="col-sm-1">
+          <%= f.text_field :age, class: "form-control", maxlength: 2 %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email, class: "control-label col-sm-3" %>
+        <div class="col-sm-5">
+          <%= f.email_field :email, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :cell_phone, 'Phone', class: "control-label col-sm-3" %>
+        <div class="col-sm-3">
+          <%= f.text_field :cell_phone, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :address_line_1, 'Address', class: "control-label col-sm-3" %>
+        <div class="col-sm-5">
+          <%= f.text_area :address_line_1, class: "form-control", rows: 6 %>
+        </div>
+      </div>
+
+      <br />
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-7">
+          <%= f.submit class: "btn btn-primary btn-lg" %>
+          <%= link_to "Cancel", redirect_by_cancel, class: "btn btn-lg btn-default" %>
+        </div>
+      </div>
+
+    </fieldset>
   <% end %>
-
-  <fieldset>
-    <div class="field control-group">
-      <%= f.label :crew, class: "control-label" %>
-      <div class="controls">
-        <%= collection_select :participant, :crew_id, all_crews, :id, :name, include_blank: true %>
-      </div>
-    </div>
-
-    <div class="field control-group">
-      <%= f.label :last_name, class: "control-label" %>
-      <div class="controls">
-        <%= f.text_field :last_name, class: "input-xlarge" %>
-      </div>
-    </div>
-
-    <div class="field control-group">
-      <%= f.label :first_name, class: "control-label" %>
-      <div class="controls">
-        <%= f.text_field :first_name, class: "input-xlarge" %>
-      </div>
-    </div>
-
-    <div class="field control-group">
-      <%= f.label :email, class: "control-label" %>
-      <div class="controls">
-        <%= f.text_field :email, class: "input-xlarge" %>
-      </div>
-    </div>
-
-    <div class="field control-group">
-      <%= f.label 'Age Category', class: "control-label" %>
-      <div class="controls">
-        <div class="radio">
-          <%= f.radio_button :child, '0' %>
-          <%= f.label 'Adult'%>
-        </div>
-        <div class="radio">
-          <%= f.radio_button :child, '1' %>
-          <%= f.label 'Child'%>
-        </div>
-        <div class="radio">
-          <%= f.radio_button :child, '2' %>
-          <%= f.label 'Baby'%>
-        </div>
-      </div>
-    </div>
-
-    <div class="field control-group">
-      <div class="controls">
-        <label class="checkbox">
-          <%= f.check_box :flagged %>
-          Red flag to pay attention
-        </label>
-      </div>
-      <%= f.label :notes, class: "control-label" %>
-      <div class="controls">
-        <%= f.text_area :notes, class: "input-xlarge", rows: 4 %>
-      </div>
-    </div>
-
-    <div class="actions form-actions">
-      <%= f.submit class: "btn btn-primary" %>
-      <%= link_to "Cancel", redirect_by_cancel, class: "btn" %>
-    </div>
-  </fieldset>
-<% end %>
+</div>

@@ -9,3 +9,27 @@
     </section>
   </aside>
 </div>
+<br />
+<h3>Participants</h3>
+<table class="table table-bordered table-striped table-condensed">
+  <thead>
+    <tr>
+      <th class="span1">#</th>
+      <th class="span4">Last Name</th>
+      <th class="span4">First Name</th>
+      <th class="span1">Age</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.participants.each.with_index do |participant, idx| %>
+      <tr>
+        <td class="bt-table-cell"><%= idx+1 %></td>
+        <td class="bt-table-cell"><%= participant.last_name %></td>
+        <td class="bt-table-cell"><%= participant.first_name %></td>
+        <td class="bt-table-cell"><%= participant.age %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Create new participant', new_participant_path, class: "btn btn-lg btn-primary" %>
