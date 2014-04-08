@@ -2,23 +2,23 @@
 <div class="row">
   <aside class="span4">
     <section>
-      <h1>
+      <h4>
         <%= gravatar_for @user %>
-        <%= @user.email %>
-      </h1>
+        <%= "Email: #{@user.email}" %>
+      </h4>
     </section>
   </aside>
 </div>
 <br />
-<h3>Participants</h3>
-<table class="table table-bordered table-striped table-condensed">
+<h4>Registered Participants</h4>
+<table class="table table-bordered table-striped table-hover shadowed-form">
   <thead>
     <tr>
       <th class="span1">#</th>
       <th class="span4">Last Name</th>
       <th class="span4">First Name</th>
       <th class="span1">Age</th>
-      <th>Actions</th>
+      <th class="span1">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -28,8 +28,25 @@
         <td class="bt-table-cell"><%= participant.last_name %></td>
         <td class="bt-table-cell"><%= participant.first_name %></td>
         <td class="bt-table-cell"><%= participant.age %></td>
+        <td class="bt-table-cell">
+          <div>
+            <%= link_to image_tag('edit.png', alt: 'Edit Participant', class: "bt-img"),
+              edit_participant_path(participant), title: "Click here to edit #{participant.display_name} profile",
+              rel: 'tooltip' %>
+            <%= link_to image_tag('delete.png', alt: 'Delete Participant', class: "bt-img"),
+              participant_path(participant), method: :delete,
+              title: "Click here to delete #{participant.display_name} from Blue Trolley participants list", rel: 'tooltip',
+              data: { confirm: "Are you sure to delete #{participant.display_name} from the participants list?" } %>
+            <%= link_to image_tag('ticket.png', alt: 'Generate ticket', class: "bt-img bt-img-reduced"),
+              participant_ticket_path(participant_id: participant),
+              title: "Click here to download a ticket for #{participant.display_name}", rel: 'tooltip' %>
+          </div>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Create new participant', new_participant_path, class: "btn btn-lg btn-primary" %>
+<%= link_to 'Register new participant', new_participant_path(user_account_id: @user.id, crew_id: 7),
+  class: "btn btn-lg btn-primary" %>
+<%= link_to 'Download my tickets', new_participant_path(user_account_id: @user.id, crew_id: 3),
+  class: "btn btn-lg btn-info" %>

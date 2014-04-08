@@ -94,15 +94,15 @@ class ParticipantsController < ApplicationController
 
 
   def new
-  	@participant = Participant.new(crew_id: params[:crew_id])
+    @participant = Participant.new(user_account_id: params[:user_account_id], crew_id: params[:crew_id])
   end
 
 
   def create
     @participant = Participant.new(participant_params)
     if @participant.save
-      flash[:success] = "Participant #{@participant.full_name} was successfully created."
-      redirect_to participants_path(crew_id: @participant.crew_id)
+      flash[:success] = "#{@participant.display_name} has been successfully registered as Blue Trolley event participant"
+      redirect_to @participant.user_account
     else
       render action: 'new'
     end
@@ -111,8 +111,8 @@ class ParticipantsController < ApplicationController
 
   def update
     if @participant.update(participant_params)
-      flash[:success] = "Participant #{@participant.full_name} was successfully updated."
-      redirect_to participants_path(crew_id: @participant.crew_id)
+      flash[:success] = "#{@participant.display_name} profile has been successfully updated"
+      redirect_to @participant.user_account
     else
       render action: 'edit'
     end
@@ -120,12 +120,10 @@ class ParticipantsController < ApplicationController
 
 
   def destroy
-    crew_id = @participant.crew_id
+    user_account = @participant.user_account
     @participant.destroy
-    respond_to do |format|
-      format.html { redirect_to participants_path(crew_id: crew_id) }
-      format.json { head :no_content }
-    end
+    flash[:success] = "#{@participant.display_name} has been deleted from Blue Trolley participants list"
+    redirect_to user_account
   end
 
 
@@ -136,7 +134,8 @@ class ParticipantsController < ApplicationController
 
 
   def participant_params
-    params.require(:participant).permit(:last_name, :first_name, :crew, :crew_id, :ticket_code, :email, :address,
-      :child, :import_id, :sent, :sent_by, :reservation_number, :registered_at, :registered_by, :flagged, :notes)
+    params.require(:participant).permit(:user_account_id, :crew_id, :last_name, :first_name,
+      :ticket_code, :email, :address_line_1, :child, :import_id, :sent, :sent_by,
+      :registered_at, :registered_by, :flagged, :notes)
   end
 end

@@ -21,6 +21,11 @@ class Participant < ActiveRecord::Base
   end
 
 
+  def display_name
+    "#{first_name} #{last_name}"
+  end
+
+
   def Participant.find_by_ticket(ticket_code)
     Participant.all.each do |participant|
       return participant if participant.ticket_code.to_i(16).to_s == ticket_code.strip
