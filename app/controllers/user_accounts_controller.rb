@@ -1,5 +1,5 @@
 class UserAccountsController < ApplicationController
-  before_action :set_user_account, only: [:show, :request_to_activate]
+  before_action :set_user_account, only: [:show ]
 
   def new
     @user = UserAccount.new
@@ -23,6 +23,7 @@ class UserAccountsController < ApplicationController
 
 
   def request_to_activate
+    @user = UserAccount.find(params[:account_id])
   end
 
 
