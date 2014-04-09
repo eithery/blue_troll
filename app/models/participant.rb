@@ -5,6 +5,8 @@ class Participant < ActiveRecord::Base
   validates :last_name, :first_name, presence: true
   validates :ticket_code, uniqueness: true, length: { minimum: 10 }
   validates :crew, :user_account, presence: true
+  validates :age, presence: true, unless: Proc.new { |p| p.age_category == AgeCategory::ADULT }
+  validates :age, numericality: true, allow_blank: true
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
