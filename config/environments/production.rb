@@ -70,7 +70,7 @@ BlueTroll::Application.configure do
     domain: "gmail.com",
     authentication: "plain",
     user_name: "bluetrolley2014",
-    password: "secret",
+    password: "bluetroll2014spring1",
     enable_starttls_auto: true
   }
 
