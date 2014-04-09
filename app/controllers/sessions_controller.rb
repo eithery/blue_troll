@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
 
   def create
-    login = session_params[:login]
+    login = session_params[:login].downcase
     user = UserAccount.find_by_login(login) || UserAccount.find_by_email(login)
     return invalid_login_password unless user
     return inactive_user_account unless user.active?

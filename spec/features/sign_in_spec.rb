@@ -37,20 +37,34 @@ describe "Sign in" do
 
   context "with valid information" do
     context "based on login" do
-      before { submit_form user.login }
-      it_behaves_like "successfully redirected to user profile page"
+      context "in lower case" do
+        before { submit_form user.login }
+        it_behaves_like "successfully redirected to user profile page"
 
-      describe "followed by sign out" do
-        before { click_link sign_out }
-        it_behaves_like "user is signed out"
-        it { should have_title('Home') }
+        describe "followed by sign out" do
+          before { click_link sign_out }
+          it_behaves_like "user is signed out"
+          it_behaves_like "home page"
+        end
+      end
+
+      context "in upper case" do
+        before { submit_form user.login.upcase }
+        it_behaves_like "successfully redirected to user profile page"
       end
     end
 
 
     context "based on email" do
-      before { submit_form user.email }
-      it_behaves_like "successfully redirected to user profile page"
+      context "in lower case" do
+        before { submit_form user.email }
+        it_behaves_like "successfully redirected to user profile page"
+      end
+
+      context "in upper case" do
+        before { submit_form user.email.upcase }
+        it_behaves_like "successfully redirected to user profile page"
+      end
     end
 
 
