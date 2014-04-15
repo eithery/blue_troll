@@ -1,17 +1,9 @@
 <% provide(:title, "#{@user.name} profile") %>
-<div class="row">
-  <aside class="span4">
-    <section>
-      <h4>
-        <%= gravatar_for @user %>
-      </h4>
-    </section>
-  </aside>
-</div>
+<div><%= gravatar_for @user %></div>
 <div><%= "Login: #{@user.login}" %></div>
 <div><%= "Email: #{@user.email}" %></div>
 <div><%= "Status: Active" %></div>
-<%= link_to 'Change password', '#' %>
+<div><%= link_to 'Change password', '#' %></div>
 <br />
 <h4>Registered Participants</h4>
 <div class="shadowed-form">
@@ -38,8 +30,8 @@
                 edit_participant_path(participant), title: "Click here to edit #{participant.display_name} profile",
                 rel: 'tooltip' %>
               <%= link_to image_tag('delete.png', alt: 'Delete Participant', class: "bt-img"),
-                participant_path(participant), method: :delete,
-                title: "Click here to delete #{participant.display_name} from Blue Trolley participants list", rel: 'tooltip',
+                participant_path(participant), method: :delete, rel: 'tooltip',
+                title: "Click here to delete #{participant.display_name} from Blue Trolley participants list",
                 data: { confirm: "Are you sure to delete #{participant.display_name} from the participants list?" } %>
               <%= link_to image_tag('ticket.png', alt: 'Generate ticket', class: "bt-img bt-img-reduced"),
                 participant_ticket_path(participant_id: participant),

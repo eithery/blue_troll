@@ -9,7 +9,7 @@ describe "user_accounts/show.html.erb" do
     render
   end
 
-  it { should have_selector('img') }
+  it { should have_selector('img.gravatar') }
   it { should have_content(user.login) }
   it { should have_content(user.email) }
   it { should have_content('Status:') }
