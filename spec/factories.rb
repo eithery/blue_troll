@@ -16,4 +16,26 @@ FactoryGirl.define do
     password_confirmation "secret"
     active false
   end
+
+
+  factory :crew do
+    name "Guests"
+    native_name "Гости слета"
+  end
+
+  factory :spies, class: Crew do
+    name "Enemy spies"
+    native_name "Вражеские шпионы"
+  end
+
+  factory :fix_crew, class: Crew do
+    name "Mr Fix Friends"
+    native_name "Друганы Мистера Фикса"
+  end
+
+  factory :inactive_crew, class: Crew do
+    name "Black List"
+    native_name "Черный список"
+    active false
+  end
 end
