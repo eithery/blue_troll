@@ -1,6 +1,6 @@
 <%= provide(:title, 'Account Activation') %>
 <div>
-  <h4>Hello <%= @user.name %>, Welcome to Blue Trolley club!</h4>
+  <h4>Hello <%= @user.name %>, welcome to Blue Trolley club!</h4>
   <p>
     Your registration has been successful. Within few minutes,
     you will receive an email with your activation link and activation code.
@@ -30,5 +30,5 @@
   <hr />
   <h4>No email received?</h4>
   <p>Sometimes the email is moved to the spam folder. To resend activation email please click
-    <%= link_to 'here', request_to_activate_path(@user) %>.</p>
+    <%= link_to 'here', '#' %>.</p>
 </div>
