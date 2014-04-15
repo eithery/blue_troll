@@ -4,11 +4,14 @@
     <section>
       <h4>
         <%= gravatar_for @user %>
-        <%= "Email: #{@user.email}" %>
       </h4>
     </section>
   </aside>
 </div>
+<div><%= "Login: #{@user.login}" %></div>
+<div><%= "Email: #{@user.email}" %></div>
+<div><%= "Status: Active" %></div>
+<%= link_to 'Change password', '#' %>
 <br />
 <h4>Registered Participants</h4>
 <div class="shadowed-form">
