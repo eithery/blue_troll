@@ -13,7 +13,7 @@ describe "user_accounts/request_to_activate.html.erb" do
   it { should have_content("The email is sent to the following address: #{user.email}") }
   it { should have_selector("form[action='#{activate_path}']") }
 
-  it { should have_selector("input#activation_user_account[value='#{user.id}']", visible: false) }
+  it { should have_selector("input#activation_user_account[value='#{user.id}'][type='hidden']") }
   it { should have_field('Activation Code:') }
   it { should have_button('Activate my account') }
   it { should have_content('No email received?') }
