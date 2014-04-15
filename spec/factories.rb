@@ -17,6 +17,46 @@ FactoryGirl.define do
     active false
   end
 
+  factory :crew_lead, class: UserAccount do
+    login "boss"
+    email "boss@bossmail.com"
+    email_confirmation "boss@bossmail.com"
+    password "secret"
+    password_confirmation "secret"
+    active true
+    crew_lead true
+  end
+
+  factory :financier, class: UserAccount do
+    login "rita"
+    email "rita@gmail.com"
+    email_confirmation "rita@gmail.com"
+    password "secret"
+    password_confirmation "secret"
+    active true
+    financier true
+  end
+
+  factory :admin, class: UserAccount do
+    login "admin"
+    email "btadmin@gmail.com"
+    email_confirmation "btadmin@gmail.com"
+    password "secret"
+    password_confirmation "secret"
+    active true
+    admin true
+  end
+
+  factory :gatekeeper, class: UserAccount do
+    login "gate"
+    email "gate@gmail.com"
+    email_confirmation "gate@gmail.com"
+    password "secret"
+    password_confirmation "secret"
+    active true
+    gatekeeper true
+  end
+
 
   factory :crew do
     name "Guests"
