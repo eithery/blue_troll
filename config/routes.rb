@@ -29,10 +29,6 @@ BlueTroll::Application.routes.draw do
   get 'checkin', to: 'registration#checkin'
   post 'checkin', to: 'registration#check_ticket'
 
-  # Administration tasks.
-  get 'upload', to: 'upload#select_file'
-  post 'upload', to: 'upload#upload_file'
-
   # Static pages.
   get 'statistics', to: 'static_pages#statistics'
 
