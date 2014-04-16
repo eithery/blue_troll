@@ -15,60 +15,48 @@ describe UserAccountsController do
 
 
   describe "POST create" do
-    it "creates a new user account" do
-      user = mock_model(UserAccount).as_null_object
-      UserAccount.should_receive(:new).with({"login" => "gwen"}).and_return(user)
-      post :create, user_account: { login: 'gwen' }
-    end
+    let(:name) { 'gwen' }
+    let(:email) { 'gwen@gmail1.com' }
+    let(:user) { mock_model(UserAccount, email: email).as_null_object }
+    before { UserAccount.stub(:new).and_return(user) }
 
+
+    it "creates a new user account" do
+      UserAccount.should_receive(:new).with({"email" => "#{email}"}).and_return(user)
+      post_create
+    end
 
     it "saves the user account" do
-      user = mock_model(UserAccount).as_null_object
-      UserAccount.stub(:new).and_return(user)
       user.should_receive(:save)
-      post :create, user_account: { login: 'gwen' }
+      post_create
     end
 
-
     it "assigns user" do
-      user = mock_model(UserAccount).as_null_object
-      UserAccount.stub(:new).and_return(user)
-      post :create, user_account: { login: 'gwen' }
+      post_create
       assigns[:user].should eq(user)
     end
 
 
     context "when user account saves successfully" do
-      let(:user) do
-        stub_model(UserAccount, save: true, name: 'gwen', email: 'gwen@gmail1.com')
-      end
-
       it "sets a flash[:success] message" do
-        user = mock_model(UserAccount).as_null_object
-        UserAccount.stub(:new).and_return(user)
         user.stub(:name).and_return('gwen')
-        post :create, user_account: { login: 'gwen' }
-        flash[:success].should == "New user account for gwen has been created."
+        post_create
+        flash[:success].should == "New user account for #{name} has been created."
       end
 
 
       it "sends a user account registration notification email" do
-        UserAccount.stub(:new).and_return(user)
-        p user.object_id
-        post :create, user_account: { login: 'gwen', email: 'gwen@gmail1.com', email_confirmation: 'gwen@gmail1.com',
-          password: 'secret', password_confirmation: 'secret' }
+        post_create
         mail = RegistrationNotifier.deliveries.first
-        p mail.to.class
-        mail.to.should include('gwen@gmail1.com')
+        mail.to.should include(email)
+        mail.subject.should == "Blue Trolley club account activation"
       end
 
 
       it "redirects to activation page" do
-        user = mock_model(UserAccount).as_null_object
-        UserAccount.stub(:new).and_return(user)
         notifier = double('notifier').as_null_object
         RegistrationNotifier.stub(:registered).and_return(notifier)
-        post :create, user_account: { login: 'gwen' }
+        post_create
         response.should redirect_to(request_to_activate_path(account_id: user.id))
       end
     end
@@ -76,11 +64,15 @@ describe UserAccountsController do
 
     context "when user account fails to save" do
       it "renders the new template" do
-        user = mock_model(UserAccount).as_null_object
         user.stub(:save).and_return(false)
-        post :create, user_account: { id: user.id, login: 'gwen' }
+        post_create
         response.should render_template(:new)
       end
+    end
+
+  private
+    def post_create
+      post :create, user_account: { email: email }
     end
   end
 
