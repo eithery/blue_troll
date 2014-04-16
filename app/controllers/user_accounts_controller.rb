@@ -6,10 +6,6 @@ class UserAccountsController < ApplicationController
   end
 
 
-  def show
-  end
-
-
   def create
     @user = UserAccount.new(user_account_params)
     if @user.save
@@ -19,6 +15,10 @@ class UserAccountsController < ApplicationController
     else
       render 'new'
     end
+  end
+
+
+  def show
   end
 
 
