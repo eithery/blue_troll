@@ -8,5 +8,5 @@ shared_examples_for "Page with footer" do
   it { should have_link 'Contact' }
   it { should have_link 'Forum',
     href: 'http://www.nashslet.com/ДоброПожаловать/Форум/tabid/36/language/en-US/Default.aspx' }
-  it { should have_link 'Blue Trolley Club', href: 'http://bluetrolleyclub.com' }
+  it { should have_link 'Club', href: "http://bluetrolleyclub.com" }
 end

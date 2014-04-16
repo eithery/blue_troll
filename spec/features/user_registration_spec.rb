@@ -22,7 +22,7 @@ describe "User account registration:" do
         before { submit_registration_form }
 
         it_behaves_like "activation page"
-        it { should have_content("Hello #{user.login}, Welcome to Blue Trolley club!") }
+        it { should have_content("Hello #{user.login}, welcome to Blue Trolley club!") }
         it { should have_content("Within few minutes, you will receive an email " +
           "with your activation link and activation code.") }
         it { should have_content("The email is sent to the following address: #{user.email}") }
