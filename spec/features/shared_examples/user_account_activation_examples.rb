@@ -17,6 +17,11 @@ module UserAccountActivationExamples
     specify { page.should have_selector('.alert-danger', text: 'Invalid activation code') }
   end
 
+  shared_examples_for "invalid activation link message" do
+    specify { page.should have_selector('.alert-danger', text: 'Invalid or expired activation link') }
+  end
+
+
   def user_account
     UserAccount.find_by_email(@user.email)
   end

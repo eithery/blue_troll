@@ -9,7 +9,7 @@ class UserAccountsController < ApplicationController
   def create
     @user = UserAccount.new(user_account_params)
     if @user.save
-      flash[:success] = "New user account for #{@user.name} has been created."
+      flash[:success] = "New user account for #{@user.name} has been created"
       RegistrationNotifier.registered(@user).deliver
       redirect_to request_to_activate_path(account_id: @user.id)
     else
@@ -33,17 +33,17 @@ class UserAccountsController < ApplicationController
     user = UserAccount.find(user_id)
     return valid_activation user if user.activate(activation_code)
 
-    invalid_activation
+    flash[:danger] = "Invalid activation code"
     redirect_to request_to_activate_path(account_id: user.id)
   end
 
 
   def activate_by_link
-    activation_code = params[:activation_id]
-    user = UserAccount.find_by_activation_code(activation_code)
-    return valid_activation user if user && user.activate(activation_code)
+    activation_token = params[:activation_token]
+    user = UserAccount.find_by_activation_token(activation_token)
+    return valid_activation user if user && user.activate(activation_token)
 
-    invalid_activation
+    flash[:danger] = "Invalid or expired activation link"
     redirect_to root_path
   end
 
@@ -56,12 +56,7 @@ private
 
   def user_account_params
     params.require(:user_account).permit(:id, :login, :email, :email_confirmation, :password, :password_confirmation,
-      :remember_token)
-  end
-
-
-  def invalid_activation
-    flash[:danger] = "Invalid activation code"
+      :remember_token, :activation_token)
   end
 
 

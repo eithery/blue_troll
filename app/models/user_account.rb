@@ -15,7 +15,7 @@ class UserAccount < ActiveRecord::Base
     self.login.downcase!
     self.email.downcase!
   end
-  before_save :create_remember_token, :generate_activation_code
+  before_save :create_remember_token, :generate_activation_tokens
 
 
   def initialize(attributes={})
@@ -28,8 +28,8 @@ class UserAccount < ActiveRecord::Base
   end
 
 
-  def activate(code)
-    self.activation_code == code &&
+  def activate(code_or_token)
+    (self.activation_code == code_or_token || self.activation_token == code_or_token) &&
       update_attributes!(email_confirmation: email, active: true, activated_at: Time.now)
   end
 
@@ -45,7 +45,8 @@ private
   end
 
 
-  def generate_activation_code
+  def generate_activation_tokens
     self.activation_code = SecureRandom.hex[0, 6].to_i(16).to_s if self.activation_code.blank?
+    self.activation_token = SecureRandom.uuid if self.activation_token.blank?
   end
 end

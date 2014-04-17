@@ -4,7 +4,7 @@ include UserRegistrationHelper
 describe "User account activation" do
   let(:invalid_code) { '12345678' }
   let(:activate_account) { 'Activate my account' }
-  let(:base_activation_url) { "http://localhost:3000/activate?activation_id=" }
+  let(:base_activation_url) { "http://localhost:3000/activate?activation_token=" }
   let(:user) { FactoryGirl.build(:inactive_user) }
   before do
     register user
@@ -31,7 +31,7 @@ describe "User account activation" do
 
   describe "by activation link" do
     describe "with correct activation link" do
-      before { activate_by_link registered_user.activation_code }
+      before { activate_by_link registered_user.activation_token }
 
       it_behaves_like "account is activated"
       it_behaves_like "sign in page with success activation message"
@@ -39,11 +39,11 @@ describe "User account activation" do
 
 
     describe "with incorrect activation link" do
-      before { activate_by_link invalid_code }
+      before { activate_by_link SecureRandom.uuid }
 
       it_behaves_like "account is not activated"
       it_behaves_like "home page"
-      it_behaves_like "invalid activation code message"
+      it_behaves_like "invalid activation link message"
     end
   end
 
@@ -56,8 +56,8 @@ private
   end
 
 
-  def activate_by_link(activation_code)
-    visit base_activation_url + activation_code
+  def activate_by_link(activation_token)
+    visit base_activation_url + activation_token
     @user = registered_user
   end
 

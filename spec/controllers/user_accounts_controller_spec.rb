@@ -44,7 +44,7 @@ describe UserAccountsController do
       it "sets a flash success message" do
         user.stub(:name).and_return('gwen')
         post_create
-        flash[:success].should == "New user account for #{name} has been created."
+        flash[:success].should == "New user account for #{name} has been created"
       end
 
 
@@ -161,18 +161,18 @@ describe UserAccountsController do
 
 
   describe "GET activate_by_link" do
-    before { user.stub(:activation_code).and_return('123456789') }
+    before { user.stub(:activation_token).and_return(SecureRandom.uuid) }
 
-    it "finds a user account by the activation code" do
-      UserAccount.should_receive(:find_by_activation_code).with(user.activation_code).and_return(user)
+    it "finds a user account by the activation token" do
+      UserAccount.should_receive(:find_by_activation_token).with(user.activation_token).and_return(user)
       get_activate
     end
 
-    context "when the activation code is valid" do
-      before { UserAccount.stub(:find_by_activation_code).and_return(user) }
+    context "when the activation token is valid" do
+      before { UserAccount.stub(:find_by_activation_token).and_return(user) }
 
       it "activates a user account" do
-        user.should_receive(:activate).with(user.activation_code)
+        user.should_receive(:activate).with(user.activation_token)
         get_activate
       end
 
@@ -188,11 +188,11 @@ describe UserAccountsController do
     end
 
 
-    context "when the activation code is not valid" do
-      before { get_activate 'invalid_activation_link' }
+    context "when the activation token is not valid" do
+      before { get_activate 'invalid_activation_token' }
 
       it "sets a flash activation error message" do
-        flash[:danger].should == "Invalid activation code"
+        flash[:danger].should == "Invalid or expired activation link"
       end
 
       it { should redirect_to(root_path) }
@@ -217,7 +217,7 @@ describe UserAccountsController do
       post :activate, activation: { user_account: user.id, code: user.activation_code }
     end
 
-    def get_activate(activation_code=user.activation_code)
-      get :activate_by_link, activation_id: activation_code
+    def get_activate(activation_token=user.activation_token)
+      get :activate_by_link, activation_token: activation_token
     end
 end

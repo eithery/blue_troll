@@ -28,7 +28,7 @@ describe "User account registration:" do
         it { should have_content("The email is sent to the following address: #{user.email}") }
         it { should have_content("In order to activate your account enter the code or " +
           "click on the link in your email.") }
-        it { should have_selector('.alert-success', text: "New user account for #{user.login} has been created.") }
+        it { should have_selector('.alert-success', text: "New user account for #{user.login} has been created") }
       end
 
 
