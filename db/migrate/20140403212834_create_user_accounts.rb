@@ -41,7 +41,7 @@ class CreateUserAccounts < ActiveRecord::Migration
       { login: 'abelyaev', email: 'alexander@belyayev.com', password: generate },
       { login: 'idricker', email: 'ilya.dricker@gmail.com', password: generate },
       { login: 'mbrandis', email: 'leto4you@yahoo.com', password: generate },
-      { login: 'igudgartc', email: 'morpeh92@yahoo.com', password: generate },
+      { login: 'igudgarts', email: 'morpeh92@yahoo.com', password: generate },
       { login: 'makhmetov', email: 'marina.mashka@gmail.com', password: generate },
       { login: 'agrinberg', email: 'annagrin@yahoo.com', password: generate },
       { login: 'vkazakov', email: 'victorkazak@gmail.com', password: generate },
