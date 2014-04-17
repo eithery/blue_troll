@@ -35,7 +35,10 @@ describe "User account registration:" do
       describe "user receives email" do
         let(:mail) { RegistrationNotifier.deliveries.first }
         subject { mail }
-        before { submit_registration_form }
+        before do
+          RegistrationNotifier.deliveries.clear
+          submit_registration_form
+        end
 
         specify { mail.to.should include(user.email) }
         specify { mail.subject.should == "Blue Trolley club account activation" }
