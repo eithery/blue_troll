@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe UserAccountsController do
+  let(:name) { 'gwen' }
+  let(:email) { 'gwen@gmail1.com' }
+  let(:user) { mock_model(UserAccount, email: email).as_null_object }
+
+
   describe "GET new" do
     it "creates a new user account" do
       UserAccount.should_receive(:new)
@@ -15,9 +20,6 @@ describe UserAccountsController do
 
 
   describe "POST create" do
-    let(:name) { 'gwen' }
-    let(:email) { 'gwen@gmail1.com' }
-    let(:user) { mock_model(UserAccount, email: email).as_null_object }
     before { UserAccount.stub(:new).and_return(user) }
 
 
@@ -63,25 +65,53 @@ describe UserAccountsController do
 
 
     context "when user account fails to save" do
-      it "renders the new template" do
+      before do
         user.stub(:save).and_return(false)
         post_create
-        response.should render_template(:new)
       end
-    end
 
-  private
-    def post_create
-      post :create, user_account: { email: email }
+      it { should render_template(:new) }
     end
   end
 
 
   describe "GET show" do
+    before { UserAccount.stub(:find).and_return(user) }
+
+    it "finds user account by id" do
+      UserAccount.should_receive(:find).with("#{user.id}").and_return(user)
+      get_show
+    end
+
+    it "assigns user" do
+      get_show
+      assigns[:user].should eq(user)
+    end
+
+    it "renders the show template" do
+      get_show
+      response.should render_template(:show)
+    end
   end
 
 
   describe "GET request_to_activate" do
+    before { UserAccount.stub(:find).and_return(user) }
+
+    it "finds user account by account_id" do
+      UserAccount.should_receive(:find).with("#{user.id}").and_return(user)
+      get_request_to_activate
+    end
+
+    it "assigns user" do
+      get_request_to_activate
+      assigns[:user].should eq(user)
+    end
+
+    it "renders the request_to_activate template" do
+      get_request_to_activate
+      response.should render_template(:request_to_activate)
+    end
   end
 
 
@@ -91,4 +121,18 @@ describe UserAccountsController do
 
   describe "GET activate_by_link" do
   end
+
+
+  private
+    def post_create
+      post :create, user_account: { email: email }
+    end
+
+    def get_show
+      get :show, id: user.id
+    end
+
+    def get_request_to_activate
+      get :request_to_activate, account_id: user.id
+    end
 end
