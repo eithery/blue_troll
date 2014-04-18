@@ -5,6 +5,7 @@ describe UserAccountsController do
   let(:email) { 'gwen@gmail1.com' }
   let(:user) { mock_model(UserAccount, name: name, email: email).as_null_object }
   let(:congratulation) { "Congratulation, #{name}! Your account has been successfully activated" }
+  before { UserAccount.stub(:find).and_return(user) }
 
 
   describe "GET new" do
@@ -36,7 +37,7 @@ describe UserAccountsController do
 
     it "assigns user" do
       post_create
-      assigns[:user].should eq(user)
+      should_assign_user
     end
 
 
@@ -44,14 +45,14 @@ describe UserAccountsController do
       it "sets a flash success message" do
         user.stub(:name).and_return('gwen')
         post_create
-        flash[:success].should == "New user account for #{name} has been created"
+        should_flash_success "New user account for #{name} has been created"
       end
 
 
       it "sends a user account registration notification email" do
         RegistrationNotifier.deliveries.clear
         post_create
-        mail = RegistrationNotifier.deliveries.first
+        mail = RegistrationNotifier.deliveries.last
         mail.to.should include(email)
         mail.subject.should == "Blue Trolley club account activation"
       end
@@ -78,8 +79,6 @@ describe UserAccountsController do
 
 
   describe "GET show" do
-    before { UserAccount.stub(:find).and_return(user) }
-
     it "finds user account by id" do
       UserAccount.should_receive(:find).with("#{user.id}").and_return(user)
       get_show
@@ -87,7 +86,7 @@ describe UserAccountsController do
 
     it "assigns user" do
       get_show
-      assigns[:user].should eq(user)
+      should_assign_user
     end
 
     it "renders the show template" do
@@ -98,8 +97,6 @@ describe UserAccountsController do
 
 
   describe "GET request_to_activate" do
-    before { UserAccount.stub(:find).and_return(user) }
-
     it "finds user account by account_id" do
       UserAccount.should_receive(:find).with("#{user.id}").and_return(user)
       get_request_to_activate
@@ -107,7 +104,7 @@ describe UserAccountsController do
 
     it "assigns user" do
       get_request_to_activate
-      assigns[:user].should eq(user)
+      should_assign_user
     end
 
     it "renders the request_to_activate template" do
@@ -118,8 +115,6 @@ describe UserAccountsController do
 
 
   describe "POST activate" do
-    before { UserAccount.stub(:find).and_return(user) }
-
     it "finds user account by id" do
       UserAccount.should_receive(:find).with("#{user.id}").and_return(user)
       post_activate
@@ -137,10 +132,7 @@ describe UserAccountsController do
         post_activate
       end
 
-      it "sets a flash activation success message" do
-        flash[:success].should == congratulation
-      end
-
+      specify { should_flash_success congratulation }
       it { should redirect_to(signin_path) }
     end
 
@@ -151,11 +143,8 @@ describe UserAccountsController do
         post_activate
       end
 
-      it "sets a flash activation error message" do
-        flash[:danger].should == "Invalid activation code"
-      end
-
-      it { should redirect_to(request_to_activate_path(account_id: user.id)) }
+      specify { should_flash_error "Invalid activation code" }
+      it { should redirect_to(request_to_activate_path account_id: user.id) }
     end
   end
 
@@ -178,7 +167,7 @@ describe UserAccountsController do
 
       it "sets a flash activation success message" do
         get_activate
-        flash[:success].should == congratulation
+        should_flash_success congratulation
       end
 
       it "redirects to the root page" do
@@ -187,14 +176,9 @@ describe UserAccountsController do
       end
     end
 
-
     context "when the activation token is not valid" do
       before { get_activate 'invalid_activation_token' }
-
-      it "sets a flash activation error message" do
-        flash[:danger].should == "Invalid or expired activation link"
-      end
-
+      specify { should_flash_error "Invalid or expired activation link" }
       it { should redirect_to(root_path) }
     end
   end
@@ -219,5 +203,17 @@ describe UserAccountsController do
 
     def get_activate(activation_token=user.activation_token)
       get :activate_by_link, activation_token: activation_token
+    end
+
+    def should_flash_success(message)
+      flash[:success].should == message
+    end
+
+    def should_flash_error(message)
+      flash[:danger].should == message
+    end
+
+    def should_assign_user
+      assigns[:user].should eq(user)
     end
 end
