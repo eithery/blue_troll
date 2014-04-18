@@ -1,5 +1,44 @@
 class ParticipantsController < ApplicationController
-	before_action :set_participant, only: [:show, :edit, :update, :destroy]
+	before_action :set_participant, only: [:edit, :update, :destroy]
+
+
+  def new
+    @participant = Participant.new(user_account_id: params[:user_account_id], crew_id: params[:crew_id])
+  end
+
+
+  def create
+    @participant = Participant.new(participant_params)
+    if @participant.save
+      flash[:success] = "#{@participant.display_name} has been successfully registered as Blue Trolley event participant"
+      redirect_to @participant.user_account
+    else
+      render action: 'new'
+    end
+  end
+
+
+  def edit
+  end
+
+
+  def update
+    if @participant.update(participant_params)
+      flash[:success] = "#{@participant.display_name} profile has been successfully updated"
+      redirect_to @participant.user_account
+    else
+      render action: 'edit'
+    end
+  end
+
+
+  def destroy
+    user_account = @participant.user_account
+    @participant.destroy
+    flash[:success] = "#{@participant.display_name} has been deleted from Blue Trolley participants list"
+    redirect_to user_account
+  end
+
 
   def index
     crew_id = params[:crew_id]
@@ -85,49 +124,7 @@ class ParticipantsController < ApplicationController
   end
 
 
-  def show
-  end
-
-
-  def edit
-  end
-
-
-  def new
-    @participant = Participant.new(user_account_id: params[:user_account_id], crew_id: params[:crew_id])
-  end
-
-
-  def create
-    @participant = Participant.new(participant_params)
-    if @participant.save
-      flash[:success] = "#{@participant.display_name} has been successfully registered as Blue Trolley event participant"
-      redirect_to @participant.user_account
-    else
-      render action: 'new'
-    end
-  end
-
-
-  def update
-    if @participant.update(participant_params)
-      flash[:success] = "#{@participant.display_name} profile has been successfully updated"
-      redirect_to @participant.user_account
-    else
-      render action: 'edit'
-    end
-  end
-
-
-  def destroy
-    user_account = @participant.user_account
-    @participant.destroy
-    flash[:success] = "#{@participant.display_name} has been deleted from Blue Trolley participants list"
-    redirect_to user_account
-  end
-
-
- private
+private
   def set_participant
     @participant = Participant.find(params[:id])
   end
@@ -135,7 +132,7 @@ class ParticipantsController < ApplicationController
 
   def participant_params
     params.require(:participant).permit(:user_account_id, :crew_id, :last_name, :first_name,
-      :ticket_code, :email, :address_line_1, :age_category, :age, :cell_phone, :import_id, :sent, :sent_by,
+      :ticket_code, :email, :address_line_1, :age_category, :age, :cell_phone, :sent, :sent_by,
       :registered_at, :registered_by, :flagged, :notes)
   end
 end
