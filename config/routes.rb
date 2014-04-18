@@ -1,7 +1,7 @@
 BlueTroll::Application.routes.draw do
-  resources :user_accounts
+  resources :user_accounts, only: [:new, :create, :show]
   resources :crews
-  resources :participants
+  resources :participants, except: [:show]
   resources :sessions, only: [:new, :create, :destroy]
 
   get 'request_to_activate', to: 'user_accounts#request_to_activate'
