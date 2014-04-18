@@ -1,6 +1,6 @@
 BlueTroll::Application.routes.draw do
   resources :user_accounts, only: [:new, :create, :show]
-  resources :crews
+  resources :crews, only: [:index]
   resources :participants, except: [:show]
   resources :sessions, only: [:new, :create, :destroy]
 
