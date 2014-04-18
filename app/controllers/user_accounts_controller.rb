@@ -13,7 +13,7 @@ class UserAccountsController < ApplicationController
       RegistrationNotifier.registered(@user).deliver
       redirect_to request_to_activate_path(account_id: @user.id)
     else
-      render 'new'
+      render :new
     end
   end
 

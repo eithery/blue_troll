@@ -13,7 +13,7 @@ class ParticipantsController < ApplicationController
       flash[:success] = "#{@participant.display_name} has been successfully registered as Blue Trolley event participant"
       redirect_to @participant.user_account
     else
-      render action: 'new'
+      render :new
     end
   end
 
@@ -27,7 +27,7 @@ class ParticipantsController < ApplicationController
       flash[:success] = "#{@participant.display_name} profile has been successfully updated"
       redirect_to @participant.user_account
     else
-      render action: 'edit'
+      render :edit
     end
   end
 
