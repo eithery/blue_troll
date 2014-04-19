@@ -25,7 +25,7 @@ class CreateUserAccounts < ActiveRecord::Migration
     add_index :user_accounts, :remember_token
 
 
-    devs = [{ login: 'sa', email: 'michael.protsenko@gmail.com', email_confirmation: 'michael.protsenko@gmail.com',
+    devs = [{ login: 'dev', email: 'michael.protsenko@gmail.com', email_confirmation: 'michael.protsenko@gmail.com',
       password: 'secret', password_confirmation: 'secret', active: true, dev: true, gatekeeper: true, financier: true,
       admin: true }]
 

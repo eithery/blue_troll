@@ -1,5 +1,5 @@
 class CreateParticipants < ActiveRecord::Migration
-  def change
+  def up
     create_table :participants do |t|
       # Crew and user account info.
       t.belongs_to :crew, null: false
@@ -29,7 +29,6 @@ class CreateParticipants < ActiveRecord::Migration
       t.string :ticket_code
 
       # Misc fields.
-      t.boolean :primary, null: false, default: true
       t.boolean :flagged, null: false, default: false
       t.text :notes, :text
 
@@ -54,5 +53,57 @@ class CreateParticipants < ActiveRecord::Migration
       t.string :updated_by
       t.timestamps
     end
+
+    devs = [
+      { crew_id: 29, user_account_id: 1, last_name: 'Protsenko', first_name: 'Michael' }
+    ]
+
+    crew_leads = [
+      { crew_id: 9, user_account_id: 2, last_name: 'Shaykevich', first_name: 'Alex' },
+      { crew_id: 11, user_account_id: 3, last_name: 'Shaykevich', first_name: 'Alex' },
+      { crew_id: 1, user_account_id: 4, last_name: 'Pogorelsky', first_name: 'Yanina' },
+      { crew_id: 2, user_account_id: 5, last_name: 'Zaverukha', first_name: 'Ilya' },
+      { crew_id: 3, user_account_id: 6, last_name: 'Hamon', first_name: 'Roman' },
+      { crew_id: 3, user_account_id: 7, last_name: 'Serebrenik', first_name: 'Boris' },
+      { crew_id: 4, user_account_id: 8, last_name: 'Tuchina', first_name: 'Irina' },
+      { crew_id: 5, user_account_id: 9, last_name: 'Polyakov', first_name: 'Alex' },
+      { crew_id: 6, user_account_id: 10, last_name: 'Belyaev', first_name: 'Alexandr' },
+      { crew_id: 7, user_account_id: 11, last_name: 'Dricker', first_name: 'Ilya' },
+      { crew_id: 8, user_account_id: 12, last_name: 'Brandis', first_name: 'Margarita' },
+      { crew_id: 10, user_account_id: 13, last_name: 'Gudgarts', first_name: 'Igor' },
+      { crew_id: 12, user_account_id: 14, last_name: 'Akhmetov', first_name: 'Marina' },
+      { crew_id: 13, user_account_id: 15, last_name: 'Grinberg', first_name: 'Anna' },
+      { crew_id: 13, user_account_id: 16, last_name: 'Kazakov', first_name: 'Viktor' },
+      { crew_id: 14, user_account_id: 17, last_name: 'Talalaev', first_name: 'Dmitriy' },
+      { crew_id: 14, user_account_id: 18, last_name: 'Kosulin', first_name: 'Vlad' },
+      { crew_id: 15, user_account_id: 19, last_name: 'Palitsky', first_name: 'Gennady' },
+      { crew_id: 16, user_account_id: 20, last_name: 'Eidelstein', first_name: 'Victoria' },
+      { crew_id: 18, user_account_id: 21, last_name: 'Lev', first_name: 'Yuri' },
+      { crew_id: 19, user_account_id: 22, last_name: 'Yeliseyev', first_name: 'Rita' },
+      { crew_id: 20, user_account_id: 23, last_name: 'Aks', first_name: 'Irina' },
+      { crew_id: 21, user_account_id: 24, last_name: 'Pliner', first_name: 'Julia' },
+      { crew_id: 22, user_account_id: 25, last_name: 'Khazak', first_name: 'Vladimir' },
+      { crew_id: 23, user_account_id: 26, last_name: 'Zaks', first_name: 'Alex' },
+      { crew_id: 24, user_account_id: 27, last_name: 'Mikaloff', first_name: 'Oleg' },
+      { crew_id: 25, user_account_id: 28, last_name: 'Stolov', first_name: 'Andrei' },
+      { crew_id: 26, user_account_id: 29, last_name: 'Karpova', first_name: 'Kate' },
+      { crew_id: 27, user_account_id: 30, last_name: 'Rapoport', first_name: 'Lev' },
+      { crew_id: 28, user_account_id: 31, last_name: 'Mashkovich', first_name: 'Inna' },
+      { crew_id: 29, user_account_id: 32, last_name: 'Grapp', first_name: 'Igor' }
+    ]
+
+    crew_leads.each do |lead|
+      lead[:approved_at] = Time.now
+      lead[:approved_by] = 'dev'
+      lead[:created_by] = 'dev'
+      lead[:updated_by] = 'dev'
+    end
+
+    Participant.create!(devs + crew_leads)
+  end
+
+
+  def down
+    drop_table :participants
   end
 end

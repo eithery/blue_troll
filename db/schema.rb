@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 20140403213123) do
     t.string   "zip",                  limit: 5
     t.string   "country"
     t.string   "ticket_code"
-    t.boolean  "primary",                        default: true,  null: false
     t.boolean  "flagged",                        default: false, null: false
     t.text     "notes"
     t.text     "text"
