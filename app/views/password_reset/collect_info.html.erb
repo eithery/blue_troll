@@ -1,6 +1,6 @@
 <%= provide(:title, "Reset Password") %>
 <div class="shadowed-form">
-  <%= form_for(:reset_password, url: reset_password_path, html: {class: "form-horizontal well"}) do |f| %>
+  <%= form_for(:reset_password, url: send_reset_link_path, html: {class: "form-horizontal well"}) do |f| %>
     <fieldset>
       <legend>Can't access your account?</legend>
 

@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe PasswordResetController do
-  describe "GET new" do
+  describe "GET collect_info" do
     it "renders new template" do
-      get :new
-      response.should render_template(:new)
+      get :collect_info
+      response.should render_template(:collect_info)
     end
   end
 
