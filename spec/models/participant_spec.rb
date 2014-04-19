@@ -28,7 +28,6 @@ describe Participant do
   it { should respond_to :zip }
   it { should respond_to :country }
   it { should respond_to :ticket_code }
-  it { should respond_to :primary }
   it { should respond_to :flagged? }
   it { should respond_to :notes }
   it { should respond_to :approved_at }
