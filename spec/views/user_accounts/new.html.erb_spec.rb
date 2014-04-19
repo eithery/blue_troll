@@ -17,5 +17,5 @@ describe "user_accounts/new.html.erb" do
   it { should have_field('Email Confirmation', text: '') }
 
   it { should have_button('Create my account') }
-  it { should have_link("Can't access my account?") }
+  it { should have_link("Can't access my account?", href: cant_access_path) }
 end
