@@ -11,5 +11,5 @@ describe "sessions/new.html.erb" do
 
   it { should have_button('Sign in') }
   it { should have_link('Register new', href: signup_path) }
-  it { should have_link("Can't access?") }
+  it { should have_link("Can't access?", href: cant_access_path) }
 end

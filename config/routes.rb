@@ -3,10 +3,12 @@ BlueTroll::Application.routes.draw do
   resources :crews, only: [:index]
   resources :participants, except: [:show]
   resources :sessions, only: [:new, :create, :destroy]
+  resources :password_reset, only: [:new, :create, :show]
 
   get 'request_to_activate', to: 'user_accounts#request_to_activate'
   get 'activate', to: 'user_accounts#activate_by_link'
   post 'activate', to: 'user_accounts#activate'
+  get 'cant_access', to: 'password_reset#new'
 
   post 'search', to: 'participants#search'
   get 'flagged', to: 'participants#flagged'

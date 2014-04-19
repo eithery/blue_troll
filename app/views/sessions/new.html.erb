@@ -7,14 +7,14 @@
       <div class="form-group">
         <%= f.label :login, 'Login or Email', class: "control-label col-sm-3" %>
         <div class="col-sm-4">
-          <%= f.text_field :login, class: "form-control", maxlength: 64, autofocus: true %>
+          <%= f.text_field :login, class: "form-control", maxlength: 64, autofocus: true, required: true %>
         </div>
       </div>
 
       <div class="form-group">
         <%= f.label :password, class: "control-label col-sm-3" %>
         <div class="col-sm-4">
-          <%= f.password_field :password, class: "form-control", maxlength: 16 %>
+          <%= f.password_field :password, class: "form-control", maxlength: 16, required: true %>
         </div>
       </div>
 
@@ -23,7 +23,7 @@
         <div class="col-sm-offset-3 col-sm-7">
           <%= f.submit "Sign in", class: "btn btn-primary btn-lg" %>
           <%= link_to "Register new", signup_path, class: "btn btn-info btn-lg" %>
-          <%= link_to "Can't access?", '#', class: "btn btn-warning btn-lg" %>
+          <%= link_to "Can't access?", cant_access_path, class: "btn btn-warning btn-lg" %>
         </div>
       </div>
     </fieldset>
