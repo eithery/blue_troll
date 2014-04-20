@@ -7,12 +7,12 @@ BlueTroll::Application.routes.draw do
   get 'request_to_activate', to: 'user_accounts#request_to_activate'
   get 'activate', to: 'user_accounts#activate_by_link'
   post 'activate', to: 'user_accounts#activate'
+  get 'change_password', to: 'user_accounts#change_password'
+  put 'change_password', to: 'user_accounts#update_password'
 
   get 'cant_access', to: 'password_reset#collect_info'
   post 'send_reset_link', to: 'password_reset#send_link'
   get 'pwd_reset', to: 'password_reset#reset'
-  get 'change_password', to: 'change_password#edit'
-  put 'change_password', to: 'change_password#update'
 
   post 'search', to: 'participants#search'
   get 'flagged', to: 'participants#flagged'
