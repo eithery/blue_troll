@@ -1,6 +1,6 @@
 module MailersHelper
   def club_email
-    'bluetrolley2014@gmail.com>'
+    'bluetrolley2014@gmail.com'
   end
 
   def admin_email
