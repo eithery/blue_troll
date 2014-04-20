@@ -40,12 +40,12 @@ class UserAccount < ActiveRecord::Base
 
 
   def generate_reset_token
-    self.reset_password_token = SecureRandom.uuid
+    update_attribute(:reset_password_token, SecureRandom.uuid)
   end
 
 
   def reset
-    self.reset_password_token = nil
+    update_attribute(:reset_password_token, nil)
   end
 
 
