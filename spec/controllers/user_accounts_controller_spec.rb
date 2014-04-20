@@ -213,9 +213,23 @@ describe UserAccountsController do
       should_assign_user
     end
 
+    it "sets password attributes" do
+      user.should_receive(:password).with(user.password)
+      user.should_receive(:password_confirmation).with(user.password_confirmation)
+      put_update_password
+    end
+
     it "saves the user account" do
       user.should_receive(:save)
       put_update_password
+    end
+
+    it "send change password email" do
+      UserAccountsMailer.deliveries.clear
+      put_update_password
+      mail = UserAccountsMailer.deliveries.last
+      mail.to.should include(email)
+      mail.subject.should == "Blue Trolley: password has been changed"
     end
 
     context "when a new password saves successfully" do
