@@ -53,6 +53,9 @@ class UserAccountsController < ApplicationController
 
 
   def update_password
+    @user.email_confirmation = @user.email
+    @user.password = user_account_params[:password]
+    @user.password_confirmation = user_account_params[:password_confirmation]
     if @user.save
       flash[:success] = "Password has been changed successfully"
       redirect_to signin_path
