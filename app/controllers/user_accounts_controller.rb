@@ -1,5 +1,5 @@
 class UserAccountsController < ApplicationController
-  before_action :set_user_account, only: [:show ]
+  before_action :set_user_account, only: [:show, :change_password, :update_password]
 
   def new
     @user = UserAccount.new
@@ -45,6 +45,20 @@ class UserAccountsController < ApplicationController
 
     flash[:danger] = "Invalid or expired activation link"
     redirect_to root_path
+  end
+
+
+  def change_password
+  end
+
+
+  def update_password
+    if @user.save
+      flash[:success] = "Password has been changed successfully"
+      redirect_to signin_path
+    else
+      render :change_password
+    end
   end
 
 

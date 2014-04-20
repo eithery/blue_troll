@@ -184,6 +184,59 @@ describe UserAccountsController do
   end
 
 
+  describe "GET change_password" do
+    it "finds user account by id" do
+      UserAccount.should_receive(:find).with("#{user.id}")
+      get_change_password
+    end
+
+    it "assigns user" do
+      get_change_password
+      should_assign_user
+    end
+
+    it "renders change password template" do
+      get_change_password
+      response.should render_template(:change_password)
+    end
+  end
+
+
+  describe "POST change_password" do
+    it "finds user account by id" do
+      UserAccount.should_receive(:find).with("#{user.id}")
+      put_update_password
+    end
+
+    it "assigns user" do
+      put_update_password
+      should_assign_user
+    end
+
+    it "saves the user account" do
+      user.should_receive(:save)
+      put_update_password
+    end
+
+    context "when a new password saves successfully" do
+      subject { response }
+      before { put_update_password }
+      it { should_flash_success "Password has been changed successfully" }
+      it { should redirect_to(signin_path) }
+    end
+
+    context "when a new password failes to update" do
+      subject { response }
+      before do
+        user.stub(:save).and_return(false)
+        put_update_password
+      end
+
+      it { should render_template(:change_password) }
+    end
+  end
+
+
   private
     def post_create
       post :create, user_account: { email: email }
@@ -203,6 +256,14 @@ describe UserAccountsController do
 
     def get_activate(activation_token=user.activation_token)
       get :activate_by_link, activation_token: activation_token
+    end
+
+    def get_change_password
+      get :change_password, id: user.id
+    end
+
+    def put_update_password
+      put :update_password, id: user.id, user_account: { password: user.password, password_confirmation: user.password }
     end
 
     def should_flash_success(message)
