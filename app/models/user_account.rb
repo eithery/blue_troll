@@ -39,6 +39,16 @@ class UserAccount < ActiveRecord::Base
   end
 
 
+  def generate_reset_token
+    self.reset_password_token = SecureRandom.uuid
+  end
+
+
+  def reset
+    self.reset_password_token = nil
+  end
+
+
 private
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64

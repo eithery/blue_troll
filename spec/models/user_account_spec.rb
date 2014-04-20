@@ -28,6 +28,8 @@ describe UserAccount do
   it { should respond_to :authenticate }
   it { should respond_to :participants }
   it { should respond_to :activate }
+  it { should respond_to :generate_reset_token }
+  it { should respond_to :reset }
 
   it { should be_valid }
 
