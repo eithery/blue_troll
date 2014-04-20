@@ -10,7 +10,7 @@ class UserAccountsController < ApplicationController
     @user = UserAccount.new(user_account_params)
     if @user.save
       flash[:success] = "New user account for #{@user.name} has been created"
-      RegistrationNotifier.registered(@user).deliver
+      UserAccountsMailer.registered(@user).deliver
       redirect_to request_to_activate_path(account_id: @user.id)
     else
       render :new

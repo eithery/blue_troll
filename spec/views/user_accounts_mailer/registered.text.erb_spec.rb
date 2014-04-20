@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "registration_notifier/registered.text.erb" do
+describe "user_accounts_mailer/registered.text.erb" do
   subject { rendered }
   let(:activation_code) { '123456789' }
   let(:activation_token) { SecureRandom.uuid }

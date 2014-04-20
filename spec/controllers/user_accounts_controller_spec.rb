@@ -50,17 +50,17 @@ describe UserAccountsController do
 
 
       it "sends a user account registration notification email" do
-        RegistrationNotifier.deliveries.clear
+        UserAccountsMailer.deliveries.clear
         post_create
-        mail = RegistrationNotifier.deliveries.last
+        mail = UserAccountsMailer.deliveries.last
         mail.to.should include(email)
-        mail.subject.should == "Blue Trolley club account activation"
+        mail.subject.should == "Blue Trolley: club account activation"
       end
 
 
       it "redirects to activation page" do
         notifier = double('notifier').as_null_object
-        RegistrationNotifier.stub(:registered).and_return(notifier)
+        UserAccountsMailer.stub(:registered).and_return(notifier)
         post_create
         response.should redirect_to(request_to_activate_path(account_id: user.id))
       end

@@ -33,15 +33,15 @@ describe "User account registration:" do
 
 
       describe "user receives email" do
-        let(:mail) { RegistrationNotifier.deliveries.first }
+        let(:mail) { UserAccountsMailer.deliveries.last }
         subject { mail }
         before do
-          RegistrationNotifier.deliveries.clear
+          UserAccountsMailer.deliveries.clear
           submit_registration_form
         end
 
         specify { mail.to.should include(user.email) }
-        specify { mail.subject.should == "Blue Trolley club account activation" }
+        specify { mail.subject.should == "Blue Trolley: club account activation" }
 
         describe "body" do
           subject { mail.body.encoded }
