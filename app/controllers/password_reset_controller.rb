@@ -4,8 +4,8 @@ class PasswordResetController < ApplicationController
 
 
   def send_link
-    login = params[:login]
-    @user = UserAccount.find_by_email(login) || UserAccount.find_by_login(login)
+    email = params[:reset_password][:email]
+    @user = UserAccount.find_by_email(email) || UserAccount.find_by_login(email)
     if(@user)
       @user.generate_reset_token
       UserAccountsMailer.password_reset(@user).deliver
