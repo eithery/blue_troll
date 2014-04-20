@@ -116,7 +116,7 @@ describe PasswordResetController do
 
 private
   def post_send_link(login_or_email=user.email)
-    post :send_link, login: login_or_email
+    post :send_link, reset_password: { email: login_or_email }
   end
 
   def get_reset
