@@ -11,6 +11,7 @@ BlueTroll::Application.routes.draw do
   get 'cant_access', to: 'password_reset#collect_info'
   post 'send_reset_link', to: 'password_reset#send_link'
   get 'reset', to: 'password_reset#reset'
+  get 'change_password', to: 'change_password#edit'
 
   post 'search', to: 'participants#search'
   get 'flagged', to: 'participants#flagged'
