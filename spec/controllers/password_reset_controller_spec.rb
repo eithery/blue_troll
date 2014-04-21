@@ -98,7 +98,7 @@ describe PasswordResetController do
 
       it "redirects to change password template" do
         get_reset
-        response.should redirect_to(change_password_path user)
+        response.should redirect_to(change_password_path(id: user.id))
       end
     end
 
