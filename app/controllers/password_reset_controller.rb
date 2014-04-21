@@ -24,7 +24,7 @@ class PasswordResetController < ApplicationController
     if @user
       @user.reset
       flash[:success] = "Password has been reset. Please change the password"
-      redirect_to change_password_path(@user)
+      redirect_to change_password_path(id: @user.id)
     else
       flash[:warning] = "Invalid reset password link"
       redirect_to signin_path
