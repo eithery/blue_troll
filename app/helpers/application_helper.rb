@@ -18,4 +18,14 @@ module ApplicationHelper
   def checked_in_image(participant)
     image_tag participant.registered_at.blank? ? 'bulb_off.png' : 'bulb_on.png'
   end
+
+
+  def forum_path
+    "http://www.nashslet.com/ДоброПожаловать/Форум/tabid/36/language/en-US/Default.aspx"
+  end
+
+
+  def club_path
+    "http://bluetrolleyclub.com"
+  end
 end

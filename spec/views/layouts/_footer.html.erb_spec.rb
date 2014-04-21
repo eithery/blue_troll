@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe "layouts/_footer.html.erb" do
-  let(:forum_path) { "http://www.nashslet.com/ДоброПожаловать/Форум/tabid/36/language/en-US/Default.aspx" }
-  let(:club_path) { "http://bluetrolleyclub.com" }
   subject { rendered }
   before { render }
 

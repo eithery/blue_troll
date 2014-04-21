@@ -5,5 +5,6 @@ describe "layouts/_banner.html.erb" do
   before { render }
 
   it { should have_selector('div.container') }
+  it { should have_selector('div.image-header') }
   it { should have_selector('img.image-logo') }
 end

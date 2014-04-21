@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe "layouts/application.html.erb" do
-  subject { rendered }
   let(:warning) { "Some test warning message" }
+
+  subject { rendered }
   before { render }
 
   it { should have_title('Blue Troll') }
