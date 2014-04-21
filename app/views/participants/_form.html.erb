@@ -1,6 +1,5 @@
 <div class="shadowed-form">
   <%= form_for(@participant, html: { class: "form-horizontal well" }) do |f| %>
-
     <fieldset>
       <legend><%= form_header %></legend>
       <%= render 'shared/error_messages', errors: @participant.errors, entity_name: 'participant' %>

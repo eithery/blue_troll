@@ -1,30 +1,29 @@
 require 'spec_helper'
 
 shared_examples_for "participant form" do
-  it { should have_selector("input[value='#{participant.user_account.id}'][type='hidden']") }
+  it { should have_selector("input[value='#{participant.user_account_id}'][type='hidden']") }
   it { should have_select('participant[crew_id]') }
   it { should have_selector('option', count: 4) }
   it { should have_selector("input[type='radio']", count: 3) }
   it { should have_selector("div.radio", text: 'Adult') }
   it { should have_selector("div.radio", text: 'Child (more than 6 years)') }
   it { should have_selector("div.radio", text: 'Child (0 - 6 years)') }
-  it { should have_link('Cancel', href: user_account_path(user)) }
+  it { should have_link('Cancel', href: user_account_path(participant.user_account)) }
 end
 
 
 describe "participants/_form.html.erb" do
+  let(:crews) { mock_crews }
+  let(:user) { mock_user_account }
+
   subject { rendered }
-  let(:crews) { [FactoryGirl.create(:crew), FactoryGirl.create(:spies), FactoryGirl.create(:fix_crew)] }
-  let(:user) { stub_model(UserAccount) }
-  let(:participant) { stub_model(Participant, user_account: user, crew: crews.second, last_name: 'Smith',
-    first_name: 'Gwen', age_category: AgeCategory::BABY, age: 3, email: 'gwen@gmail1.com', cell_phone: '347-583-0140',
-    address_line_1: '31 Gadsen Pl Staten Island NY 10314') }
-  let(:new_participant) { stub_model(Participant, user_account: user).as_new_record }
+  before { Crew.stub(:order).and_return(crews) }
 
   describe "for new participant" do
+    let(:participant) { stub_new_participant }
     before do
       crews
-      assign(:participant, new_participant)
+      assign(:participant, participant)
       render
     end
 
@@ -45,6 +44,8 @@ describe "participants/_form.html.erb" do
 
 
   describe "for existing participant" do
+    let(:participant) { stub_participant user_account: user, crew_id: crews.last.id }
+
     before do
       assign(:participant, participant)
       render
@@ -54,7 +55,7 @@ describe "participants/_form.html.erb" do
 
     it { should have_selector("form[action='#{participant_path(participant)}']") }
     it { should have_selector('legend', text: 'Edit Participant') }
-    it { should have_selector("option[selected='selected']", count: 1, text: crews.second.name) }
+    it { should have_selector("option[selected='selected']", count: 1, text: crews.last.name) }
     it { should have_selector("input#participant_last_name[value='#{participant.last_name}']") }
     it { should have_selector("input#participant_first_name[value='#{participant.first_name}']") }
     it { should have_selector("input[type='radio'][checked='checked'][value='2']") }
