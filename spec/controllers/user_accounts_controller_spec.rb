@@ -3,10 +3,10 @@
 describe UserAccountsController do
   let(:name) { 'gwen' }
   let(:email) { 'gwen@gmail1.com' }
-  let(:user) { mock_model(UserAccount, name: name, email: email).as_null_object }
+  let(:user) { mock_user_account(name: name, email: email) }
   let(:congratulation) { "Congratulation, #{name}! Your account has been successfully activated" }
-  before { UserAccount.stub(:find).and_return(user) }
 
+  before { UserAccount.stub(:find).and_return(user) }
 
   describe "GET new" do
     it "creates a new user account" do
@@ -62,7 +62,7 @@ describe UserAccountsController do
         notifier = double('notifier').as_null_object
         UserAccountsMailer.stub(:registered).and_return(notifier)
         post_create
-        response.should redirect_to(request_to_activate_path(account_id: user.id))
+        response.should redirect_to(request_to_activate_path account_id: user.id)
       end
     end
 
@@ -278,14 +278,6 @@ describe UserAccountsController do
 
     def put_update_password
       put :update_password, id: user.id, user_account: { password: user.password, password_confirmation: user.password }
-    end
-
-    def should_flash_success(message)
-      flash[:success].should == message
-    end
-
-    def should_flash_error(message)
-      flash[:danger].should == message
     end
 
     def should_assign_user

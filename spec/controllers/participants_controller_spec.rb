@@ -1,16 +1,18 @@
 require 'spec_helper'
 
 describe ParticipantsController do
-  let(:user) { mock_model(UserAccount) }
-  let(:crew) { mock_model(Crew) }
+  let(:user) { mock_user_account }
+  let(:crew) { mock_crew }
   let(:last_name) { "Smith" }
   let(:first_name) { "Gwen" }
-  let(:participant) { mock_model(Participant, user_account: user, crew: crew,
-    last_name: last_name, first_name: first_name, display_name: "#{first_name} #{last_name}").as_null_object }
+  let(:participant) { mock_participant(user_account: user, crew: crew,
+    last_name: last_name, first_name: first_name, display_name: "#{first_name} #{last_name}") }
+
   let(:success_message) { "#{participant.display_name} has been " }
   let(:create_message) { success_message + "successfully registered as Blue Trolley event participant" }
   let(:update_message) { "#{participant.display_name} profile has been successfully updated" }
   let(:delete_message) { success_message + "deleted from Blue Trolley participants list" }
+
   before do
     Participant.stub(:new).and_return(participant)
     Participant.stub(:find).and_return(participant)
@@ -49,7 +51,11 @@ describe ParticipantsController do
     end
 
     context "when participant saves successfully" do
-      before { post_create }
+      before do
+        participant.stub(:save).and_return(true)
+        post_create
+      end
+
       specify { should_flash_success create_message }
       it { should redirect_to(user_account_path user) }
     end
@@ -97,7 +103,11 @@ describe ParticipantsController do
     end
 
     context "when participant updates successfully" do
-      before { put_update }
+      before do
+        participant.stub(:update).and_return(true)
+        put_update
+      end
+
       specify { should_flash_success update_message }
       it { should redirect_to(user_account_path user) }
     end
@@ -169,9 +179,5 @@ private
 
   def should_assign_participant
     assigns[:participant].should eq(participant)
-  end
-
-  def should_flash_success(message)
-    flash[:success].should == message
   end
 end

@@ -8,8 +8,8 @@ end
 
 describe SessionsController do
   let(:remember_token) { SecureRandom.urlsafe_base64 }
-  let(:user) { mock_model(UserAccount, login: 'gwen', email: 'gwen@gmail.com',
-    password: '123', remember_token: remember_token).as_null_object }
+  let(:user) { mock_user_account(login: 'gwen', email: 'gwen@gmail.com', password: '123',
+    remember_token: remember_token) }
 
   describe "GET new" do
     it "renders new template" do
@@ -111,10 +111,6 @@ private
 
   def delete_destroy
     delete :destroy, id: user.id
-  end
-
-  def should_flash_warning(message)
-    flash[:warning].should == message
   end
 
   def sign_in_user

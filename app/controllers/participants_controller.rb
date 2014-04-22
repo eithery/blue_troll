@@ -1,7 +1,6 @@
 class ParticipantsController < ApplicationController
 	before_action :set_participant, only: [:edit, :update, :destroy]
 
-
   def new
     @participant = Participant.new(user_account_id: params[:user_account_id], crew_id: params[:crew_id])
   end

@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe PasswordResetController do
   let(:reset_token) { SecureRandom.uuid }
-  let(:user) { mock_model(UserAccount, login: 'gwen', email: 'gwen@gmail1.com',
-  reset_password_token: reset_token).as_null_object }
+  let(:user) { mock_user_account(login: 'gwen', email: 'gwen@gmail1.com', reset_password_token: reset_token) }
 
   describe "GET collect_info" do
     it "renders new template" do
@@ -50,7 +49,7 @@ describe PasswordResetController do
 
       it "displays a flash success message" do
         post_send_link
-        flash_success "Password reset link has been sent to #{user.email}"
+        should_flash_success "Password reset link has been sent to #{user.email}"
       end
 
       it "redirects to sign in page" do
@@ -66,7 +65,7 @@ describe PasswordResetController do
         post_send_link
       end
 
-      it { flash_warning "Entered user login or email is not found" }
+      it { should_flash_warning "Entered user login or email is not found" }
       specify { response.should render_template(:collect_info) }
     end
   end
@@ -93,7 +92,7 @@ describe PasswordResetController do
 
       it "displays a flash success message" do
         get_reset
-        flash_success "Password has been reset. Please change the password"
+        should_flash_success "Password has been reset. Please change the password"
       end
 
       it "redirects to change password template" do
@@ -108,7 +107,7 @@ describe PasswordResetController do
         get_reset
       end
 
-      it { flash_warning "Invalid reset password link" }
+      it { should_flash_warning "Invalid reset password link" }
       specify { response.should redirect_to(signin_path) }
     end
   end
@@ -121,14 +120,6 @@ private
 
   def get_reset
     get :reset, reset_token: user.reset_password_token
-  end
-
-  def flash_success(message)
-    flash[:success].should == message
-  end
-
-  def flash_warning(message)
-    flash[:warning].should == message
   end
 
   def should_assign_user
