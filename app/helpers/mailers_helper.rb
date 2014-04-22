@@ -7,6 +7,10 @@ module MailersHelper
     'michael.protsenko@gmail.com'
   end
 
+  def club_url
+    "https://bluetrolley2014.herokuapp.com"
+  end
+
   def mail_to(user, subject)
     @user = user
     mail to: @user.email, bcc: admin_email, from: "Blue_Trolley <#{club_email}>", subject: "#{sender}: #{subject}"

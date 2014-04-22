@@ -12,7 +12,7 @@ describe "user_accounts_mailer/password_reset.text.erb" do
 
   it { should have_content("We received a request to reset the password associated with this email address") }
   it { should have_content("Click the link below to reset your password") }
-  it { should have_content("https://bluetrolley2014.herokuapp.com/pwd_reset?reset_token=#{reset_token}")}
+  it { should have_content("#{club_url}/pwd_reset?reset_token=#{reset_token}")}
 
   specify do
     user.should_receive(:name)

@@ -10,8 +10,8 @@ describe "user_accounts_mailer/password_changed.text.erb" do
   end
 
   it { should have_content("This email confirms that your password has been changed") }
-  it { should have_content("https://bluetrolley2014.herokuapp.com/signin") }
-  it { should have_content("please contact bluetrolley2014@gmail.com") }
+  it { should have_content("#{club_url}/signin") }
+  it { should have_content("please contact #{club_email}") }
 
   specify do
     user.should_receive(:name)
