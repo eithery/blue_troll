@@ -33,20 +33,14 @@ describe "User account registration:" do
 
 
       describe "user receives email" do
-        let(:mail) { UserAccountsMailer.deliveries.last }
-        subject { mail }
-        before do
-          UserAccountsMailer.deliveries.clear
-          submit_registration_form
-        end
+        specify { expect_to_send_email(UserAccountsMailer, to: user.email,
+          subject: "#{sender}: #{registered_subject}") { submit_registration_form } }
 
-        specify { mail.to.should include(user.email) }
-        specify { mail.subject.should == "Blue Trolley: club account activation" }
-
-        describe "body" do
-          subject { mail.body.encoded }
-          it { should =~ /https:\/\/bluetrolley2014\./ }
-          it { should =~ /Your account activation code is: [0-9]+/ }
+        specify do
+          email_should_contain(UserAccountsMailer,
+            [/https:\/\/bluetrolley2014\.herokuapp\.com\/activate\?/, /Your account activation code is: [0-9]+/]) {
+              submit_registration_form
+            }
         end
       end
     end
@@ -54,5 +48,9 @@ describe "User account registration:" do
 
 
   describe "when user is already registered" do
-  end
+    before { fill_registration_form(user) }
+
+    specify "new user account should not be created" do
+      expect { submit_registration_form }.not_to change{ UserAccount.count }
+    end
 end
