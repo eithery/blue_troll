@@ -35,14 +35,8 @@ describe PasswordResetController do
         post_send_link
       end
 
-      it "sends email with reset password link" do
-        UserAccountsMailer.deliveries.clear
-        post_send_link
-        mail = UserAccountsMailer.deliveries.last
-        mail.to.should include(user.email)
-        mail.subject.should == "Blue Trolley: password reset"
-        mail.body.encoded.should have_content("pwd_reset?reset_token=#{user.reset_password_token}")
-      end
+      it { expect_to_send_email(UserAccountsMailer, to: user.email,
+        subject: "#{sender}: #{password_reset_subject}") { post_send_link } }
 
       it "displays a flash success message" do
         post_send_link

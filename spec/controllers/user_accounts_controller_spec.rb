@@ -45,15 +45,8 @@ describe UserAccountsController do
         should_flash_success "New user account for #{name} has been created"
       end
 
-
-      it "sends a user account registration notification email" do
-        UserAccountsMailer.deliveries.clear
-        post_create
-        mail = UserAccountsMailer.deliveries.last
-        mail.to.should include(email)
-        mail.subject.should == "Blue Trolley: club account activation"
-      end
-
+      it { expect_to_send_email(UserAccountsMailer, to: email,
+        subject: "#{sender}: #{registered_subject}") { post_create } }
 
       it "redirects to activation page" do
         notifier = double('notifier').as_null_object
@@ -169,6 +162,7 @@ describe UserAccountsController do
 
     context "when the activation token is not valid" do
       before { get_activate 'invalid_activation_token' }
+
       specify { should_flash_error "Invalid or expired activation link" }
       it { should redirect_to(root_path) }
     end
@@ -209,13 +203,8 @@ describe UserAccountsController do
       put_update_password
     end
 
-    it "send change password email" do
-      UserAccountsMailer.deliveries.clear
-      put_update_password
-      mail = UserAccountsMailer.deliveries.last
-      mail.to.should include(email)
-      mail.subject.should == "Blue Trolley: password has been changed"
-    end
+    it { expect_to_send_email(UserAccountsMailer, to: email,
+      subject: "#{sender}: #{password_changed_subject}") { put_update_password } }
 
     context "when a new password saves successfully" do
       subject { response }

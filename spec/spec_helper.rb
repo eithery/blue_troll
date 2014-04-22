@@ -24,6 +24,9 @@ Spork.prefork do
     config.include Capybara::DSL
 
     config.include DomainModelMocks
+    config.include DomainModelMatchers
+    config.include FlashMatchers
+    config.include MailerMatchers
     config.include SessionsHelper
   end
 end
