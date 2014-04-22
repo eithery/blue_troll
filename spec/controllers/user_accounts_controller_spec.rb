@@ -1,4 +1,4 @@
-  require 'spec_helper'
+require 'spec_helper'
 
 describe UserAccountsController do
   let(:name) { 'gwen' }
@@ -39,11 +39,9 @@ describe UserAccountsController do
 
 
     context "when user account saves successfully" do
-      it "sets a flash success message" do
-        user.stub(:name).and_return('gwen')
-        post_create
-        should_flash_success "New user account for #{name} has been created"
-      end
+      before { user.stub(:name).and_return('gwen') }
+
+      specify { expect_to_flash_success("New user account for #{name} has been created") { post_create } }
 
       it { expect_to_send_email(UserAccountsMailer, to: email,
         subject: "#{sender}: #{registered_subject}") { post_create } }
@@ -116,7 +114,7 @@ describe UserAccountsController do
         post_activate
       end
 
-      specify { should_flash_success congratulation }
+      specify { expect_to_flash_success congratulation }
       it { should redirect_to(signin_path) }
     end
 
@@ -127,7 +125,7 @@ describe UserAccountsController do
         post_activate
       end
 
-      specify { should_flash_error "Invalid activation code" }
+      specify { expect_to_flash_error "Invalid activation code" }
       it { should redirect_to(request_to_activate_path account_id: user.id) }
     end
   end
@@ -149,10 +147,7 @@ describe UserAccountsController do
         get_activate
       end
 
-      it "sets a flash activation success message" do
-        get_activate
-        should_flash_success congratulation
-      end
+      specify { expect_to_flash_success(congratulation) { get_activate } }
 
       it "redirects to the root page" do
         get_activate
@@ -163,7 +158,7 @@ describe UserAccountsController do
     context "when the activation token is not valid" do
       before { get_activate 'invalid_activation_token' }
 
-      specify { should_flash_error "Invalid or expired activation link" }
+      specify { expect_to_flash_error "Invalid or expired activation link" }
       it { should redirect_to(root_path) }
     end
   end
@@ -209,7 +204,8 @@ describe UserAccountsController do
     context "when a new password saves successfully" do
       subject { response }
       before { put_update_password }
-      it { should_flash_success "Password has been changed successfully" }
+
+      specify { expect_to_flash_success "Password has been changed successfully" }
       it { should redirect_to(signin_path) }
     end
 

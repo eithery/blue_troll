@@ -53,7 +53,7 @@ describe ParticipantsController do
         post_create
       end
 
-      specify { should_flash_success create_message }
+      specify { expect_to_flash_success create_message }
       it { should redirect_to(user_account_path user) }
     end
 
@@ -102,7 +102,7 @@ describe ParticipantsController do
         put_update
       end
 
-      specify { should_flash_success update_message }
+      specify { expect_to_flash_success update_message }
       it { should redirect_to(user_account_path user) }
     end
 
@@ -125,15 +125,11 @@ describe ParticipantsController do
     end
 
     it { should_assign(participant: participant) { delete_destroy } }
+    specify { expect_to_flash_success(delete_message) { delete_destroy } }
 
     it "destroys the participant" do
       participant.should_receive(:destroy)
       delete_destroy
-    end
-
-    it "displays a flash success delete message" do
-      delete_destroy
-      should_flash_success delete_message
     end
 
     it "redirects to user account profile" do

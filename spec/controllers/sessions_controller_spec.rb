@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 shared_examples_for "authentication is failed" do
-  specify { should_flash_warning "Invalid login/password combination" }
+  specify { expect_to_flash_warning "Invalid login/password combination" }
   it { should render_template(:new) }
 end
 
@@ -40,17 +40,13 @@ describe SessionsController do
       end
 
       context "and user account was not activated" do
-        before { user.stub(:active?).and_return(false) }
-
-        it "displays a flash inactive account warning message" do
+        before do
+          user.stub(:active?).and_return(false)
           post_create
-          should_flash_warning "User account is not activated"
         end
 
-        it "renders new template" do
-          post_create
-          response.should render_template(:new)
-        end
+        specify { expect_to_flash_warning "User account is not activated" }
+        it { should render_template(:new) }
       end
 
       context "and user is authenticated" do
