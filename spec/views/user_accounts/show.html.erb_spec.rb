@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe "user_accounts/show.html.erb" do
   subject { rendered }
-  let(:user) { stub_model(UserAccount, login: 'johnsmith', email: 'jsmith@gmail.com') }
-  let(:gwen) { stub_model(Participant, last_name: 'Protsenko', first_name: 'Gwen', age: 4, email: 'gwen@gmail.com') }
+  let(:user) { mock_user_account }
+  let(:gwen) { stub_participant }
   before do
     assign(:user, user)
     render
@@ -21,16 +21,40 @@ describe "user_accounts/show.html.erb" do
     href: new_participant_path(user_account_id: user.id, crew_id: user.crew)) }
   it { should have_selector("a[disabled='disabled'][href='#']", text: 'Download my tickets') }
 
+  specify do
+    user.should_receive(:login)
+    render
+  end
+
+  specify do
+    user.should_receive(:email)
+    render
+  end
 
   describe "with no registered participants" do
+    before do
+      user.stub(:participants).and_return([])
+      render
+    end
+
     it { should_not have_selector('tbody tr') }
     it { should_not have_link('Click here')}
+
+    specify do
+      gwen.should_not_receive(:display_name)
+      render
+    end
+
+    specify do
+      gwen.should_not_receive(:email)
+      render
+    end
   end
 
 
   describe "with few registered participants" do
     before do
-      user.should_receive(:participants).at_least(3).times.and_return(stub_participants)
+      user.stub(:participants).and_return(stub_participants)
       render
     end
 
@@ -38,10 +62,21 @@ describe "user_accounts/show.html.erb" do
     it { should have_selector('td', text: gwen.full_name) }
     it { should have_selector('td', text: gwen.email) }
     it { should have_selector('td', text: gwen.age) }
+
     it { should have_link("Click here to edit #{gwen.display_name}", href: edit_participant_path(gwen)) }
     it { should have_link("Click here to delete #{gwen.display_name}", href: participant_path(gwen)) }
     it { should have_link("Click here to download a ticket for #{gwen.display_name}",
       href: participant_ticket_path(participant_id: gwen.id)) }
+
+    specify do
+      gwen.should_receive(:display_name).at_least(4).times
+      render
+    end
+
+    specify do
+      gwen.should_receive(:email).twice
+      render
+    end
   end
 
 

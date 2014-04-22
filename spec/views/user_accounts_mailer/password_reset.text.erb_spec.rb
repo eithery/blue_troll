@@ -3,7 +3,8 @@ require 'spec_helper'
 describe "user_accounts_mailer/password_reset.text.erb" do
   subject { rendered }
   let(:reset_token) { SecureRandom.uuid }
-  let(:user) { mock_model(UserAccount, name: 'gwen', reset_password_token: reset_token) }
+  let(:user) { mock_user_account reset_password_token: reset_token }
+
   before do
     assign(:user, user)
     render

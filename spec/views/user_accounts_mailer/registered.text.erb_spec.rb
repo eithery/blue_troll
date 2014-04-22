@@ -4,7 +4,8 @@ describe "user_accounts_mailer/registered.text.erb" do
   subject { rendered }
   let(:activation_code) { '123456789' }
   let(:activation_token) { SecureRandom.uuid }
-  let(:user) { stub_model(UserAccount, activation_code: activation_code, activation_token: activation_token) }
+  let(:user) { mock_user_account activation_code: activation_code, activation_token: activation_token }
+
   before do
     assign(:user, user)
     render

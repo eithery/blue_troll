@@ -1,11 +1,18 @@
 module DomainModelMocks
-  def mock_user_account
-    mock_model(UserAccount).as_null_object
+  def mock_user_account(stubs={})
+    user = mock_model(UserAccount, login: 'johnsmith', name: 'johnsmith', email: 'johnsmith@gmail.com').as_null_object
+    stubs.each { |key, val| user.stub(key).and_return(val) }
+    user
+  end
+
+
+  def mock_new_user_account
+    mock_model(UserAccount).as_new_record
   end
 
 
   def mock_participant
-    mock_model(Participant, user_account: user_account_mock).as_null_object
+    mock_model(Participant, user_account: mock_user_account).as_null_object
   end
 
 
