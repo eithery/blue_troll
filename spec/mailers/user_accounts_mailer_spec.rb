@@ -13,7 +13,7 @@ end
 
 
 describe UserAccountsMailer do
-  let(:user) { mock_model(UserAccount, email: 'gwen@gmail1.com').as_null_object }
+  let(:user) { mock_user_account email: 'gwen@gmail1.com' }
 
   describe "#registered" do
     let(:mail) { UserAccountsMailer.registered(user) }
