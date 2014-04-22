@@ -35,10 +35,7 @@ describe UserAccountsController do
       post_create
     end
 
-    it "assigns user" do
-      post_create
-      should_assign_user
-    end
+    it { should_assign(user: user) { post_create } }
 
 
     context "when user account saves successfully" do
@@ -84,10 +81,7 @@ describe UserAccountsController do
       get_show
     end
 
-    it "assigns user" do
-      get_show
-      should_assign_user
-    end
+    it { should_assign(user: user) { get_show } }
 
     it "renders the show template" do
       get_show
@@ -102,10 +96,7 @@ describe UserAccountsController do
       get_request_to_activate
     end
 
-    it "assigns user" do
-      get_request_to_activate
-      should_assign_user
-    end
+    it { should_assign(user: user) { get_request_to_activate } }
 
     it "renders the request_to_activate template" do
       get_request_to_activate
@@ -190,10 +181,7 @@ describe UserAccountsController do
       get_change_password
     end
 
-    it "assigns user" do
-      get_change_password
-      should_assign_user
-    end
+    it { should_assign(user: user) { get_change_password } }
 
     it "renders change password template" do
       get_change_password
@@ -208,10 +196,7 @@ describe UserAccountsController do
       put_update_password
     end
 
-    it "assigns user" do
-      put_update_password
-      should_assign_user
-    end
+    it { should_assign(user: user) { put_update_password } }
 
     it "sets password attributes" do
       user.should_receive(:password).with(user.password)
@@ -278,9 +263,5 @@ describe UserAccountsController do
 
     def put_update_password
       put :update_password, id: user.id, user_account: { password: user.password, password_confirmation: user.password }
-    end
-
-    def should_assign_user
-      assigns[:user].should eq(user)
     end
 end

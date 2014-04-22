@@ -28,10 +28,7 @@ describe PasswordResetController do
     context "when login or email exists" do
       before { UserAccount.stub(:find_by_email).and_return(user) }
 
-      it "assigns user" do
-        post_send_link
-        should_assign_user
-      end
+      it { should_assign(user: user) { post_send_link } }
 
       it "calls generate_password_token" do
         user.should_receive(:generate_reset_token)
@@ -85,10 +82,7 @@ describe PasswordResetController do
         get_reset
       end
 
-      it "assigns user" do
-        get_reset
-        should_assign_user
-      end
+      it { should_assign(user: user) { get_reset } }
 
       it "displays a flash success message" do
         get_reset
@@ -120,9 +114,5 @@ private
 
   def get_reset
     get :reset, reset_token: user.reset_password_token
-  end
-
-  def should_assign_user
-    assigns[:user].should eq(user)
   end
 end

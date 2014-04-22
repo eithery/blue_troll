@@ -26,10 +26,7 @@ describe ParticipantsController do
       get_new
     end
 
-    it "assigns participant" do
-      get_new
-      should_assign_participant
-    end
+    it { should_assign(participant: participant) { get_new } }
 
     it "renders new template" do
       get_new
@@ -66,7 +63,7 @@ describe ParticipantsController do
         post_create
       end
 
-      specify { should_assign_participant }
+      it { should_assign participant: participant }
       it { should render_template(:new) }
     end
   end
@@ -78,10 +75,7 @@ describe ParticipantsController do
       get_edit
     end
 
-    it "assigns participant" do
-      get_edit
-      should_assign_participant
-    end
+    it { should_assign(participant: participant) { get_edit } }
 
     it "renders edit template" do
       get_edit
@@ -118,7 +112,7 @@ describe ParticipantsController do
         put_update
       end
 
-      specify { should_assign_participant }
+      it { should_assign participant: participant }
       it { should render_template(:edit) }
     end
   end
@@ -130,10 +124,7 @@ describe ParticipantsController do
       delete_destroy
     end
 
-    it "assigns participant" do
-      delete_destroy
-      should_assign_participant
-    end
+    it { should_assign(participant: participant) { delete_destroy } }
 
     it "destroys the participant" do
       participant.should_receive(:destroy)
@@ -175,9 +166,5 @@ private
 
   def should_be_found_by_id
     Participant.should_receive(:find).with("#{participant.id}").and_return(participant)
-  end
-
-  def should_assign_participant
-    assigns[:participant].should eq(participant)
   end
 end

@@ -11,10 +11,7 @@ describe CrewsController do
       get :index
     end
 
-    it "assigns crews" do
-      get :index
-      assigns[:crews].should == crews
-    end
+    it { should_assign(crews: crews) { get :index } }
 
     it "renders index template" do
       get :index
