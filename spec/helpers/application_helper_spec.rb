@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ApplicationHelper do
-  let(:participant) { mock_model(Participant) }
+  let(:participant) { mock_participant }
 
   describe "#full_title" do
     it "should include the page title" do

@@ -22,13 +22,13 @@ describe ParticipantsHelper do
     subject { form_header }
 
     context "for new participant" do
-      before { @participant = mock_model(Participant).as_new_record }
+      before { @participant = mock_participant.as_new_record }
       it { should == "New Participant" }
     end
 
 
     context "for existing participant" do
-      before { @participant = mock_model(Participant) }
+      before { @participant = mock_participant }
       it { should == "Edit Participant" }
     end
   end

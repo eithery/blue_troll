@@ -3,7 +3,7 @@ require 'spec_helper'
 describe UserAccountsHelper do
   describe "gravatar_for" do
     let(:email) { 'gwen@gmail1.com' }
-    let(:user) { mock_model(UserAccount, email: email) }
+    let(:user) { mock_user_account email: email }
 
     it "returns image tag" do
       gravatar_for(user).should have_selector("img.gravatar")

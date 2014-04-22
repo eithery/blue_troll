@@ -13,7 +13,7 @@ module MailersHelper
 
   def mail_to(user, subject)
     @user = user
-    mail to: @user.email, bcc: admin_email, from: "Blue_Trolley <#{club_email}>", subject: "#{sender}: #{subject}"
+    mail to: @user.email, from: "Blue_Trolley <#{club_email}>", subject: "#{sender}: #{subject}"
   end
 
   def registered_subject

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe SessionsHelper do
   subject { helper }
   let(:remember_token) { SecureRandom.urlsafe_base64 }
-  let(:user) { mock_model(UserAccount, remember_token: remember_token) }
+  let(:user) { mock_user_account remember_token: remember_token }
 
   describe "#sign_in" do
     it "creates permanent cookie" do

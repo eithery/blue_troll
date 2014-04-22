@@ -20,12 +20,12 @@ module ApplicationHelper
   end
 
 
-  def forum_path
+  def forum_url
     "http://www.nashslet.com/ДоброПожаловать/Форум/tabid/36/language/en-US/Default.aspx"
   end
 
 
-  def club_path
+  def old_club_url
     "http://bluetrolleyclub.com"
   end
 end
