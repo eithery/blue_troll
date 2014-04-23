@@ -1,6 +1,6 @@
 module PageExamples
   shared_examples_for "home page" do
-    specify { page.should have_title('Home') }
+    specify { page.should have_title('Blue Troll') }
   end
 
   shared_examples_for "registration page" do
