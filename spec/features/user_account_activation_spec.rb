@@ -1,14 +1,13 @@
 require 'spec_helper'
-include UserRegistrationHelper
+include UserRegistrationSpecHelper
 
 describe "User account activation" do
   let(:invalid_code) { '12345678' }
   let(:activate_account) { 'Activate my account' }
   let(:base_activation_url) { "http://localhost:3000/activate?activation_token=" }
   let(:user) { FactoryGirl.build(:inactive_user) }
-  before do
-    register user
-  end
+
+  before { register user }
 
   describe "by activation code" do
     describe "with correct activation code" do
