@@ -1,12 +1,7 @@
 require 'spec_helper'
-include UserRegistrationHelper
+include UserRegistrationSpecHelper
 
-shared_examples_for "new user account is not created" do
-  specify { expect { submit_registration_form }.not_to change{ UserAccount.count } }
-end
-
-
-describe "User account registration:" do
+describe "New user account registration" do
   let(:user) { FactoryGirl.build(:inactive_user) }
 
   subject { page }
@@ -18,10 +13,7 @@ describe "User account registration:" do
     describe "and enters all valid information (happy path)" do
       before { fill_registration_form(user) }
 
-      specify "new user account should be created by submit registration form" do
-        expect { submit_registration_form }.to change{ UserAccount.count }.by(1)
-      end
-
+      it_behaves_like "new user account is created"
 
       describe "and submits registration form" do
         before { submit_registration_form }

@@ -1,4 +1,4 @@
-module UserRegistrationHelper
+module UserRegistrationSpecHelper
   def register(user_account)
     visit_registration_page
     fill_registration_form(user_account)
