@@ -23,7 +23,8 @@ Spork.prefork do
     # Includes Capybara domain specific language.
     config.include Capybara::DSL
 
-    config.include SessionsHelper
+    config.include SessionsHelper, type: :view
+
     config.include DomainModelMocks
     config.include DomainModelMatchers
     config.include FlashMatchers
