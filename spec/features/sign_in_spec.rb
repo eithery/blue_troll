@@ -21,15 +21,7 @@ describe "Sign in operation" do
     context "based on login" do
       context "in lower case" do
         before { submit_form user.login.downcase }
-
         it_behaves_like "successfull sign in"
-
-        describe "followed by sign out" do
-          before { click_link 'Sign out' }
-
-          user { should_be_signed_out }
-          it { should be_navigated_to home_page }
-        end
       end
 
       context "in upper case" do
