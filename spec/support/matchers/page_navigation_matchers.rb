@@ -38,6 +38,22 @@ module PageNavigationMatchers
   end
 
 
+  # Activation in page.
+  class ActivationPage
+    def title
+      'Account Activation'
+    end
+
+    def to_s
+      'account activation page'
+    end
+  end
+
+  def activation_page
+    ActivationPage.new
+  end
+
+
   # Home page
   class HomePage
     def title
@@ -51,6 +67,22 @@ module PageNavigationMatchers
 
   def home_page
     HomePage.new
+  end
+
+
+  # New account registration page
+  class RegistrationPage
+    def title
+      'New User Account'
+    end
+
+    def to_s
+      'new user account page'
+    end
+  end
+
+  def new_user_account_page
+    RegistrationPage.new
   end
 
 
