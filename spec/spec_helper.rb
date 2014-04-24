@@ -28,6 +28,10 @@ Spork.prefork do
     config.include FlashMatchers
     config.include MailerMatchers
     config.include SessionsHelper
+    config.include PageNavigationMatchers
+    config.include ViewMatchers
+
+    config.extend UserAccountMacros
   end
 end
 

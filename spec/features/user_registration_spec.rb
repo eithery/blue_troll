@@ -67,7 +67,7 @@ describe "New user account registration" do
     end
 
 
-    context "when user email already exists" do
+    context "and user email already exists in DB" do
       before do
         user.email = user.email_confirmation = existing_user.email.upcase
         fill_registration_form(user)
