@@ -1,45 +1,53 @@
 require 'spec_helper'
-include UserRegistrationSpecHelper
 
 describe "New user account registration" do
   let(:user) { FactoryGirl.build(:inactive_user) }
 
+  shared_examples_for "new user account is created" do
+    specify { expect { submit_registration_form }.to change{ UserAccount.count }.by(1) }
+  end
+
+  shared_examples_for "new user account is not created" do
+    specify { expect { submit_registration_form }.not_to change{ UserAccount.count } }
+  end
+
   subject { page }
-  before { visit_registration_page }
+  before do
+    visit root_path
+    click_link 'Register now!'
+  end
 
-  it_behaves_like "registration page"
+  it { should be_navigated_to new_user_account_page }
 
-  describe "when user is not registered yet" do
-    describe "and enters all valid information (happy path)" do
-      before { fill_registration_form(user) }
+  describe "when user is not registered yet and enters all valid info" do
+    before { fill_registration_form }
 
-      it_behaves_like "new user account is created"
+    it_behaves_like "new user account is created"
 
-      describe "and submits registration form" do
-        before { submit_registration_form }
+    describe "and submits registration form" do
+      before { submit_registration_form }
 
-        it_behaves_like "activation page"
+      it { should be_navigated_to activation_page }
+      it { should display_message "New user account for #{user.login} has been created" }
 
-        it { should have_content("Hello #{user.login}, welcome to Blue Trolley club!") }
-        it { should have_content("Within few minutes, you will receive an email " +
-          "with your activation link and activation code.") }
-        it { should have_content("The email is sent to the following address: #{user.email}") }
-        it { should have_content("In order to activate your account enter the code or " +
-          "click on the link in your email.") }
-        it { should have_selector('.alert-success', text: "New user account for #{user.login} has been created") }
-      end
+      it { should have_content("Hello #{user.login}, welcome to Blue Trolley club!") }
+      it { should have_content("Within few minutes, you will receive an email " +
+        "with your activation link and activation code.") }
+      it { should have_content("The email is sent to the following address: #{user.email}") }
+      it { should have_content("In order to activate your account enter the code or " +
+        "click on the link in your email.") }
+    end
 
 
-      describe "user receives email by submit registration form" do
-        specify { expect_to_send_email(UserAccountsMailer, to: user.email,
-          subject: "#{sender}: #{registered_subject}") { submit_registration_form } }
+    describe "user receives email by submit registration form" do
+      specify { expect_to_send_email(UserAccountsMailer, to: user.email,
+        subject: "#{sender}: #{registered_subject}") { submit_registration_form } }
 
-        specify do
-          email_should_contain(UserAccountsMailer,
-            [/https:\/\/bluetrolley2014\.herokuapp\.com\/activate\?/, /Your account activation code is: [0-9]+/]) {
-              submit_registration_form
-            }
-        end
+      specify do
+        email_should_contain(UserAccountsMailer,
+          [/https:\/\/bluetrolley2014\.herokuapp\.com\/activate\?/, /Your account activation code is: [0-9]+/]) {
+            submit_registration_form
+          }
       end
     end
   end
@@ -51,7 +59,7 @@ describe "New user account registration" do
     context "and user login already exists in DB" do
       before do
         user.login = existing_user.login.upcase
-        fill_registration_form(user)
+        fill_registration_form
       end
 
       it_behaves_like "new user account is not created"
@@ -59,8 +67,7 @@ describe "New user account registration" do
       context "after submitting registration form" do
         before { submit_registration_form }
 
-        it_behaves_like "registration page"
-
+        it { should be_navigated_to new_user_account_page }
         specify { user.should have(1).error_on(:login) }
         it { should have_content('Login has already been taken') }
       end
@@ -70,7 +77,7 @@ describe "New user account registration" do
     context "and user email already exists in DB" do
       before do
         user.email = user.email_confirmation = existing_user.email.upcase
-        fill_registration_form(user)
+        fill_registration_form
       end
 
       it_behaves_like "new user account is not created"
@@ -82,5 +89,19 @@ describe "New user account registration" do
         it { should have_content('Email has already been taken') }
       end
     end
+  end
+
+
+private
+  def fill_registration_form
+    fill_in 'Login', with: user.login
+    fill_in 'Password', with: user.password
+    fill_in 'Password Confirmation', with: user.password
+    fill_in 'Email', with: user.email
+    fill_in 'Email Confirmation', with: user.email
+  end
+
+  def submit_registration_form
+    click_button 'Create my account'
   end
 end
