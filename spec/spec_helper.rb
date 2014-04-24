@@ -23,12 +23,12 @@ Spork.prefork do
     # Includes Capybara domain specific language.
     config.include Capybara::DSL
 
+    config.include SessionsHelper
     config.include DomainModelMocks
     config.include DomainModelMatchers
     config.include FlashMatchers
     config.include MailerMatchers
-    config.include SessionsHelper
-    config.include PageNavigationMatchers
+    config.include PageMatchers
     config.include ViewMatchers
 
     config.extend UserAccountMacros
