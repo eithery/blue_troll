@@ -18,7 +18,7 @@ describe "User account activation" do
   describe "by activation code" do
     before { visit request_to_activate_path(account_id: user.id ) }
 
-    it { should be_navigated_to activation_page }
+    it { should be_navigated_to activation_page(user) }
     specify { user.activation_code.should_not be_blank }
 
     context "with correct activation code" do
@@ -31,7 +31,7 @@ describe "User account activation" do
       before { activate_by_code invalid_code }
 
       specify { user.should_not be_active }
-      it { should be_navigated_to activation_page }
+      it { should be_navigated_to activation_page(user) }
       it { should display_error 'Invalid activation code' }
     end
   end

@@ -24,22 +24,14 @@ describe "New user account registration" do
 
     it_behaves_like "new user account is created"
 
-    describe "and submits registration form" do
+    context "and submits registration form" do
       before { submit_registration_form }
 
-      it { should be_navigated_to activation_page }
+      it { should be_navigated_to activation_page(user) }
       it { should display_message "New user account for #{user.login} has been created" }
-
-      it { should have_content("Hello #{user.login}, welcome to Blue Trolley club!") }
-      it { should have_content("Within few minutes, you will receive an email " +
-        "with your activation link and activation code.") }
-      it { should have_content("The email is sent to the following address: #{user.email}") }
-      it { should have_content("In order to activate your account enter the code or " +
-        "click on the link in your email.") }
     end
 
-
-    describe "user receives email by submit registration form" do
+    context "user receives email by submit registration form" do
       specify { expect_to_send_email(UserAccountsMailer, to: user.email,
         subject: "#{sender}: #{registered_subject}") { submit_registration_form } }
 

@@ -1,3 +1,5 @@
+require_relative 'base_page'
+
 module PageMatchers
   class UserProfilePage < BasePage
     def initialize(user)

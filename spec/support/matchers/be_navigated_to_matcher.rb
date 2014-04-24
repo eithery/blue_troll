@@ -5,7 +5,7 @@ module PageMatchers
     end
 
     def matches?(page)
-      page.title =~ /#{@page.title}/
+      page.title =~ /#{@page.title}/ && @page.verify(page)
     end
 
     def description
