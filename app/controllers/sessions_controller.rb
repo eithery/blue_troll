@@ -31,13 +31,13 @@ private
 
 
   def inactive_user_account
-    flash.now[:warning] = "User account is not activated"
+    flash.now[:warning] = "User account is not activated."
     render 'new'
   end
 
 
   def invalid_login_password
-    flash.now[:warning] = "Invalid login/password combination"
+    flash.now[:warning] = "Invalid login/password combination."
     render 'new'
   end
 end

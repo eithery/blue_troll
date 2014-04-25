@@ -9,7 +9,7 @@ class UserAccountsController < ApplicationController
   def create
     @user = UserAccount.new(user_account_params)
     if @user.save
-      flash[:success] = "New user account for #{@user.name} has been created"
+      flash[:success] = "New user account for #{@user.name} has been created."
       UserAccountsMailer.registered(@user).deliver
       redirect_to request_to_activate_path(account_id: @user.id)
     else
@@ -33,7 +33,7 @@ class UserAccountsController < ApplicationController
     user = UserAccount.find(user_id)
     return valid_activation user if user.activate(activation_code)
 
-    flash[:danger] = "Invalid activation code"
+    flash[:danger] = "Invalid activation code."
     redirect_to request_to_activate_path(account_id: user.id)
   end
 
@@ -43,7 +43,7 @@ class UserAccountsController < ApplicationController
     user = UserAccount.find_by_activation_token(activation_token)
     return valid_activation user if user && user.activate(activation_token)
 
-    flash[:danger] = "Invalid or expired activation link"
+    flash[:danger] = "Invalid or expired activation link."
     redirect_to root_path
   end
 
@@ -58,7 +58,7 @@ class UserAccountsController < ApplicationController
     @user.password_confirmation = user_account_params[:password_confirmation]
     if @user.save
       UserAccountsMailer.password_changed(@user).deliver
-      flash[:success] = "Password has been changed successfully"
+      flash[:success] = "Password has been changed successfully."
       redirect_to signin_path
     else
       render :change_password
@@ -79,7 +79,7 @@ private
 
 
   def valid_activation(user)
-    flash[:success] = "Congratulation, #{user.name}! Your account has been successfully activated"
+    flash[:success] = "Congratulation, #{user.name}! Your account has been successfully activated."
     redirect_to signin_path
   end
 end

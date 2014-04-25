@@ -9,7 +9,7 @@ class ParticipantsController < ApplicationController
   def create
     @participant = Participant.new(participant_params)
     if @participant.save
-      flash[:success] = "#{@participant.display_name} has been successfully registered as Blue Trolley event participant"
+      flash[:success] = "#{@participant.display_name} has been successfully registered as Blue Trolley event participant."
       redirect_to @participant.user_account
     else
       render :new
@@ -23,7 +23,7 @@ class ParticipantsController < ApplicationController
 
   def update
     if @participant.update(participant_params)
-      flash[:success] = "#{@participant.display_name} profile has been successfully updated"
+      flash[:success] = "#{@participant.display_name} profile has been successfully updated."
       redirect_to @participant.user_account
     else
       render :edit
@@ -34,7 +34,7 @@ class ParticipantsController < ApplicationController
   def destroy
     user_account = @participant.user_account
     @participant.destroy
-    flash[:success] = "#{@participant.display_name} has been deleted from Blue Trolley participants list"
+    flash[:success] = "#{@participant.display_name} has been deleted from Blue Trolley participants list."
     redirect_to user_account
   end
 
