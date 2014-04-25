@@ -4,7 +4,7 @@ describe UserAccountsController do
   let(:name) { 'gwen' }
   let(:email) { 'gwen@gmail1.com' }
   let(:user) { mock_user_account(name: name, email: email) }
-  let(:congratulation) { "Congratulation, #{name}! Your account has been successfully activated" }
+  let(:congratulation) { "Congratulation, #{name}! Your account has been successfully activated." }
 
   before { UserAccount.stub(:find).and_return(user) }
 
@@ -41,7 +41,7 @@ describe UserAccountsController do
     context "when user account saves successfully" do
       before { user.stub(:name).and_return('gwen') }
 
-      specify { expect_to_flash_success("New user account for #{name} has been created") { post_create } }
+      specify { expect_to_flash_success("New user account for #{name} has been created.") { post_create } }
 
       it { expect_to_send_email(UserAccountsMailer, to: email,
         subject: "#{sender}: #{registered_subject}") { post_create } }
@@ -125,7 +125,7 @@ describe UserAccountsController do
         post_activate
       end
 
-      specify { expect_to_flash_error "Invalid activation code" }
+      specify { expect_to_flash_error "Invalid activation code." }
       it { should redirect_to(request_to_activate_path account_id: user.id) }
     end
   end
@@ -158,7 +158,7 @@ describe UserAccountsController do
     context "when the activation token is not valid" do
       before { get_activate 'invalid_activation_token' }
 
-      specify { expect_to_flash_error "Invalid or expired activation link" }
+      specify { expect_to_flash_error "Invalid or expired activation link." }
       it { should redirect_to(root_path) }
     end
   end
@@ -205,7 +205,7 @@ describe UserAccountsController do
       subject { response }
       before { put_update_password }
 
-      specify { expect_to_flash_success "Password has been changed successfully" }
+      specify { expect_to_flash_success "Password has been changed successfully." }
       it { should redirect_to(signin_path) }
     end
 

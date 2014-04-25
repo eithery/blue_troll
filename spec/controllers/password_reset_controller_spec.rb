@@ -53,7 +53,7 @@ describe PasswordResetController do
         post_send_link
       end
 
-      specify { expect_to_flash_warning "Entered user login or email is not found" }
+      specify { expect_to_flash_warning "Entered user login or email is not found." }
       specify { response.should render_template(:collect_info) }
     end
   end
@@ -74,7 +74,7 @@ describe PasswordResetController do
       end
 
       it { should_assign(user: user) { get_reset } }
-      specify { expect_to_flash_success("Password has been reset. Please change the password") { get_reset } }
+      specify { expect_to_flash_success("Password has been reset. Please change the password.") { get_reset } }
 
       it "redirects to change password template" do
         get_reset
@@ -88,7 +88,7 @@ describe PasswordResetController do
         get_reset
       end
 
-      specify { expect_to_flash_warning "Invalid reset password link" }
+      specify { expect_to_flash_warning "Invalid reset password link." }
       specify { response.should redirect_to(signin_path) }
     end
   end

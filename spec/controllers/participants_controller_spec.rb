@@ -9,9 +9,9 @@ describe ParticipantsController do
     last_name: last_name, first_name: first_name, display_name: "#{first_name} #{last_name}") }
 
   let(:success_message) { "#{participant.display_name} has been " }
-  let(:create_message) { success_message + "successfully registered as Blue Trolley event participant" }
-  let(:update_message) { "#{participant.display_name} profile has been successfully updated" }
-  let(:delete_message) { success_message + "deleted from Blue Trolley participants list" }
+  let(:create_message) { success_message + "successfully registered as Blue Trolley event participant." }
+  let(:update_message) { "#{participant.display_name} profile has been successfully updated." }
+  let(:delete_message) { success_message + "deleted from Blue Trolley participants list." }
 
   before do
     Participant.stub(:new).and_return(participant)
