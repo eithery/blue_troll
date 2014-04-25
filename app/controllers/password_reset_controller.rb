@@ -12,7 +12,7 @@ class PasswordResetController < ApplicationController
       flash[:success] = "Password reset link has been sent to #{@user.email}"
       redirect_to signin_path
     else
-      flash[:warning] = "Entered user login or email is not found."
+      flash.now[:warning] = "Entered user login or email is not found."
       render :collect_info
     end
   end
