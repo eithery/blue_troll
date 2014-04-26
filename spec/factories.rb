@@ -1,4 +1,29 @@
 FactoryGirl.define do
+  factory :user, class: UserAccount do
+    sequence(:login) { |n| "btuser#{n}" }
+    sequence(:email) { |n| "person_#{n}@example.com" }
+    sequence(:email_confirmation) { |n| "person_#{n}@example.com" }
+    password "secret"
+    password_confirmation "secret"
+    active true
+
+    factory :crew_lead do
+      crew_lead true
+    end
+
+    factory :admin do
+      admin true
+    end
+
+    factory :financier do
+      financier true
+    end
+
+    factory :gatekeeper do
+      gatekeeper true
+    end
+  end
+
   factory :active_user, class: UserAccount do
     login "jsmith"
     email "jsmith@gmail.com"
@@ -16,47 +41,6 @@ FactoryGirl.define do
     password_confirmation "secret"
     active false
   end
-
-  factory :crew_lead, class: UserAccount do
-    login "boss"
-    email "boss@bossmail.com"
-    email_confirmation "boss@bossmail.com"
-    password "secret"
-    password_confirmation "secret"
-    active true
-    crew_lead true
-  end
-
-  factory :financier, class: UserAccount do
-    login "rita"
-    email "rita@gmail.com"
-    email_confirmation "rita@gmail.com"
-    password "secret"
-    password_confirmation "secret"
-    active true
-    financier true
-  end
-
-  factory :admin, class: UserAccount do
-    login "admin"
-    email "btadmin@gmail.com"
-    email_confirmation "btadmin@gmail.com"
-    password "secret"
-    password_confirmation "secret"
-    active true
-    admin true
-  end
-
-  factory :gatekeeper, class: UserAccount do
-    login "gate"
-    email "gate@gmail.com"
-    email_confirmation "gate@gmail.com"
-    password "secret"
-    password_confirmation "secret"
-    active true
-    gatekeeper true
-  end
-
 
   factory :crew do
     name "Guests"
