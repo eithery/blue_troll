@@ -71,17 +71,18 @@ ActiveRecord::Schema.define(version: 20140403213123) do
   end
 
   create_table "user_accounts", force: true do |t|
-    t.string   "login",                                null: false
-    t.string   "email",                                null: false
-    t.string   "password_digest",                      null: false
-    t.boolean  "crew_lead",            default: false, null: false
-    t.boolean  "financier",            default: false, null: false
-    t.boolean  "gatekeeper",           default: false, null: false
-    t.boolean  "admin",                default: false, null: false
-    t.boolean  "dev",                  default: false, null: false
-    t.string   "remember_token",                       null: false
+    t.string   "login",                                     null: false
+    t.string   "email",                                     null: false
+    t.string   "password_digest",                           null: false
+    t.boolean  "crew_lead",                 default: false, null: false
+    t.boolean  "financier",                 default: false, null: false
+    t.boolean  "gatekeeper",                default: false, null: false
+    t.boolean  "admin",                     default: false, null: false
+    t.boolean  "dev",                       default: false, null: false
+    t.string   "remember_token",                            null: false
     t.string   "reset_password_token"
-    t.boolean  "active",               default: false, null: false
+    t.datetime "reset_password_expired_at"
+    t.boolean  "active",                    default: false, null: false
     t.string   "activation_token"
     t.string   "activation_code"
     t.datetime "activated_at"
@@ -89,8 +90,10 @@ ActiveRecord::Schema.define(version: 20140403213123) do
     t.datetime "updated_at"
   end
 
+  add_index "user_accounts", ["activation_token"], name: "index_user_accounts_on_activation_token", using: :btree
   add_index "user_accounts", ["email"], name: "index_user_accounts_on_email", unique: true, using: :btree
   add_index "user_accounts", ["login"], name: "index_user_accounts_on_login", unique: true, using: :btree
-  add_index "user_accounts", ["remember_token"], name: "index_user_accounts_on_remember_token", using: :btree
+  add_index "user_accounts", ["remember_token"], name: "index_user_accounts_on_remember_token", unique: true, using: :btree
+  add_index "user_accounts", ["reset_password_token"], name: "index_user_accounts_on_reset_password_token", using: :btree
 
 end

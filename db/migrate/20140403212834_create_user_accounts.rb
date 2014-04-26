@@ -13,6 +13,7 @@ class CreateUserAccounts < ActiveRecord::Migration
 
       t.string :remember_token, null: false
       t.string :reset_password_token
+      t.datetime :reset_password_expired_at
       t.boolean :active, null: false, default: false
       t.string :activation_token
       t.string :activation_code
@@ -22,7 +23,9 @@ class CreateUserAccounts < ActiveRecord::Migration
 
     add_index :user_accounts, :login, unique: true
     add_index :user_accounts, :email, unique: true
-    add_index :user_accounts, :remember_token
+    add_index :user_accounts, :remember_token, unique: true
+    add_index :user_accounts, :reset_password_token
+    add_index :user_accounts, :activation_token
 
 
     devs = [{ login: 'dev', email: 'michael.protsenko@gmail.com', email_confirmation: 'michael.protsenko@gmail.com',
