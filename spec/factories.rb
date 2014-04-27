@@ -62,4 +62,13 @@ FactoryGirl.define do
     native_name "Черный список"
     active false
   end
+
+  factory :gwen, class: Participant do
+    association :user_account, factory: :user
+    association :crew, factory: :crew
+    last_name 'Hvostan'
+    first_name 'Gwen'
+    age_category 2
+    age 3
+  end
 end
