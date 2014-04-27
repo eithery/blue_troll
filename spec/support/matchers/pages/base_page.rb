@@ -29,4 +29,8 @@ module PageMatchers
   def new_user_account_page
     BasePage.new(name: 'new user account', title: 'New User Account')
   end
+
+  def new_participant_page
+    BasePage.new(name: 'new participant', title: 'New Participant')
+  end
 end
