@@ -4,7 +4,12 @@ class Crew < ActiveRecord::Base
   validates :name, :native_name, presence: true, uniqueness: { case_sensitive: false }
 
   def emails
-    []
+    leads.map { |user| user.email }
+  end
+
+
+  def leads
+    participants.select { |p| p.user_account.crew_lead? }.map { |p| p.user_account }
   end
 
 
