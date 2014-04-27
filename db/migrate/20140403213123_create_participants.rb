@@ -22,7 +22,7 @@ class CreateParticipants < ActiveRecord::Migration
       t.string :address_line_2
       t.string :city
       t.string :state, limit: 2
-      t.string :zip, limit: 5
+      t.string :zip, limit: 10
       t.string :country
 
       # Ticket info.

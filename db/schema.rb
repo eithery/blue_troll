@@ -30,13 +30,13 @@ ActiveRecord::Schema.define(version: 20140403213123) do
   add_index "crews", ["native_name"], name: "index_crews_on_native_name", unique: true, using: :btree
 
   create_table "participants", force: true do |t|
-    t.integer  "crew_id",                                        null: false
-    t.integer  "user_account_id",                                null: false
-    t.string   "last_name",                                      null: false
-    t.string   "first_name",                                     null: false
+    t.integer  "crew_id",                                         null: false
+    t.integer  "user_account_id",                                 null: false
+    t.string   "last_name",                                       null: false
+    t.string   "first_name",                                      null: false
     t.string   "middle_name"
     t.integer  "gender"
-    t.integer  "age_category",                   default: 0,     null: false
+    t.integer  "age_category",                    default: 0,     null: false
     t.integer  "age"
     t.date     "born_on"
     t.string   "home_phone"
@@ -46,10 +46,10 @@ ActiveRecord::Schema.define(version: 20140403213123) do
     t.string   "address_line_2"
     t.string   "city"
     t.string   "state",                limit: 2
-    t.string   "zip",                  limit: 5
+    t.string   "zip",                  limit: 10
     t.string   "country"
     t.string   "ticket_code"
-    t.boolean  "flagged",                        default: false, null: false
+    t.boolean  "flagged",                         default: false, null: false
     t.text     "notes"
     t.text     "text"
     t.datetime "approved_at"
