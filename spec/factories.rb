@@ -71,4 +71,11 @@ FactoryGirl.define do
     age_category 2
     age 3
   end
+
+  factory :fix, class: Participant do
+    association :user_account, factory: :crew_lead
+    association :crew, factory: :fix_crew
+    last_name 'Fix'
+    first_name 'Mister'
+  end
 end
