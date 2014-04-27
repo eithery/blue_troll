@@ -24,4 +24,11 @@ class UserAccountsMailer < ActionMailer::Base
   def password_changed(user)
     mail_to user, password_changed_subject
   end
+
+
+private
+  def mail_to(user, subject)
+    @user = user
+    mail to: @user.email, from: "Blue_Trolley <#{club_email}>", subject: "#{sender}: #{subject}"
+  end
 end

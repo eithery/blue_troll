@@ -11,11 +11,6 @@ module MailersHelper
     "https://bluetrolley2014.herokuapp.com"
   end
 
-  def mail_to(user, subject)
-    @user = user
-    mail to: @user.email, from: "Blue_Trolley <#{club_email}>", subject: "#{sender}: #{subject}"
-  end
-
   def registered_subject
     'club account activation'
   end
@@ -30,6 +25,14 @@ module MailersHelper
 
   def password_changed_subject
     'password has been changed'
+  end
+
+  def participant_created_subject
+    'new participant registered'
+  end
+
+  def participant_approved_subject
+    'participant registration confirmed'
   end
 
   def sender
