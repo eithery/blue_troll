@@ -41,9 +41,8 @@ describe UserAccountsController do
       before { user.stub(:name).and_return('gwen') }
 
       specify { expect_to_flash_success("New user account for #{name} has been created.") { post_create } }
-
-      it { expect_to_send_email(UserAccountsMailer, to: email,
-        subject: "#{sender}: #{registered_subject}") { post_create } }
+      specify { ->{ post_create }.should send_email(UserAccountsMailer, to: email,
+        subject: "#{sender}: #{registered_subject}") }
 
       it "redirects to activation page" do
         notifier = double('notifier').as_null_object
@@ -197,8 +196,8 @@ describe UserAccountsController do
       put_update_password
     end
 
-    it { expect_to_send_email(UserAccountsMailer, to: email,
-      subject: "#{sender}: #{password_changed_subject}") { put_update_password } }
+    specify { ->{ put_update_password }.should send_email(UserAccountsMailer, to: email,
+      subject: "#{sender}: #{password_changed_subject}") }
 
     context "when a new password saves successfully" do
       subject { response }

@@ -32,13 +32,8 @@ describe "User creates new participant" do
     end
 
     context "emails send to all crew leads related to the new participant registration" do
-      specify { expect_to_send_email(ParticipantsMailer, to: @boss.email,
-        subject: "#{sender}: #{participant_created_subject}") { submit_new_participant } }
-
-      specify do
-        email_should_contain(ParticipantsMailer, [
-          /Уважаемый кондуктор!/, /Gwen Hvostan/, /принимается в вашу группу/]) { submit_new_participant }
-      end
+      specify { ->{ submit_new_participant }.should send_email(ParticipantsMailer, to: user.email,
+        subject: "#{sender}: #{participant_created_subject}") }
     end
   end
 
@@ -58,7 +53,7 @@ describe "User creates new participant" do
 
 private
   def submit_new_participant
-    click_button 'Create Participant'    
+    click_button 'Create Participant' 
   end
 
   def prepare_test_data

@@ -26,7 +26,6 @@ private
   end
 
   def target
-    target = [@participant.user_account.email]
-    target << @participant.email unless @participant.email == @participant.user_account.email
+    [@participant.user_account.email, @participant.email].uniq
   end
 end

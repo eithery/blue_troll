@@ -35,8 +35,8 @@ describe PasswordResetController do
         post_send_link
       end
 
-      it { expect_to_send_email(UserAccountsMailer, to: user.email,
-        subject: "#{sender}: #{password_reset_subject}") { post_send_link } }
+      specify { ->{ post_send_link }.should send_email(UserAccountsMailer, to: user.email,
+        subject: "#{sender}: #{password_reset_subject}") }
 
       specify { expect_to_flash_success("Password reset link has been sent to #{user.email}") { post_send_link } }
 

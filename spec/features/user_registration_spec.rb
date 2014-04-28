@@ -32,15 +32,8 @@ describe "New user account registration" do
     end
 
     context "user receives email by submit registration form" do
-      specify { expect_to_send_email(UserAccountsMailer, to: user.email,
-        subject: "#{sender}: #{registered_subject}") { submit_registration_form } }
-
-      specify do
-        email_should_contain(UserAccountsMailer,
-          [/https:\/\/bluetrolley2014\.herokuapp\.com\/activate\?/, /Your account activation code is: [0-9]+/]) {
-            submit_registration_form
-          }
-      end
+      specify { ->{ submit_registration_form }.should send_email(UserAccountsMailer, to: user.email,
+        subject: "#{sender}: #{registered_subject}") }
     end
   end
 
