@@ -24,10 +24,10 @@ module MailerMatchers
     match do |action|
       mailer.deliveries.clear
       expect { action.call }.to change { mailer.deliveries.count }
-
-      mail = mailer.deliveries.last
-      mail.to.include?(options[:to]).should be_true if options[:to]
-      mail.subject.should == options[:subject] if options[:subject]
+      mailer.deliveries.any? do |mail|
+        (options[:to].nil? || mail.to.include?(options[:to])) &&
+        (options[:subject].nil? || mail.subject == options[:subject])
+      end.should be_true
     end
   end
 end

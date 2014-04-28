@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe "User creates new participant" do
   let(:user) { FactoryGirl.create(:active_user) }
+  let(:gwen_email) { 'gwen123@gmail1.com' }
 
   subject { page }
   before do
@@ -19,6 +20,7 @@ describe "User creates new participant" do
       select 'Guests'
       fill_in 'Last name', with: 'Hvostan'
       fill_in 'First name', with: 'Gwen'
+      fill_in 'Email', with: gwen_email
     end
 
     specify { expect { submit_new_participant }.to change { Participant.count }.by(1) }
@@ -34,6 +36,10 @@ describe "User creates new participant" do
     context "emails send to all crew leads related to the new participant registration" do
       specify { ->{ submit_new_participant }.should send_email(ParticipantsMailer, to: user.email,
         subject: "#{sender}: #{participant_created_subject}") }
+      specify { ->{ submit_new_participant }.should send_email(ParticipantsMailer, to: gwen_email,
+        subject: "#{sender}: #{participant_created_subject}") }
+      specify { ->{ submit_new_participant }.should send_email(ParticipantsMailer, to: @boss.email,
+        subject: "#{sender}: #{approval_request_subject}") }
     end
   end
 

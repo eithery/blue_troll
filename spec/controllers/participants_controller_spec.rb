@@ -48,12 +48,16 @@ describe ParticipantsController do
     end
 
     context "when participant saves successfully" do
-      let(:boss) { mock_user_account(email: 'boss@bossfirm.com') }
+      let(:boss) { mock_user_account(email: 'boss@bossfirm.com', crew_lead: true) }
       before { participant.stub(:save).and_return(true) }
 
       it "sends email to newly created participant" do
         ->{ post_create }.should send_email(ParticipantsMailer, to: participant.email,
           subject: "#{sender}: #{participant_created_subject}")
+      end
+      it "sends email to the crew lead" do
+        ->{ post_create }.should send_email(ParticipantsMailer, to: boss.email,
+          subject: "#{sender}: #{approval_request_subject}")
       end
 
       specify { expect_to_flash_success(create_message) { post_create } }

@@ -11,7 +11,7 @@ class ParticipantsController < ApplicationController
     if @participant.save
       flash[:success] = "#{@participant.display_name} has been successfully registered as Blue Trolley event participant."
       ParticipantsMailer.created(@participant).deliver
-#      ParticipantsMailer.approval_requested(@participant).deliver
+      ParticipantsMailer.approval_requested(@participant).deliver
       redirect_to @participant.user_account
     else
       render :new
