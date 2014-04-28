@@ -1,7 +1,12 @@
-Уважаемый кондуктор!
+Уважаемый пассажир, <%= @participant.display_name %>!
 
-Поступил новый запрос от пассажира <%= @participant.display_name %> на поездку на Синий Троллейбус в вашей группе.
-Пожалуйста, подтвердите, что данный пассажир принимается в вашу группу.
+Ваш запрос на поездку на Синий Троллейбус в группе '<%= @crew.native_name %>' послан кондуктору. Ждите ответа!
+
+
+Dear participant, <%= @participant.display_name %>!
+
+Your request to join to '<%= @crew.name %>' has been sent to the crew lead.
+Please wait for the response.
 
 Thanks,
 Blue Troll
