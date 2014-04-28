@@ -28,11 +28,15 @@ module MailersHelper
   end
 
   def participant_created_subject
-    'new participant registered'
+    'registration confirmation'
+  end
+
+  def approval_request_subject
+    'registration approval request'
   end
 
   def participant_approved_subject
-    'participant registration confirmed'
+    'registration approval'
   end
 
   def sender
