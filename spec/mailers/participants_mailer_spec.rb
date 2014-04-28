@@ -4,12 +4,11 @@ include MailersHelper
 describe ParticipantsMailer do
   let(:boss) { FactoryGirl.create(:fix) }
   let(:gwen) { FactoryGirl.create(:gwen, crew: boss.crew, email: 'gwen@gmail1.com') }
-  let(:crew) { boss.crew }
 
   subject { mail }
 
   describe "#created" do
-    let(:mail) { ParticipantsMailer.created(gwen, crew) }
+    let(:mail) { ParticipantsMailer.created(gwen) }
 
     it { should have_subject("#{sender}: #{participant_created_subject}") }
     it { should be_sent_to gwen.email }
@@ -23,7 +22,7 @@ describe ParticipantsMailer do
 
 
   describe "#approval_requested" do
-    let(:mail) { ParticipantsMailer.approval_requested(gwen, crew) }
+    let(:mail) { ParticipantsMailer.approval_requested(gwen) }
 
     it { should have_subject("#{sender}: #{approval_request_subject}") }
 
@@ -39,7 +38,7 @@ describe ParticipantsMailer do
 
 
   describe "#approved" do
-    let(:mail) { ParticipantsMailer.approved(gwen, crew) }
+    let(:mail) { ParticipantsMailer.approved(gwen) }
 
     it { should have_subject("#{sender}: #{participant_approved_subject}") }
     it { should be_sent_to gwen.email }

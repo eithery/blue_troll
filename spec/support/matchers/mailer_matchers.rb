@@ -1,9 +1,7 @@
 module MailerMatchers
   def expect_to_send_email(mailer, options={})
     mailer.deliveries.clear
-
-    expect { yield }.to change { mailer.deliveries.count }.to(1)
-
+    expect { yield }.to change { mailer.deliveries.count }
     mail = mailer.deliveries.last
     mail.to.should include(options[:to]) if options[:to]
     mail.subject.should == options[:subject] if options[:subject]
@@ -34,6 +32,17 @@ module MailerMatchers
   RSpec::Matchers.define :be_sent_from do |address|
     match do |mail|
       mail.from.include?(address).should be_true
+    end
+  end
+
+  RSpec::Matchers.define :send_email do |mailer, options={}|
+    match do |action|
+      mailer.deliveries.clear
+      expect { action.call }.to change { mailer.deliveries.count }
+
+      mail = mailer.deliveries.last
+      mail.to.include?(options[:to]).should be_true if options[:to]
+      mail.subject.should == options[:subject] if options[:subject]
     end
   end
 end

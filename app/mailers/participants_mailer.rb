@@ -1,28 +1,28 @@
 class ParticipantsMailer < ActionMailer::Base
-  def created(participant, crew)
-    set_members participant, crew
+  def created(participant)
+    set_members participant
     mail to: target, from: "Blue_Trolley <#{club_email}>",
       subject: "#{sender}: #{participant_created_subject}"
   end
 
 
-  def approval_requested(participant, crew)
-    set_members participant, crew
+  def approval_requested(participant)
+    set_members participant
     mail to: participant.crew.emails, from: "Blue_Trolley <#{club_email}>",
       subject: "#{sender}: #{approval_request_subject}"
   end
 
 
-  def approved(participant, crew)
-    set_members participant, crew
+  def approved(participant)
+    set_members participant
     mail to: target, from: "Blue_Trolley <#{club_email}>",
       subject: "#{sender}: #{participant_approved_subject}"
   end
 
 private
-  def set_members(participant, crew)
+  def set_members(participant)
     @participant = participant
-    @crew = crew
+    @crew = participant.crew
   end
 
   def target

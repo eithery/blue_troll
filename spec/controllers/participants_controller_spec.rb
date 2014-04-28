@@ -5,7 +5,7 @@ describe ParticipantsController do
   let(:crew) { mock_crew }
   let(:last_name) { "Smith" }
   let(:first_name) { "Gwen" }
-  let(:participant) { mock_participant(user_account: user, crew: crew,
+  let(:participant) { mock_participant(user_account: user, crew: crew, email: 'someaddress@gmail.com',
     last_name: last_name, first_name: first_name, display_name: "#{first_name} #{last_name}") }
 
   let(:success_message) { "#{participant.display_name} has been " }
@@ -48,13 +48,20 @@ describe ParticipantsController do
     end
 
     context "when participant saves successfully" do
-      before do
-        participant.stub(:save).and_return(true)
-        post_create
+      let(:boss) { mock_user_account(email: 'boss@bossfirm.com') }
+      before { participant.stub(:save).and_return(true) }
+
+      it "sends email to newly created participant" do
+        ->{ post_create }.should send_email(ParticipantsMailer, to: participant.email,
+          subject: "#{sender}: #{participant_created_subject}")
       end
 
-      specify { expect_to_flash_success create_message }
-      it { should redirect_to(user_account_path user) }
+      specify { expect_to_flash_success(create_message) { post_create } }
+
+      it "redirects to user profile page" do
+        post_create
+        should redirect_to(user_account_path user)
+      end
     end
 
     context "when participant fails to save" do

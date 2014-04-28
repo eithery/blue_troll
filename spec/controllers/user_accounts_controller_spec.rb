@@ -24,7 +24,6 @@ describe UserAccountsController do
   describe "POST create" do
     before { UserAccount.stub(:new).and_return(user) }
 
-
     it "creates a new user account" do
       UserAccount.should_receive(:new).with({"email" => "#{email}"}).and_return(user)
       post_create
