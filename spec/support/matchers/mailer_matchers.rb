@@ -17,4 +17,23 @@ module MailerMatchers
     mail = mailer.deliveries.last
     expected_content.each { |part| mail.body.encoded.should =~ part }
   end
+
+
+  RSpec::Matchers.define :have_subject do |subject|
+    match do |mail|
+      mail.subject.should == subject
+    end
+  end
+
+  RSpec::Matchers.define :be_sent_to do |address|
+    match do |mail|
+      mail.to.include?(address).should be_true
+    end
+  end
+
+  RSpec::Matchers.define :be_sent_from do |address|
+    match do |mail|
+      mail.from.include?(address).should be_true
+    end
+  end
 end

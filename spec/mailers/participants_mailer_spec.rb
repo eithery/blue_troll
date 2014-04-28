@@ -6,64 +6,48 @@ describe ParticipantsMailer do
   let(:gwen) { FactoryGirl.create(:gwen, crew: boss.crew, email: 'gwen@gmail1.com') }
   let(:crew) { boss.crew }
 
+  subject { mail }
+
   describe "#created" do
     let(:mail) { ParticipantsMailer.created(gwen, crew) }
 
-    it "email should contains correct subject" do
-      mail.subject.should == "#{sender}: #{participant_created_subject}"
-    end
-
-    it "sends email to newly registered participant" do
-      mail.to.should include(gwen.email)
-    end
+    it { should have_subject("#{sender}: #{participant_created_subject}") }
+    it { should be_sent_to gwen.email }
 
     it "sends email to user who performed registration" do
-      mail.to.should include(gwen.user_account.email)
+      should be_sent_to gwen.user_account.email
     end
 
-    it "sends email from Blue Trolley club" do
-      mail.from.should include(club_email)
-    end
+    it { should be_sent_from club_email }
   end
 
 
   describe "#approval_requested" do
     let(:mail) { ParticipantsMailer.approval_requested(gwen, crew) }
 
-    it "email should contains correct subject" do
-      mail.subject.should == "#{sender}: #{approval_request_subject}"
-    end
+    it { should have_subject("#{sender}: #{approval_request_subject}") }
 
     it "sends email to all group leads" do
       gwen.crew.leads.should have_at_least(1).user
       gwen.crew.leads.each do |lead|
-        mail.to.should include(lead.email)
+        should be_sent_to lead.email
       end
     end
 
-    it "sends email from Blue Trolley club" do
-      mail.from.should include(club_email)
-    end
+    it { should be_sent_from club_email }
   end
 
 
   describe "#approved" do
     let(:mail) { ParticipantsMailer.approved(gwen, crew) }
 
-    it "email should contains correct subject" do
-      mail.subject.should == "#{sender}: #{participant_approved_subject}"
-    end
-
-    it "sends email to newly registered participant" do
-      mail.to.should include(gwen.email)
-    end
+    it { should have_subject("#{sender}: #{participant_approved_subject}") }
+    it { should be_sent_to gwen.email }
 
     it "sends email to user who performed registration" do
       mail.to.should include(gwen.user_account.email)
     end
 
-    it "sends email from Blue Trolley club" do
-      mail.from.should include(club_email)
-    end
+    it { should be_sent_from club_email }
   end
 end
