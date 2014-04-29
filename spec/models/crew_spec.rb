@@ -3,13 +3,13 @@ require 'spec_helper'
 describe Crew do
   let(:crew) { FactoryGirl.build(:crew) }
   let(:fix) { FactoryGirl.create(:fix) }
-  let(:second_lead) { FactoryGirl.create(:active_user, crew_lead: true) }
-  let(:gaby) { Participant.new(user_account: second_lead, crew: fix.crew, last_name: 'Shayk', first_name: 'Gaby') }
+  let(:second_lead) { FactoryGirl.create(:active_user, crew_lead: true, crew: crew) }
+  let(:gaby) { Participant.new(user_account: second_lead, last_name: 'Shayk', first_name: 'Gaby') }
 
   subject { crew }
 
   it { should respond_to :name, :native_name, :active?, :location, :notes, :created_at, :updated_at }
-  it { should respond_to :participants }
+  it { should respond_to :user_accounts, :participants }
   it { should respond_to :total_participants, :total_adults, :total_children, :total_babies }
 
   it { should respond_to :emails, :leads }

@@ -3,13 +3,19 @@ class Crew < ActiveRecord::Base
 
   validates :name, :native_name, presence: true, uniqueness: { case_sensitive: false }
 
+
   def emails
     leads.map { |user| user.email }
   end
 
 
+  def participants
+    user_accounts.inject([]) { |total, user| total + user.participants }.sort_by! { |p| p.last_name + p.first_name } 
+  end
+
+
   def leads
-    participants.select { |p| p.user_account.crew_lead? }.map { |p| p.user_account }
+    user_accounts.select { |user| user.crew_lead? }
   end
 
 
