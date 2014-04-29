@@ -1,7 +1,7 @@
 class UserAccount < ActiveRecord::Base
   has_secure_password
   has_many :participants
-
+  belongs_to :crew
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :login, presence: true, length: { minimum: 2 }, uniqueness: { case_sensitive: false }
@@ -10,6 +10,7 @@ class UserAccount < ActiveRecord::Base
   validates :email, confirmation: true
   validates :email_confirmation, presence: true
   validates :password, length: { minimum: 6 }, allow_blank: true
+  validates :crew, presence: true
 
   before_save do
     self.login.downcase!
@@ -31,11 +32,6 @@ class UserAccount < ActiveRecord::Base
   def activate(code_or_token)
     (self.activation_code == code_or_token || self.activation_token == code_or_token) &&
       update_attributes!(email_confirmation: email, active: true, activated_at: Time.now)
-  end
-
-
-  def crew
-    participants.any? ? participants.first.crew : nil
   end
 
 

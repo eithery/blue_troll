@@ -1,10 +1,9 @@
 class Participant < ActiveRecord::Base
   belongs_to :user_account
-  belongs_to :crew
 
   validates :last_name, :first_name, presence: true
   validates :ticket_code, uniqueness: true, length: { minimum: 10 }
-  validates :crew, :user_account, presence: true
+  validates :user_account, presence: true
   validates :age, presence: true, unless: Proc.new { |p| p.age_category == AgeCategory::ADULT }
   validates :age, numericality: true, allow_blank: true
 
@@ -32,6 +31,11 @@ class Participant < ActiveRecord::Base
     return self[:email] unless self[:email].blank?
     return user_account.email unless user_account.nil?
     nil
+  end
+
+
+  def crew
+    user_account.crew
   end
 
 

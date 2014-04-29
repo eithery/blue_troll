@@ -1,5 +1,5 @@
 class Crew < ActiveRecord::Base
-  has_many :participants
+  has_many :user_accounts
 
   validates :name, :native_name, presence: true, uniqueness: { case_sensitive: false }
 
