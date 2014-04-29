@@ -54,7 +54,7 @@ class CreateParticipants < ActiveRecord::Migration
     end
 
     devs = [
-      { crew_id: 29, user_account_id: 1, last_name: 'Protsenko', first_name: 'Michael' }
+      { user_account_id: 1, last_name: 'Protsenko', first_name: 'Michael' }
     ]
 
     crew_leads = [

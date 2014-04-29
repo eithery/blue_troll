@@ -1,7 +1,7 @@
 class CreateUserAccounts < ActiveRecord::Migration
   def up
     create_table :user_accounts do |t|
-      t.belongs_to :crew, null: false
+      t.belongs_to :crew
 
       t.string :login, null: false
       t.string :email, null: false
