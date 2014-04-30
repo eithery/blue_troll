@@ -4,11 +4,6 @@ class Crew < ActiveRecord::Base
   validates :name, :native_name, presence: true, uniqueness: { case_sensitive: false }
 
 
-  def emails
-    leads.map { |user| user.email }
-  end
-
-
   def participants
     user_accounts.inject([]) { |total, user| total + user.participants }.sort_by! { |p| p.last_name + p.first_name } 
   end
@@ -19,13 +14,8 @@ class Crew < ActiveRecord::Base
   end
 
 
-  def to_s
-  	name
-  end
-
-
-  def to_file_name
-    name.gsub(/\s/, '_').downcase
+  def emails
+    leads.map { |user| user.email }
   end
 
 
@@ -46,5 +36,15 @@ class Crew < ActiveRecord::Base
 
   def total_babies
     participants.to_a.count { |p| p.age_category == AgeCategory::BABY }
+  end
+
+
+  def to_s
+  	name
+  end
+
+
+  def to_file_name
+    name.gsub(/\s/, '_').downcase
   end
 end

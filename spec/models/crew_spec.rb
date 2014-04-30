@@ -2,9 +2,15 @@ require 'spec_helper'
 
 describe Crew do
   let(:crew) { FactoryGirl.build(:crew) }
-  let(:fix) { FactoryGirl.create(:fix) }
-  let(:second_lead) { FactoryGirl.create(:active_user, crew_lead: true, crew: crew) }
-  let(:gaby) { Participant.new(user_account: second_lead, last_name: 'Shayk', first_name: 'Gaby') }
+  let(:empty_crew) { FactoryGirl.create(:spies) }
+
+  let(:user) { FactoryGirl.create(:crew_lead, crew: gwen.crew) }
+  let(:gaby_account) { FactoryGirl.create(:active_user, crew_lead: true, crew: gwen.crew) }
+
+  let(:gwen) { FactoryGirl.create(:gwen) }
+  let(:maryika) { FactoryGirl.create(:maryika, user_account: gwen.user_account) }
+  let(:fix) { FactoryGirl.create(:fix, user_account: user) }
+  let(:gaby) { FactoryGirl.create(:gaby, user_account: gaby_account) }
 
   subject { crew }
 
@@ -19,77 +25,143 @@ describe Crew do
   it { should be_active }
 
 
-  describe "when name" do
-    context "is not present" do
-      before { crew.name = "  " }
-      it { should_not be_valid }
-    end
-
-    context "is nil" do
-      before { crew.name = nil }
-      it { should_not be_valid }
-    end
-
-    context "is duplicated" do
-      before do
-        existing_crew = crew.dup
-        existing_crew.name = crew.name.upcase
-        existing_crew.save
+  describe "validation" do
+    describe "when name" do
+      context "is not present" do
+        before { crew.name = "  " }
+        it { should_not be_valid }
+        it { should have(1).error_on(:name) }
       end
-      it { should_not be_valid }
+
+      context "is nil" do
+        before { crew.name = nil }
+        it { should_not be_valid }
+        it { should have(1).error_on(:name) }
+      end
+
+      context "is duplicated" do
+        before do
+          existing_crew = FactoryGirl.create(:spies)
+          crew.name = existing_crew.name.upcase
+          crew.save
+        end
+        it { should_not be_valid }
+        it { should have(1).error_on(:name) }
+      end
+    end
+
+
+    describe "when native_name" do
+      context "is not present" do
+        before { crew.native_name = "  " }
+        it { should_not be_valid }
+        it { should have(1).error_on(:native_name) }
+      end
+
+      context "is nil" do
+        before { crew.native_name = nil }
+        it { should_not be_valid }
+        it { should have(1).error_on(:native_name) }
+      end
+
+      context "is duplicated" do
+        before do
+          existing_crew = FactoryGirl.create(:spies)
+          crew.native_name = existing_crew.native_name.upcase
+          crew.save
+        end
+        it { should_not be_valid }
+        it { should have(1).error_on(:native_name) }
+      end
     end
   end
 
 
-  describe "when native_name" do
-    context "is not present" do
-      before { crew.native_name = "  " }
-      it { should_not be_valid }
-    end
+  describe "#user_accounts" do
+    subject { gwen.crew.user_accounts }
+    before { user }
 
-    context "is nil" do
-      before { crew.native_name = nil }
-      it { should_not be_valid }
-    end
+    specify { gwen.crew.should have(2).user_accounts }
+    it { should include(user, gwen.user_account) }
+    specify { empty_crew.should_not have(:any).user_accounts }
+  end
 
-    context "is duplicated" do
-      before do
-        existing_crew = crew.dup
-        existing_crew.native_name = crew.native_name.upcase
-        existing_crew.save
-      end
-      it { should_not be_valid }
-    end
+
+  describe "#participants" do
+    subject { gwen.crew.participants }
+    before { maryika; fix }
+
+    specify { gwen.crew.should have(3).participants }
+    it { should include(gwen, maryika, fix) }
+    specify { empty_crew.should_not have(:any).participants }
   end
 
 
   describe "#leads" do
+    subject { gwen.crew.leads }
+    before { maryika; fix }
+
     describe "returns user accounts who are leads of this crew" do
-      specify { fix.crew.leads.should have_at_least(1).user }
-      specify { fix.crew.leads.should include(fix.user_account) }
+      it { should have_at_least(1).user }
+      it { should include(fix.user_account) }
+      it { should_not include(maryika.user_account) }
+      specify { empty_crew.should_not have(:any).leads }
     end
 
     describe "can contain more than one user account" do
-      before { fix.crew.participants << gaby }
+      before { gaby }
 
-      specify { fix.crew.leads.should have(2).users }
-      specify { fix.crew.leads.should include(gaby.user_account) }
+      it { should have(2).users }
+      it { should include(gaby.user_account) }
     end
   end
 
 
   describe "#emails" do
+    subject { gwen.crew.emails }
+    before { maryika; fix }
+
     describe "returns the collection of crew leads emails" do
-      specify { fix.crew.emails.should have_at_least(1).record }
-      specify { fix.crew.emails.should include(fix.email) }
+      it { should have_at_least(1).record }
+      it { should include(fix.email) }
+      specify { empty_crew.should_not have(:any).emails }
     end
 
     describe "can contain more than one email" do
-      before { fix.crew.participants << gaby }
+      before { gaby }
 
-      specify { fix.crew.emails.should have(2).records }
-      specify { fix.crew.emails.should include(gaby.email) }
+      it { should have(2).records }
+      it { should include(gaby.email) }
+      it { should_not include(maryika.email) }
     end
+  end
+
+
+  describe "#total_participants" do
+    subject { gwen.crew.total_participants }
+    before { gwen; maryika; fix }
+    it { should == 3 }
+  end
+
+
+  describe "#total_adults" do
+    subject { gwen.crew.total_adults }
+    before { gwen; maryika; fix }
+    it { should == 2 }
+  end
+
+
+  describe "#total_children" do
+    subject { gwen.crew.total_children }
+    before { gwen; maryika; fix }
+    it { should == 0 }
+  end
+
+
+  describe "#total_babies" do
+    subject { gwen.crew.total_babies }
+    before { gwen; maryika; fix }
+    it { should == 1 }
   end
 
 
