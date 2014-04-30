@@ -1,24 +1,29 @@
 FactoryGirl.define do
   # Crews.
   factory :crew do
-    name "Guests"
-    native_name "Гости слета"
+    name 'Guests'
+    native_name 'Гости слета'
   end
 
   factory :spies, class: Crew do
-    name "Enemy spies"
-    native_name "Вражеские шпионы"
+    name 'Enemy spies'
+    native_name 'Вражеские шпионы'
   end
 
   factory :fix_crew, class: Crew do
-    name "Mr Fix Friends"
-    native_name "Друганы Мистера Фикса"
+    name 'Mr Fix Friends'
+    native_name 'Друганы Мистера Фикса'
   end
 
   factory :inactive_crew, class: Crew do
-    name "Black List"
-    native_name "Черный список"
+    name 'Black List'
+    native_name 'Черный список'
     active false
+  end
+
+  factory :gwen_crew, class: Crew do
+    name 'Konserva Lovers'
+    native_name 'Любители консервов'
   end
 
 
@@ -27,8 +32,8 @@ FactoryGirl.define do
     sequence(:login) { |n| "btuser#{n}" }
     sequence(:email) { |n| "person_#{n}@example.com" }
     sequence(:email_confirmation) { |n| "person_#{n}@example.com" }
-    password "secret"
-    password_confirmation "secret"
+    password 'secret'
+    password_confirmation 'secret'
     active true
     association :crew, factory: :crew
 
@@ -50,37 +55,59 @@ FactoryGirl.define do
   end
 
   factory :active_user, class: UserAccount do
-    login "jsmith"
-    email "jsmith@gmail.com"
-    email_confirmation "jsmith@gmail.com"
-    password "secret"
-    password_confirmation "secret"
+    login 'jsmith'
+    email 'jsmith@gmail.com'
+    email_confirmation 'jsmith@gmail.com'
+    password 'secret'
+    password_confirmation 'secret'
     active true
     association :crew, factory: :crew
   end
 
   factory :inactive_user, class: UserAccount do
-    login "cdarwin"
-    email "cdarwin@gmail.com"
-    email_confirmation "cdarwin@gmail.com"
-    password "secret"
-    password_confirmation "secret"
+    login 'cdarwin'
+    email 'cdarwin@gmail.com'
+    email_confirmation 'cdarwin@gmail.com'
+    password 'secret'
+    password_confirmation 'secret'
     active false
+  end
+
+  factory :gwen_account, class: UserAccount do
+    login 'gwen'
+    email 'gwen@gmail.com'
+    email_confirmation 'gwen@gmail.com'
+    password 'hvost123'
+    password_confirmation 'hvost123'
+    active true
+    association :crew, factory: :gwen_crew
   end
 
 
   # Participants.
   factory :gwen, class: Participant do
-    association :user_account, factory: :user
+    association :user_account, factory: :gwen_account
     last_name 'Hvostan'
     first_name 'Gwen'
     age_category 2
     age 3
   end
 
+  factory :maryika, class: Participant do
+    association :user_account, factory: :gwen_account, strategy: :build
+    last_name 'Romanova'
+    first_name 'Maryika'
+  end
+
   factory :fix, class: Participant do
     association :user_account, factory: :crew_lead
     last_name 'Fix'
     first_name 'Mister'
+  end
+
+  factory :gaby, class: Participant do
+    association :user_account, factory: :user
+    last_name 'Shayk'
+    first_name 'Gaby'
   end
 end
