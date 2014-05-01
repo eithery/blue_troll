@@ -2,7 +2,7 @@ class ParticipantsController < ApplicationController
 	before_action :set_participant, only: [:edit, :update, :destroy]
 
   def new
-    @participant = Participant.new(user_account_id: params[:user_account_id], crew_id: params[:crew_id])
+    @participant = Participant.new(user_account_id: params[:user_account_id])
   end
 
 
@@ -132,7 +132,7 @@ private
 
 
   def participant_params
-    params.require(:participant).permit(:user_account_id, :crew_id, :last_name, :first_name,
+    params.require(:participant).permit(:user_account_id, :last_name, :first_name,
       :ticket_code, :email, :address_line_1, :age_category, :age, :cell_phone, :sent, :sent_by,
       :registered_at, :registered_by, :flagged, :notes)
   end
