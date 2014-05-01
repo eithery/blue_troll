@@ -1,12 +1,18 @@
 require 'spec_helper'
 
 describe "User creates new participant" do
-  let(:user) { FactoryGirl.create(:active_user) }
-  let(:gwen_email) { 'gwen123@gmail1.com' }
+  let(:user) { FactoryGirl.create(:gwen_account) }
+
+
+#  let(:gwen_email) { 'gwen123@gmail1.com' }
+#    crew = FactoryGirl.create(:crew)
+#    FactoryGirl.create(:spies)
+#    FactoryGirl.create(:fix_crew)
+#    fix_account = FactoryGirl.create(:crew_lead, crew: crew)
+#    @boss = FactoryGirl.create(:fix, user_account: fix_account)
 
   subject { page }
   before do
-    prepare_test_data
     sign_in user
     click_link 'Register new participant'
   end
@@ -60,12 +66,5 @@ describe "User creates new participant" do
 private
   def submit_new_participant
     click_button 'Create Participant' 
-  end
-
-  def prepare_test_data
-    crew = FactoryGirl.create(:crew)
-    FactoryGirl.create(:spies)
-    FactoryGirl.create(:fix_crew)
-    @boss = FactoryGirl.create(:fix, crew: crew)
   end
 end
