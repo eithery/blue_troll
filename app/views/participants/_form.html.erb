@@ -4,7 +4,7 @@
       <legend><%= form_header %></legend>
       <%= render 'shared/error_messages', errors: @participant.errors, entity_name: 'participant' %>
       <%= f.hidden_field :user_account_id %>
-
+<!--
       <div class="form-group">
         <%= f.label :crew, class: "control-label col-sm-3" %>
         <div class="col-sm-5">
@@ -12,7 +12,7 @@
             { include_blank: true }, { class: "form-control" } %>
         </div>
       </div>
-
+-->
       <div class="form-group">
         <%= f.label :last_name, class: "control-label col-sm-3" %>
         <div class="col-sm-5">
