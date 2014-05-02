@@ -48,6 +48,8 @@ class CreateParticipants < ActiveRecord::Migration
       t.timestamps
     end
 
+    add_index :participants, :ticket_code, unique: true
+
     devs = [
       { user_account_id: 1, last_name: 'Protsenko', first_name: 'Michael' }
     ]

@@ -64,6 +64,8 @@ ActiveRecord::Schema.define(version: 20140403213123) do
     t.datetime "updated_at"
   end
 
+  add_index "participants", ["ticket_code"], name: "index_participants_on_ticket_code", unique: true, using: :btree
+
   create_table "user_accounts", force: true do |t|
     t.integer  "crew_id"
     t.string   "login",                                     null: false
