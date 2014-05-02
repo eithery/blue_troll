@@ -29,7 +29,7 @@ FactoryGirl.define do
 
   # User accounts.
   factory :user, class: UserAccount do
-    sequence(:login) { |n| "btuser#{n}" }
+    sequence(:login) { |n| "bluetrolluser#{n}" }
     sequence(:email) { |n| "person_#{n}@example.com" }
     sequence(:email_confirmation) { |n| "person_#{n}@example.com" }
     password 'secret'
@@ -109,5 +109,7 @@ FactoryGirl.define do
     association :user_account, factory: :user
     last_name 'Shayk'
     first_name 'Gaby'
+    age_category 1
+    age 8
   end
 end

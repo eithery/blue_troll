@@ -8,9 +8,6 @@ Spork.prefork do
   require 'rspec/autorun'
 
   Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
-  Dir[Rails.root.join("spec/features/shared_examples/**/*.rb")].each { |f| require f }
-  Dir[Rails.root.join("spec/features/spec_helpers/**/*.rb")].each { |f| require f }
-  Dir[Rails.root.join("spec/requests/shared_examples/**/*.rb")].each { |f| require f }
 
   ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
