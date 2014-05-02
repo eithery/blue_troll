@@ -17,12 +17,7 @@ class CreateParticipants < ActiveRecord::Migration
       t.string :home_phone
       t.string :cell_phone
       t.string :email
-      t.string :address_line_1
-      t.string :address_line_2
-      t.string :city
-      t.string :state, limit: 2
-      t.string :zip, limit: 10
-      t.string :country
+      t.text :address
 
       # Ticket info.
       t.string :ticket_code
