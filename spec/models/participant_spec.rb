@@ -4,16 +4,16 @@ describe Participant do
   let(:gwen) { FactoryGirl.create(:gwen) }
   subject { gwen }
 
-  it { should respond_to :crew, :user_account  }
+  it { should respond_to :user_account, :crew }
   it { should respond_to :last_name, :first_name, :middle_name, :gender, :age_category, :age, :born_on }
-  it { should respond_to :home_phone, :cell_phone, :email, :address_line_1, :address_line_2,
-    :city, :state, :zip, :country }
+  it { should respond_to :home_phone, :cell_phone, :email, :address }
   it { should respond_to :ticket_code }
-  it { should respond_to :flagged?, :notes, :approved_at, :approved_by, :registered_at, :registered_by }
+  it { should respond_to :flagged?, :notes }
+  it { should respond_to :approved_at, :approved_by, :registered_at, :registered_by }
   it { should respond_to :payment_type, :payment_sent_at, :payment_sent_by, :payment_notes }
   it { should respond_to :payment_received_at, :payment_received_by, :payment_confirmed_at, :payment_confirmed_by }
   it { should respond_to :created_by, :updated_by, :created_at, :updated_at }
-  it { should respond_to :full_name, :display_name, :address }
+  it { should respond_to :full_name, :display_name }
   specify { Participant.should respond_to :find_by_ticket }
 
   it { should be_valid }
@@ -56,6 +56,13 @@ describe Participant do
   end
 
 
+  describe "#crew" do
+    it "should the same as user account crew" do
+      gwen.crew.should be_equal(gwen.user_account.crew)
+    end
+  end
+
+
   describe "#full_name" do
     it "concatenates last name and first name" do
       gwen.full_name.should == "Hvostan, Gwen"
@@ -63,9 +70,60 @@ describe Participant do
   end
 
 
-  describe "ticket code" do
-    it "length should always be 10 symbols" do
-      gwen.ticket_code.length.should == 10
+  describe "#display_name" do
+    it "looks like first name concatenates with the last name" do
+      gwen.display_name.should == "Gwen Hvostan"
+    end
+  end
+
+
+  describe "#email" do
+    subject { gwen.email }
+    context "when it is not set for participant" do
+      before do
+        gwen.email = "  "
+        gwen.save
+      end
+
+      it { should == gwen.user_account.email }
+    end
+
+    context "when it is different from user account email" do
+      let(:gwen_second_email) { 'gwen_second@gmail.com' }
+      before do
+        gwen.email = gwen_second_email
+        gwen.save
+      end
+
+      it { should == gwen_second_email }
+    end
+  end
+
+
+  describe "#ticket code" do
+    context "for new participant" do
+      let(:new_participant) { FactoryGirl.build(:gaby) }
+      subject { new_participant }
+      its(:ticket_code) { should_not be_blank }
+    end
+
+    its(:ticket_code) { should have_at_least(10).symbols }
+  end
+
+
+  describe ".find_by_ticket" do
+    context "when ticket code is valid" do
+      it "returns participant for specified ticket code" do
+        valid_ticket_code = gwen.ticket_code.to_i(16).to_s
+        Participant.find_by_ticket(valid_ticket_code).should == gwen
+      end
+    end
+
+    context "when ticket code is not valid" do
+      it "returns nil" do
+        invalid_ticket_code = '1234567890'
+        Participant.find_by_ticket(invalid_ticket_code).should be_nil
+      end
     end
   end
 end

@@ -1,6 +1,6 @@
 class UserAccount < ActiveRecord::Base
   has_secure_password
-  has_many :participants
+  has_many :participants, dependent: :destroy
   belongs_to :crew
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -36,12 +36,12 @@ class UserAccount < ActiveRecord::Base
 
 
   def generate_reset_token
-    update_attribute(:reset_password_token, SecureRandom.uuid)
+    update_attributes(reset_password_token: SecureRandom.urlsafe_base64, reset_password_expired_at: Time.now)
   end
 
 
   def reset
-    update_attribute(:reset_password_token, nil)
+    update_attributes(reset_password_token: nil, reset_password_expired_at: nil)
   end
 
 
@@ -53,6 +53,6 @@ private
 
   def generate_activation_tokens
     self.activation_code = SecureRandom.hex[0, 6].to_i(16).to_s if self.activation_code.blank?
-    self.activation_token = SecureRandom.uuid if self.activation_token.blank?
+    self.activation_token = SecureRandom.urlsafe_base64 if self.activation_token.blank?
   end
 end

@@ -1,15 +1,18 @@
 require 'spec_helper'
 
 describe Crew do
+  # Crews.
   let(:crew) { FactoryGirl.build(:crew) }
   let(:empty_crew) { FactoryGirl.create(:spies) }
 
-  let(:user) { FactoryGirl.create(:crew_lead, crew: gwen.crew) }
+  # User accounts.
+  let(:crew_lead) { FactoryGirl.create(:crew_lead, crew: gwen.crew) }
   let(:gaby_account) { FactoryGirl.create(:active_user, crew_lead: true, crew: gwen.crew) }
 
+  # Participants.
   let(:gwen) { FactoryGirl.create(:gwen) }
   let(:maryika) { FactoryGirl.create(:maryika, user_account: gwen.user_account) }
-  let(:fix) { FactoryGirl.create(:fix, user_account: user) }
+  let(:fix) { FactoryGirl.create(:fix, user_account: crew_lead) }
   let(:gaby) { FactoryGirl.create(:gaby, user_account: gaby_account) }
 
   subject { crew }
@@ -26,7 +29,7 @@ describe Crew do
 
 
   describe "validation" do
-    describe "when name" do
+    context "when name" do
       context "is not present" do
         before { crew.name = "  " }
         it { should_not be_valid }
@@ -51,7 +54,7 @@ describe Crew do
     end
 
 
-    describe "when native_name" do
+    context "when native_name" do
       context "is not present" do
         before { crew.native_name = "  " }
         it { should_not be_valid }
@@ -79,10 +82,10 @@ describe Crew do
 
   describe "#user_accounts" do
     subject { gwen.crew.user_accounts }
-    before { user }
+    before { crew_lead }
 
     specify { gwen.crew.should have(2).user_accounts }
-    it { should include(user, gwen.user_account) }
+    it { should include(crew_lead, gwen.user_account) }
     specify { empty_crew.should_not have(:any).user_accounts }
   end
 
@@ -101,7 +104,7 @@ describe Crew do
     subject { gwen.crew.leads }
     before { maryika; fix }
 
-    describe "returns user accounts who are leads of this crew" do
+    describe "returns user accounts that are crew leads" do
       it { should have_at_least(1).user }
       it { should include(fix.user_account) }
       it { should_not include(maryika.user_account) }
@@ -153,8 +156,8 @@ describe Crew do
 
   describe "#total_children" do
     subject { gwen.crew.total_children }
-    before { gwen; maryika; fix }
-    it { should == 0 }
+    before { gwen; maryika; fix; gaby }
+    it { should == 1 }
   end
 
 
@@ -174,7 +177,7 @@ describe Crew do
 
   describe "#to_file_name" do
     it "converts name to lowercase replacing space symbols with underscores" do
-      crew.to_file_name.should == 'guests'
+      empty_crew.to_file_name.should == 'enemy_spies'
     end
   end
 end

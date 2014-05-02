@@ -6,9 +6,7 @@ class Participant < ActiveRecord::Base
   validates :user_account, presence: true
   validates :age, presence: true, unless: Proc.new { |p| p.age_category == AgeCategory::ADULT }
   validates :age, numericality: true, allow_blank: true
-
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
+  validates :email, format: { with: UserAccount::VALID_EMAIL_REGEX }, allow_blank: true
 
 
   def initialize(attributes={})
@@ -39,16 +37,8 @@ class Participant < ActiveRecord::Base
   end
 
 
-  def address
-    address_line_1
-  end
-
-
   def Participant.find_by_ticket(ticket_code)
-    Participant.all.each do |participant|
-      return participant if participant.ticket_code.to_i(16).to_s == ticket_code.strip
-      return participant if participant.reservation_number.to_s == ticket_code.strip
-    end
+    Participant.all.each { |p| return p if p.ticket_code.to_i(16).to_s == ticket_code.strip }
     nil
   end
 
