@@ -2,8 +2,8 @@ require 'spec_helper'
 include MailersHelper
 
 describe ParticipantsMailer do
-  let(:boss) { FactoryGirl.create(:fix) }
-  let(:gwen) { FactoryGirl.create(:gwen, crew: boss.crew, email: 'gwen@gmail1.com') }
+  let(:gwen) { FactoryGirl.create(:gwen) }
+  let!(:crew_lead) { FactoryGirl.create(:crew_lead, crew: gwen.crew) }
 
   subject { mail }
 
