@@ -21,6 +21,8 @@ describe "user_accounts/show.html.erb" do
     href: new_participant_path(user_account_id: user.id, crew_id: user.crew)) }
   it { should have_selector("a[disabled='disabled'][href='#']", text: 'Download my tickets') }
 
+  it { should have_selector("div.modal-dialog")}
+
 #  it { should have_select('participant[crew_id]') }
 #  it { should have_selector('option', count: 4) }
 #  it { should have_selector("option[selected='selected']", count: 1, text: crews.last.name) }
@@ -41,7 +43,6 @@ describe "user_accounts/show.html.erb" do
       render
     end
 
-    it { should_not have_selector('tbody tr') }
     it { should_not have_link('Click here')}
 
     specify do
@@ -62,7 +63,7 @@ describe "user_accounts/show.html.erb" do
       render
     end
 
-    it { should have_selector('tbody tr', count: 3) }
+    it { should have_selector('tbody tr', minimum: 3) }
     it { should have_selector('td', text: gwen.full_name) }
     it { should have_selector('td', text: gwen.email) }
     it { should have_selector('td', text: gwen.age) }
