@@ -7,7 +7,7 @@
 <br />
 
 <button class="btn btn-primary" data-toggle="modal" data-target="#crew-selector">
-  Launch demo modal
+  Launch modal
 </button>
 
 <div class="modal fade" id="crew-selector" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -18,7 +18,17 @@
         <h4 class="modal-title">Modal title</h4>
       </div>
       <div class="modal-body">
-        <p>Please, select crew</p>
+<!--
+      <div class="form-group">
+        <%= #f.label :crew, class: "control-label col-sm-3"
+        %>
+        <div class="col-sm-5">
+          <%= #collection_select :participant, :crew_id, all_crews, :id, :name,
+          #  { include_blank: true }, { class: "form-control" }
+          %>
+        </div>
+      </div>
+-->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

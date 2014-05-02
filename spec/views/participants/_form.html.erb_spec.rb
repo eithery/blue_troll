@@ -2,8 +2,6 @@ require 'spec_helper'
 
 shared_examples_for "participant form" do
   it { should have_selector("input[value='#{participant.user_account_id}'][type='hidden']") }
-  it { should have_select('participant[crew_id]') }
-  it { should have_selector('option', count: 4) }
   it { should have_selector("input[type='radio']", count: 3) }
   it { should have_selector("div.radio", text: 'Adult') }
   it { should have_selector("div.radio", text: 'Child (more than 6 years)') }
@@ -55,14 +53,13 @@ describe "participants/_form.html.erb" do
 
     it { should have_selector("form[action='#{participant_path(participant)}']") }
     it { should have_selector('legend', text: 'Edit Participant') }
-    it { should have_selector("option[selected='selected']", count: 1, text: crews.last.name) }
     it { should have_selector("input#participant_last_name[value='#{participant.last_name}']") }
     it { should have_selector("input#participant_first_name[value='#{participant.first_name}']") }
     it { should have_selector("input[type='radio'][checked='checked'][value='2']") }
     it { should have_selector("input#participant_age[value='#{participant.age}']") }
     it { should have_selector("input#participant_email[value='#{participant.email}']") }
     it { should have_selector("input#participant_cell_phone[value='#{participant.cell_phone}']") }
-    it { should have_selector("textarea#participant_address_line_1", text: participant.address_line_1) }
+    it { should have_selector("textarea#participant_address", text: participant.address) }
     it { should have_button('Update Participant') }
   end
 end

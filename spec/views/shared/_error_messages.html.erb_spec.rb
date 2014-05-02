@@ -12,10 +12,7 @@ describe "shared/_error_messages.html.erb" do
   let(:participant) { stub_participant }
   let(:errors_header) { "prohibited this participant from being saved:" }
 
-  before do
-    participant.crew = stub_model(Crew)
-    participant.user_account = stub_model(UserAccount)
-  end
+  before { participant.user_account = stub_model(UserAccount) }
 
   context "with no errors" do
     before { render_view }
@@ -41,7 +38,6 @@ describe "shared/_error_messages.html.erb" do
   context "with many errors" do
     before do
       participant.user_account = nil
-      participant.crew = nil
       participant.first_name = nil
       participant.last_name = nil
       render_view
@@ -49,8 +45,8 @@ describe "shared/_error_messages.html.erb" do
 
     it_behaves_like "view with errors"
 
-    it { should have_content("4 errors " + errors_header) }
-    it { should have_selector('li', minimum: 4) }
+    it { should have_content("3 errors " + errors_header) }
+    it { should have_selector('li', minimum: 3) }
   end
 
 

@@ -21,6 +21,10 @@ describe "user_accounts/show.html.erb" do
     href: new_participant_path(user_account_id: user.id, crew_id: user.crew)) }
   it { should have_selector("a[disabled='disabled'][href='#']", text: 'Download my tickets') }
 
+#  it { should have_select('participant[crew_id]') }
+#  it { should have_selector('option', count: 4) }
+#  it { should have_selector("option[selected='selected']", count: 1, text: crews.last.name) }
+
   specify do
     user.should_receive(:login)
     render
