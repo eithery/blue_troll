@@ -2,14 +2,8 @@ require 'spec_helper'
 
 describe "User creates new participant" do
   let(:user) { FactoryGirl.create(:gwen_account) }
-
-
-#  let(:gwen_email) { 'gwen123@gmail1.com' }
-#    crew = FactoryGirl.create(:crew)
-#    FactoryGirl.create(:spies)
-#    FactoryGirl.create(:fix_crew)
-#    fix_account = FactoryGirl.create(:crew_lead, crew: crew)
-#    @boss = FactoryGirl.create(:fix, user_account: fix_account)
+  let(:gwen_email) { 'gwen123@gmail1.com' }
+  let!(:crew_lead) { FactoryGirl.create(:crew_lead, crew: user.crew) }
 
   subject { page }
   before do
@@ -23,7 +17,6 @@ describe "User creates new participant" do
 
   context "when user enters valid info" do
     before do
-      select 'Guests'
       fill_in 'Last name', with: 'Hvostan'
       fill_in 'First name', with: 'Gwen'
       fill_in 'Email', with: gwen_email
@@ -44,7 +37,7 @@ describe "User creates new participant" do
         subject: "#{sender}: #{participant_created_subject}") }
       specify { ->{ submit_new_participant }.should send_email(ParticipantsMailer, to: gwen_email,
         subject: "#{sender}: #{participant_created_subject}") }
-      specify { ->{ submit_new_participant }.should send_email(ParticipantsMailer, to: @boss.email,
+      specify { ->{ submit_new_participant }.should send_email(ParticipantsMailer, to: crew_lead.email,
         subject: "#{sender}: #{approval_request_subject}") }
     end
   end
@@ -58,7 +51,7 @@ describe "User creates new participant" do
 
       it { should be_navigated_to new_participant_page }
       it { should have_content("from being saved") }
-      it { should have_selector('.panel-body ul li', minimum: 3) }
+      it { should have_selector('.panel-body ul li', minimum: 2) }
     end
   end
 
