@@ -21,8 +21,8 @@ describe ParticipantsController do
 
   describe "GET new" do
     it "creates a new participant" do
-      Participant.should_receive(:new).with(:user_account_id => "#{participant.user_account.id}",
-        :crew_id => "#{participant.crew.id}").and_return(participant)
+      Participant.should_receive(:new).with(:user_account_id =>
+        "#{participant.user_account.id}").and_return(participant)
       get_new
     end
 
@@ -48,15 +48,18 @@ describe ParticipantsController do
     end
 
     context "when participant saves successfully" do
-      let(:boss) { mock_user_account(email: 'boss@bossfirm.com', crew_lead: true) }
-      before { participant.stub(:save).and_return(true) }
+      let(:crew_lead) { mock_user_account(email: 'boss@bossfirm.com', crew_lead: true, crew: participant.crew) }
+      before do
+        participant.stub(:save).and_return(true)
+        crew_lead.crew.stub(:emails).and_return([crew_lead.email])
+      end
 
       it "sends email to newly created participant" do
         ->{ post_create }.should send_email(ParticipantsMailer, to: participant.email,
           subject: "#{sender}: #{participant_created_subject}")
       end
       it "sends email to the crew lead" do
-        ->{ post_create }.should send_email(ParticipantsMailer, to: boss.email,
+        ->{ post_create }.should send_email(ParticipantsMailer, to: crew_lead.email,
           subject: "#{sender}: #{approval_request_subject}")
       end
 
