@@ -1,5 +1,5 @@
 class UserAccountsController < ApplicationController
-  before_action :set_user_account, only: [:show, :change_password, :update_password]
+  before_action :set_user_account, only: [:show, :change_password, :update_password, :update_crew]
 
   def new
     @user = UserAccount.new
@@ -63,6 +63,14 @@ class UserAccountsController < ApplicationController
     else
       render :change_password
     end
+  end
+
+
+  def update_crew
+    crew_id = params[:user][:crew_id]
+    crew = crew_id.blank? ? nil : Crew.find(crew_id)
+    @user.update_attribute(:crew, crew)
+    redirect_to @user
   end
 
 
