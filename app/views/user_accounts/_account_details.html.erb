@@ -8,7 +8,7 @@
       <% unless @user.crew.blank? %>
         <td><%= @user.crew.display_name %></td>
       <% else %>
-        <td class="warning">&lt;Crew is not selected&gt;</td>
+        <td class="no-crew-selected">No crew selected. Please select the crew.</td>
       <% end  %>
     </tr>
   </tbody>

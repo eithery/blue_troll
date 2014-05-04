@@ -41,7 +41,7 @@ describe "user_accounts/_account_details.html.erb" do
       render
     end
 
-    it { should have_selector('td.warning', text: '<Crew is not selected>') }
+    it { should have_selector('td.no-crew-selected', text: 'Please select the crew.') }
   end
 
 
