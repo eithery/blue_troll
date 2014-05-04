@@ -9,8 +9,9 @@ describe Participant do
   it { should respond_to :home_phone, :cell_phone, :email, :address }
   it { should respond_to :ticket_code }
   it { should respond_to :flagged?, :notes }
-  it { should respond_to :approved_at, :approved_by, :registered_at, :registered_by }
+  it { should respond_to :approved?, :approved_at, :approved_by, :registered_at, :registered_by }
   it { should respond_to :payment_type, :payment_sent_at, :payment_sent_by, :payment_notes }
+  it { should respond_to :payment_sent?, :payment_received?, :payment_confirmed? }
   it { should respond_to :payment_received_at, :payment_received_by, :payment_confirmed_at, :payment_confirmed_by }
   it { should respond_to :created_by, :updated_by, :created_at, :updated_at }
   it { should respond_to :full_name, :display_name }
@@ -108,6 +109,58 @@ describe Participant do
     end
 
     its(:ticket_code) { should have_at_least(10).symbols }
+  end
+
+
+  describe "#approved?" do
+    context "when NOT approved by crew lead" do
+      before { gwen.approved_at = nil }
+      its(:approved?) { should be_false }
+    end
+
+    context "when approved by crew lead" do
+      before { gwen.approved_at = Time.now }
+      its(:approved?) { should be_true }
+    end
+  end
+
+
+  describe "#payment_sent?" do
+    context "when payment is NOT sent" do
+      before { gwen.payment_sent_at = nil }
+      its(:payment_sent?) { should be_false }
+    end
+
+    context "when payment is sent" do
+      before { gwen.payment_sent_at = Time.now }
+      its(:payment_sent?) { should be_true }
+    end
+  end
+
+
+  describe "#payment_received?" do
+    context "when payment is NOT received by crew lead" do
+      before { gwen.payment_received_at = nil }
+      its(:payment_received?) { should be_false }
+    end
+
+    context "when payment is received by crew lead" do
+      before { gwen.payment_received_at = Time.now }
+      its(:payment_received?) { should be_true }
+    end
+  end
+
+
+  describe "#payment_confirmed?" do
+    context "when payment is NOT confirmed by financier" do
+      before { gwen.payment_confirmed_at = nil }
+      its(:payment_confirmed?) { should be_false }
+    end
+
+    context "when payment is confirmed by financier" do
+      before { gwen.payment_confirmed_at = Time.now }
+      its(:payment_confirmed?) { should be_true }
+    end
   end
 
 

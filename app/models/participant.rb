@@ -37,6 +37,26 @@ class Participant < ActiveRecord::Base
   end
 
 
+  def approved?
+    !self.approved_at.nil?
+  end
+
+
+  def payment_sent?
+    !self.payment_sent_at.nil?
+  end
+
+
+  def payment_received?
+    !self.payment_received_at.nil?
+  end
+
+
+  def payment_confirmed?
+    !self.payment_confirmed_at.nil?
+  end
+
+
   def Participant.find_by_ticket(ticket_code)
     Participant.all.each { |p| return p if p.ticket_code.to_i(16).to_s == ticket_code.strip }
     nil
