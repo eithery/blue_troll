@@ -52,6 +52,6 @@
 
 <%= link_to 'Register new participant', new_participant_path(user_account_id: @user.id, crew_id: @user.crew),
   class: "btn btn-primary" %>
+<%= link_to 'Select Crew', '#', class: "btn btn-primary", data: { toggle: "modal", target: "#crew-selector" } %>
 <%= link_to 'Download my tickets', '#', class: "btn btn-info", disabled: true %>
-<%= link_to 'Change Crew', '#', class: "btn btn-warning", data: { toggle: "modal", target: "#crew-selector" } %>
 <%= link_to 'Change password', '#', class: "btn btn-warning" %>

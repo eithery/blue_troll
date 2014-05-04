@@ -2,8 +2,10 @@ require 'spec_helper'
 
 describe "user_accounts/show.html.erb" do
   subject { rendered }
-  let(:user) { mock_user_account }
+  let(:crew) { mock_crew }
+  let(:user) { mock_user_account(crew_id: crew.id) }
   let(:gwen) { stub_participant }
+
   before do
     assign(:user, user)
     render
@@ -13,19 +15,17 @@ describe "user_accounts/show.html.erb" do
   it { should have_content(user.login) }
   it { should have_content(user.email) }
   it { should have_content('Status:') }
-  it { should have_link('Change password', href: '#') }
+  it { should have_content('Crew:') }
+
   it { should have_content('Registered Participants') }
   it { should have_selector('table thead tr', count: 1) }
 
   it { should have_link('Register new participant',
     href: new_participant_path(user_account_id: user.id, crew_id: user.crew)) }
   it { should have_selector("a[disabled='disabled'][href='#']", text: 'Download my tickets') }
+  it { should have_link('Select Crew', href: '#') }
+  it { should have_link('Change password', href: '#') }
 
-  it { should have_selector("div.modal-dialog")}
-
-#  it { should have_select('participant[crew_id]') }
-#  it { should have_selector('option', count: 4) }
-#  it { should have_selector("option[selected='selected']", count: 1, text: crews.last.name) }
 
   specify do
     user.should_receive(:login)
@@ -36,6 +36,17 @@ describe "user_accounts/show.html.erb" do
     user.should_receive(:email)
     render
   end
+
+  specify do
+    user.should_receive(:crew)
+    render
+  end
+
+  specify do
+    user.should_receive(:crew_id)
+    render
+  end
+
 
   describe "with no registered participants" do
     before do
@@ -82,6 +93,31 @@ describe "user_accounts/show.html.erb" do
       gwen.should_receive(:email).twice
       render
     end
+  end
+
+
+  describe "when crew is NOT selected" do
+    before do
+      user.stub(:crew).and_return(nil)
+      render
+    end
+
+    it { should have_selector('td.warning', text: 'Crew is not selected') }
+    it "'Register new participant' button should be disabled" do
+      should have_selector("a[disabled='disabled']", text: 'Register new participant')  
+    end
+  end
+
+
+  describe "when crew is selected" do
+    before do
+      user.stub(:crew).and_return(crew)
+      render
+    end
+
+    it { should_not have_selector('td'), text: 'Crew is not selected' }
+    it { should have_content(user.crew.name) }
+    it "enables 'Register new participant' buton"
   end
 
 
