@@ -19,6 +19,11 @@ class Crew < ActiveRecord::Base
   end
 
 
+  def display_name
+    "#{self.name} (#{self.native_name})"
+  end
+
+
   def total_participants
     participants.to_a.count
   end

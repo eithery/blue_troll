@@ -23,6 +23,7 @@ describe Crew do
 
   it { should respond_to :emails, :leads }
   it { should respond_to :to_file_name }
+  it { should respond_to :display_name }
 
   it { should be_valid }
   it { should be_active }
@@ -137,6 +138,12 @@ describe Crew do
       it { should include(gaby.email) }
       it { should_not include(maryika.email) }
     end
+  end
+
+
+  describe "#display_name" do
+    subject { gwen.crew.display_name }
+    it { should == "Konserva Lovers (Любители консервов)"}
   end
 
 
