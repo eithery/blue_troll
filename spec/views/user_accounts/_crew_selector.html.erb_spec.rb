@@ -14,7 +14,7 @@ describe "user_accounts/_crew_selector.html.erb" do
 
   it { should have_selector("div.modal-dialog") }
   it { should have_content("Please select your Blue Trolley crew") }
-  it { should have_selector("form[action='#{select_crew_path}']") }
+  it { should have_selector("form[action='#{select_crew_path(id: user.id)}']") }
   it { should have_select('user[crew_id]') }
   it { should have_selector('option', count: 4) }
   it { should have_selector("option[selected='selected']", count: 1, text: all_crews.last.name) }
