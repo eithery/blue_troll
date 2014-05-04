@@ -22,8 +22,10 @@
   </table>
 </div>
 
-<%= link_to 'Register new participant', new_participant_path(user_account_id: @user.id, crew_id: @user.crew),
-  class: "btn btn-primary" %>
-<%= link_to 'Select Crew', '#', class: "btn btn-primary", data: { toggle: "modal", target: "#crew-selector" } %>
-<%= link_to 'Download my tickets', '#', class: "btn btn-info", disabled: true %>
+<%= link_to 'Register new participant', new_participant_path(user_account_id: @user.id), class: "btn btn-primary",
+  disabled: @user.crew.blank? %>
+<%= link_to 'Select crew', '#', class: "btn btn-primary", data: { toggle: "modal", target: "#crew-selector" },
+  disabled: @user.participants.any? { |p| p.approved? } %>
+<%= link_to 'Download my tickets', '#', class: "btn btn-info",
+  disabled: !@user.participants.any? { |p| p.payment_confirmed? } %>
 <%= link_to 'Change password', '#', class: "btn btn-warning" %>

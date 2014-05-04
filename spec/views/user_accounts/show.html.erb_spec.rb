@@ -1,24 +1,23 @@
 require 'spec_helper'
 
 describe "user_accounts/show.html.erb" do
-  subject { rendered }
   let(:crew) { mock_crew }
   let(:user) { mock_user_account(crew_id: crew.id) }
   let(:gwen) { stub_participant }
 
+  subject { rendered }
   before do
     assign(:user, user)
-    render
+    user.stub(:participants).and_return(stub_participants)
   end
 
-  it { should have_content('Registered Participants') }
-  it { should have_selector('table thead tr', count: 1) }
+  describe "in any case" do
+    before { render }
 
-  it { should have_link('Register new participant',
-    href: new_participant_path(user_account_id: user.id, crew_id: user.crew)) }
-  it { should have_selector("a[disabled='disabled'][href='#']", text: 'Download my tickets') }
-  it { should have_link('Select Crew', href: '#') }
-  it { should have_link('Change password', href: '#') }
+    it { should have_content('Registered Participants') }
+    it { should have_selector('table thead tr', count: 1) }
+    it { should have_link('Change password', href: '#') }
+  end
 
 
   describe "with no registered participants" do
@@ -41,56 +40,76 @@ describe "user_accounts/show.html.erb" do
   end
 
 
-  describe "with few registered participants" do
-    before do
-      user.stub(:participants).and_return(stub_participants)
-      render
-    end
-
+  context "with few registered participants" do
+    before { render }
     it { should have_selector('tbody tr', minimum: 3) }
-    it { should have_selector('td', text: gwen.full_name) }
-    it { should have_selector('td', text: gwen.email) }
-    it { should have_selector('td', text: gwen.age) }
-
-    it { should have_link("Click here to edit #{gwen.display_name}", href: edit_participant_path(gwen)) }
-    it { should have_link("Click here to delete #{gwen.display_name}", href: participant_path(gwen)) }
-    it { should have_link("Click here to download a ticket for #{gwen.display_name}",
-      href: participant_ticket_path(participant_id: gwen.id)) }
-
-    specify do
-      gwen.should_receive(:display_name).at_least(4).times
-      render
-    end
-
-    specify do
-      gwen.should_receive(:email).twice
-      render
-    end
   end
 
 
-  describe "when crew is NOT selected" do
+  context "when crew is NOT selected" do
     before do
       user.stub(:crew).and_return(nil)
       render
     end
 
-    it { should have_selector('td.warning', text: 'Crew is not selected') }
     it "'Register new participant' button should be disabled" do
-      should have_selector("a[disabled='disabled']", text: 'Register new participant')  
+      should have_selector("a[disabled='disabled']", text: 'Register new participant')
     end
   end
 
 
-  describe "when crew is selected" do
+  context "when crew is selected" do
     before do
       user.stub(:crew).and_return(crew)
       render
     end
 
-    it { should_not have_selector('td'), text: 'Crew is not selected' }
-    it { should have_content(user.crew.name) }
-    it "enables 'Register new participant' buton"
+    it "enables 'Register new participant' button" do
+      should have_link('Register new participant', href: new_participant_path(user_account_id: user.id))
+      should_not have_selector("a[disabled='disabled']", text: 'Register new participant')
+    end
+  end
+
+
+  context "when user does NOT have any approved participants" do
+    before do
+      gwen.stub(:approved?).and_return(false)
+      render
+    end
+
+    it { should have_link('Select crew', href: '#') }
+    it { should_not have_selector("a[disabled='disabled']", text: 'Select crew')}
+  end
+
+
+  context "wnen user has some participants approved by crew lead" do
+    before do
+      gwen.stub(:approved?).and_return(true)
+      render
+    end
+
+    it { should have_selector("a[disabled='disabled']", text: 'Select crew')}
+  end
+
+
+  context "when payment is NOT confirmed" do
+    before do
+      gwen.stub(:payment_confirmed?).and_return(false)
+      render
+    end
+
+    it { should have_selector("a[disabled='disabled'][href='#']", text: 'Download my tickets') }
+  end
+
+
+  context "when payment is confirmed by financier for some participant" do
+    before do
+      gwen.stub(:payment_confirmed?).and_return(true)
+      render
+    end
+
+    it { should_not have_selector("a[disabled='disabled'][href='#']", text: 'Download my tickets') }
+    it { should have_link('Download my tickets', href: '#') }
   end
 
 
