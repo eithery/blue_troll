@@ -11,12 +11,6 @@ describe "user_accounts/show.html.erb" do
     render
   end
 
-  it { should have_selector('img.gravatar') }
-  it { should have_content(user.login) }
-  it { should have_content(user.email) }
-  it { should have_content('Status:') }
-  it { should have_content('Crew:') }
-
   it { should have_content('Registered Participants') }
   it { should have_selector('table thead tr', count: 1) }
 
@@ -25,27 +19,6 @@ describe "user_accounts/show.html.erb" do
   it { should have_selector("a[disabled='disabled'][href='#']", text: 'Download my tickets') }
   it { should have_link('Select Crew', href: '#') }
   it { should have_link('Change password', href: '#') }
-
-
-  specify do
-    user.should_receive(:login)
-    render
-  end
-
-  specify do
-    user.should_receive(:email)
-    render
-  end
-
-  specify do
-    user.should_receive(:crew)
-    render
-  end
-
-  specify do
-    user.should_receive(:crew_id)
-    render
-  end
 
 
   describe "with no registered participants" do
