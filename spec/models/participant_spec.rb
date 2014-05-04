@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe Participant do
   let(:gwen) { FactoryGirl.create(:gwen) }
+  let(:crew_lead) { FactoryGirl.create(:crew_lead, crew: gwen.crew) }
+  let(:financier) { FactoryGirl.create(:financier) }
   subject { gwen }
 
   it { should respond_to :user_account, :crew }
@@ -13,6 +15,7 @@ describe Participant do
   it { should respond_to :payment_type, :payment_sent_at, :payment_sent_by, :payment_notes }
   it { should respond_to :payment_sent?, :payment_received?, :payment_confirmed? }
   it { should respond_to :payment_received_at, :payment_received_by, :payment_confirmed_at, :payment_confirmed_by }
+  it { should respond_to :approve, :send_payment, :receive_payment, :confirm_payment }
   it { should respond_to :created_by, :updated_by, :created_at, :updated_at }
   it { should respond_to :full_name, :display_name }
   specify { Participant.should respond_to :find_by_ticket }
@@ -161,6 +164,54 @@ describe Participant do
       before { gwen.payment_confirmed_at = Time.now }
       its(:payment_confirmed?) { should be_true }
     end
+  end
+
+
+  describe "#approve" do
+    before do
+      gwen.approve crew_lead
+      gwen.reload
+    end
+
+    its(:approved?) { should be_true }
+    its(:approved_at) { should_not be_blank }
+    its(:approved_by) { should == crew_lead.login }
+  end
+
+
+  describe "#send_payment" do
+    before do
+      gwen.send_payment 45.00
+      gwen.reload
+    end
+
+    its(:payment_sent?) { should be_true }
+    its(:payment_sent_at) { should_not be_blank }
+    its(:payment_sent_by) { should == gwen.user_account.login }
+  end
+
+
+  describe "#receive_payment" do
+    before do
+      gwen.receive_payment 45.00, crew_lead
+      gwen.reload
+    end
+
+    its(:payment_received?) { should be_true }
+    its(:payment_received_at) { should_not be_blank }
+    its(:payment_received_by) { should == crew_lead.login }
+  end
+
+
+  describe "#confirm_payment" do
+    before do
+      gwen.confirm_payment 45.00, financier
+      gwen.reload
+    end
+
+    its(:payment_confirmed?) { should be_true }
+    its(:payment_confirmed_at) { should_not be_blank }
+    its(:payment_confirmed_by) { should == financier.login }
   end
 
 
