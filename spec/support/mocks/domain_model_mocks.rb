@@ -11,6 +11,11 @@ module DomainModelMocks
     ]
   end
 
+  def stub_crew
+    stub_model(Crew, id: 123, name: 'Guests', native_name: 'Гости Слета')
+  end
+
+
 
   def mock_user_account(stubs={})
     user = mock_model(UserAccount, login: 'johnsmith', name: 'johnsmith', email: 'johnsmith@gmail.com').as_null_object
