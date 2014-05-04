@@ -1,4 +1,6 @@
 class ParticipantsMailer < ActionMailer::Base
+  include MailersHelper
+
   def created(participant)
     set_members participant
     mail to: target, from: "Blue_Trolley <#{club_email}>",
