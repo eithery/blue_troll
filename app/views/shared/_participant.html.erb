@@ -22,7 +22,7 @@
         participant_ticket_path(participant_id: participant), disabled: !participant.payment_confirmed?,
         title: "Click here to download a ticket for #{participant.display_name}", rel: 'tooltip' %>
 
-      <%= link_to 'Accept', '#', class: "btn btn-success btn-xs" %>
+      <%= approve_tag participant %>
       <%= link_to 'Paid', '#', class: "btn btn-warning btn-xs" %>
     </div>
   </td>
