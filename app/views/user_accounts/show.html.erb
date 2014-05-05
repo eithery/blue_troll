@@ -3,24 +3,7 @@
 <%= render 'crew_selector' %>
 
 <h4>Registered Participants</h4>
-<div class="shadowed-form">
-  <table class="table table-bordered table-striped table-hover">
-    <thead>
-      <tr>
-        <th class="col-sm-1">#</th>
-        <th class="col-sm-5">Name</th>
-        <th class="col-sm-4">Email</th>
-        <th class="col-sm-1">Age</th>
-        <th class="col-sm-1">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @user.participants.each.with_index do |participant, idx| %>
-        <%= render 'shared/participant', participant: participant, index: idx %>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+<%= render 'shared/participants', participants: @user.participants %>
 
 <%= link_to 'Register new participant', new_participant_path(user_account_id: @user.id), class: "btn btn-primary",
   disabled: @user.crew.blank? %>
