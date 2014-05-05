@@ -14,6 +14,7 @@ BlueTroll::Application.configure do
   config.action_controller.perform_caching = false
 
   # Mailer settings.
+  config.action_mailer.delivery_method = :mailhopper
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
