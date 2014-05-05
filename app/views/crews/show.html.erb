@@ -1,3 +1,6 @@
 <%= provide(:title, @crew.name.html_safe) %>
 <h4><%= @crew.display_name %></h4>
 <%= render 'shared/participants', participants: @crew.participants %>
+
+<%= link_to 'Register new participant', '#', class: "btn btn-primary" %>
+<%= link_to 'Download all paid tickets', '#', class: "btn btn-info", disabled: true %>

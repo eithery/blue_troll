@@ -1,5 +1,8 @@
 <tr>
-  <td><%= index + 1 %></td>
+  <td><%= index + 1 %>
+    <%= image_tag(participant.approved? ? 'approved.png' : 'not_approved.png', class: "bt-img-reduced") %>
+    <%= image_tag('money.png', class: "bt-img-reduced") if participant.payment_confirmed? %>
+  </td>
   <td><%= participant.full_name %></td>
   <td><%= link_to participant.email, "mailto:#{participant.email}" %></td>
   <td><%= participant.age %></td>
