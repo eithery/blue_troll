@@ -24,6 +24,9 @@
           <% unless signed_in? %>
             <li><%= link_to "Sign in", signin_path %></li>
           <% else %>
+            <% if current_user.crew_lead? %>
+              <li><%= link_to 'My Crew', crew_path(current_user.crew) %></li>
+            <% end %>
             <li><%= link_to "My Profile", user_account_path(current_user) %></li>
             <li><%= link_to "Sign out", signout_path, method: 'delete' %></li>
           <% end %>
