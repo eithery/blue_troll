@@ -219,6 +219,47 @@ describe UserAccountsController do
   end
 
 
+  describe "PUT update_crew" do
+    let(:crew) { mock_crew }
+    before { Crew.stub(:find).and_return(crew) }
+
+    it "finds user account by id" do
+      UserAccount.should_receive(:find).with("#{user.id}")
+      put_update_crew crew.id
+    end
+
+    context "when selected crew is NOT blank" do
+      it "finds crew by id" do
+        Crew.should_receive(:find).with("#{crew.id}")
+        put_update_crew crew.id
+      end
+
+      it "updates user with the selected crew" do
+        user.should_receive(:update_attribute).with(:crew, crew)
+        put_update_crew crew.id
+      end
+    end
+
+
+    context "when selected crew is blank" do
+      it "does NOT find crew by id" do
+        Crew.should_not_receive(:find)
+        put_update_crew nil
+      end
+
+      it "resets user's crew" do
+        user.should_receive(:update_attribute).with(:crew, nil)
+        put_update_crew nil
+      end
+    end
+
+    it "redirects to user profile page" do
+      put_update_crew crew.id
+      response.should redirect_to(user)
+    end
+  end
+
+
   private
     def post_create
       post :create, user_account: { email: email }
@@ -246,5 +287,9 @@ describe UserAccountsController do
 
     def put_update_password
       put :update_password, id: user.id, user_account: { password: user.password, password_confirmation: user.password }
+    end
+
+    def put_update_crew(crew_id)
+      put :update_crew, id: user.id, user: { crew_id: crew_id }
     end
 end
