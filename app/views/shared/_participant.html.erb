@@ -6,6 +6,7 @@
   <td><%= participant.full_name %></td>
   <td><%= link_to participant.email, "mailto:#{participant.email}" %></td>
   <td><%= participant.age %></td>
+  <td></td>
   <td>
     <div>
       <%= link_to image_tag('edit.png', alt: 'Edit participant', class: "bt-img"),
@@ -20,6 +21,9 @@
       <%= link_to image_tag('ticket.png', alt: 'Download ticket', class: "bt-img bt-img-reduced"),
         participant_ticket_path(participant_id: participant), disabled: !participant.payment_confirmed?,
         title: "Click here to download a ticket for #{participant.display_name}", rel: 'tooltip' %>
+
+      <%= link_to 'Accept', '#', class: "btn btn-success btn-xs" %>
+      <%= link_to 'Paid', '#', class: "btn btn-warning btn-xs" %>
     </div>
   </td>
 </tr>
