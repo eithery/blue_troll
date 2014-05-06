@@ -45,6 +45,17 @@ class UserAccount < ActiveRecord::Base
   end
 
 
+  def can_approve?(participant)
+    !participant.approved? && participant.crew_lead?(self)
+  end
+
+
+  def can_confirm_payment?(participant)
+    return false if participant.payment_confirmed?
+    self.financier? || participant.payment_sent? && !participant.payment_received? && participant.crew_lead?(self) 
+  end
+
+
 private
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64

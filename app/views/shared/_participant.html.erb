@@ -6,24 +6,14 @@
   <td><%= participant.full_name %></td>
   <td><%= link_to participant.email, "mailto:#{participant.email}" %></td>
   <td><%= participant.age %></td>
-  <td></td>
+  <td><%= participant.status %></td>
   <td>
     <div>
-      <%= link_to image_tag('edit.png', alt: 'Edit participant', class: "bt-img"),
-        edit_participant_path(participant), title: "Click here to edit #{participant.display_name} profile",
-        rel: 'tooltip', disabled: participant.approved? %>
-
-      <%= link_to image_tag('delete.png', alt: 'Delete participant', class: "bt-img"),
-        participant_path(participant), method: :delete, rel: 'tooltip', disabled: participant.approved?,
-        title: "Click here to delete #{participant.display_name} from Blue Trolley participants list",
-        data: { confirm: "Are you sure to delete #{participant.display_name} from the participants list?" } %>
-
-      <%= link_to image_tag('ticket.png', alt: 'Download ticket', class: "bt-img bt-img-reduced"),
-        participant_ticket_path(participant_id: participant), disabled: !participant.payment_confirmed?,
-        title: "Click here to download a ticket for #{participant.display_name}", rel: 'tooltip' %>
-
+      <%= edit_tag participant %>
+      <%= delete_tag participant %>
+      <%= download_ticket_tag participant %>
       <%= approve_tag participant %>
-      <%= link_to 'Paid', '#', class: "btn btn-warning btn-xs" %>
+      <%= confirm_payment_tag participant %>
     </div>
   </td>
 </tr>

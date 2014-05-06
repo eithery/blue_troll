@@ -14,6 +14,11 @@ class Crew < ActiveRecord::Base
   end
 
 
+  def lead?(user)
+    leads.include?(user)
+  end
+
+
   def emails
     leads.map { |user| user.email }
   end

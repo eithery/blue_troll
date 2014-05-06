@@ -36,6 +36,10 @@ class Participant < ActiveRecord::Base
     user_account.crew
   end
 
+  def crew_lead?(user)
+    user.crew_lead? && !self.crew.blank? && self.crew.lead?(user)
+  end
+
 
   def approved?
     !self.approved_at.nil?
@@ -74,6 +78,14 @@ class Participant < ActiveRecord::Base
   def Participant.find_by_ticket(ticket_code)
     Participant.all.each { |p| return p if p.ticket_code.to_i(16).to_s == ticket_code.strip }
     nil
+  end
+
+
+  def status
+    return 'Paid' if payment_confirmed?
+    return 'Payment received' if payment_received?
+    return 'Payment sent' if payment_sent?
+    return approved? ? 'Accepted' : 'Awaiting for approval'
   end
 
 
