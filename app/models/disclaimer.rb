@@ -53,7 +53,7 @@ class Disclaimer < Prawn::Document
 		move_down 20
 		fill_color '000000'
 		font 'calibri-bold'
-		text "Delaware Water Gap KOA, 233 Hollow Road, East Stroudsburg, PA 18301\nSeptember 27, 2013 - September 29, 2013.",
+		text "Delaware Water Gap KOA, 233 Hollow Road, East Stroudsburg, PA 18301\nFriday, June 6, 2014 - June 8, 2014.",
 			size: 14, :align => :center
 
 		move_down 12
@@ -90,7 +90,7 @@ class Disclaimer < Prawn::Document
 
 		move_down 10
 		bounding_box([40, cursor], width: 460) do
-			text "On this day of ____________________, 2013, I, ___________________________________________ ,\n" +
+			text "On this day of ____________________, 2014, I, ___________________________________________ ,\n" +
 				"of my own free will, have read, understand and acknowledge the risks and liability for myself " +
 				"and on behalf of all persons for who I am the legal guardian during the Event."
 		end
