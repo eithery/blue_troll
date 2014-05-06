@@ -70,6 +70,7 @@ class UserAccountsController < ApplicationController
     crew_id = params[:user][:crew_id]
     crew = crew_id.blank? ? nil : Crew.find(crew_id)
     @user.update_attribute(:crew, crew)
+    sign_in @user
     redirect_to @user
   end
 

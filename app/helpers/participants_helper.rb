@@ -10,12 +10,12 @@ module ParticipantsHelper
 
 
   def approve_tag(participant)
-    link_to 'Accept', '#', class: "btn btn-success btn-xs" if current_user.can_approve?(participant)
+    link_to 'Accept', '#', class: "btn btn-success btn-xs" if current_user.can_approve? participant
   end
 
 
   def confirm_payment_tag(participant)
-    link_to 'Paid', '#', class: "btn btn-warning btn-xs" if current_user.can_confirm_payment?(participant)
+    link_to 'Paid', '#', class: "btn btn-warning btn-xs" if current_user.can_confirm_payment? participant
   end
 
 
