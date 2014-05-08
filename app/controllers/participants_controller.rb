@@ -1,5 +1,7 @@
 class ParticipantsController < ApplicationController
+  before_filter :signed_in_user
 	before_action :set_participant, only: [:edit, :update, :destroy]
+
 
   def new
     @participant = Participant.new(user_account_id: params[:user_account_id])

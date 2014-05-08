@@ -1,5 +1,8 @@
 class UserAccountsController < ApplicationController
+  before_filter :signed_in_user, except: [:new, :create, :activate_by_link]
+  before_filter :correct_user, except: [:new, :create, :activate_by_link]
   before_action :set_user_account, only: [:show, :change_password, :update_password, :update_crew]
+
 
   def new
     @user = UserAccount.new
@@ -90,5 +93,11 @@ private
   def valid_activation(user)
     flash[:success] = "Congratulation, #{user.name}! Your account has been successfully activated."
     redirect_to signin_path
+  end
+
+
+  def correct_user
+    user = UserAccount.find(params[:id])
+    redirect_to root_path unless current_user?(user)
   end
 end

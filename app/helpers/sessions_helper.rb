@@ -1,7 +1,7 @@
 module SessionsHelper
-  def sign_in(user_account)
-    cookies.permanent[:remember_token] = user_account.remember_token
-    self.current_user = user_account
+  def sign_in(user)
+    cookies.permanent[:remember_token] = user.remember_token
+    self.current_user = user
   end
 
 
@@ -11,8 +11,13 @@ module SessionsHelper
   end
 
 
-  def current_user=(user_account)
-    @current_user = user_account
+  def current_user?(user)
+    user == current_user
+  end
+
+
+  def current_user=(user)
+    @current_user = user
   end
 
 
