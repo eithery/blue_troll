@@ -1,6 +1,6 @@
 class UserAccountsController < ApplicationController
   before_filter :signed_in_user, except: [:new, :create, :activate_by_link]
-  before_filter :correct_user, except: [:new, :create, :activate_by_link]
+#  before_filter :correct_user, except: [:new, :create, :activate_by_link]
   before_action :set_user_account, only: [:show, :change_password, :update_password, :update_crew]
 
 
@@ -72,9 +72,12 @@ class UserAccountsController < ApplicationController
   def update_crew
     crew_id = params[:user][:crew_id]
     crew = crew_id.blank? ? nil : Crew.find(crew_id)
-    @user.update_attribute(:crew, crew)
-    sign_in @user
-    redirect_to @user
+    respond_to do |format|
+      @user.update_attribute(:crew, crew)
+      sign_in @user
+      format.html { redirect_to @user }
+      format.js
+    end
   end
 
 
