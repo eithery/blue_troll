@@ -1,14 +1,17 @@
 <% provide(:title, @user.name) %>
 <%= render 'account_details' %>
 <%= render 'crew_selector' %>
+<%= render 'payment' %>
 
-<h4 id='kva'>Registered Participants</h4>
+<h4>Registered Participants</h4>
 <%= render 'shared/participants', participants: @user.participants %>
 
 <%= link_to 'Register new participant', new_participant_path(user_account_id: @user.id), class: "btn btn-primary",
   disabled: @user.crew.blank? %>
-<%= link_to 'Select crew', '#', class: "btn btn-primary", data: { toggle: "modal", target: "#crew-selector" },
+<%= link_to 'Select crew', '#', class: "btn btn-primary", data: { toggle: 'modal', target: "#crew-selector" },
   disabled: @user.participants.any? { |p| p.approved? } %>
+<%= link_to 'Payments', '#', class: "btn btn-info", data: { toggle: 'modal', target: "#payment" },
+  disabled: @user.crew.blank? || !@user.active? || !@user.participants.any? { |p| !p.payment_sent? } %>
 <%= link_to 'Download my tickets', '#', class: "btn btn-info",
   disabled: !@user.participants.any? { |p| p.payment_confirmed? } %>
 <%= link_to 'Change password', '#', class: "btn btn-warning" %>

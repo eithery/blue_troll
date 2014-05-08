@@ -1,0 +1,50 @@
+<div id="payment" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_for(:payment, url: payment_path(id: @user), method: :put,
+        html: { class: "form-horizontal" }) do |f| %>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">Please select your payment options.</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <%= f.label 'Payment method', class: "control-label col-sm-4" %>
+            <div class="col-sm-6">
+              <div class="radio">
+                <label><%= f.radio_button :payment_type, PaymentType::PAYPAL %>PayPal<label>
+              </div>
+              <div class="radio">
+                <label><%= f.radio_button :payment_type, PaymentType::CHECK %>Check</label>
+              </div>
+              <div class="radio">
+                <label><%= f.radio_button :payment_type, PaymentType::CASH %>Cash</label>
+              </div>
+              <div class="radio">
+                <label><%= f.radio_button :payment_type, PaymentType::OTHER %>Other</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :amount, 'Payment amount', class: "control-label col-sm-4" %>
+            <div class="col-sm-3">
+              <%= f.text_field :amount, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :notes, class: "control-label col-sm-4" %>
+            <div class="col-sm-6">
+              <%= f.text_area :notes, class: "form-control", rows: 6 %>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <%= f.submit 'Send payment info', class: "btn btn-default" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

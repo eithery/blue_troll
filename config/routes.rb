@@ -10,6 +10,7 @@ BlueTroll::Application.routes.draw do
   get 'change_password', to: 'user_accounts#change_password'
   put 'change_password', to: 'user_accounts#update_password'
   put 'select_crew', to: 'user_accounts#update_crew'
+  put 'payment', to: 'user_accounts#payment'
 
   get 'cant_access', to: 'password_reset#collect_info'
   post 'send_reset_link', to: 'password_reset#send_link'
