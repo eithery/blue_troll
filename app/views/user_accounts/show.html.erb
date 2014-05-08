@@ -12,4 +12,3 @@
 <%= link_to 'Download my tickets', '#', class: "btn btn-info",
   disabled: !@user.participants.any? { |p| p.payment_confirmed? } %>
 <%= link_to 'Change password', '#', class: "btn btn-warning" %>
-<%= button_to 'Ajax', select_crew_path(id: @user, user: { crew_id: 12 }), method: :put, remote: true %>

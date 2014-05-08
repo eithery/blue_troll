@@ -4,12 +4,6 @@
     <tr><th>Login:</th><td><%= @user.login %></td></tr>
     <tr><th>Email:</th><td><%= link_to @user.email, "mailto:#{@user.email}" %></td></tr>
     <tr><th>Status:</th><td><%= "Active" %></td></tr>
-    <tr><th>Crew:</th>
-      <% unless @user.crew.blank? %>
-        <td><%= @user.crew.display_name %></td>
-      <% else %>
-        <td class="no-crew-selected">No crew selected. Please select the crew.</td>
-      <% end  %>
-    </tr>
+    <tr id="selected-crew"><%= render 'crew_name' %></tr>
   </tbody>
 </table>
