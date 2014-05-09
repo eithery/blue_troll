@@ -16,6 +16,7 @@ BlueTroll::Application.routes.draw do
   post 'send_reset_link', to: 'password_reset#send_link'
   get 'pwd_reset', to: 'password_reset#reset'
 
+  get 'approve', to: 'participants#approve'
   post 'search', to: 'participants#search'
   get 'flagged', to: 'participants#flagged'
   get 'adults', to: 'participants#adults'

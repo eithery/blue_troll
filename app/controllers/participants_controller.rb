@@ -1,6 +1,6 @@
 class ParticipantsController < ApplicationController
   before_filter :signed_in_user
-	before_action :set_participant, only: [:edit, :update, :destroy]
+	before_action :set_participant, only: [:edit, :update, :destroy, :approve]
 
 
   def new
@@ -48,6 +48,15 @@ class ParticipantsController < ApplicationController
   	@participants = crew_id.nil? ? Participant.order(:last_name, :first_name) :
       Participant.where(crew_id: crew_id).order(:last_name, :first_name)
     @crew = Crew.find(crew_id) unless crew_id.nil?
+  end
+
+
+  def approve
+    @participant.update_attributes(approved_at: Time.now, approved_by: current_user.login)
+    respond_to do |format|
+      format.html { redirect_to crew_path(current_user.crew) }
+      format.js
+    end
   end
 
 
