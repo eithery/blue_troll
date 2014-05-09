@@ -35,6 +35,11 @@ class UserAccount < ActiveRecord::Base
   end
 
 
+  def status
+    self.active? ? 'Active' : 'Inactive'
+  end
+
+
   def generate_reset_token
     update_attributes(reset_password_token: SecureRandom.urlsafe_base64, reset_password_expired_at: Time.now)
   end

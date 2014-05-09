@@ -1,6 +1,6 @@
 class UserAccountsController < ApplicationController
-  before_filter :signed_in_user, except: [:new, :create, :activate_by_link]
-#  before_filter :correct_user, except: [:new, :create, :activate_by_link]
+  before_filter :signed_in_user, only: [:show, :change_password, :update_password, :update_crew]
+  before_filter :correct_user, only: [:show, :change_password, :update_password, :update_crew]
   before_action :set_user_account, only: [:show, :change_password, :update_password, :update_crew]
 
 
@@ -13,7 +13,6 @@ class UserAccountsController < ApplicationController
     @user = UserAccount.new(user_account_params)
     if @user.save
       flash[:success] = "New user account for #{@user.name} has been created."
-      UserAccountsMailer.registered(@user).deliver
       redirect_to request_to_activate_path(account_id: @user.id)
     else
       render :new
@@ -27,6 +26,7 @@ class UserAccountsController < ApplicationController
 
   def request_to_activate
     @user = UserAccount.find(params[:account_id])
+    UserAccountsMailer.registered(@user).deliver
   end
 
 
