@@ -28,4 +28,14 @@ module ApplicationHelper
   def old_club_url
     "http://bluetrolleyclub.com"
   end
+
+
+  def visible_if(&block)
+    block.call ? "" : "display: none;"
+  end
+
+
+  def visible_unless(&block)
+    block.call ? "display: none;" : ""
+  end
 end

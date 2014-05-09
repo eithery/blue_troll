@@ -1,2 +1,8 @@
 $('#crew-selector').modal('hide');
 $('tr#selected-crew').html("<%= escape_javascript(render 'crew_name') %>");
+
+<% unless @user.crew.blank? %>
+  $('#new_participant').fadeIn();
+<% else %>
+  $('#new_participant').fadeOut();
+<% end %>
