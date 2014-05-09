@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140505022000) do
+ActiveRecord::Schema.define(version: 20140509022805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,7 +74,6 @@ ActiveRecord::Schema.define(version: 20140505022000) do
     t.string   "ticket_code"
     t.boolean  "flagged",              default: false, null: false
     t.text     "notes"
-    t.text     "text"
     t.datetime "approved_at"
     t.string   "approved_by"
     t.datetime "registered_at"
