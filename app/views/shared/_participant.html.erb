@@ -1,19 +1,17 @@
-<tr>
-  <td><%= index + 1 %>
-    <%= image_tag(participant.approved? ? 'approved.png' : 'not_approved.png', class: "bt-img-reduced") %>
-    <%= image_tag('money.png', class: "bt-img-reduced") if participant.payment_confirmed? %>
-  </td>
-  <td><%= participant.full_name %></td>
-  <td><%= link_to participant.email, "mailto:#{participant.email}" %></td>
-  <td><%= participant.age %></td>
-  <td><%= participant.status %></td>
-  <td>
-    <div>
-      <%= edit_tag participant %>
-      <%= delete_tag participant %>
-      <%= download_ticket_tag participant %>
-      <%= approve_tag participant %>
-      <%= confirm_payment_tag participant %>
-    </div>
-  </td>
-</tr>
+<td><%= index + 1 %>
+  <%= image_tag(participant.approved? ? 'approved.png' : 'not_approved.png', class: "bt-img-reduced") %>
+  <%= image_tag('money.png', class: "bt-img-reduced") if participant.payment_confirmed? %>
+</td>
+<td><%= participant.full_name %></td>
+<td><%= link_to participant.email, "mailto:#{participant.email}" %></td>
+<td><%= participant.age %></td>
+<td><%= participant.status %></td>
+<td>
+  <div>
+    <%= edit_tag participant %>
+    <%= delete_tag participant %>
+    <%= download_ticket_tag participant %>
+    <%= approve_tag participant %>
+    <%= confirm_payment_tag participant %>
+  </div>
+</td>

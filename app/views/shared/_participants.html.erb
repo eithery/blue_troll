@@ -12,7 +12,7 @@
     </thead>
     <tbody>
       <% participants.each.with_index do |participant, idx| %>
-        <%= render 'shared/participant', participant: participant, index: idx %>
+        <tr id="participant_<%= participant.id.to_s %>"><%= render 'shared/participant', participant: participant, index: idx %></tr>
       <% end %>
     </tbody>
   </table>
