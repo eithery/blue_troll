@@ -41,12 +41,16 @@ class UserAccount < ActiveRecord::Base
 
 
   def generate_reset_token
-    update_attributes(reset_password_token: SecureRandom.urlsafe_base64, reset_password_expired_at: Time.now)
+    self.reset_password_token = SecureRandom.urlsafe_base64
+    self.reset_password_expired_at = Time.now
+    save(validate: false)
   end
 
 
   def reset
-    update_attributes(reset_password_token: nil, reset_password_expired_at: nil)
+    self.reset_password_token = nil
+    self.reset_password_expired_at = nil
+    save(validate: false)
   end
 
 
