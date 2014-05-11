@@ -25,8 +25,7 @@
           <div class="form-group">
             <%= f.label 'Payment method', class: "control-label col-sm-4" %>
             <div class="col-sm-8 bt-payment-type">
-                <%= image_tag('paypal.png') %>
-                <label><%= f.radio_button :payment_type, PaymentType::PAYPAL %>Pay Pal</label>
+                <label><%= f.radio_button :payment_type, PaymentType::PAYPAL, checked: true %>Pay Pal</label>
                 <label><%= f.radio_button :payment_type, PaymentType::CHECK %>Check</label>
                 <label><%= f.radio_button :payment_type, PaymentType::CASH %>Cash</label>
                 <label><%= f.radio_button :payment_type, PaymentType::OTHER %>Other</label>
@@ -34,7 +33,7 @@
           </div>
 
           <div class="form-group">
-            <%= f.label :amount, 'Payment amount $', class: "control-label col-sm-4" %>
+            <%= f.label :amount, 'Payment amount', class: "control-label col-sm-4" %>
             <div class="col-sm-3">
               <%= f.text_field :amount, class: "form-control" %>
             </div>
