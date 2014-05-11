@@ -66,8 +66,8 @@ class Participant < ActiveRecord::Base
     update_attributes(approved_at: Time.now, approved_by: crew_lead.login)
   end
 
-  def send_payment(amount)
-    update_attributes(payment_sent_at: Time.now, payment_sent_by: self.user_account.login)
+  def send_payment(amount, notes)
+    update_attributes(payment_sent_at: Time.now, payment_sent_by: self.user_account.login, payment_notes: notes)
   end
 
   def receive_payment(amount, crew_lead)
