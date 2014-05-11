@@ -15,6 +15,12 @@ module ParticipantsHelper
   end
 
 
+  def send_payment_tag(participant)
+    link_to 'Pay', '#', class: "btn btn-success btn-xs" if participant.approved? && participant.unpaid? &&
+      !current_user.can_confirm_payment?(participant)
+  end
+
+
   def confirm_payment_tag(participant)
     link_to 'Paid', '#', class: "btn btn-warning btn-xs" if current_user.can_confirm_payment? participant
   end
