@@ -52,7 +52,9 @@ class ParticipantsController < ApplicationController
 
 
   def approve
+    @index = params[:index]
     @participant.update_attributes(approved_at: Time.now, approved_by: current_user.login)
+    ParticipantsMailer.approved(@participant).deliver
     respond_to do |format|
       format.html { redirect_to crew_path(current_user.crew) }
       format.js

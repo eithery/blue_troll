@@ -9,8 +9,8 @@ module ParticipantsHelper
   end
 
 
-  def approve_tag(participant)
-    link_to 'Accept', approve_path(id: participant), class: "btn btn-success btn-xs",
+  def approve_tag(participant, index)
+    link_to 'Accept', approve_path(id: participant, index: index), class: "btn btn-success btn-xs",
       remote: true if current_user.can_approve? participant
   end
 
