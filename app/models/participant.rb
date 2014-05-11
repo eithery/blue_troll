@@ -45,6 +45,10 @@ class Participant < ActiveRecord::Base
     !self.approved_at.nil?
   end
 
+  def unpaid?
+    !(payment_sent? || payment_received? || payment_confirmed?)
+  end
+
   def payment_sent?
     !self.payment_sent_at.nil?
   end

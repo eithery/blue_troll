@@ -1,7 +1,7 @@
 class UserAccountsController < ApplicationController
-  before_filter :signed_in_user, only: [:show, :update_crew]
-  before_filter :correct_user, only: [:show, :update_crew]
-  before_action :set_user_account, only: [:show, :change_password, :update_password, :update_crew]
+  before_filter :signed_in_user, only: [:show, :update_crew, :send_payment]
+  before_filter :correct_user, only: [:show, :update_crew, :send_payment]
+  before_action :set_user_account, only: [:show, :change_password, :update_password, :update_crew, :send_payment]
 
 
   def new
@@ -78,6 +78,16 @@ class UserAccountsController < ApplicationController
       format.html { redirect_to @user }
       format.js
     end
+  end
+
+
+  def send_payment
+    @user.participants.each do |participant|
+      if participant.unpaid?
+        participant.send_payment(45)
+      end
+    end
+    redirect_to @user
   end
 
 

@@ -15,7 +15,7 @@
 
   <%= link_to 'Payments', '#', class: "btn btn-info", data: { toggle: 'modal', target: "#payment" },
     style: visible_if { !@user.crew.blank? && @user.active? &&
-      @user.participants.any? { |p| p.approved? && !p.payment_sent? }} %>
+      @user.participants.any? { |p| p.approved? && p.unpaid? }} %>
 
   <%= link_to 'Download my tickets', '#', class: "btn btn-info",
     style: visible_if { @user.participants.any? { |p| p.payment_confirmed? }} %>
