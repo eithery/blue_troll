@@ -7,4 +7,8 @@ class PaymentsMailer < ActionMailer::Base
 
   def payment_received(participant)
   end
+
+
+  def payment_confirmed(participant)
+  end
 end

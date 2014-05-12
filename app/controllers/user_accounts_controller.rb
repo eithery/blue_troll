@@ -86,7 +86,6 @@ class UserAccountsController < ApplicationController
     @user.send_payment(payment)
     PaymentsMailer.payment_sent(@user, payment).deliver
     flash[:success] = "Payment notification has been sent to the crew lead and financier."
-
     redirect_to @user
   end
 
