@@ -82,13 +82,10 @@ class UserAccountsController < ApplicationController
 
 
   def send_payment
-    payment_type = params[:payment][:payment_type]
-    amount = params[:payment][:amount]
-    notes = params[:payment][:notes]
-    payees = @user.participants.to_a.select { |p| p.unpaid? }
-    payees.each do |participant|
-      participant.send_payment(amount.to_f, notes)
-    end
+    payment = Payment.new(params[:payment])
+    @user.send_payment(payment)
+    PaymentsMailer.payment_sent(@user, payment).deliver
+
     redirect_to @user
   end
 

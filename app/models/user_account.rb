@@ -66,6 +66,11 @@ class UserAccount < ActiveRecord::Base
   end
 
 
+  def send_payment(payment)
+    payment.payees.each { |payee| payee.send_payment(payment) }
+  end
+
+
 private
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64

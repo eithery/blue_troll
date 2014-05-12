@@ -1,7 +1,7 @@
 class PaymentsMailer < ActionMailer::Base
   include MailersHelper
 
-  def payment_sent(participant)
+  def payment_sent(user, payment)
   end
 
 
