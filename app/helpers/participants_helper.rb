@@ -16,8 +16,9 @@ module ParticipantsHelper
 
 
   def send_payment_tag(participant)
-    link_to 'Pay', '#', class: "btn btn-success btn-xs" if participant.approved? && participant.unpaid? &&
-      !current_user.can_confirm_payment?(participant)
+    if participant.approved? && participant.unpaid? && !current_user.can_confirm_payment?(participant)
+      link_to 'Pay', '#', class: "btn btn-success btn-xs", data: { toggle: 'modal', target: "#payment" }
+    end
   end
 
 

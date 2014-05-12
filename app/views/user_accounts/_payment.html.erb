@@ -4,6 +4,8 @@
 
       <%= form_for(:payment, url: send_payment_path(id: @user), method: :put,
         html: { class: "form-horizontal" }) do |f| %>
+        <%= f.hidden_field :payee, id: 'payee_id' %>
+
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           <h4 class="modal-title">Send payment notification.</h4>
