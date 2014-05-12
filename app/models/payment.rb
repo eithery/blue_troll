@@ -13,5 +13,6 @@ class Payment
   def payees
     payees = @payer.participants.to_a.select { |p| p.unpaid? }
     payees.select! { |p| p.id == @payee_id } unless @payee_id.blank?
+    payees
   end
 end
