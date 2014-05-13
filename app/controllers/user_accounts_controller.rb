@@ -1,7 +1,7 @@
 class UserAccountsController < ApplicationController
-  before_filter :signed_in_user, only: [:show, :update_crew, :send_payment]
-  before_filter :correct_user, only: [:show, :update_crew, :send_payment]
-  before_action :set_user_account, only: [:show, :change_password, :update_password, :update_crew, :send_payment]
+  before_filter :signed_in_user, only: [:show, :update_crew]
+  before_filter :correct_user, only: [:show, :update_crew]
+  before_action :set_user_account, only: [:change_password, :update_password]
 
 
   def new
@@ -81,21 +81,7 @@ class UserAccountsController < ApplicationController
   end
 
 
-  def send_payment
-    payment = Payment.new(@user, params[:payment])
-    @user.send_payment(payment)
-    PaymentsMailer.payment_sent(@user, payment).deliver
-    flash[:success] = "Payment notification has been sent to the crew lead and financier."
-    redirect_to @user
-  end
-
-
 private
-  def set_user_account
-    @user = UserAccount.find(params[:id])
-  end
-
-
   def user_account_params
     params.require(:user_account).permit(:id, :login, :email, :email_confirmation, :password, :password_confirmation,
       :remember_token, :activation_token)
@@ -105,11 +91,5 @@ private
   def valid_activation(user)
     flash[:success] = "Congratulation, #{user.name}! Your account has been successfully activated."
     redirect_to signin_path
-  end
-
-
-  def correct_user
-    user = UserAccount.find(params[:id])
-    redirect_to root_path unless current_user?(user)
   end
 end

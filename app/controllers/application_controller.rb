@@ -6,7 +6,18 @@ class ApplicationController < ActionController::Base
 
 
 private
+  def set_user_account
+    @user = UserAccount.find(params[:id])
+  end
+
+
   def signed_in_user
     redirect_to signin_path unless signed_in?
+  end
+
+
+  def correct_user
+    set_user_account
+    redirect_to root_path unless current_user?(@user)
   end
 end

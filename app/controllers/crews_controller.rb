@@ -1,6 +1,6 @@
 class CrewsController < ApplicationController
   before_filter :signed_in_user
-  before_filter :correct_user, only: [:show]
+  before_filter :privileged_user, only: [:show]
 
   def index
   	@crews = Crew.order(:name)
@@ -12,8 +12,8 @@ class CrewsController < ApplicationController
 
 
 private
-  def correct_user
+  def privileged_user
     @crew = Crew.find(params[:id])
-    redirect_to root_path unless current_user.admin? || @crew.lead?(current_user)
+    redirect_to root_path unless current_user.admin? || current_user.financier? || @crew.lead?(current_user)
   end
 end
