@@ -71,6 +71,12 @@ class UserAccount < ActiveRecord::Base
   end
 
 
+  def self.financier_emails
+    financiers = UserAccount.where(financier: true)
+    return financiers.map { |fin| fin.email }
+  end
+
+
 private
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64

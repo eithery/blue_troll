@@ -39,6 +39,18 @@ module MailersHelper
     'registration approval'
   end
 
+  def payment_sent_subject
+    'payment sent'
+  end
+
+  def payment_received_subject
+    'payment received'
+  end
+
+  def payment_confirmed_subject
+    'payment confirmed'
+  end
+
   def sender
     'Blue Trolley'
   end
