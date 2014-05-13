@@ -13,6 +13,7 @@ BlueTroll::Application.routes.draw do
 
   # Payments.
   put 'send_payment', to: 'payments#send_payment'
+  post 'confirm_payment', to: 'payments#confirm_payment'
 
   get 'cant_access', to: 'password_reset#collect_info'
   post 'send_reset_link', to: 'password_reset#send_link'

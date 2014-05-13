@@ -1,5 +1,5 @@
 class PaymentsController < ApplicationController
-  before_filter :signed_in_user, only: [:send_payment]
+  before_filter :signed_in_user, only: [:send_payment, :confirm_payment]
   before_filter :correct_user, only: [:send_payment]
 
 
@@ -12,10 +12,10 @@ class PaymentsController < ApplicationController
   end
 
 
-  def receive_payment
-  end
-
-
   def confirm_payment
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.js
+    end
   end
 end
