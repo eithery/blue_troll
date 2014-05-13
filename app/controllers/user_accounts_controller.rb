@@ -1,7 +1,7 @@
 class UserAccountsController < ApplicationController
   before_filter :signed_in_user, only: [:show, :update_crew]
   before_filter :correct_user, only: [:show, :update_crew]
-  before_action :set_user_account, only: [:change_password, :update_password]
+  before_action :set_user_account, only: [:request_to_activate, :change_password, :update_password]
 
 
   def new
@@ -12,8 +12,9 @@ class UserAccountsController < ApplicationController
   def create
     @user = UserAccount.new(user_account_params)
     if @user.save
+      UserAccountsMailer.registered(@user).deliver
       flash[:success] = "New user account for #{@user.name} has been created."
-      redirect_to request_to_activate_path(account_id: @user.id)
+      redirect_to request_to_activate_path(id: @user.id)
     else
       render :new
     end
@@ -25,8 +26,6 @@ class UserAccountsController < ApplicationController
 
 
   def request_to_activate
-    @user = UserAccount.find(params[:account_id])
-    UserAccountsMailer.registered(@user).deliver
   end
 
 
@@ -37,7 +36,7 @@ class UserAccountsController < ApplicationController
     return valid_activation user if user.activate(activation_code)
 
     flash[:danger] = "Invalid activation code."
-    redirect_to request_to_activate_path(account_id: user.id)
+    redirect_to request_to_activate_path(id: user.id)
   end
 
 
