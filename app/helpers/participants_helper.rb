@@ -24,9 +24,10 @@ module ParticipantsHelper
   end
 
 
-  def confirm_payment_tag(participant)
+  def confirm_payment_tag(participant, index)
     if participant.approved? && current_user.can_confirm_payment?(participant)
-      link_to 'Paid', confirm_payment_path, class: "btn btn-warning btn-xs", method: :post, remote: true,
+      link_to 'Paid', confirm_payment_path(participant_id: participant, index: index),
+        class: "btn btn-warning btn-xs", method: :post, remote: true,
         data: { confirm: "Do you want to confirm payment for #{participant.display_name}?" }
     end
   end
