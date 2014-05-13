@@ -12,7 +12,7 @@ BlueTroll::Application.routes.draw do
   put 'select_crew', to: 'user_accounts#update_crew'
 
   # Payments.
-  put 'send_payment', to: 'participants#send_payment'
+  put 'send_payment', to: 'payments#send_payment'
 
   get 'cant_access', to: 'password_reset#collect_info'
   post 'send_reset_link', to: 'password_reset#send_link'
