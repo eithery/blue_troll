@@ -1,29 +1,27 @@
 Уважаемые кондуктор и финансист!
 
-Поступила информация об оплате на поездку в "Синем Толлейбусе" от следующих пассажиров из группы '<%= @payment.payer.crew.native_name %>':
-<% @payment.payees do |payee| %>
+Поступила информация об оплате на поездку в "Синем Толлейбусе" следующих пассажиров из группы '<%= @payment.payer.crew.native_name %>':
+<% @payment.payees.each do |payee| %>
  - <%= payee.full_name %>
 <% end %>
 
 Тип оплаты: <%= @payment.payment_type_string %>
 Cумма: <%= number_to_currency(@payment.amount) %>
-Примечания:
-<%= @payment.notes %>
+Примечания: <%= @payment.notes %>
 
 Пожалуйста, подтвердите получение оплаты за билет.
 
 
 Dear crew lead and financier!
 
-We've got payment sent information from following participants from crew '':
-<% @payment.payees do |payee| %>
+We've got payment sent information for the following participants from '<%= @payment.payer.crew.name %>' crew:
+<% @payment.payees.each do |payee| %>
  - <%= payee.full_name %>
 <% end %>
 
 Payment Type: <%= @payment.payment_type_string %>
 Payment Amount: <%= number_to_currency(@payment.amount) %>
-Notes:
-<%= @payment.notes %>
+Notes: <%= @payment.notes %>
 
 
 Please confirm that you received the payment.
