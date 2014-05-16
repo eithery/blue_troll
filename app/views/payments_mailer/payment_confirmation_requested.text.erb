@@ -1,0 +1,21 @@
+Уважаемый Министр Финансов!
+
+Получено подтверждение от командира группы '<%= @crew_lead.crew.native_name %>' (<%= @crew_lead.name %>).
+Пассажир <%= @participant.display_name %> полностью оплатил поездку на Синем Троллейбусе.
+(Мешок с деньгами высылается отдельно).
+
+Пожалуйста, подтвердите оплату.
+После подтверждения пассажиру и командиру его группы будет выслано письмо со ссылкой, по которой можно скачать билет.
+
+
+
+Dear Financier!
+
+We have a confirmation from '<%= @crew_lead.crew.name %>' crew lead (<%= @crew_lead.name %>).
+Blue Trolley trip for the participant <%= @participant.display_name %> is paid in full.
+
+Please confirm payment.
+The separate email with the ticket download link will be sent to participant after your confirmation.
+
+Thanks,
+Blue Trolley
