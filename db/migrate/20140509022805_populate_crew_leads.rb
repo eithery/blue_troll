@@ -29,14 +29,15 @@ class PopulateCrewLeads < ActiveRecord::Migration
       { name: 'Trjam', native_name: 'ТRЯМ' },
       { name: 'Trojan Donkeys', native_name: 'Троянские Ослики' },
       { name: 'White Crow', native_name: 'Белая Ворона' },
-      { name: "Wolf's Tail", native_name: 'Шайка-Лейка Волчий Хвост' }
+      { name: "Wolf's Tail", native_name: 'Шайка-Лейка Волчий Хвост' },
+      { name: 'Voices of Virginia', native_name: 'Голоса Вирджинии' }
     ]
 
     Crew.create!(@crews)
 
 
     @user_accounts = [
-      { login: 'alexshayk', email: 'alexshayk@yahoo.com', password: generate, crew: crew(9), admin: true, financier: true },
+      { login: 'alexshayk', email: 'alexshayk@yahoo.com', password: generate, crew: crew(9), admin: true },
       { login: 'ashaykevich', email: 'alexshayk@gmail.com', password: generate, crew: crew(11) },
       { login: 'ypogorelsky', email: 'ypogorelsky@hotmail.com', password: generate, crew: crew(1) },
       { login: 'izaverukha', email: 'ilyazaver@gmail.com', password: generate, crew: crew(2) },
@@ -62,11 +63,13 @@ class PopulateCrewLeads < ActiveRecord::Migration
       { login: 'vkhazak', email: 'vladimirkhazak@yahoo.com', password: generate, crew: crew(22) },
       { login: 'azaks', email: 'demzak@yahoo.com', password: generate, crew: crew(23) },
       { login: 'omikaloff', email: 'omikaloff@yahoo.com', password: generate, crew: crew(24) },
+      { login: 'ptyutyunik', email: 'petun7@gmail.com', password: generate, crew: crew(24) },
       { login: 'astolov', email: 'andrei_stolov@yahoo.com', password: generate, crew: crew(25) },
       { login: 'kkarpova', email: 'katekarpova@yahoo.com', password: generate, crew: crew(26) },
       { login: 'lrapoport', email: 'lvrapoport@gmail.com', password: generate, crew: crew(27) },
       { login: 'imashkovich', email: 'inna.mashkovich@power.alstom.com', password: generate, crew: crew(28) },
-      { login: 'igrapp', email: 'igrapp@gmail.com', password: generate, crew: crew(29) }
+      { login: 'igrapp', email: 'igrapp@gmail.com', password: generate, crew: crew(29) },
+      { login: 'tmusatov', email: 'btatyana@gwmail.gwu.edu', password: generate, crew: crew(30) }
     ]
 
     @user_accounts.each do |lead|
@@ -107,11 +110,13 @@ class PopulateCrewLeads < ActiveRecord::Migration
       { last_name: 'Khazak', first_name: 'Vladimir' },
       { last_name: 'Zaks', first_name: 'Alex' },
       { last_name: 'Mikaloff', first_name: 'Oleg' },
+      { last_name: 'Tyutyunik', first_name: 'Peter' },
       { last_name: 'Stolov', first_name: 'Andrei' },
       { last_name: 'Karpova', first_name: 'Kate' },
       { last_name: 'Rapoport', first_name: 'Lev' },
       { last_name: 'Mashkovich', first_name: 'Inna' },
-      { last_name: 'Grapp', first_name: 'Igor' }
+      { last_name: 'Grapp', first_name: 'Igor' },
+      { last_name: 'Musatov', first_name: 'Tatyana' }
     ]
 
     crew_leads.each_with_index do |lead, index|
