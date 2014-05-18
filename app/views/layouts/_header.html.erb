@@ -28,6 +28,17 @@
               <li><%= link_to 'My Crew', crew_path(current_user.crew) %></li>
             <% end %>
             <li><%= link_to "My Profile", user_account_path(current_user) %></li>
+            <% if current_user.admin? %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Administration
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "Upload Participants", '#' %></li>
+                </ul>
+              </li>
+            <% end %>
             <li><%= link_to "Sign out", signout_path, method: 'delete' %></li>
           <% end %>
         </ul>
