@@ -18,7 +18,7 @@ class TicketsController < ApplicationController
 		Dir.mkdir(crew_ticket_path) unless Dir.exists?(crew_ticket_path)
 
 		crew.participants.each do |participant|
-			if participant.import_id.blank? && !participant.sent?
+			if participant.payment_confirmed?
 				ticket = create_ticket(participant)
 				ticket.to_pdf.render_file("#{crew_ticket_path}/#{ticket.file_name}")
 			end
@@ -28,7 +28,7 @@ class TicketsController < ApplicationController
    		Dir["#{crew_ticket_path}/*.pdf"].each do |file|
 				begin
    				zipfile.add(File.basename(file), file)
-    			rescue Zip::ZipEntryExistsError
+    			rescue
     		end
     	end
 		end
