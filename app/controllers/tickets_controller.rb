@@ -72,6 +72,6 @@ private
 	def age_label(participant)
 		return 'A' if participant.age_category == AgeCategory::ADULT
 		return 'C' if participant.age_category == AgeCategory::CHILD
-		return "B #{participant.age.nil? ? ____ : participant.age}"
+		return "B #{(participant.age.nil? || participant.age == 0) ? ____ : participant.age}"
 	end
 end

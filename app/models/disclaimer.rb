@@ -137,7 +137,7 @@ class Disclaimer < Prawn::Document
 	def file_name
 		return "unknown_participant.pdf" if @participant_name == @unknown
 		first_name, last_name = @participant_name.split
-		"#{last_name}_#{first_name}_fall_2013.pdf".downcase
+		"#{last_name}_#{first_name}_2014.pdf".downcase
 	end
 
 
