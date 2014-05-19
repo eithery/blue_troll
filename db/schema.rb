@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20140509022805) do
     t.integer  "age_category",         default: 0,     null: false
     t.integer  "age"
     t.date     "born_on"
+    t.boolean  "primary"
     t.string   "home_phone"
     t.string   "cell_phone"
     t.string   "email"

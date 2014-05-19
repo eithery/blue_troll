@@ -30,7 +30,8 @@ class PopulateCrewLeads < ActiveRecord::Migration
       { name: 'Trojan Donkeys', native_name: 'Троянские Ослики' },
       { name: 'White Crow', native_name: 'Белая Ворона' },
       { name: "Wolf's Tail", native_name: 'Шайка-Лейка Волчий Хвост' },
-      { name: 'Voices of Virginia', native_name: 'Голоса Вирджинии' }
+      { name: 'Voices of Virginia', native_name: 'Голоса Вирджинии' },
+      { name: 'Dream', native_name: 'Мечта' }
     ]
 
     Crew.create!(@crews)
@@ -69,7 +70,8 @@ class PopulateCrewLeads < ActiveRecord::Migration
       { login: 'lrapoport', email: 'lvrapoport@gmail.com', password: generate, crew: crew(27) },
       { login: 'imashkovich', email: 'inna.mashkovich@power.alstom.com', password: generate, crew: crew(28) },
       { login: 'igrapp', email: 'igrapp@gmail.com', password: generate, crew: crew(29) },
-      { login: 'tmusatov', email: 'btatyana@gwmail.gwu.edu', password: generate, crew: crew(30) }
+      { login: 'tmusatov', email: 'btatyana@gwmail.gwu.edu', password: generate, crew: crew(30) },
+      { login: 'vpolyachek', email: 'ver2816@gmail.com', password: generate, crew: crew(31) }
     ]
 
     @user_accounts.each do |lead|
@@ -116,17 +118,20 @@ class PopulateCrewLeads < ActiveRecord::Migration
       { last_name: 'Rapoport', first_name: 'Lev' },
       { last_name: 'Mashkovich', first_name: 'Inna' },
       { last_name: 'Grapp', first_name: 'Igor' },
-      { last_name: 'Musatov', first_name: 'Tatyana' }
+      { last_name: 'Musatov', first_name: 'Tatyana' },
+      { last_name: 'Polyachek', first_name: 'Vera' }
     ]
 
     crew_leads.each_with_index do |lead, index|
       lead[:user_account] = UserAccount.find_by_login @user_accounts[index][:login]
+      lead[:primary] = true
       lead[:approved_at] = Time.now
       lead[:approved_by] = 'admin'
 
       if lead[:user_account].crew.active?
         lead[:payment_confirmed_at] = Time.now
         lead[:payment_confirmed_by] = 'ryeliseyev'
+        lead[:payment_notes] = "Paid as crew lead."
       end
 
       lead[:created_by] = 'admin'

@@ -12,6 +12,7 @@ class CreateParticipants < ActiveRecord::Migration
       t.integer :age_category, null: false, default: 0
       t.integer :age
       t.date :born_on
+      t.boolean :primary
 
       # Contacts and address.
       t.string :home_phone
