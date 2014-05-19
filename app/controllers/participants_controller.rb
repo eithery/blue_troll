@@ -45,9 +45,8 @@ class ParticipantsController < ApplicationController
 
   def index
     crew_id = params[:crew_id]
-  	@participants = crew_id.nil? ? Participant.order(:last_name, :first_name) :
-      Participant.where(crew_id: crew_id).order(:last_name, :first_name)
     @crew = Crew.find(crew_id) unless crew_id.nil?
+    @participants = @crew.participants
   end
 
 

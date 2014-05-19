@@ -5,7 +5,6 @@
       <th class="span4">Name</th>
       <th class="span1">Age</th>
       <th class="span2">Crew</th>
-      <th class="span1">BT ID</th>
       <th class="span3">Registered</th>
       <th>Actions</th>
     </tr>
@@ -14,11 +13,9 @@
     <% @participants.each.with_index do |participant, idx| %>
       <tr>
         <td class="bt-table-cell"><%= idx+1 %></td>
-        <td class="bt-table-cell"><%= participant_here_image(participant) %> 
-          <%= participant.full_name %> <%= baby_image(participant) %><%= red_flag_image(participant) %></td>
-        <td class="bt-table-cell"><%= participant.category.to_s[0].upcase %></td>
+        <td class="bt-table-cell"><%= participant.full_name %></td>
+        <td class="bt-table-cell"><%= participant.age_category %></td>
         <td class="bt-table-cell"><%= participant.crew.name %></td>
-        <td class="bt-table-cell"><%= participant.import_id %></td>
         <td class="bt-table-cell"><%= participant.registered_at %></td>
         <td class="bt-table-cell">
           <div>
