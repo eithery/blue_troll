@@ -121,8 +121,9 @@ class PopulateCrewLeads < ActiveRecord::Migration
 
     crew_leads.each_with_index do |lead, index|
       lead[:user_account] = UserAccount.find_by_login @user_accounts[index][:login]
-      lead[:approved_at] = Time.now
+      lead[:approved_at] = lead[:payment_confirmed_at] = Time.now
       lead[:approved_by] = 'admin'
+      lead[:payment_confirmed_by] = 'ryeliseyev'
       lead[:created_by] = 'admin'
       lead[:updated_by] = 'admin'
     end
