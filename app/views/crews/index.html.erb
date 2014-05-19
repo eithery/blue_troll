@@ -1,29 +1,28 @@
 <div class="shadowed-form">
-  <h1>Crews:</h1>
 	<table class="table table-bordered table-striped table-hover table-condensed">
 		<thead>
 			<tr>
-				<th class="span1">#</th>
-				<th class="span2">Crew Name</th>
-				<th class="span2">Native Name</th>
-				<th class="span2">Captain</th>
-				<th class="span2">Email</th>
-				<th class="span2">Total (A/C/B)</th>
+				<th>#</th>
+				<th>Crew Name</th>
+				<th>Native Name</th>
+				<th>Crew Lead</th>
+				<th>Email</th>
+				<th>Total (A/C/B)</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
 			<% @crews.each.with_index do |crew, idx| %>
 				<tr>
-					<td class="bt-table-cell"><%= idx+1 %></td>
-					<td class="bt-table-cell"><%= crew.name %></td>
-					<td class="bt-table-cell"><%= crew.native_name %></td>
-					<td class="bt-table-cell"><%= crew.id %></td>
-					<td class="bt-table-cell"><a href="mailto:<%= crew.emails %>"><%= crew.emails %></a></td>
-					<td class="bt-table-cell bt-bold-cell">
-						<%= "#{crew.count} (#{crew.adults}/#{crew.children}/#{crew.babies})" %>
+					<td><%= idx+1 %></td>
+					<td><%= crew.name %></td>
+					<td><%= crew.native_name %></td>
+					<td><%= crew_leads crew %></td>
+					<td><%= crew_emails crew %></td>
+					<td>
+						<%= "#{crew.total_participants} (#{crew.total_adults}/#{crew.total_children}/#{crew.total_babies})" %>
 					</td>
-					<td class="bt-table-cell">
+					<td>
 						<div class="bt-actions">
 							<%= link_to image_tag('participants.png', alt: 'Participants', class: "bt-img bt-img-reduced"),
 								participants_path(crew_id: crew), title: 'Show all participants in the crew', rel: 'tooltip' %>

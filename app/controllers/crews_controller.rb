@@ -3,7 +3,7 @@ class CrewsController < ApplicationController
   before_filter :privileged_user, only: [:show]
 
   def index
-  	@crews = Crew.order(:name)
+  	@crews = Crew.where(active: true).order(:name)
   end
 
 
