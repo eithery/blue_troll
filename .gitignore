@@ -8,7 +8,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-/data
+/data/tickets/*.pdf
+/data/tickets/*.zip
 
 # Ignore all RubyMine and Sublime Text related files.
 /.idea
