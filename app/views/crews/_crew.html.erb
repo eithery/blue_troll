@@ -3,16 +3,10 @@
 <td><%= crew.native_name %></td>
 <td><%= crew_leads crew %></td>
 <td><%= crew_emails crew %></td>
-<td>
-  <%= "#{crew.total_participants} (#{crew.total_adults}/#{crew.total_children}/#{crew.total_babies})" %>
-</td>
+<td><%= totals crew %></td>
 <td>
   <div class="bt-actions">
-    <%= link_to image_tag('participants.png', alt: 'Participants', class: "bt-img bt-img-reduced"),
-      participants_path(crew_id: crew), title: 'Show all participants in the crew', rel: 'tooltip' %>
-    <%= link_to image_tag('new_participant.png', alt: 'Add Participant', class: "bt-img bt-img-reduced"),
-      new_participant_path(crew_id: crew.id), title: 'Add a new participant', rel: 'tooltip' %>
-    <%= link_to image_tag('ticket.png', alt: 'Generate ticket', class: "bt-img bt-img-reduced"),
-      crew_tickets_path(crew_id: crew), title: 'Generate tickets for the crew', rel: 'tooltip' %>
+    <%= show_participants_tag crew %>
+    <%= download_tickets_tag crew %>
   </div>
 </td>
