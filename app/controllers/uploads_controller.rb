@@ -18,6 +18,7 @@ class UploadsController < ApplicationController
       first_name = 'n/a' if first_name.blank?
       category = age_category(row[2])
       age = row[6]
+      paid = row[10] || 'N'
 
       crew = crews[map_crew_name(crew_name)]
       crew_lead = crew.leads.last
@@ -28,9 +29,14 @@ class UploadsController < ApplicationController
         participant.age_category = category
         participant.age = age.to_i unless age.blank?
         participant.age = 0 if participant.age_category != AgeCategory::ADULT && participant.age.blank?
-        participant.approved_at = participant.payment_confirmed_at = Time.now
-        participant.approved_by = participant.payment_confirmed_by = 'ryeliseyev'
+        participant.approved_at = Time.now
+        participant.approved_by = 'ryeliseyev'
         participant.created_by = participant.updated_by = 'admin'
+        if paid.strip.upcase == 'Y'
+          participant.payment_confirmed_at = Time.now
+          participant.payment_confirmed_by = 'ryeliseyev'
+          participant.payment_notes = 'Paid according Rita file.'
+        end
         participant.save!
         total_participants += 1
       end
