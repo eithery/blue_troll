@@ -15,7 +15,11 @@ class PaymentsController < ApplicationController
   def confirm_payment
     @participant = Participant.find(params[:participant_id])
     @index = params[:index]
-    @participant.update_attributes(payment_received_at: Time.now, payment_received_by: current_user.login)
+    if current_user.financier?
+      @participant.update_attributes(payment_confirmed_at: Time.now, payment_confirmed_by: current_user.login)
+    else
+      @participant.update_attributes(payment_received_at: Time.now, payment_received_by: current_user.login)
+    end
     respond_to do |format|
       format.html { redirect_to crew_path(current_user.crew) }
       format.js
