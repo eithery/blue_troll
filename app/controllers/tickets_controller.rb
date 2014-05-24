@@ -7,7 +7,7 @@ class TicketsController < ApplicationController
 
   def download_for_crew
     base_folder = "data/tickets"
-    zipfile_name = "#{@crew.to_file_name}_fall_2013.zip"
+    zipfile_name = "#{@crew.to_file_name}_2014.zip"
     zipfile_path = "#{base_folder}/#{zipfile_name}"
     crew_tickets_path = "#{base_folder}/#{@crew.to_file_name}"
 
@@ -56,9 +56,14 @@ private
 
 
   def age_label(participant)
-    return 'A' if participant.age_category == AgeCategory::ADULT
-    return 'C' if participant.age_category == AgeCategory::CHILD
-    return "B #{(participant.age.nil? || participant.age == 0) ? ____ : participant.age}"
+    return "A" if participant.age_category == AgeCategory::ADULT
+    return "C #{age_value(participant.age)}" if participant.age_category == AgeCategory::CHILD
+    return "B #{age_value(participant.age)}" if participant.age_category == AgeCategory::BABY
+  end
+
+
+  def age_value(age)
+    age.nil? || age == 0 ? '____' : age.to_s
   end
 
 
