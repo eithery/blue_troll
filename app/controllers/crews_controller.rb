@@ -1,9 +1,11 @@
 class CrewsController < ApplicationController
+  include CrewsHelper
+
   before_filter :signed_in_user
   before_filter :privileged_user, only: [:show]
 
   def index
-  	@crews = Crew.where(active: true).order(:name)
+  	@crews = all_crews
   end
 
 

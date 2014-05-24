@@ -1,4 +1,9 @@
 module CrewsHelper
+  def all_crews
+    Crew.where(active: true).order(:name)
+  end
+
+
   def crew_leads(crew)
     crew.leads.map { |lead| lead.login }.join(', ')
   end
