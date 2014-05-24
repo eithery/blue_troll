@@ -3,4 +3,4 @@
 <%= render 'shared/participants', participants: @crew.participants %>
 
 <%= link_to 'Register new participant', '#', class: "btn btn-primary" %>
-<%= link_to 'Download all paid tickets', crew_tickets_download_path(@crew), class: "btn btn-info", disabled: true %>
+<%= link_to 'Download all paid tickets', crew_tickets_download_path(@crew), method: :post, class: "btn btn-info" %>
