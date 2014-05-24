@@ -36,7 +36,7 @@ module ParticipantsHelper
   def download_ticket_tag(participant)
     if participant.payment_confirmed?
       link_to image_tag('ticket.png', alt: 'Download ticket', class: "bt-img bt-img-reduced"),
-        participant_ticket_path(participant_id: participant), 
+        ticket_download_path(participant.ticket_code),
         title: "Click here to download a ticket for #{participant.display_name}", rel: 'tooltip'
     end
   end

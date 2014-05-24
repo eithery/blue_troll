@@ -1,31 +1,25 @@
 require 'zip'
 
 class TicketsController < ApplicationController
-	def create
-		define_native_group_name
-		respond_to_pdf Disclaimer.new(params)
-	end
-
-
-	def generate_crew_tickets
+	def download_for_crew
 		crew = Crew.find(params[:crew_id])
 
 		base_folder = "data/tickets"
 		zipfile_name = "#{crew.to_file_name}_fall_2013.zip"
 		zipfile_path = "#{base_folder}/#{zipfile_name}"
-		crew_ticket_path = "#{base_folder}/#{crew.to_file_name}"
+		crew_tickets_path = "#{base_folder}/#{crew.to_file_name}"
 
-		Dir.mkdir(crew_ticket_path) unless Dir.exists?(crew_ticket_path)
+		Dir.mkdir(crew_tickets_path) unless Dir.exists?(crew_tickets_path)
 
 		crew.participants.each do |participant|
 			if participant.payment_confirmed?
 				ticket = create_ticket(participant)
-				ticket.to_pdf.render_file("#{crew_ticket_path}/#{ticket.file_name}")
+				ticket.to_pdf.render_file("#{crew_tickets_path}/#{ticket.file_name}")
 			end
 		end
 
 		Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
-   		Dir["#{crew_ticket_path}/*.pdf"].each do |file|
+   		Dir["#{crew_tickets_path}/*.pdf"].each do |file|
 				begin
    				zipfile.add(File.basename(file), file)
     			rescue
@@ -33,31 +27,22 @@ class TicketsController < ApplicationController
     	end
 		end
 
-		FileUtils.rm_r(crew_ticket_path)
+		FileUtils.rm_r(crew_tickets_path)
 		send_file zipfile_path, filename: zipfile_name, type: 'application/zip', disposition: 'attachment'
 	end
 
 
-	def generate_participant_ticket
-		participant = Participant.find(params[:participant_id])
-		respond_to_pdf create_ticket(participant)
+	def download
+		participant = Participant.find_by_ticket_code(params[:ticket_code])
+		respond_to_pdf create_ticket(participant) unless participant.nil?
 	end
 
 
 private
+
 	def respond_to_pdf(disclaimer)
-		send_data disclaimer.to_pdf.render, filename: disclaimer.file_name, type: 'application/pdf', disposition: 'attachment'
-	end
-
-
-	def define_native_group_name
-		group_name = params[:group]
-		Crew.all.each do |crew|
-			if crew.name == group_name
-				params[:group_native] = crew.native_name
-				return
-			end
-		end
+		send_data disclaimer.to_pdf.render, filename: disclaimer.file_name, type: 'application/pdf',
+			disposition: 'attachment'
 	end
 
 
@@ -68,7 +53,6 @@ private
 	end
 
 
-private
 	def age_label(participant)
 		return 'A' if participant.age_category == AgeCategory::ADULT
 		return 'C' if participant.age_category == AgeCategory::CHILD

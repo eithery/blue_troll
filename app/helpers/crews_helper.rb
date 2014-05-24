@@ -23,7 +23,7 @@ module CrewsHelper
 
   def download_tickets_tag(crew)
     link_to image_tag('ticket.png', alt: 'Generate ticket', class: "bt-img bt-img-reduced"),
-      crew_tickets_path(crew_id: crew), title: 'Click here to download tickets for the crew.', rel: 'tooltip'
+      crew_tickets_download_path(crew), title: 'Click here to download tickets for the crew.', rel: 'tooltip'
   end
 
 

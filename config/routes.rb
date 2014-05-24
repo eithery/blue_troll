@@ -36,10 +36,12 @@ BlueTroll::Application.routes.draw do
   get 'total_onsite', to: 'participants#total_onsite'
   get 'expected', to: 'participants#expected'
 
-  # Tickets generator.
-  get 'ticket', to: 'tickets#create'
-  get 'crew_tickets', to: 'tickets#generate_crew_tickets'
-  get 'participant_ticket', to: 'tickets#generate_participant_ticket'
+
+  controller :tickets, path: 'tickets/download' do
+    get 'crew/:crew_id', to: :download_for_crew, as: 'crew_tickets_download'
+    get ':ticket_code', to: :download, as: 'ticket_download'
+  end
+
 
   # Check in page.
   get 'checkin', to: 'registration#checkin'
