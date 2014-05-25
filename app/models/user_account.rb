@@ -40,6 +40,11 @@ class UserAccount < ActiveRecord::Base
   end
 
 
+  def to_file_name
+    name
+  end
+
+
   def generate_reset_token
     self.reset_password_token = SecureRandom.urlsafe_base64
     self.reset_password_expired_at = Time.now

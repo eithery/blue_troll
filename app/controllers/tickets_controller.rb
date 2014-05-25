@@ -1,36 +1,18 @@
 require 'zip'
 
 class TicketsController < ApplicationController
-  before_filter :signed_in_user, only: [:download_for_crew]
+  before_filter :signed_in_user, only: [:download_for_crew, :download_for_user]
   before_filter :correct_crew_lead, only: [:download_for_crew]
 
 
   def download_for_crew
-    base_folder = "data/tickets"
-    zipfile_name = "#{@crew.to_file_name}_2014.zip"
-    zipfile_path = "#{base_folder}/#{zipfile_name}"
-    crew_tickets_path = "#{base_folder}/#{@crew.to_file_name}"
+    download_for @crew
+  end
 
-    Dir.mkdir(crew_tickets_path) unless Dir.exists?(crew_tickets_path)
 
-    @crew.participants.each do |participant|
-      if participant.payment_confirmed?
-        ticket = create_ticket(participant)
-        ticket.to_pdf.render_file("#{crew_tickets_path}/#{ticket.file_name}")
-      end
-    end
-
-    Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
-      Dir["#{crew_tickets_path}/*.pdf"].each do |file|
-        begin
-          zipfile.add(File.basename(file), file)
-          rescue
-        end
-      end
-    end
-
-    FileUtils.rm_r(crew_tickets_path)
-    send_file zipfile_path, filename: zipfile_name, type: 'application/zip', disposition: 'attachment'
+  def download_for_user
+    user = UserAccount.find(params[:user_account_id])
+    download_for user
   end
 
 
@@ -75,5 +57,35 @@ private
 
   def set_crew
     @crew = Crew.find(params[:crew_id])
+  end
+
+
+  def download_for(entity)
+    file_name = entity.to_file_name
+    base_folder = "data/tickets"
+    zipfile_name = "#{file_name}_2014.zip"
+    zipfile_path = "#{base_folder}/#{zipfile_name}"
+    tickets_path = "#{base_folder}/#{file_name}"
+
+    Dir.mkdir(tickets_path) unless Dir.exists?(tickets_path)
+
+    entity.participants.each do |participant|
+      if participant.payment_confirmed?
+        ticket = create_ticket(participant)
+        ticket.to_pdf.render_file("#{tickets_path}/#{ticket.file_name}")
+      end
+    end
+
+    Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
+      Dir["#{tickets_path}/*.pdf"].each do |file|
+        begin
+          zipfile.add(File.basename(file), file)
+          rescue
+        end
+      end
+    end
+
+    FileUtils.rm_r(tickets_path)
+    send_file zipfile_path, filename: zipfile_name, type: 'application/zip', disposition: 'attachment'
   end
 end
