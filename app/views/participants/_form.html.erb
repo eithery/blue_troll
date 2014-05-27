@@ -4,6 +4,7 @@
       <legend><%= form_header %></legend>
       <%= render 'shared/error_messages', errors: @participant.errors, entity_name: 'participant' %>
       <%= f.hidden_field :user_account_id %>
+      <%= f.hidden_field :requested_crew_id %>
 
       <div class="form-group">
         <%= f.label :last_name, class: "control-label col-sm-3" %>

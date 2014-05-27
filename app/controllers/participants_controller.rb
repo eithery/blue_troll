@@ -5,15 +5,39 @@ class ParticipantsController < ApplicationController
 
   def new
     user_account_id = params[:user_account_id]
+    crew_id = params[:crew_id]
     user_account = user_account_id.nil? ? UserAccount.new : UserAccount.find(user_account_id)
-    @participant = Participant.new(user_account: user_account)
+    @participant = Participant.new(user_account: user_account, requested_crew_id: crew_id)
   end
 
 
   def create
-    email = params[:email]
-    if 
     @participant = Participant.new(participant_params)
+
+    if @participant.user_account_id.blank?
+      crew = Crew.find(participant_params[:requested_crew_id])
+      email = participant_params[:email]
+      unless email.blank?
+        user_account = UserAccount.find_by_email(email)
+        if !user_account.nil? && user_account.crew != crew
+          flash[:danger] = "You selected existing email which belongs to another crew."
+          render :new
+          return
+        end
+        if user_account.nil?
+          pwd = SecureRandom.urlsafe_base64
+          user = UserAccount.new(login: email, email: email, email_confirmation: email,
+            password: pwd, password_confirmation: pwd, crew: crew)
+          UserAccountsMailer.registered(user).deliver
+        end
+        @participant.user_account = user
+      else
+        flash.now[:danger] = "Email must be entered to add participant to another crew."
+        render :new
+        return
+      end
+    end
+
     if @participant.save
       flash[:success] = "#{@participant.display_name} has been successfully registered as Blue Trolley event participant."
       ParticipantsMailer.created(@participant).deliver
@@ -148,7 +172,7 @@ private
 
 
   def participant_params
-    params.require(:participant).permit(:user_account_id, :last_name, :first_name,
+    params.require(:participant).permit(:user_account_id, :requested_crew_id, :last_name, :first_name,
       :ticket_code, :email, :address_line_1, :age_category, :age, :cell_phone, :sent, :sent_by,
       :registered_at, :registered_by, :flagged, :notes)
   end

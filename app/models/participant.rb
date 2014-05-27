@@ -1,5 +1,6 @@
 class Participant < ActiveRecord::Base
   belongs_to :user_account
+  attr_accessor :requested_crew_id
 
   validates :last_name, :first_name, presence: true
   validates :ticket_code, uniqueness: true, length: { minimum: 10 }
