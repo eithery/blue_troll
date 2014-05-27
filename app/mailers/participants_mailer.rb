@@ -23,6 +23,9 @@ class ParticipantsMailer < ActionMailer::Base
 
 
   def send_ticket_to(participant)
+    @participant = participant
+    mail to: target, from: "Blue_Trolley <#{club_email}>",
+      subject: "#{sender}: download ticket link"
   end
 
 

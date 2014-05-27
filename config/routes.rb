@@ -40,7 +40,7 @@ BlueTroll::Application.routes.draw do
   controller :tickets, path: 'tickets/download' do
     post 'crew/:crew_id', to: :download_for_crew, as: 'crew_tickets_download'
     post 'user/:user_account_id', to: :download_for_user, as: 'user_tickets_download'
-    post ':ticket_code', to: :download, as: 'ticket_download'
+    match ':ticket_code', to: :download, as: 'ticket_download', via: [:get, :post]
     post 'send_link/:participant_id', to: :send_link, as: 'send_ticket_link'
   end
 
