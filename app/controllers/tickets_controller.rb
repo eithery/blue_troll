@@ -1,7 +1,7 @@
 require 'zip'
 
 class TicketsController < ApplicationController
-  before_filter :signed_in_user, only: [:download_for_crew, :download_for_user]
+  before_filter :signed_in_user, only: [:download_for_crew, :download_for_user, :send_link]
   before_filter :correct_crew_lead, only: [:download_for_crew]
 
 
@@ -19,6 +19,14 @@ class TicketsController < ApplicationController
   def download
     participant = Participant.find_by_ticket_code(params[:ticket_code])
     respond_to_pdf create_ticket(participant) unless participant.nil?
+  end
+
+
+  def send_link
+    participant = Participant.find(params[:participant_id])
+    ParticipantsMailer.send_ticket_to(participant).deliver
+    flash[:success] = "Email with download ticket link has been sent to #{participant.display_name}."
+    redirect_to participant.crew
   end
 
 

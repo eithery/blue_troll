@@ -21,6 +21,11 @@ class ParticipantsMailer < ActionMailer::Base
       subject: "#{sender}: #{participant_approved_subject}"
   end
 
+
+  def send_ticket_to(participant)
+  end
+
+
 private
   def set_members(participant)
     @participant = participant

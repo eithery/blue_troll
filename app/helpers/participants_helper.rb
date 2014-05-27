@@ -45,8 +45,8 @@ module ParticipantsHelper
 
   def send_ticket_link_tag(participant)
     if participant.payment_confirmed?
-      link_to image_tag('send_link.png', alt: 'Email with download ticket link', class: "bt-img bt-img-reduced"),
-        '#', method: :post,
+      link_to image_tag('send_ticket_link.png', alt: 'Email with download ticket link', class: "bt-img bt-img-reduced"),
+        send_ticket_link_path(participant), method: :post,
         title: "Click here to send email to #{participant.display_name} with link to the ticket.", rel: 'tooltip'
     end
   end
