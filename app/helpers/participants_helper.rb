@@ -43,6 +43,15 @@ module ParticipantsHelper
   end
 
 
+  def send_ticket_link_tag(participant)
+    if participant.payment_confirmed?
+      link_to image_tag('send_link.png', alt: 'Email with download ticket link', class: "bt-img bt-img-reduced"),
+        '#', method: :post,
+        title: "Click here to send email to #{participant.display_name} with link to the ticket.", rel: 'tooltip'
+    end
+  end
+
+
   def edit_tag(participant)
     link_to image_tag('edit.png', alt: 'Edit participant', class: "bt-img"),
       edit_participant_path(participant), title: "Click here to edit #{participant.display_name} profile",
