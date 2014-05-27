@@ -18,13 +18,13 @@ class ParticipantsController < ApplicationController
       crew = Crew.find(participant_params[:requested_crew_id])
       email = participant_params[:email]
       unless email.blank?
-        user_account = UserAccount.find_by_email(email)
-        if !user_account.nil? && user_account.crew != crew
-          flash[:danger] = "You selected existing email which belongs to another crew."
+        user = UserAccount.find_by_email(email)
+        if !user.nil? && user.crew != crew
+          flash.now[:warning] = "You selected existing email which belongs to another crew."
           render :new
           return
         end
-        if user_account.nil?
+        if user.nil?
           pwd = SecureRandom.urlsafe_base64
           user = UserAccount.new(login: email, email: email, email_confirmation: email,
             password: pwd, password_confirmation: pwd, crew: crew)
@@ -32,7 +32,7 @@ class ParticipantsController < ApplicationController
         end
         @participant.user_account = user
       else
-        flash.now[:danger] = "Email must be entered to add participant to another crew."
+        flash.now[:warning] = "Email address should be entered to add participant to the selected crew."
         render :new
         return
       end
@@ -42,7 +42,7 @@ class ParticipantsController < ApplicationController
       flash[:success] = "#{@participant.display_name} has been successfully registered as Blue Trolley event participant."
       ParticipantsMailer.created(@participant).deliver
       ParticipantsMailer.approval_requested(@participant).deliver
-      redirect_to @participant.user_account
+      redirect_to @participant.requested_crew_id.blank? ? @participant.user_account : @participant.crew
     else
       render :new
     end

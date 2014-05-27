@@ -5,7 +5,8 @@ module ParticipantsHelper
 
 
   def form_header
-    "#{@participant.new_record? ? "New" : "Edit"} Participant"
+    crew = @participant.requested_crew_id.blank? ? @participant.crew : Crew.find(@participant.requested_crew_id)
+    "#{@participant.new_record? ? "New" : "Edit"} Participant - #{crew.display_name}"
   end
 
 
@@ -80,5 +81,11 @@ module ParticipantsHelper
     return "B#{age}" if participant.age_category == AgeCategory::BABY
     return "C#{age}" if participant.age_category == AgeCategory::CHILD
     return "A#{age}"
+  end
+
+
+  def cancel_add_participant_path(participant)
+    return participant.user_account if participant.requested_crew_id.blank?
+    Crew.find(participant.requested_crew_id)
   end
 end
