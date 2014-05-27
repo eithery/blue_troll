@@ -4,11 +4,15 @@ class ParticipantsController < ApplicationController
 
 
   def new
-    @participant = Participant.new(user_account_id: params[:user_account_id])
+    user_account_id = params[:user_account_id]
+    user_account = user_account_id.nil? ? UserAccount.new : UserAccount.find(user_account_id)
+    @participant = Participant.new(user_account: user_account)
   end
 
 
   def create
+    email = params[:email]
+    if 
     @participant = Participant.new(participant_params)
     if @participant.save
       flash[:success] = "#{@participant.display_name} has been successfully registered as Blue Trolley event participant."
