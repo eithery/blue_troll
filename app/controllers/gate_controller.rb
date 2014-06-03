@@ -6,7 +6,7 @@ class GateController < ApplicationController
 
 
   def checkin_ticket
-    ticket_code = params[:registration][:registration_code]
+    ticket_code = params[:gate][:ticket_code]
     participant = verify_ticket(ticket_code)
     if participant
       participant.registered_at = Time.now

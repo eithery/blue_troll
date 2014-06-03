@@ -47,7 +47,7 @@ BlueTroll::Application.routes.draw do
 
   controller :gate do
     get 'checkin', to: :checkin, as: 'checkin'
-    post 'checkin/:ticket_code', to: :checkin_ticket, as: 'checkin_ticket'
+    post 'checkin', to: :checkin_ticket, as: 'checkin_ticket'
   end
 
 
