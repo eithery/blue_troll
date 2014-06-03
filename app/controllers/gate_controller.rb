@@ -10,7 +10,7 @@ class GateController < ApplicationController
     participant = verify_ticket(ticket_code)
     if participant
       participant.registered_at = Time.now
-      participant.registered_by = current_user
+      participant.registered_by = current_user.login
       participant.save!
     end
     render :checkin
