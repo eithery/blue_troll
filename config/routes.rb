@@ -45,9 +45,11 @@ BlueTroll::Application.routes.draw do
   end
 
 
-  # Check in page.
-  get 'checkin', to: 'registration#checkin'
-  post 'checkin', to: 'registration#check_ticket'
+  controller :gate do
+    get 'checkin', to: :checkin, as: 'checkin'
+    post 'checkin/:ticket_code', to: :checkin_ticket, as: 'checkin_ticket'
+  end
+
 
   # Static pages.
   get 'statistics', to: 'static_pages#statistics'

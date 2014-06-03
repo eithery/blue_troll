@@ -1,19 +1,18 @@
-class RegistrationController < ApplicationController
-  include RegistrationHelper
-
+class GateController < ApplicationController
+  include GateHelper
 
   def checkin
   end
 
 
-  def check_ticket
+  def checkin_ticket
     ticket_code = params[:registration][:registration_code]
     participant = verify_ticket(ticket_code)
     if participant
       participant.registered_at = Time.now
-      participant.registered_by = 'gatekeeper'
+      participant.registered_by = current_user
       participant.save!
     end
-    render 'checkin'
+    render :checkin
   end
 end

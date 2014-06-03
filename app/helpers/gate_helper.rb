@@ -1,13 +1,13 @@
-module RegistrationHelper
+module GateHelper
   def verify_ticket(ticket_code)
     if ticket_code.blank?
-      flash.now[:error] = "Registration code is not entered."
+      flash.now[:error] = "Ticket code is not entered."
       return false
     end
 
     participant = Participant.find_by_ticket(ticket_code)
     if participant.nil?
-      flash.now[:error] = "Participant with code '#{ticket_code}' is not registered."
+      flash.now[:error] = "Participant with ticket code '#{ticket_code}' is not registered."
       return false
     else
       if participant.registered_at.nil?
