@@ -101,49 +101,49 @@ class ParticipantsController < ApplicationController
 
   def flagged
     @participants = Participant.order(:last_name, :first_name).select do |p|
-      p.flagged
+      p.flagged?
     end
   end
 
 
   def adults
     @participants = Participant.order(:last_name, :first_name).select do |p|
-      p.category == :adult
+      p.age_category == AgeCategory::ADULT
     end
   end
 
 
   def adults_onsite
     @participants = Participant.order(:last_name, :first_name).select do |p|
-      p.category == :adult && !p.registered_at.nil?
+      p.age_category == AgeCategory::ADULT && !p.registered_at.nil?
     end
   end
 
 
   def children
     @participants = Participant.order(:last_name, :first_name).select do |p|
-      p.category == :child
+      p.age_category == AgeCategory::CHILD
     end
   end
 
 
   def children_onsite
     @participants = Participant.order(:last_name, :first_name).select do |p|
-      p.category == :child && !p.registered_at.nil?
+      p.age_category == AgeCategory::CHILD && !p.registered_at.nil?
     end
   end
 
 
   def babies
     @participants = Participant.order(:last_name, :first_name).select do |p|
-      p.category == :baby
+      p.age_category == AgeCategory::BABY
     end
   end
 
 
   def babies_onsite
     @participants = Participant.order(:last_name, :first_name).select do |p|
-      p.category == :baby && !p.registered_at.nil?
+      p.age_category == AgeCategory::BABY && !p.registered_at.nil?
     end
   end
 
