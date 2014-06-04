@@ -4,6 +4,9 @@
 </td>
 <td><%= participant.full_name %><%= crew_lead_image participant %><%= baby_image participant %></td>
 <td><%= link_to participant.email, "mailto:#{participant.email}" %></td>
+<% if show_crew %>
+  <td><%= participant.crew.name %></td>
+<% end %>
 <td><%= age_category participant %></td>
 <td><%= participant.status %></td>
 <td>

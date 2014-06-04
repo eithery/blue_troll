@@ -5,6 +5,9 @@
         <th class="bt-col-2">#</th>
         <th class="bt-col-4">Name</th>
         <th class="bt-col-4">Email</th>
+        <% if show_crew %>
+          <th class="bt-col-4">Crew</th>
+        <% end %>
         <th class="bt-col-1">Age</th>
         <th>Status</th>
         <th class="bt-col-3">Actions</th>
@@ -12,7 +15,8 @@
     </thead>
     <tbody>
       <% participants.each.with_index do |participant, idx| %>
-        <tr id="participant_<%= participant.id.to_s %>"><%= render 'shared/participant', participant: participant, index: idx %></tr>
+        <tr id="participant_<%= participant.id.to_s %>"><%= render 'shared/participant', participant: participant,
+          index: idx, show_crew: show_crew %></tr>
       <% end %>
     </tbody>
   </table>
