@@ -1,31 +1,31 @@
 class Statistics
   def self.adults_registered
-    participants.count { |p| p.category == :adult }
+    participants.count { |p| p.age_category == AgeCategory::ADULT }
   end
 
 
   def self.adults_onsite
-    participants.count { |p| p.category == :adult && p.registered_at }
+    participants.count { |p| p.age_category == AgeCategory::ADULT && p.registered_at }
   end
 
 
   def self.children_registered
-    participants.count { |p| p.category == :child }
+    participants.count { |p| p.age_category == AgeCategory::CHILD }
   end
 
 
   def self.children_onsite
-    participants.count { |p| p.category == :child && p.registered_at }
+    participants.count { |p| p.age_category == AgeCategory::CHILD && p.registered_at }
   end
 
 
   def self.babies_registered
-    participants.count { |p| p.category == :baby }
+    participants.count { |p| p.age_category == AgeCategory::BABY }
   end
 
 
   def self.babies_onsite
-    participants.count { |p| p.category == :baby && p.registered_at }
+    participants.count { |p| p.age_category == AgeCategory::BABY && p.registered_at }
   end
 
 

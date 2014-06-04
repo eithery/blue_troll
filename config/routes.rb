@@ -14,11 +14,9 @@ BlueTroll::Application.routes.draw do
   put 'change_password', to: 'user_accounts#update_password'
   put 'select_crew', to: 'user_accounts#update_crew'
 
-  # Payments.
   put 'send_payment', to: 'payments#send_payment'
   post 'confirm_payment', to: 'payments#confirm_payment'
 
-  # Administration.
   get 'upload_participants', to: 'uploads#select_participants_file'
   post 'upload_participants', to: 'uploads#upload_participants'
 
@@ -26,6 +24,7 @@ BlueTroll::Application.routes.draw do
   post 'send_reset_link', to: 'password_reset#send_link'
   get 'pwd_reset', to: 'password_reset#reset'
 
+  get 'statistics', to: 'static_pages#statistics'
   get 'approve', to: 'participants#approve'
   get 'flagged', to: 'participants#flagged'
   get 'adults', to: 'participants#adults'
@@ -38,7 +37,6 @@ BlueTroll::Application.routes.draw do
   get 'total_onsite', to: 'participants#total_onsite'
   get 'expected', to: 'participants#expected'
 
-
   controller :tickets, path: 'tickets/download' do
     post 'crew/:crew_id', to: :download_for_crew, as: 'crew_tickets_download'
     post 'user/:user_account_id', to: :download_for_user, as: 'user_tickets_download'
@@ -46,21 +44,14 @@ BlueTroll::Application.routes.draw do
     post 'send_link/:participant_id', to: :send_link, as: 'send_ticket_link'
   end
 
-
   controller :gate do
     get 'checkin', to: :checkin, as: 'checkin'
     post 'checkin', to: :checkin_ticket, as: 'checkin_ticket'
   end
 
-
-  # Static pages.
-  get 'statistics', to: 'static_pages#statistics'
-
-  # Authentication and user registration pages.
   get 'signup', to: 'user_accounts#new'
   get 'signin', to: 'sessions#new'
   match 'signout', to: 'sessions#destroy', via: :delete
 
-  # Root home page.
   root 'static_pages#home'
 end
