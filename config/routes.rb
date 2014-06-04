@@ -4,9 +4,16 @@ BlueTroll::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
 
   resources :participants, except: [:show] do
-    post :search, on: :collection
+    collection do
+      post :search
+      get :adults, :children, :babies
+      get :adults_onsite, :children_onsite, :babies_onsite
+      get :total_registered, :total_onsite
+      get :expected, :flagged
+    end
   end
 
+  get 'approve', to: 'participants#approve'
   get 'request_to_activate', to: 'user_accounts#request_to_activate'
   get 'activate', to: 'user_accounts#activate_by_link'
   post 'activate', to: 'user_accounts#activate'
@@ -25,17 +32,6 @@ BlueTroll::Application.routes.draw do
   get 'pwd_reset', to: 'password_reset#reset'
 
   get 'statistics', to: 'static_pages#statistics'
-  get 'approve', to: 'participants#approve'
-  get 'flagged', to: 'participants#flagged'
-  get 'adults', to: 'participants#adults'
-  get 'children', to: 'participants#children'
-  get 'babies', to: 'participants#babies'
-  get 'total_registered', to: 'participants#total_registered'
-  get 'adults_onsite', to: 'participants#adults_onsite'
-  get 'children_onsite', to: 'participants#children_onsite'
-  get 'babies_onsite', to: 'participants#babies_onsite'
-  get 'total_onsite', to: 'participants#total_onsite'
-  get 'expected', to: 'participants#expected'
 
   controller :tickets, path: 'tickets/download' do
     post 'crew/:crew_id', to: :download_for_crew, as: 'crew_tickets_download'
