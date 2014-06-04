@@ -1,8 +1,11 @@
 BlueTroll::Application.routes.draw do
   resources :user_accounts, only: [:new, :create, :show]
   resources :crews, only: [:index, :show]
-  resources :participants, except: [:show]
   resources :sessions, only: [:new, :create, :destroy]
+
+  resources :participants, except: [:show] do
+    post :search, on: :collection
+  end
 
   get 'request_to_activate', to: 'user_accounts#request_to_activate'
   get 'activate', to: 'user_accounts#activate_by_link'
@@ -24,7 +27,6 @@ BlueTroll::Application.routes.draw do
   get 'pwd_reset', to: 'password_reset#reset'
 
   get 'approve', to: 'participants#approve'
-  post 'search', to: 'participants#search'
   get 'flagged', to: 'participants#flagged'
   get 'adults', to: 'participants#adults'
   get 'children', to: 'participants#children'
