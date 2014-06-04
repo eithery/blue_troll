@@ -1,2 +1,3 @@
-<h1>Search Results</h1>
-<%= render 'table' %>
+<% provide(:title, 'Search') %>
+<h4>Search Results</h4>
+<%= render 'shared/participants', participants: @participants %>

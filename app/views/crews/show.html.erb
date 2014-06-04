@@ -1,4 +1,4 @@
-<%= provide(:title, @crew.name.html_safe) %>
+<% provide(:title, @crew.name.html_safe) %>
 <h4><%= @crew.display_name %></h4>
 <%= render 'shared/participants', participants: @crew.participants %>
 
