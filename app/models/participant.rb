@@ -37,6 +37,7 @@ class Participant < ActiveRecord::Base
     user_account.crew
   end
 
+
   def crew_lead?(user)
     user.crew_lead? && !self.crew.blank? && self.crew.lead?(user)
   end
@@ -46,9 +47,11 @@ class Participant < ActiveRecord::Base
     !self.approved_at.nil?
   end
 
+
   def unpaid?
     !(payment_sent? || payment_received? || payment_confirmed?)
   end
+
 
   def payment_sent?
     !self.payment_sent_at.nil?
@@ -62,6 +65,11 @@ class Participant < ActiveRecord::Base
 
   def payment_confirmed?
     !self.payment_confirmed_at.nil?
+  end
+
+
+  def checked_in?
+    !self.registered_at.nil?
   end
 
 

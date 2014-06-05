@@ -97,4 +97,11 @@ module ParticipantsHelper
     return participant.user_account if participant.requested_crew_id.blank?
     Crew.find(participant.requested_crew_id)
   end
+
+
+  def participant_class(participant)
+    return 'warning' if participant.flagged?
+    return 'success' if participant.checked_in?
+    ''
+  end
 end
