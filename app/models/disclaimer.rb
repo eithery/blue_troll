@@ -53,7 +53,7 @@ class Disclaimer < Prawn::Document
 		move_down 20
 		fill_color '000000'
 		font 'calibri-bold'
-		text "Delaware Water Gap KOA, 233 Hollow Road, East Stroudsburg, PA 18301\nFriday, June 6, 2014 - June 8, 2014.",
+		text "Delaware Water Gap KOA, 233 Hollow Road, East Stroudsburg, PA 18301\nFriday, September 26, 2014 - Sunday, September 28, 2014.",
 			size: 14, :align => :center
 
 		move_down 12
