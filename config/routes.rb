@@ -32,6 +32,7 @@ BlueTroll::Application.routes.draw do
   get 'pwd_reset', to: 'password_reset#reset'
 
   get 'statistics', to: 'static_pages#statistics'
+  get 'announcement', to: 'static_pages#event_announcement'
 
   controller :tickets, path: 'tickets/download' do
     post 'crew/:crew_id', to: :download_for_crew, as: 'crew_tickets_download'
