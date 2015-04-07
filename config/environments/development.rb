@@ -21,8 +21,8 @@ BlueTroll::Application.configure do
     port: 587,
     domain: "gmail.com",
     authentication: "plain",
-    user_name: "bluetrolley2014",
-    password: "bluetroll2014spring1",
+    user_name: "bluetrolley.app",
+    password: "sin_troll_2015_spring",
     enable_starttls_auto: true
   }
 
