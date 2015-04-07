@@ -1,6 +1,6 @@
 module MailersHelper
   def club_email
-    'bluetrolley2014@gmail.com'
+    'bluetrolley.app@gmail.com'
   end
 
   def admin_email
@@ -8,7 +8,7 @@ module MailersHelper
   end
 
   def club_url
-    "https://bluetrolley2014.herokuapp.com"
+    "https://bluetrolley2015.herokuapp.com"
   end
 
   def registered_subject
