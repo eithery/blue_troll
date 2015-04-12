@@ -13,10 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20140916030701) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "crews", force: true do |t|
+  create_table "crews", force: :cascade do |t|
     t.string   "name",                       null: false
     t.string   "native_name",                null: false
     t.boolean  "active",      default: true, null: false
@@ -26,10 +23,10 @@ ActiveRecord::Schema.define(version: 20140916030701) do
     t.datetime "updated_at"
   end
 
-  add_index "crews", ["name"], name: "index_crews_on_name", unique: true, using: :btree
-  add_index "crews", ["native_name"], name: "index_crews_on_native_name", unique: true, using: :btree
+  add_index "crews", ["name"], name: "index_crews_on_name", unique: true
+  add_index "crews", ["native_name"], name: "index_crews_on_native_name", unique: true
 
-  create_table "delayed_jobs", force: true do |t|
+  create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
     t.integer  "attempts",   default: 0, null: false
     t.text     "handler",                null: false
@@ -43,22 +40,22 @@ ActiveRecord::Schema.define(version: 20140916030701) do
     t.datetime "updated_at"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
-  create_table "emails", force: true do |t|
-    t.string   "from_address",     null: false
+  create_table "emails", force: :cascade do |t|
+    t.string   "from_address",                       null: false
     t.string   "reply_to_address"
     t.string   "subject"
     t.text     "to_address"
     t.text     "cc_address"
     t.text     "bcc_address"
-    t.text     "content"
+    t.text     "content",          limit: 104857600
     t.datetime "sent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "participants", force: true do |t|
+  create_table "participants", force: :cascade do |t|
     t.integer  "user_account_id",                      null: false
     t.string   "last_name",                            null: false
     t.string   "first_name",                           null: false
@@ -93,9 +90,9 @@ ActiveRecord::Schema.define(version: 20140916030701) do
     t.datetime "updated_at"
   end
 
-  add_index "participants", ["ticket_code"], name: "index_participants_on_ticket_code", unique: true, using: :btree
+  add_index "participants", ["ticket_code"], name: "index_participants_on_ticket_code", unique: true
 
-  create_table "user_accounts", force: true do |t|
+  create_table "user_accounts", force: :cascade do |t|
     t.integer  "crew_id"
     t.string   "login",                                     null: false
     t.string   "email",                                     null: false
@@ -116,10 +113,10 @@ ActiveRecord::Schema.define(version: 20140916030701) do
     t.datetime "updated_at"
   end
 
-  add_index "user_accounts", ["activation_token"], name: "index_user_accounts_on_activation_token", using: :btree
-  add_index "user_accounts", ["email"], name: "index_user_accounts_on_email", unique: true, using: :btree
-  add_index "user_accounts", ["login"], name: "index_user_accounts_on_login", unique: true, using: :btree
-  add_index "user_accounts", ["remember_token"], name: "index_user_accounts_on_remember_token", unique: true, using: :btree
-  add_index "user_accounts", ["reset_password_token"], name: "index_user_accounts_on_reset_password_token", using: :btree
+  add_index "user_accounts", ["activation_token"], name: "index_user_accounts_on_activation_token"
+  add_index "user_accounts", ["email"], name: "index_user_accounts_on_email", unique: true
+  add_index "user_accounts", ["login"], name: "index_user_accounts_on_login", unique: true
+  add_index "user_accounts", ["remember_token"], name: "index_user_accounts_on_remember_token", unique: true
+  add_index "user_accounts", ["reset_password_token"], name: "index_user_accounts_on_reset_password_token"
 
 end

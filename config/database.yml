@@ -1,19 +1,15 @@
-development:
-  adapter: postgresql
-  encoding: unicode
-  database: blue_trolley_dev
+default: &default
+  adapter: sqlite3
   pool: 5
-  username: admin
-  password: admin
+  timeout: 5000
 
+development:
+  <<: *default
+  database: db/blue_trolley_dev.sqlite3
 
 test:
-  adapter: postgresql
-  encoding: unicode
-  database: blue_trolley_test
-  pool: 5
-  username: admin
-  password: admin
+  <<: *default
+  database: db/blue_trolley_test.sqlite3
 
 
 production:
