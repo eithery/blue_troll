@@ -18,6 +18,7 @@ Spork.prefork do
     config.infer_base_class_for_anonymous_controllers = false
     config.infer_spec_type_from_file_location!
     config.order = "random"
+    config.render_views
 
     config.expect_with :rspec do |c|
       c.syntax = [:should, :expect]
