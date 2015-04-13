@@ -27,6 +27,9 @@ group :development, :test do
   gem 'byebug'
   gem 'sqlite3'
   gem 'rspec-rails', '3.2.1'
+  gem 'rspec-activemodel-mocks'
+  gem 'rspec-collection_matchers'
+  gem 'rspec-its'
   gem 'spring'
   gem 'web-console', '~> 2.0'
 end
