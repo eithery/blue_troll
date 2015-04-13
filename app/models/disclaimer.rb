@@ -138,7 +138,7 @@ class Disclaimer < Prawn::Document
 		return "unknown_participant.pdf" if @participant_name == @unknown
 		first_name, last_name = @participant_name.split
 		first_name = first_name.delete('/')
-		"#{last_name}_#{first_name}_2014.pdf".downcase
+		"#{last_name}_#{first_name}_2015.pdf".downcase
 	end
 
 
