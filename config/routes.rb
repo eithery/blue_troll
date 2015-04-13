@@ -35,15 +35,15 @@ BlueTroll::Application.routes.draw do
   get 'announcement', to: 'static_pages#event_announcement'
 
   controller :tickets, path: 'tickets/download' do
-    post 'crew/:crew_id', to: :download_for_crew, as: 'crew_tickets_download'
-    post 'user/:user_account_id', to: :download_for_user, as: 'user_tickets_download'
-    match ':ticket_code', to: :download, as: 'ticket_download', via: [:get, :post]
-    post 'send_link/:participant_id', to: :send_link, as: 'send_ticket_link'
+    post 'crew/:crew_id', action: :download_for_crew, as: 'crew_tickets_download'
+    post 'user/:user_account_id', action: :download_for_user, as: 'user_tickets_download'
+    match ':ticket_code', action: :download, as: 'ticket_download', via: [:get, :post]
+    post 'send_link/:participant_id', action: :send_link, as: 'send_ticket_link'
   end
 
   controller :gate do
-    get 'checkin', to: :checkin, as: 'checkin'
-    post 'checkin', to: :checkin_ticket, as: 'checkin_ticket'
+    get 'checkin', action: :checkin, as: 'checkin'
+    post 'checkin', action: :checkin_ticket, as: 'checkin_ticket'
   end
 
   get 'signup', to: 'user_accounts#new'
