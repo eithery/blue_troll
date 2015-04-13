@@ -18,6 +18,7 @@ describe Participant do
   it { should respond_to :approve, :send_payment, :receive_payment, :confirm_payment }
   it { should respond_to :created_by, :updated_by, :created_at, :updated_at }
   it { should respond_to :full_name, :display_name }
+
   specify { Participant.should respond_to :find_by_ticket }
 
   it { should be_valid }
@@ -118,12 +119,12 @@ describe Participant do
   describe "#approved?" do
     context "when NOT approved by crew lead" do
       before { gwen.approved_at = nil }
-      its(:approved?) { should be_false }
+      its(:approved?) { should be false }
     end
 
     context "when approved by crew lead" do
       before { gwen.approved_at = Time.now }
-      its(:approved?) { should be_true }
+      its(:approved?) { should be true }
     end
   end
 
@@ -131,12 +132,12 @@ describe Participant do
   describe "#payment_sent?" do
     context "when payment is NOT sent" do
       before { gwen.payment_sent_at = nil }
-      its(:payment_sent?) { should be_false }
+      its(:payment_sent?) { should be false }
     end
 
     context "when payment is sent" do
       before { gwen.payment_sent_at = Time.now }
-      its(:payment_sent?) { should be_true }
+      its(:payment_sent?) { should be true }
     end
   end
 
@@ -144,12 +145,12 @@ describe Participant do
   describe "#payment_received?" do
     context "when payment is NOT received by crew lead" do
       before { gwen.payment_received_at = nil }
-      its(:payment_received?) { should be_false }
+      its(:payment_received?) { should be false }
     end
 
     context "when payment is received by crew lead" do
       before { gwen.payment_received_at = Time.now }
-      its(:payment_received?) { should be_true }
+      its(:payment_received?) { should be true }
     end
   end
 
@@ -157,12 +158,12 @@ describe Participant do
   describe "#payment_confirmed?" do
     context "when payment is NOT confirmed by financier" do
       before { gwen.payment_confirmed_at = nil }
-      its(:payment_confirmed?) { should be_false }
+      its(:payment_confirmed?) { should be false }
     end
 
     context "when payment is confirmed by financier" do
       before { gwen.payment_confirmed_at = Time.now }
-      its(:payment_confirmed?) { should be_true }
+      its(:payment_confirmed?) { should be true }
     end
   end
 
@@ -173,7 +174,7 @@ describe Participant do
       gwen.reload
     end
 
-    its(:approved?) { should be_true }
+    its(:approved?) { should be true }
     its(:approved_at) { should_not be_blank }
     its(:approved_by) { should == crew_lead.login }
   end
@@ -181,11 +182,12 @@ describe Participant do
 
   describe "#send_payment" do
     before do
-      gwen.send_payment 45.00
+      payment = Payment.new(gwen.user_account, amount: 45.0, payment_type: PaymentType::CASH)
+      gwen.send_payment payment
       gwen.reload
     end
 
-    its(:payment_sent?) { should be_true }
+    its(:payment_sent?) { should be true }
     its(:payment_sent_at) { should_not be_blank }
     its(:payment_sent_by) { should == gwen.user_account.login }
   end
@@ -197,7 +199,7 @@ describe Participant do
       gwen.reload
     end
 
-    its(:payment_received?) { should be_true }
+    its(:payment_received?) { should be true }
     its(:payment_received_at) { should_not be_blank }
     its(:payment_received_by) { should == crew_lead.login }
   end
@@ -209,7 +211,7 @@ describe Participant do
       gwen.reload
     end
 
-    its(:payment_confirmed?) { should be_true }
+    its(:payment_confirmed?) { should be true }
     its(:payment_confirmed_at) { should_not be_blank }
     its(:payment_confirmed_by) { should == financier.login }
   end

@@ -177,7 +177,7 @@ describe UserAccount do
     context "with invalid password" do
       let(:user_account_for_invalid_password) { found_user_account.authenticate('invalid') }
       it { should_not == user_account_for_invalid_password }
-      specify { user_account_for_invalid_password.should be_false }
+      specify { user_account_for_invalid_password.should be false }
     end
   end
 
