@@ -4,7 +4,7 @@ namespace :db do
     crew = Crew.find_by_name('Guests')
     admin = UserAccount.find_by_login('admin')
     if admin.nil?
-      UserAccount.create!(login: 'admin', email: 'bluetrolley2014@gmail.com', email_confirmation: 'bluetrolley2014@gmail.com',
+      UserAccount.create!(login: 'admin', email: 'bluetrolley2015@gmail.com', email_confirmation: 'bluetrolley2015@gmail.com',
         password: 'mandozebra', password_confirmation: 'mandozebra', crew: crew, active: true, crew_lead: false, dev: false,
         gatekeeper: false, financier: false, admin: true)
 
