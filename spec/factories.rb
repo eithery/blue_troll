@@ -1,8 +1,8 @@
 FactoryGirl.define do
   # Crews.
   factory :crew do
-    name 'Guests'
-    native_name 'Гости слета'
+    name 'Mad Hamsters'
+    native_name 'Бешеные Хомяки'
   end
 
   factory :spies, class: Crew do
