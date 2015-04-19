@@ -27,9 +27,6 @@ group :development, :test do
   gem 'byebug'
   gem 'sqlite3'
   gem 'rspec-rails', '3.2.1'
-  gem 'rspec-activemodel-mocks'
-  gem 'rspec-collection_matchers'
-  gem 'rspec-its'
   gem 'spring'
   gem 'web-console', '~> 2.0'
 end
@@ -43,7 +40,12 @@ end
 group :test do
   gem 'capybara', '2.4.4'
   gem 'factory_girl_rails', '4.5.0'
-  gem 'spork-rails', '4.0.0'
+  gem 'factory_girl_rspec'
+  gem 'rspec-activemodel-mocks'
+  gem 'rspec-collection_matchers'
+  gem 'rspec-its'
+  gem 'shoulda-matchers'
+  gem 'shoulda-kept-respond-with-content-type'
 end
 
 
