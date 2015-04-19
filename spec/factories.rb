@@ -80,6 +80,17 @@ FactoryGirl.define do
     password 'hvost123'
     password_confirmation 'hvost123'
     active true
+    crew_lead true
+    association :crew, factory: :gwen_crew
+  end
+
+  factory :morfey_account, class: UserAccount do
+    login 'morfey'
+    email 'morfey@gmail.com'
+    email_confirmation 'morfey@gmail.com'
+    password 'mors123'
+    password_confirmation 'mors123'
+    active true
     association :crew, factory: :gwen_crew
   end
 
@@ -97,6 +108,14 @@ FactoryGirl.define do
     association :user_account, factory: :gwen_account, strategy: :build
     last_name 'Romanova'
     first_name 'Maryika'
+  end
+
+  factory :morfey, class: Participant do
+    association :user_account, factory: :morfey_account
+    last_name 'Kotovchenko'
+    first_name 'Mors'
+    age_category 0
+    age 19
   end
 
   factory :fix, class: Participant do
