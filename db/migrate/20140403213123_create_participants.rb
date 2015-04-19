@@ -46,7 +46,7 @@ class CreateParticipants < ActiveRecord::Migration
       # Modification status.
       t.string :created_by
       t.string :updated_by
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :participants, :ticket_code, unique: true

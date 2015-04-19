@@ -20,7 +20,7 @@ class CreateUserAccounts < ActiveRecord::Migration
       t.string :activation_token
       t.string :activation_code
       t.datetime :activated_at
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :user_accounts, :login, unique: true

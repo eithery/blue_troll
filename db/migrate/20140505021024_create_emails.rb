@@ -24,7 +24,7 @@ class CreateEmails < ActiveRecord::Migration
       t.text   :content, :limit => 100.megabytes
 
       t.datetime :sent_at
-      t.timestamps
+      t.timestamps null: false
     end
   end
 

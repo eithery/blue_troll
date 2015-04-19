@@ -6,7 +6,7 @@ class CreateCrews < ActiveRecord::Migration
       t.boolean :active, null: false, default: true
       t.string :location
       t.text :notes
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :crews, :name, unique: true

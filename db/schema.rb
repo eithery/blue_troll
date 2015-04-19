@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20140916030701) do
     t.boolean  "active",      default: true, null: false
     t.string   "location"
     t.text     "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "crews", ["name"], name: "index_crews_on_name", unique: true
@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(version: 20140916030701) do
     t.datetime "failed_at"
     t.string   "locked_by"
     t.string   "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(version: 20140916030701) do
     t.text     "bcc_address"
     t.text     "content",          limit: 104857600
     t.datetime "sent_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "participants", force: :cascade do |t|
@@ -86,8 +86,8 @@ ActiveRecord::Schema.define(version: 20140916030701) do
     t.string   "payment_confirmed_by"
     t.string   "created_by"
     t.string   "updated_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   add_index "participants", ["ticket_code"], name: "index_participants_on_ticket_code", unique: true
@@ -109,8 +109,8 @@ ActiveRecord::Schema.define(version: 20140916030701) do
     t.string   "activation_token"
     t.string   "activation_code"
     t.datetime "activated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
   add_index "user_accounts", ["activation_token"], name: "index_user_accounts_on_activation_token"
