@@ -1,4 +1,10 @@
+# Eithery Lab., 2015.
+# Class UserAccountsController
+# UserAccounts controller.
+# Performs operations with user accounts.
+
 class UserAccountsController < ApplicationController
+
   before_filter :signed_in_user, only: [:show, :update_crew]
   before_filter :correct_user, only: [:show, :update_crew]
   before_action :set_user_account, only: [:request_to_activate, :change_password, :update_password]
@@ -12,7 +18,7 @@ class UserAccountsController < ApplicationController
   def create
     @user = UserAccount.new(user_account_params)
     if @user.save
-      UserAccountsMailer.registered(@user).deliver
+      UserAccountsMailer.registered(@user).deliver_now
       flash[:success] = "New user account for #{@user.name} has been created."
       redirect_to request_to_activate_path(id: @user.id)
     else
@@ -79,8 +85,8 @@ class UserAccountsController < ApplicationController
     end
   end
 
-
 private
+
   def user_account_params
     params.require(:user_account).permit(:id, :login, :email, :email_confirmation, :password, :password_confirmation,
       :remember_token, :activation_token)

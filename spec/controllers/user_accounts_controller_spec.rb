@@ -1,57 +1,82 @@
+# Eithery Lab., 2015.
+# UserAccountsController specs.
+
 require 'spec_helper'
 
 describe UserAccountsController do
   let(:name) { 'gwen' }
   let(:email) { 'gwen@gmail1.com' }
   let(:user) { mock_user_account(name: name, email: email) }
-  let(:congratulation) { "Congratulation, #{name}! Your account has been successfully activated." }
 
-  before { UserAccount.stub(:find).and_return(user) }
+  shared_examples_for "get OK HTML response" do
+    it { is_expected.to respond_with :ok }
+    it { is_expected.to respond_with_content_type :html }
+    it { is_expected.to render_with_layout :application }
+  end
 
-  describe "GET new" do
-    it "creates a new user account" do
-      UserAccount.should_receive(:new)
-      get :new
+#  let(:congratulation) { "Congratulation, #{name}! Your account has been successfully activated." }
+
+#  before { UserAccount.stub(:find).and_return(user) }
+
+  describe 'GET #new' do
+    describe "controller response and rendered templates" do
+      before { get :new }
+
+      it_behaves_like "get OK HTML response"
+      it { is_expected.to render_template(:new) }
     end
 
-    it "renders the new template" do
-      get :new
-      response.should render_template(:new)
+    describe "assigned instance variables" do
+      let(:new_user_account) { double('user_account') }
+      before do
+        UserAccount.stub(:new).and_return(new_user_account)
+        get :new
+      end
+      it { expect(assigns(:user)).to eq(new_user_account) }
+    end
+
+    describe "model operations" do
+      it "creates a new user account" do
+        UserAccount.should_receive(:new)
+        get :new
+      end
     end
   end
 
 
-  describe "POST create" do
+  describe 'POST #create' do
     before { UserAccount.stub(:new).and_return(user) }
 
-    it "creates a new user account" do
-      UserAccount.should_receive(:new).with({"email" => "#{email}"}).and_return(user)
-      post_create
-    end
-
-    it "saves the user account" do
-      user.should_receive(:save)
-      post_create
-    end
-
-    it { should_assign(user: user) { post_create } }
-
-
-    context "when user account saves successfully" do
-      before { user.stub(:name).and_return('gwen') }
-
-      specify { expect_to_flash_success("New user account for #{name} has been created.") { post_create } }
-      specify { ->{ post_create }.should send_email(UserAccountsMailer, to: email,
-        subject: "#{sender}: #{registered_subject}") }
-
-      it "redirects to activation page" do
-        notifier = double('notifier').as_null_object
-        UserAccountsMailer.stub(:registered).and_return(notifier)
+    describe "model operations" do
+      it "creates a new user account" do
+        UserAccount.should_receive(:new).with({"email" => "#{email}"}).and_return(user)
         post_create
-        response.should redirect_to(request_to_activate_path account_id: user.id)
+      end
+
+      it "saves the user account" do
+        user.should_receive(:save)
+        post_create
       end
     end
 
+    describe "assigned instance variables" do
+      before { post_create }
+      it { expect(assigns(:user)).to eq(user) }
+    end
+
+    context "when user account saves successfully" do
+      before do
+        user.stub(:name).and_return('gwen')
+        notifier = double('notifier').as_null_object
+        UserAccountsMailer.stub(:registered).and_return(notifier)
+        post_create
+      end
+
+      it { is_expected.to set_flash[:success].to("New user account for #{name} has been created.") }
+      it { is_expected.to redirect_to(request_to_activate_path id: user.id) }
+#      specify { ->{ post_create }.should send_email(UserAccountsMailer, to: email,
+#        subject: "#{sender}: #{registered_subject}") }
+    end
 
     context "when user account fails to save" do
       before do
@@ -59,26 +84,26 @@ describe UserAccountsController do
         post_create
       end
 
-      it { should render_template(:new) }
+      it { is_expected.to render_template :new }
     end
   end
 
 
-  describe "GET show" do
-    it "finds user account by id" do
-      UserAccount.should_receive(:find).with("#{user.id}").and_return(user)
-      get_show
-    end
+  describe 'GET #show' do
+#    it "finds user account by id" do
+#      UserAccount.should_receive(:find).with("#{user.id}").and_return(user)
+#      get_show
+#    end
 
-    it { should_assign(user: user) { get_show } }
+#    it { should_assign(user: user) { get_show } }
 
-    it "renders the show template" do
-      get_show
-      response.should render_template(:show)
-    end
+#    it "renders the show template" do
+#      get_show
+#      response.should render_template(:show)
+#    end
   end
 
-
+=begin
   describe "GET request_to_activate" do
     it "finds user account by account_id" do
       UserAccount.should_receive(:find).with("#{user.id}").and_return(user)
@@ -258,17 +283,21 @@ describe UserAccountsController do
       response.should redirect_to(user)
     end
   end
+=end
 
+private
 
-  private
     def post_create
       post :create, user_account: { email: email }
     end
+
 
     def get_show
       get :show, id: user.id
     end
 
+
+=begin
     def get_request_to_activate
       get :request_to_activate, account_id: user.id
     end
@@ -292,4 +321,5 @@ describe UserAccountsController do
     def put_update_crew(crew_id)
       put :update_crew, id: user.id, user: { crew_id: crew_id }
     end
+=end
 end
