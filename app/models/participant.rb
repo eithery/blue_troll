@@ -104,7 +104,7 @@ class Participant < ActiveRecord::Base
     return 'Paid' if payment_confirmed?
     return 'Payment received' if payment_received?
     return 'Payment sent' if payment_sent?
-    return approved? ? 'Accepted' : 'Awaiting for approval'
+    return approved? ? 'Accepted' : 'Await crew lead approval'
   end
 
 
