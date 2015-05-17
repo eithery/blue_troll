@@ -1,0 +1,21 @@
+= provide(:title, "Reset Password")
+.shadowed-form
+  = form_for(:reset_password, url: send_reset_link_path, html: { class: "form-horizontal well" }) do |f|
+    %fieldset
+      %legend Can't access your account?
+
+      .alert.alert-info
+        If you can't access Blue Trolley application, please enter your login or email address below
+        and the special link will be sent to you with the details to access your user account
+      %br
+
+      .form-group
+        = f.label :email, "Enter your login or email", class: "control-label col-sm-3"
+        .col-sm-5
+          = f.text_field :email, class: "form-control", maxlength: 64, autofocus: true, required: true
+
+      %br
+      .form-group
+        .col-sm-offset-3.col-sm-7
+          = f.submit 'Send email', class: "btn btn-primary"
+          = link_to 'Cancel', signin_path, class: "btn btn-default"
