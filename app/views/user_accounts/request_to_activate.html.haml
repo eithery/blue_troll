@@ -1,0 +1,31 @@
+= provide(:title, 'Account Activation')
+%h4 "Hello #{@user.name}, welcome to Blue Trolley club!"
+
+%p
+  Your registration has been successful. Within few minutes,
+  you will receive an email with your activation link and activation code.
+  %br
+  The email is sent to the following address:
+  %strong= @user.email
+  %br
+  In order to activate your account enter the code or click on the link in your email.
+
+%br
+
+= form_for(:activation, url: activate_path, html: { class: "form-horizontal well" }) do |f|
+  = f.hidden_field :user_account, value: @user.id
+  .form-group
+    = f.label :code, 'Activation Code:', class: "control-label col-sm-2"
+    .col-sm-4
+      = f.text_field :code, class: "form-control", maxlength: 12, required: true
+
+  .form-group
+    .col-sm-offset-2.col-sm-7
+      = f.submit "Activate my account", class: "btn btn-primary"
+
+%hr
+%h4 No email received?
+%p
+  Sometimes the email is moved to the spam folder. To resend activation email please click
+  = link_to 'here', '#'
+  .

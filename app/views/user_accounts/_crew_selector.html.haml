@@ -1,0 +1,15 @@
+#crew-selector.modal.fade{ tabindex: '-1', role: 'dialog' }
+  .modal-dialog
+    .modal-content
+      = form_for(@user, url: select_crew_path(id: @user), method: :put, remote: :true, html: { class: "form-horizontal" }) do |f|
+        .modal-header
+          %button.close{ type: 'button', data: { dismiss: 'modal' }, aria: { hidden: 'true' }} ×
+          %h4.modal-title Please select your Blue Trolley crew
+
+        .modal-body.form-group
+          = f.label :crew, class: "control-label col-sm-3"
+          .col-sm-6
+            = collection_select :user, :crew_id, all_crews, :id, :name, { include_blank: true }, { class: "form-control" }
+
+        .modal-footer
+          = f.submit 'Select crew', class: "btn btn-default"

@@ -1,0 +1,36 @@
+= provide(:title, 'New User Account')
+.shadowed-form
+  = form_for(@user, html: { class: "form-horizontal well" }) do |f|
+    %fieldset
+      %legend New User Account Registration
+      = render 'shared/error_messages', errors: @user.errors, entity_name: 'user account'
+      .form-group
+        = f.label :login, class: "control-label col-sm-3"
+        .col-sm-4
+          = f.text_field :login, class: "form-control", maxlength: 20, autofocus: true
+
+      .form-group
+        = f.label :password, class: "control-label col-sm-3"
+        .col-sm-4
+          = f.password_field :password, class: "form-control", maxlength: 16
+
+      .form-group
+        = f.label :password_confirmation, 'Password Confirmation', class: "control-label col-sm-3"
+        .col-sm-4
+          = f.password_field :password_confirmation, class: "form-control", maxlength: 16
+
+      .form-group
+        = f.label :email, class: "control-label col-sm-3"
+        .col-sm-7
+          = f.email_field :email, class: "form-control", maxlength: 64
+
+      .form-group
+        = f.label :email_confirmation, 'Email Confirmation', class: "control-label col-sm-3"
+        .col-sm-7
+          = f.email_field :email_confirmation, class: "form-control", maxlength: 64
+
+      %br
+      .form-group
+        .col-sm-offset-3.col-sm-7
+          = f.submit "Create my account", class: "btn btn-primary"
+          = link_to "Can't access my account?", cant_access_path, class: "btn btn-warning"

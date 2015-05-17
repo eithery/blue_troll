@@ -1,0 +1,13 @@
+= gravatar_for @user
+%table.table.table-striped.table-hover.table-condensed{ style: 'margin-left: 100px; width: 400px' }
+  %tbody
+    %tr
+      %th Login:
+      %td= @user.login
+    %tr
+      %th Email:
+      %td= link_to @user.email, "mailto:#{@user.email}"
+    %tr
+      %th Status:</th>
+      %td= @user.status
+    %tr#selected-crew= render 'crew_name'

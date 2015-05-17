@@ -1,0 +1,5 @@
+%th Crew:
+- unless @user.crew.blank?
+  %td= @user.crew.display_name
+- else
+  %td.no-crew-selected No crew selected. Please select the crew
