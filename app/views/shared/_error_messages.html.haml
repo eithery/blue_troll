@@ -1,0 +1,15 @@
+- if errors.any?
+  .panel.panel-danger
+    %button.close{ type: 'button', data: { dismiss: 'alert' }} ×
+    .panel-heading
+      .panel-title
+        %strong
+          = pluralize(errors.count, "error")
+          prohibited this
+          = entity_name
+          from being saved:
+
+    .panel-body
+      %ul
+        - errors.full_messages.each do |msg|
+          %li= msg
