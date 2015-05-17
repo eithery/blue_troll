@@ -1,6 +1,10 @@
 source 'https://rubygems.org'
+ruby '2.2.1'
 
 gem 'rails', '4.2.1'
+
+gem 'haml'
+gem 'haml-rails', group: :development
 
 gem 'barby', '0.6.2'
 gem 'bcrypt', '~> 3.1.7'
@@ -34,6 +38,9 @@ end
 
 group :production do
   gem 'pg'
+  gem 'rails_12factor'
+  gem 'rails_stdout_logging'
+  gem 'rails_serve_static_assets'
 end
 
 
