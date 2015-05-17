@@ -1,0 +1,6 @@
+- provide(:title, @crew.name.html_safe)
+%h4= @crew.display_name
+= render 'shared/participants', participants: @crew.participants, show_crew: false
+
+= link_to 'Register new participant', new_participant_path(crew_id: @crew), class: "btn btn-primary"
+= link_to 'Download all paid tickets', crew_tickets_download_path(@crew), method: :post, class: "btn btn-info"

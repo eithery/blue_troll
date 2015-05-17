@@ -1,0 +1,10 @@
+%td= index.to_i + 1
+%td= crew.name
+%td= crew.native_name
+%td= crew_leads crew
+%td= crew_emails crew
+%td= totals crew
+%td
+  .bt-actions
+    = show_participants_tag crew
+    = download_tickets_tag crew
