@@ -11,7 +11,7 @@ module ParticipantsHelper
 
 
   def approve_tag(participant, index)
-    if current_user.can_approve? participant
+    if current_user.can_approve?(participant)
       link_to 'Accept', approve_path(id: participant, index: index), class: "btn btn-success btn-xs",
         remote: true, data: { confirm: "Do you want to accept #{participant.display_name} to your crew?" }
     end
