@@ -66,7 +66,7 @@ class UserAccount < ActiveRecord::Base
 
   def can_confirm_payment?(participant)
     return false if participant.payment_confirmed?
-    return true if self.financier?
+    return true if self.financier? || self.admin?
     !participant.payment_received? && participant.crew_lead?(self)
   end
 
