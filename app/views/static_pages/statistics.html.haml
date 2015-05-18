@@ -3,36 +3,43 @@
   %thead
     %tr
       %th
-      %th.span3 Registered
-      %th.span3 On Site
+      %th.bt-col-3 Registered
+      %th.bt-col-3 Paid
+      %th.bt-col-3 On Site
 
   %tbody
     %tr
-      %td.bt-stats Adults:
-      %td.bt-stats.bt-registered= link_to Statistics.adults_registered, adults_participants_path
-      %td.bt-stats.bt-onsite= link_to Statistics.adults_onsite, adults_onsite_participants_path
+      %td Adults:
+      %td.bt-registered= @stats.adults_registered
+      %td= @stats.adults_paid
+      %td.bt-onsite= @stats.adults_onsite
 
     %tr
-      %td.bt-stats Children:
-      %td.bt-stats.bt-registered= link_to Statistics.children_registered, children_participants_path
-      %td.bt-stats.bt-onsite= link_to Statistics.children_onsite, children_onsite_participants_path
+      %td Children:
+      %td.bt-registered= @stats.children_registered
+      %td= @stats.children_paid
+      %td.bt-onsite= @stats.children_onsite
 
     %tr
-      %td.bt-stats Babies
-      %td.bt-stats.bt-registered= link_to Statistics.babies_registered, babies_participants_path
-      %td.bt-stats.bt-onsite= link_to Statistics.babies_onsite, babies_onsite_participants_path
+      %td Babies:
+      %td.bt-registered= @stats.babies_registered
+      %td= @stats.babies_paid
+      %td.bt-onsite= @stats.babies_onsite
 
     %tr
-      %td.bt-stats Total Participants
-      %td.bt-stats.bt-total.bt-registered= link_to Statistics.participants_registered, total_registered_participants_path
-      %td.bt-stats.bt-total.bt-onsite= link_to Statistics.participants_onsite, total_onsite_participants_path
+      %th Total Participants:
+      %td.bt-total.bt-registered= @stats.participants_registered
+      %td.bt-total= @stats.participants_paid
+      %td.bt-total.bt-onsite= @stats.participants_onsite
 
     %tr
-      %td.bt-stats Flagged:
-      %td.bt-stats.bt-registered
-      %td.bt-stats.bt-onsite= link_to Statistics.flagged, flagged_participants_path
+      %td Flagged:
+      %td.bt-registered
+      %td
+      %td.bt-onsite= link_to @stats.flagged, flagged_participants_path
 
     %tr
-      %td.bt-stats Expected:
-      %td.bt-stats.bt-registered= link_to Statistics.expected, expected_participants_path
-      %td.bt-stats.bt-onsite
+      %td Expected:
+      %td
+      %td
+      %td.bt-registered= @stats.expected

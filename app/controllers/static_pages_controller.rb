@@ -4,6 +4,7 @@ class StaticPagesController < ApplicationController
 
 
   def statistics
+    @stats = Statistics.new
   end
 
 

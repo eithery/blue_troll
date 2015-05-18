@@ -1,56 +1,77 @@
 class Statistics
-  def self.adults_registered
-    participants.count { |p| p.age_category == AgeCategory::ADULT }
+  def adults_registered
+    participants.count { |p| p.adult? }
   end
 
 
-  def self.adults_onsite
-    participants.count { |p| p.age_category == AgeCategory::ADULT && p.registered_at }
+  def adults_paid
+    participants.count { |p| p.adult? && p.paid? }
   end
 
 
-  def self.children_registered
-    participants.count { |p| p.age_category == AgeCategory::CHILD }
+  def adults_onsite
+    participants.count { |p| p.adult? && p.checked_in? }
   end
 
 
-  def self.children_onsite
-    participants.count { |p| p.age_category == AgeCategory::CHILD && p.registered_at }
+  def children_registered
+    participants.count { |p| p.child? }
   end
 
 
-  def self.babies_registered
-    participants.count { |p| p.age_category == AgeCategory::BABY }
+  def children_paid
+    participants.count { |p| p.child? && p.paid? }
   end
 
 
-  def self.babies_onsite
-    participants.count { |p| p.age_category == AgeCategory::BABY && p.registered_at }
+  def children_onsite
+    participants.count { |p| p.child? && p.checked_in? }
   end
 
 
-  def self.participants_registered
+  def babies_registered
+    participants.count { |p| p.baby? }
+  end
+
+
+  def babies_paid
+    participants.count { |p| p.baby? && p.paid? }
+  end
+
+
+  def babies_onsite
+    participants.count { |p| p.baby? && p.checked_in? }
+  end
+
+
+  def participants_registered
     participants.count
   end
 
 
-  def self.participants_onsite
-    participants.count { |p| p.registered_at }
+  def participants_paid
+    participants.count { |p| p.paid? }
   end
 
 
-  def self.flagged
+  def participants_onsite
+    participants.count { |p| p.checked_in? }
+  end
+
+
+  def flagged
     participants.count { |p| p.flagged? }
   end
 
 
-  def self.expected
-    participants.count { |p| !p.registered_at }
+  def expected
+    participants.count { |p| p.paid? && !p.checked_in? }
   end
 
 
 private
-  def self.participants
-    Participant.all.to_a
+
+  def participants
+    @participants ||= Participant.all.to_a
   end
 end

@@ -53,6 +53,11 @@ class Participant < ActiveRecord::Base
   end
 
 
+  def paid?
+    payment_confirmed?
+  end
+
+
   def payment_sent?
     !self.payment_sent_at.nil?
   end
@@ -70,6 +75,21 @@ class Participant < ActiveRecord::Base
 
   def checked_in?
     !self.registered_at.nil?
+  end
+
+
+  def adult?
+    self.age_category == AgeCategory::ADULT
+  end
+
+
+  def child?
+    self.age_category == AgeCategory::CHILD
+  end
+
+
+  def baby?
+    self.age_category == AgeCategory::BABY
   end
 
 
