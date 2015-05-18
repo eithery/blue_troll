@@ -1,2 +1,2 @@
 $('tr#participant_<%= @participant.id.to_s %>').html("<%= escape_javascript(render 'shared/participant',
-    participant: @participant, index: @index) %>");
+    participant: @participant, index: @index, show_crew: false) %>");
