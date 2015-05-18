@@ -7,7 +7,7 @@
 = render 'shared/participants', participants: @user.participants, show_crew: false
 
 - if @user.active?
-  = link_to 'Register new participant', new_participant_path(user_account_id: @user.id),
+  = link_to 'Register for the upcoming event', new_participant_path(user_account_id: @user.id),
     id: "new_participant", class: "btn btn-primary", style: visible_unless { @user.crew.blank? }
 
   = link_to 'Select crew', '#', class: "btn btn-primary", data: { toggle: 'modal', target: "#crew-selector" },
