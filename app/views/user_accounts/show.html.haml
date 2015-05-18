@@ -4,7 +4,7 @@
 = render 'payment'
 
 %h4 Registered Participants
-= render 'shared/participants', participants: @user.participants, show_crew: false
+= render 'shared/participants', participants: user_participants, show_crew: false
 
 - if @user.active?
   = link_to 'Register for the upcoming event', new_participant_path(user_account_id: @user.id),

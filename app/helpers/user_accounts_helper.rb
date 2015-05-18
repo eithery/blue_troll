@@ -4,4 +4,9 @@ module UserAccountsHelper
     gravatar_url = "http://www.gravatar.com/avatar/#{gravatar_id}"
     image_tag(gravatar_url, alt: user_account.email, class: "gravatar")
   end
+
+
+  def user_participants
+    @user.participants.order(:last_name, :first_name)
+  end
 end
