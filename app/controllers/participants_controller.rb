@@ -18,6 +18,7 @@ class ParticipantsController < ApplicationController
       crew = Crew.find(participant_params[:requested_crew_id])
       email = participant_params[:email]
       unless email.blank?
+        email = email.downcase
         user = UserAccount.find_by_email(email)
         if !user.nil? && user.crew != crew
           flash.now[:warning] = "You selected existing email which belongs to another crew."
@@ -26,7 +27,7 @@ class ParticipantsController < ApplicationController
         end
         if user.nil?
           pwd = SecureRandom.urlsafe_base64
-          user = UserAccount.new(login: email, email: email, email_confirmation: email,
+          user = UserAccount.create!(login: email, email: email, email_confirmation: email,
             password: pwd, password_confirmation: pwd, crew: crew)
           UserAccountsMailer.registered(user).deliver
         end
