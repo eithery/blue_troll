@@ -49,6 +49,11 @@ class Crew < ActiveRecord::Base
   end
 
 
+  def paid_count
+    participants.to_a.count { |p| p.paid? }
+  end
+
+
   def to_s
   	name
   end
