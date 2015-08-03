@@ -13,6 +13,13 @@ BlueTroll::Application.routes.draw do
     end
   end
 
+
+  controller :participants, path: 'export' do
+    post 'crew/:crew_id/participants/paid', action: :export_paid_by_crew,
+      as: 'crew_paid_participants_export'
+  end
+
+
   get 'approve', to: 'participants#approve'
   get 'request_to_activate', to: 'user_accounts#request_to_activate'
   get 'activate', to: 'user_accounts#activate_by_link'

@@ -1,3 +1,5 @@
+require 'csv'
+
 class ParticipantsController < ApplicationController
   before_filter :signed_in_user
 	before_action :set_participant, only: [:edit, :update, :destroy, :approve]
@@ -165,6 +167,22 @@ class ParticipantsController < ApplicationController
     @participants = Participant.order(:last_name, :first_name).select do |p|
       p.registered_at.nil?
     end
+  end
+
+
+  def export_paid_by_crew
+    crew = Crew.find(params[:crew_id])
+    export_folder = 'data/export'
+    Dir.mkdir(export_folder) unless Dir.exists?(export_folder)
+    paid_participants_path = "#{export_folder}/#{crew.to_file_name}_paid.csv"
+
+    CSV.open(paid_participants_path, 'w') do |csv|
+      crew.participants.each do |p|
+        csv << [p.full_name, p.email, 'paid', p.payment_sent_at, p.payment_confirmed_at] if p.paid?
+      end
+    end
+
+    send_file paid_participants_path, type: 'application/csv', disposition: 'attachment'
   end
 
 

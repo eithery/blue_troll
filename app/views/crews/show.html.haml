@@ -4,3 +4,4 @@
 
 = link_to 'Register for the upcoming event', new_participant_path(crew_id: @crew), class: "btn btn-primary"
 = link_to 'Download all paid tickets', crew_tickets_download_path(@crew), method: :post, class: "btn btn-info"
+= link_to 'Export paid participants', crew_paid_participants_export_path(@crew), method: :post, class: "btn btn-info"
