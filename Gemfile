@@ -15,6 +15,7 @@ gem 'turbolinks'
 gem 'sass-rails'
 gem 'bootstrap-sass'
 gem 'bootstrap-will_paginate'
+gem 'font-awesome-rails'
 
 gem 'bcrypt'
 gem 'enumerate_it'
