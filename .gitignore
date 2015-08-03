@@ -10,7 +10,9 @@
 /tmp
 /data/tickets/*.pdf
 /data/tickets/*.zip
+/data/export
 
 # Ignore all RubyMine and Sublime Text related files.
 /.idea
 /*.sublime*
+/new_features.txt
