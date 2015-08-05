@@ -1,26 +1,10 @@
 
-/* mixins, variables, etc. */
 $grayMediumLight: #eaeaea;
 $grayLight: #999;
 $gray: #555;
 $grayDarker: #222;
 $grayLighter: #eee;
 $tableFont: Calibri;
-
-@mixin box-sizing {
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-
-body {
-	padding-top: 60px;
-}
-
-
-.field_with_errors {
-}
 
 
 .bt-img {

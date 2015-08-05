@@ -1,0 +1,48 @@
+%nav.navbar-default.navbar-static-side{ role: 'navigation' }
+  .sidebar-collapse
+    %ul#side-menu.nav.metismenu
+
+      %li.nav-header
+        .dropdown.profile-element
+          %a.dropdown-toggle{ 'data-toggle' => 'dropdown', href: '#' }
+            %span.clear
+              %span.block.m-t-xs
+                = link_to "Blue Trolley", root_path, id: 'logo', class: 'font-bold'
+        .logo-element
+          BT
+
+      %li
+        = link_to signin_path do
+          %i.fa.fa-sign-in
+          %span.nav-label Log in
+
+      %li
+        = link_to crew_path(current_user.crew) do
+          %i.fa.fa-group
+          %span.nav-label My Crew
+
+      %li
+        = link_to user_account_path(current_user) do
+          %i.fa.fa-user
+          %span.nav-label My Profile
+
+      %li
+        = link_to crews_path do
+          %i.fa.fa-list
+          %span.nav-label All Crews
+
+      %li
+        = link_to checkin_path do
+          %i.fa.fa-unlock
+          %span.nav-label Check in
+
+      %li
+        = link_to '#' do
+          %i.fa.fa-gears
+          %span.nav-label Administration
+
+      %li
+        = link_to signout_path do
+          %i.fa.fa-sign-out
+          %span.nav-label Log out
+
