@@ -177,8 +177,9 @@ class ParticipantsController < ApplicationController
     paid_participants_path = "#{export_folder}/#{crew.to_file_name}_paid.csv"
 
     CSV.open(paid_participants_path, 'w') do |csv|
+      csv << ['Participant', 'Email', 'Status', 'Payment sent', 'Payment confirmed', 'Payment confirmed by']
       crew.participants.each do |p|
-        csv << [p.full_name, p.email, 'paid', p.payment_sent_at, p.payment_confirmed_at] if p.paid?
+        csv << [p.full_name, p.email, 'paid', p.payment_sent_at, p.payment_confirmed_at, p.payment_confirmed_by] if p.paid?
       end
     end
 
