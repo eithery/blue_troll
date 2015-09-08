@@ -187,6 +187,38 @@ class ParticipantsController < ApplicationController
   end
 
 
+  def export_awaiting_participants
+    export_folder = 'data/export'
+    Dir.mkdir(export_folder) unless Dir.exists?(export_folder)
+    awaiting_participants_path = "#{export_folder}/awaiting_participants.csv"
+
+    CSV.open(awaiting_participants_path, 'w') do |csv|
+      csv << ['Participant', 'Email', 'Status', 'Payment sent', 'Payment confirmed', 'Payment confirmed by']
+      Participant.all.each do |p|
+        csv << [p.full_name, p.email, 'paid', p.payment_sent_at, p.payment_confirmed_at, p.payment_confirmed_by] if p.paid? && !p.checked_in?
+      end
+    end
+
+    send_file awaiting_participants_path, type: 'application/csv', disposition: 'attachment'
+  end
+
+
+  def export_participants_with_email
+    export_folder = 'data/export'
+    Dir.mkdir(export_folder) unless Dir.exists?(export_folder)
+    all_participants_with_email_path = "#{export_folder}/all_participants_with_email.csv"
+
+    CSV.open(all_participants_with_email_path, 'w') do |csv|
+      csv << ['Participant', 'User Account Email', 'Participant Email']
+      Participant.all.each do |p|
+        csv << [p.full_name, p.user_account.email, p.email] unless p.email.nil?
+      end
+    end
+
+    send_file all_participants_with_email_path, type: 'application/csv', disposition: 'attachment'
+  end
+
+
 private
   def set_participant
     @participant = Participant.find(params[:id])
