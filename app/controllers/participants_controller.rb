@@ -193,9 +193,9 @@ class ParticipantsController < ApplicationController
     awaiting_participants_path = "#{export_folder}/awaiting_participants.csv"
 
     CSV.open(awaiting_participants_path, 'w') do |csv|
-      csv << ['Participant', 'Email', 'Status', 'Payment sent', 'Payment confirmed', 'Payment confirmed by']
-      Participant.all.each do |p|
-        csv << [p.full_name, p.email, 'paid', p.payment_sent_at, p.payment_confirmed_at, p.payment_confirmed_by] if p.paid? && !p.checked_in?
+      csv << ['Participant', 'Crew', 'Email', 'Status', 'Payment sent', 'Payment confirmed', 'Payment confirmed by']
+      Participant.all.order(:last_name, :first_name).each do |p|
+        csv << [p.full_name, p.crew.name, p.email, 'paid', p.payment_sent_at, p.payment_confirmed_at, p.payment_confirmed_by] if p.paid? && !p.checked_in?
       end
     end
 
@@ -209,9 +209,9 @@ class ParticipantsController < ApplicationController
     all_participants_with_email_path = "#{export_folder}/all_participants_with_email.csv"
 
     CSV.open(all_participants_with_email_path, 'w') do |csv|
-      csv << ['Participant', 'User Account Email', 'Participant Email']
-      Participant.all.each do |p|
-        csv << [p.full_name, p.user_account.email, p.email] unless p.email.nil?
+      csv << ['Participant', 'Crew', 'User Account Email', 'Participant Email']
+      Participant.all.order(:last_name, :first_name).each do |p|
+        csv << [p.full_name, p.crew.name, p.user_account.email, p.email] unless p.email.nil?
       end
     end
 
