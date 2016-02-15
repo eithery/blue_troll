@@ -4,6 +4,8 @@
 require 'rails_helper'
 
 describe Event do
+  subject { FactoryGirl.build :event }
+
   it_behaves_like 'a valid domain model'
   it_behaves_like 'it has a required unique name'
   it_behaves_like 'it has timestamps'
