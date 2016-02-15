@@ -1,4 +1,4 @@
-require 'spec_helper'
+=begin
 
 describe Participant do
   let(:gwen) { FactoryGirl.create(:gwen) }
@@ -233,3 +233,4 @@ describe Participant do
     end
   end
 end
+=end

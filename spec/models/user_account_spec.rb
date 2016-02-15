@@ -1,5 +1,4 @@
-require 'spec_helper'
-
+=begin
 describe UserAccount do
   let(:user) { FactoryGirl.build(:inactive_user) }
   let(:empty_user_account) { FactoryGirl.create(:active_user) }
@@ -303,3 +302,4 @@ describe UserAccount do
     its(:reset_password_expired_at) { should be_nil }
   end
 end
+=end
