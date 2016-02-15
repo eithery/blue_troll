@@ -4,7 +4,7 @@
 
 require_relative 'helpers/table_definition'
 
-class UserAccount < ActiveRecord::Migration[5.0]
+class UserAccounts < ActiveRecord::Migration[5.0]
   def change
     create_table :user_accounts do |t|
       t.belongs_to :crew, index: true
