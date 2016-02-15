@@ -1,4 +1,4 @@
-class Crew < ActiveRecord::Base
+class Crew < ApplicationRecord
   has_many :user_accounts
 
   validates :name, :native_name, presence: true, uniqueness: { case_sensitive: false }

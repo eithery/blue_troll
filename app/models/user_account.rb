@@ -1,4 +1,4 @@
-class UserAccount < ActiveRecord::Base
+class UserAccount < ApplicationRecord
   has_secure_password
   has_many :participants, dependent: :destroy
   belongs_to :crew

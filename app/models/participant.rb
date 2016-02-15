@@ -1,4 +1,4 @@
-class Participant < ActiveRecord::Base
+class Participant < ApplicationRecord
   belongs_to :user_account
   attr_accessor :requested_crew_id
 
