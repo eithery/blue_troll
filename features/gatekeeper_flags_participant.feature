@@ -1,1 +1,0 @@
-Feature: Gatekeeper flags participant.

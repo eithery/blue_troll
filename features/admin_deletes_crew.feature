@@ -1,1 +1,0 @@
-Feature: Admin deletes crew.

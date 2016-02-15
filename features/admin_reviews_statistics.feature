@@ -1,1 +1,0 @@
-Feature: Admin reviews statistics.

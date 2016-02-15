@@ -1,1 +1,0 @@
-Feature: User resets password.
