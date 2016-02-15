@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160215061232) do
+ActiveRecord::Schema.define(version: 20160215203321) do
+
+  create_table "crews", force: :cascade do |t|
+    t.string   "name",                       null: false
+    t.string   "native_name",                null: false
+    t.boolean  "active",      default: true, null: false
+    t.string   "location"
+    t.text     "notes"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "created_by",                 null: false
+    t.string   "updated_by",                 null: false
+    t.index ["name"], name: "index_crews_on_name", unique: true
+    t.index ["native_name"], name: "index_crews_on_native_name", unique: true
+  end
 
   create_table "events", force: :cascade do |t|
     t.string   "name",        null: false
