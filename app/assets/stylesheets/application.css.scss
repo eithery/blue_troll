@@ -7,66 +7,9 @@
  *
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
- *
+
+ *= require_tree .
  *= require_self
- *= require_tree
- *= require bootstrap.cosmo
+ *= require pace/green/pace-theme-flash
+ *= require font-awesome
  */
-
-.image-header {
-  background-image: url(bt_header.jpg);
-  background-size: 100% 100%;
-  width: 100%;
-  height: 190px;
-  margin-bottom: 40px;
-  box-shadow: 5px 4px 10px 2px gray;
-}
-
-
-.footer {
-  margin-top: 45px;
-  padding-top: 5px;
-  border-top: 1px solid #eaeaea;
-  li {
-    float: left;
-    margin-left: 25px;
-  }
-}
-
-
-.shadowed-form {
-  box-shadow: 5px 4px 10px 2px gray;
-}
-
-
-.panel {
-  button.close {
-    margin-top: 0.5em;
-    margin-right: 0.5em;
-    color: white;
-  }
-}
-
-
-a[disabled] {
-  pointer-events: none;
-}
-
-
-th.bt-col-1 {
-  width: 3em;
-}
-th.bt-col-2 {
-  width: 6em;
-}
-th.bt-col-3 {
-  width: 12em;
-}
-th.bt-col-4 {
-  width: 20em;
-}
-
-
-.bt-alert {
-  font-size: 250%;
-}
