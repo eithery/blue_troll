@@ -1,6 +1,8 @@
 class Payment
   attr_reader :payer, :payees, :payment_type, :amount, :notes
 
+  enum payment_type: [:paypal, :check, :cash, :other]
+
   def initialize(payer, payment_options)
     @payer = payer
     @payment_type = payment_options[:payment_type]

@@ -9,6 +9,9 @@ class Participant < ActiveRecord::Base
   validates :age, numericality: true, allow_blank: true
   validates :email, format: { with: UserAccount::VALID_EMAIL_REGEX }, allow_blank: true
 
+  enum age_category: [:adult, :child, :baby]
+  enum gender: [:female, :male]
+
 
   def initialize(attributes={})
     super(attributes)
@@ -75,21 +78,6 @@ class Participant < ActiveRecord::Base
 
   def checked_in?
     !self.registered_at.nil?
-  end
-
-
-  def adult?
-    self.age_category == AgeCategory::ADULT
-  end
-
-
-  def child?
-    self.age_category == AgeCategory::CHILD
-  end
-
-
-  def baby?
-    self.age_category == AgeCategory::BABY
   end
 
 
