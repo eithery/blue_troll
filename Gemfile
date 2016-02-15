@@ -23,9 +23,7 @@ gem 'kaminari'
 
 gem 'pundit'
 gem 'faker'
-
 gem 'bcrypt'
-gem 'enumerate_it'
 
 gem 'delayed_job_active_record'
 gem 'delayed_mailhopper'
@@ -34,7 +32,7 @@ gem 'prawn'
 gem 'rubyzip'
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'sdoc', group: :doc
+gem 'sdoc', '~> 0.4.0', group: :doc
 
 
 group :development, :test do
