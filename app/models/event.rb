@@ -3,5 +3,7 @@
 # Represents Blue Trolley event.
 
 class Event < ApplicationRecord
-  validates :name, :started_on, :finished_on, :address, presence: true
+  include NameHolder, Trackable
+
+  validates :started_on, :finished_on, :address, presence: true
 end
