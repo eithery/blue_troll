@@ -1,10 +1,27 @@
-require 'spec_helper'
+# Eithery Lab, 2016.
+# Crew model specs.
+
+require 'rails_helper'
 
 describe Crew do
-  # Crews.
-  let(:crew) { FactoryGirl.build(:crew) }
-  let(:empty_crew) { FactoryGirl.create(:spies) }
+  subject { FactoryGirl.build :crew }
 
+  it_behaves_like 'a valid domain model'
+  it_behaves_like 'it has a required unique name'
+  it_behaves_like 'it has timestamps'
+
+  it { should respond_to :native_name }
+  it { should respond_to :active? }
+  it { should respond_to :location, :notes }
+
+  it { should have_db_index :native_name }
+  it { should validate_presence_of :native_name }
+  it { should validate_uniqueness_of(:native_name).case_insensitive }
+  it { should validate_length_of(:native_name).is_at_most 255 }
+  it { should validate_length_of(:location).is_at_most 255 }
+end
+
+=begin
   # User accounts.
   let(:crew_lead) { FactoryGirl.create(:crew_lead, crew: gwen.crew) }
   let(:gaby_account) { FactoryGirl.create(:active_user, crew_lead: true, crew: gwen.crew) }
@@ -15,9 +32,7 @@ describe Crew do
   let(:fix) { FactoryGirl.create(:fix, user_account: crew_lead) }
   let(:gaby) { FactoryGirl.create(:gaby, user_account: gaby_account) }
 
-  subject { crew }
 
-  it { should respond_to :name, :native_name, :active?, :location, :notes, :created_at, :updated_at }
   it { should respond_to :user_accounts, :participants }
   it { should respond_to :total_participants, :total_adults, :total_children, :total_babies }
 
@@ -25,61 +40,7 @@ describe Crew do
   it { should respond_to :to_file_name }
   it { should respond_to :display_name }
 
-  it { should be_valid }
   it { should be_active }
-
-
-  describe "validation" do
-    context "when name" do
-      context "is not present" do
-        before { crew.name = "  " }
-        it { should_not be_valid }
-        it { should have(1).error_on(:name) }
-      end
-
-      context "is nil" do
-        before { crew.name = nil }
-        it { should_not be_valid }
-        it { should have(1).error_on(:name) }
-      end
-
-      context "is duplicated" do
-        before do
-          existing_crew = FactoryGirl.create(:spies)
-          crew.name = existing_crew.name.upcase
-          crew.save
-        end
-        it { should_not be_valid }
-        it { should have(1).error_on(:name) }
-      end
-    end
-
-
-    context "when native_name" do
-      context "is not present" do
-        before { crew.native_name = "  " }
-        it { should_not be_valid }
-        it { should have(1).error_on(:native_name) }
-      end
-
-      context "is nil" do
-        before { crew.native_name = nil }
-        it { should_not be_valid }
-        it { should have(1).error_on(:native_name) }
-      end
-
-      context "is duplicated" do
-        before do
-          existing_crew = FactoryGirl.create(:spies)
-          crew.native_name = existing_crew.native_name.upcase
-          crew.save
-        end
-        it { should_not be_valid }
-        it { should have(1).error_on(:native_name) }
-      end
-    end
-  end
-
 
   describe "#user_accounts" do
     subject { gwen.crew.user_accounts }
@@ -187,4 +148,4 @@ describe Crew do
       empty_crew.to_file_name.should == 'enemy_spies'
     end
   end
-end
+=end

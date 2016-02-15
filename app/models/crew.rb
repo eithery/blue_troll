@@ -1,4 +1,15 @@
+# Eithery Lab, 2016.
+# Crew model.
+# Represents Blue Trolley crew.
+
 class Crew < ApplicationRecord
+  include NameHolder, Trackable
+
+  validates :native_name, presence: true, length: { maximum: 255 }, uniqueness: { case_sensitive: false }
+  validates :location, length: { maximum: 255 }
+end
+
+=begin
   has_many :user_accounts
 
   validates :name, :native_name, presence: true, uniqueness: { case_sensitive: false }
@@ -62,4 +73,4 @@ class Crew < ApplicationRecord
   def to_file_name
     name.gsub(/\s/, '_').downcase
   end
-end
+=end
