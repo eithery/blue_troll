@@ -1,10 +1,4 @@
 FactoryGirl.define do
-  # Crews.
-  factory :crew do
-    name 'Mad Hamsters'
-    native_name 'Бешеные Хомяки'
-  end
-
   factory :spies, class: Crew do
     name 'Enemy spies'
     native_name 'Вражеские шпионы'
