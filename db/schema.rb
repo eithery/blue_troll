@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150529022607) do
+ActiveRecord::Schema.define(version: 20160215061232) do
 
   create_table "crews", force: :cascade do |t|
     t.string   "name",                       null: false
@@ -21,10 +21,9 @@ ActiveRecord::Schema.define(version: 20150529022607) do
     t.text     "notes"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.index ["name"], name: "index_crews_on_name", unique: true
+    t.index ["native_name"], name: "index_crews_on_native_name", unique: true
   end
-
-  add_index "crews", ["name"], name: "index_crews_on_name", unique: true
-  add_index "crews", ["native_name"], name: "index_crews_on_native_name", unique: true
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -38,9 +37,8 @@ ActiveRecord::Schema.define(version: 20150529022607) do
     t.string   "queue"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "emails", force: :cascade do |t|
     t.string   "from_address",                       null: false
@@ -53,6 +51,16 @@ ActiveRecord::Schema.define(version: 20150529022607) do
     t.datetime "sent_at"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string   "name",        null: false
+    t.date     "started_on"
+    t.date     "finished_on"
+    t.string   "address"
+    t.text     "notes"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "participants", force: :cascade do |t|
@@ -88,9 +96,8 @@ ActiveRecord::Schema.define(version: 20150529022607) do
     t.string   "updated_by"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
+    t.index ["ticket_code"], name: "index_participants_on_ticket_code", unique: true
   end
-
-  add_index "participants", ["ticket_code"], name: "index_participants_on_ticket_code", unique: true
 
   create_table "user_accounts", force: :cascade do |t|
     t.integer  "crew_id"
@@ -111,12 +118,11 @@ ActiveRecord::Schema.define(version: 20150529022607) do
     t.datetime "activated_at"
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
+    t.index ["activation_token"], name: "index_user_accounts_on_activation_token"
+    t.index ["email"], name: "index_user_accounts_on_email", unique: true
+    t.index ["login"], name: "index_user_accounts_on_login", unique: true
+    t.index ["remember_token"], name: "index_user_accounts_on_remember_token", unique: true
+    t.index ["reset_password_token"], name: "index_user_accounts_on_reset_password_token"
   end
-
-  add_index "user_accounts", ["activation_token"], name: "index_user_accounts_on_activation_token"
-  add_index "user_accounts", ["email"], name: "index_user_accounts_on_email", unique: true
-  add_index "user_accounts", ["login"], name: "index_user_accounts_on_login", unique: true
-  add_index "user_accounts", ["remember_token"], name: "index_user_accounts_on_remember_token", unique: true
-  add_index "user_accounts", ["reset_password_token"], name: "index_user_accounts_on_reset_password_token"
 
 end
