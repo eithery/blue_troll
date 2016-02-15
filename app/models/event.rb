@@ -5,5 +5,6 @@
 class Event < ApplicationRecord
   include NameHolder, Trackable
 
-  validates :started_on, :finished_on, :address, presence: true
+  validates :started_on, :finished_on, presence: true
+  validates :address, presence: true, length: { maximum: 255 }
 end

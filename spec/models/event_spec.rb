@@ -17,4 +17,5 @@ describe Event do
   it { should validate_presence_of :started_on }
   it { should validate_presence_of :finished_on }
   it { should validate_presence_of :address }
+  it { should validate_length_of(:address).is_at_most 255 }
 end
