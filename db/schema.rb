@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160215203321) do
+ActiveRecord::Schema.define(version: 20160215210729) do
 
   create_table "crews", force: :cascade do |t|
     t.string   "name",                       null: false
@@ -38,6 +38,33 @@ ActiveRecord::Schema.define(version: 20160215203321) do
     t.string   "created_by",  null: false
     t.string   "updated_by",  null: false
     t.index ["name"], name: "index_events_on_name", unique: true
+  end
+
+  create_table "user_accounts", force: :cascade do |t|
+    t.integer  "crew_id"
+    t.string   "login",                                     null: false
+    t.string   "email",                                     null: false
+    t.string   "password_digest",                           null: false
+    t.string   "remember_digest"
+    t.boolean  "crew_lead",                 default: false, null: false
+    t.boolean  "financier",                 default: false, null: false
+    t.boolean  "gatekeeper",                default: false, null: false
+    t.boolean  "admin",                     default: false, null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_expired_at"
+    t.boolean  "active",                    default: false, null: false
+    t.string   "activation_token"
+    t.string   "activation_code"
+    t.datetime "activated_at"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.string   "created_by",                                null: false
+    t.string   "updated_by",                                null: false
+    t.index ["activation_token"], name: "index_user_accounts_on_activation_token"
+    t.index ["crew_id"], name: "index_user_accounts_on_crew_id"
+    t.index ["email"], name: "index_user_accounts_on_email", unique: true
+    t.index ["login"], name: "index_user_accounts_on_login", unique: true
+    t.index ["reset_password_token"], name: "index_user_accounts_on_reset_password_token"
   end
 
 end
