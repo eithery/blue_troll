@@ -61,6 +61,9 @@ ActiveRecord::Schema.define(version: 20160215061232) do
     t.text     "notes"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "created_by",  null: false
+    t.string   "updated_by",  null: false
+    t.index ["name"], name: "index_events_on_name", unique: true
   end
 
   create_table "participants", force: :cascade do |t|

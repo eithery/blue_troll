@@ -2,6 +2,8 @@
 # Blue Trolley event model migration.
 # Creates events data table.
 
+require_relative 'helpers/table_definition'
+
 class CreateEvents < ActiveRecord::Migration[5.0]
   def change
     create_table :events do |t|
@@ -11,7 +13,9 @@ class CreateEvents < ActiveRecord::Migration[5.0]
       t.string :address
       t.text :notes
 
-      t.timestamps null: false
+      t.full_timestamps
+
+      t.index :name, unique: true
     end
   end
 end
