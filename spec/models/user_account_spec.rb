@@ -8,13 +8,14 @@ describe UserAccount do
   it_behaves_like 'it has timestamps'
 
   it { should respond_to :login, :email, :email_confirmation }
-  it { should respond_to :password, :password_confirmation, :password_digest, :remember_digest }
+  it { should respond_to :password, :password_confirmation, :password_digest }
   it { should respond_to :crew_lead?, :financier?, :gatekeeper?, :admin? }
   it { should respond_to :activation_digest, :activated?, :activated_at }
   it { should respond_to :reset_digest, :reset_sent_at }
   it { should respond_to :crew, :participants }
-  it { should respond_to :name }
-  it { should respond_to :authenticate }
+  it { should respond_to :name, :to_file_name }
+  it { should respond_to :authenticate, :authenticated? }
+  it { should respond_to :remember_digest, :remember_token, :remember, :forget }
 
   it { should have_db_index :crew_id }
   it { should have_db_index(:login).unique }
@@ -46,7 +47,7 @@ describe UserAccount do
         %w[user@foo,com user_at_foo.org example.user@foo.foo@bar_baz.com foo_bar+baz.com].each do |invalid_email|
           user.email = user.email_confirmation = invalid_email
           expect(user).to_not be_valid
-          expect(user).to have(1).error_on(:email)
+          expect(user).to have(1).error_on :email
         end
       end
     end
@@ -58,6 +59,27 @@ describe UserAccount do
           expect(user).to be_valid
           expect(user).to have(:no).errors
         end
+      end
+    end
+
+    context 'when a crew is not specified' do
+      before { user.crew = nil }
+      it { expect(user).to be_valid }
+    end
+
+    context 'with a blank password' do
+      before { user.password = '  ' }
+      it 'expected to not be valid' do
+        expect(user).to_not be_valid
+        expect(user).to have(1).error_on :password
+      end
+    end
+
+    context 'with nil password' do
+      before { user.password = nil }
+      it 'expected to not be valid' do
+        expect(user).to_not be_valid
+        expect(user).to have(1).error_on :password
       end
     end
   end
@@ -73,86 +95,126 @@ describe UserAccount do
     it { is_expected.to_not be_a_gatekeeper }
     it { is_expected.to_not be_an_admin }
   end
+
+
+  describe '#email' do
+    let(:mixed_case_email) { 'Foo@ExAPMle.CoM' }
+
+    it 'is converted to lowercase before save' do
+      user.email = user.email_confirmation = mixed_case_email
+      user.save!
+      expect(user.reload.email).to eq mixed_case_email.downcase
+    end
+  end
+
+
+  describe '#login' do
+    let(:mixed_case_login) { "MyMIXEDcaseLoGin" }
+
+    it 'is converted to lowercase before save' do
+      user.login = mixed_case_login
+      user.save!
+      expect(user.reload.login).to eq mixed_case_login.downcase
+    end
+  end
+
+
+  describe '#authenticate' do
+    context 'with valid password' do
+      let(:correct_password) { user.password }
+      it { expect(user.authenticate(correct_password)).to be user }
+    end
+
+    context 'with invalid password' do
+      let(:wrong_password) { '123456' }
+      it { expect(user.authenticate(wrong_password)).to_not eq user }
+      it { expect(user.authenticate(wrong_password)).to be false }
+    end
+  end
+
+
+  describe '#name' do
+    it { expect(user.name).to be user.login }
+  end
+
+
+  describe '#to_file_name' do
+    it { expect(user.to_file_name).to be user.name }
+  end
+
+
+  describe '#crew' do
+    context 'for newly saved user' do
+      before { user.save! }
+      it { expect(user.reload.crew).to be_blank }
+    end
+  end
+
+
+  describe '#participants' do
+    subject(:user) { FactoryGirl.create(:user_account, :with_participants) }
+
+    it { expect(user).to have(3).participants }
+    it { expect(UserAccount.new).to have(:no).participants }
+  end
+
+
+  describe '#remember' do
+    it 'generates a new remember token and digest' do
+      expect(user.remember_token).to be nil
+      expect(user.remember_digest).to be nil
+      user.remember
+      new_token = user.remember_token
+      new_digest = user.remember_digest
+      expect(user.remember_token).to_not be nil
+      expect(user.remember_digest).to_not be nil
+      user.reload
+      expect(user.remember_token).to eq new_token
+      expect(user.remember_digest).to eq new_digest
+    end
+  end
+
+
+  describe '#forget' do
+    before do
+      user.save!
+      user.remember
+    end
+
+
+    it 'clears a remember token and digest' do
+      user.forget
+      expect(user.remember_token).to be nil
+      expect(user.remember_digest).to be nil
+      expect(user.reload.remember_digest).to be nil
+    end
+  end
+
+
+  describe '#authenticated?' do
+    before do
+      user.remember
+      @remember_token = user.remember_token
+    end
+
+    context 'when the user is not remembered' do
+      before { user.forget }
+      it { expect(user.authenticated? @remember_token).to be false }
+    end
+
+    context 'when the user is remembered' do
+      it { expect(user.authenticated? @remember_token).to be true }
+    end
+
+    context 'when the incorrect remember token passed' do
+      it { expect(user.authenticated? '123456').to be false }
+      it { expect(user.authenticated? nil).to be false }
+    end
+  end
 end
 
+
 =begin
-    context "when email" do
-      describe "address with mixed case" do
-        let(:mixed_case_email) { "Foo@ExAPMle.CoM" }
-        it "should be saved as all lower case" do
-          user.email = user.email_confirmation = mixed_case_email
-          user.save
-          user.reload.email.should == mixed_case_email.downcase
-        end
-      end
-    end
-
-  Password validation check.
-
-  describe "#authenticate" do
-    before { user.save }
-    let(:found_user_account) { UserAccount.find_by_email(user.email) }
-
-    context "with valid password" do
-      it { should == found_user_account.authenticate(user.password) }
-    end
-
-    context "with invalid password" do
-      let(:user_account_for_invalid_password) { found_user_account.authenticate('invalid') }
-      it { should_not == user_account_for_invalid_password }
-      specify { user_account_for_invalid_password.should be false }
-    end
-  end
-
-
-  describe "#name" do
-    specify { user.name.should == user.login }
-  end
-
-
-  describe "#participants" do
-    subject { gwen.user_account }
-    before { gwen; maryika; gaby; }
-
-    it { should have(3).participants }
-    its(:participants) { should include(gwen, maryika, gaby) }
-    specify { empty_user_account.should_not have(:any).participants }
-  end
-
-
-  describe "#crew" do
-    it "blank for the newly created user" do
-      user = new_user
-      user.save
-      user.reload.crew.should be_blank
-    end
-
-    it "equals to the crew this user belongs to" do
-      fix_crew = FactoryGirl.create(:fix_crew)
-      fix = FactoryGirl.create(:active_user, crew: fix_crew)
-      fix.crew.should be_equal(fix_crew)
-    end
-  end
-
-
-  describe "#remember_token" do
-    it "generated by save user account" do
-      user = new_user
-      user.remember_token.should be_blank
-      user.save
-      user.remember_token.should_not be_blank
-      user.reload.remember_token.should_not be_blank
-    end
-
-    it "different from previous one after save operations" do
-      token_before = gwen.user_account.remember_token
-      token_before.should_not be_blank
-      gwen.user_account.save
-      gwen.user_account.remember_token.should_not == token_before
-    end
-  end
-
-
   describe "#activate" do
     context "wnen provided activation code or token is invalid" do
       let(:invalid_code_or_token) { '123456789' }
@@ -225,5 +287,4 @@ end
     its(:reset_password_token) { should be_nil }
     its(:reset_password_expired_at) { should be_nil }
   end
-end
 =end
