@@ -1,6 +1,6 @@
 # Eithery Lab, 2016.
 # Crew model.
-# Represents Blue Trolley crew.
+# Represents a crew.
 
 class Crew < ApplicationRecord
   include NameHolder, Trackable
@@ -11,8 +11,6 @@ end
 
 =begin
   has_many :user_accounts
-
-  validates :name, :native_name, presence: true, uniqueness: { case_sensitive: false }
 
 
   def participants

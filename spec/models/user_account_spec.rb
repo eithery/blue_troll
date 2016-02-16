@@ -2,7 +2,7 @@
 # UserAccount model specs.
 
 describe UserAccount do
-  subject { FactoryGirl.build :user_account }
+  subject(:user) { FactoryGirl.build :user_account }
 
   it_behaves_like 'a valid domain model'
   it_behaves_like 'it has timestamps'
@@ -26,64 +26,59 @@ describe UserAccount do
   it { should validate_presence_of :email }
   it { should validate_presence_of :email_confirmation }
 
+  it { should have_secure_password }
+  it { should validate_confirmation_of :email }
+  it { should validate_confirmation_of :password }
+
   it { should validate_length_of(:login).is_at_least(4).is_at_most(255) }
   it { should validate_length_of(:password).is_at_least(6).is_at_most(72) }
 
   it { should validate_uniqueness_of(:login).case_insensitive }
   it { should validate_uniqueness_of(:email).case_insensitive }
+
+  it { should belong_to :crew }
+  it { should have_many(:participants).dependent :destroy }
+
+
+  describe 'validation' do
+    context 'when email has an invalid format' do
+      it 'is expected to not be valid' do
+        %w[user@foo,com user_at_foo.org example.user@foo.foo@bar_baz.com foo_bar+baz.com].each do |invalid_email|
+          user.email = user.email_confirmation = invalid_email
+          expect(user).to_not be_valid
+          expect(user).to have(1).error_on(:email)
+        end
+      end
+    end
+
+    context 'when email has a valid format' do
+      it 'is expected to be valid' do
+        %w[user@foo.COM A_US-ER@f.b.org first.last@foo.jp a+b@baz.cn].each do |valid_email|
+          user.email = user.email_confirmation = valid_email
+          expect(user).to be_valid
+          expect(user).to have(:no).errors
+        end
+      end
+    end
+  end
+
+
+  context 'when just created' do
+    subject { UserAccount.new }
+
+    it { is_expected.to_not be_valid }
+    it { is_expected.to_not be_activated }
+    it { is_expected.to_not be_a_crew_lead }
+    it { is_expected.to_not be_a_financier }
+    it { is_expected.to_not be_a_gatekeeper }
+    it { is_expected.to_not be_an_admin }
+  end
 end
 
 =begin
-  let(:empty_user_account) { FactoryGirl.create(:active_user) }
-  let(:maryika) { FactoryGirl.create(:maryika, user_account: gwen.user_account) }
-  let(:gaby) { FactoryGirl.create(:gaby, user_account: gwen.user_account) }
-  let(:new_user) { UserAccount.new(login: 'gwen123', email: 'hvost1@gmail.com', email_confirmation: 'hvost1@gmail.com',
-    password: 'secret', password_confirmation: 'secret') }
-
-  it { should respond_to :activate }
-  it { should respond_to :generate_reset_token, :reset }
-
-  it { should_not be_active }
-  it { should_not be_crew_lead }
-  it { should_not be_financier }
-  it { should_not be_gatekeeper }
-  it { should_not be_admin }
-  it { should_not be_dev }
-
-
-  describe "validation" do
     context "when email" do
-      context "does not match confirmation" do
-        before { user.email_confirmation = 'mismatch@gmail.com' }
-        it { should_not be_valid }
-        it { should have(1).error_on(:email_confirmation) }
-      end
-
-      context "format is invalid" do
-        it "should be invalid" do
-          emails = %w[user@foo,com user_at_foo.org example.user@foo.foo@bar_baz.com foo_bar+baz.com]
-          emails.each do |invalid_email|
-            user.email = user.email_confirmation = invalid_email
-            user.should_not be_valid
-            user.should have(1).error_on(:email)
-          end
-        end
-      end
-
-      context "format is valid" do
-        it "should be valid" do
-          emails = %w[user@foo.COM A_US-ER@f.b.org first.last@foo.jp a+b@baz.cn]
-          emails.each do |valid_email|
-            user.email = user.email_confirmation = valid_email
-            user.should be_valid
-            user.should_not have(:any).errors_on(:email)
-          end
-        end
-      end
-
       describe "address with mixed case" do
         let(:mixed_case_email) { "Foo@ExAPMle.CoM" }
-
         it "should be saved as all lower case" do
           user.email = user.email_confirmation = mixed_case_email
           user.save
@@ -92,16 +87,7 @@ end
       end
     end
 
-
-    context "when password" do
-      context "does not match confirmation" do
-        before { user.password_confirmation = 'mismatch'}
-        it { should_not be_valid }
-        it { user.should have(1).error_on(:password_confirmation) }
-      end
-    end
-  end
-
+  Password validation check.
 
   describe "#authenticate" do
     before { user.save }
