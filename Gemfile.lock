@@ -77,14 +77,6 @@ GEM
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.0)
     debug_inspector (0.0.2)
-    delayed_job (4.1.1)
-      activesupport (>= 3.0, < 5.0)
-    delayed_job_active_record (4.1.0)
-      activerecord (>= 3.0, < 5)
-      delayed_job (>= 3.0, < 5)
-    delayed_mailhopper (0.0.7)
-      delayed_job
-      mailhopper (>= 0.0.1)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.6.0)
@@ -131,8 +123,6 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mailhopper (0.3.0)
-      rails (>= 3.1.0)
     method_source (0.8.2)
     mime-types (2.99)
     mini_portile2 (2.0.0)
@@ -293,8 +283,6 @@ DEPENDENCIES
   byebug
   capybara
   coffee-rails (~> 4.1.0)
-  delayed_job_active_record
-  delayed_mailhopper
   factory_girl_rails
   factory_girl_rspec
   faker

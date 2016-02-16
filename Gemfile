@@ -25,8 +25,6 @@ gem 'pundit'
 gem 'faker'
 gem 'bcrypt'
 
-gem 'delayed_job_active_record'
-gem 'delayed_mailhopper'
 gem 'barby'
 gem 'prawn'
 gem 'rubyzip'
