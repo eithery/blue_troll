@@ -81,29 +81,28 @@ ActiveRecord::Schema.define(version: 20160215220902) do
 
   create_table "user_accounts", force: :cascade do |t|
     t.integer  "crew_id"
-    t.string   "login",                                     null: false
-    t.string   "email",                                     null: false
-    t.string   "password_digest",                           null: false
+    t.string   "login",                             null: false
+    t.string   "email",                             null: false
+    t.string   "password_digest",                   null: false
     t.string   "remember_digest"
-    t.boolean  "crew_lead",                 default: false, null: false
-    t.boolean  "financier",                 default: false, null: false
-    t.boolean  "gatekeeper",                default: false, null: false
-    t.boolean  "admin",                     default: false, null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_expired_at"
-    t.boolean  "active",                    default: false, null: false
-    t.string   "activation_token"
-    t.string   "activation_code"
+    t.boolean  "crew_lead",         default: false, null: false
+    t.boolean  "financier",         default: false, null: false
+    t.boolean  "gatekeeper",        default: false, null: false
+    t.boolean  "admin",             default: false, null: false
+    t.string   "activation_digest"
+    t.boolean  "activated",         default: false, null: false
     t.datetime "activated_at"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.string   "created_by",                                null: false
-    t.string   "updated_by",                                null: false
-    t.index ["activation_token"], name: "index_user_accounts_on_activation_token"
+    t.string   "reset_digest"
+    t.datetime "reset_sent_at"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "created_by",                        null: false
+    t.string   "updated_by",                        null: false
+    t.index ["activation_digest"], name: "index_user_accounts_on_activation_digest"
     t.index ["crew_id"], name: "index_user_accounts_on_crew_id"
     t.index ["email"], name: "index_user_accounts_on_email", unique: true
     t.index ["login"], name: "index_user_accounts_on_login", unique: true
-    t.index ["reset_password_token"], name: "index_user_accounts_on_reset_password_token"
+    t.index ["reset_digest"], name: "index_user_accounts_on_reset_digest"
   end
 
 end

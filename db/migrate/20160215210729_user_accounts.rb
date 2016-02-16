@@ -19,12 +19,12 @@ class UserAccounts < ActiveRecord::Migration[5.0]
       t.boolean :gatekeeper, null: false, default: false
       t.boolean :admin, null: false, default: false
 
-      t.string :reset_password_token, index: true
-      t.datetime :reset_password_expired_at
-      t.boolean :active, null: false, default: false
-      t.string :activation_token, index: true
-      t.string :activation_code
+      t.string :activation_digest, index: true
+      t.boolean :activated, null: false, default: false
       t.datetime :activated_at
+
+      t.string :reset_digest, index: true
+      t.datetime :reset_sent_at
 
       t.full_timestamps
 
