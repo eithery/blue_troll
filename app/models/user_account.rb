@@ -1,22 +1,29 @@
+# Eithery Lab, 2016.
+# UserAccount model.
+# Represents a user account.
+
 class UserAccount < ApplicationRecord
+  include Trackable
+
   has_secure_password
   has_many :participants, dependent: :destroy
   belongs_to :crew
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :login, presence: true, uniqueness: { case_sensitive: false }
-  validates :login, length: { minimum: 2 }, allow_blank: true 
+  validates :login, length: 4..255, allow_blank: true
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :email, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
   validates :email, confirmation: true
   validates :email_confirmation, presence: true
-  validates :password, length: { minimum: 6 }, allow_blank: true
+  validates :password, length: 6..72, allow_blank: true
 
   before_save do
     self.login.downcase!
     self.email.downcase!
   end
-  before_save :create_remember_token, :generate_activation_tokens
+
+#  before_save :create_remember_digest, :generate_activation_tokens
 
 
   def initialize(attributes={})

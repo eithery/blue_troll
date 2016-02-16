@@ -14,7 +14,7 @@ describe Crew do
   it { should respond_to :active? }
   it { should respond_to :location, :notes }
 
-  it { should have_db_index :native_name }
+  it { should have_db_index(:native_name).unique }
   it { should validate_presence_of :native_name }
   it { should validate_uniqueness_of(:native_name).case_insensitive }
   it { should validate_length_of(:native_name).is_at_most 255 }

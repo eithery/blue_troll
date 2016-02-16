@@ -1,26 +1,47 @@
-=begin
+# Eithery Lab, 2016.
+# UserAccount model specs.
+
 describe UserAccount do
-  let(:user) { FactoryGirl.build(:inactive_user) }
+  subject { FactoryGirl.build :user_account }
+
+  it_behaves_like 'a valid domain model'
+  it_behaves_like 'it has timestamps'
+
+  it { should respond_to :login, :email, :email_confirmation }
+  it { should respond_to :password, :password_confirmation, :password_digest, :remember_digest }
+  it { should respond_to :crew_lead?, :financier?, :gatekeeper?, :admin? }
+  it { should respond_to :activation_digest, :activated?, :activated_at }
+  it { should respond_to :reset_digest, :reset_sent_at }
+  it { should respond_to :crew, :participants }
+  it { should respond_to :name }
+  it { should respond_to :authenticate }
+
+  it { should have_db_index :crew_id }
+  it { should have_db_index(:login).unique }
+  it { should have_db_index(:email).unique }
+  it { should have_db_index :activation_digest }
+  it { should have_db_index :reset_digest }
+
+  it { should validate_presence_of :login }
+  it { should validate_presence_of :email }
+  it { should validate_presence_of :email_confirmation }
+
+  it { should validate_length_of(:login).is_at_least(4).is_at_most(255) }
+  it { should validate_length_of(:password).is_at_least(6).is_at_most(72) }
+
+  it { should validate_uniqueness_of(:login).case_insensitive }
+  it { should validate_uniqueness_of(:email).case_insensitive }
+end
+
+=begin
   let(:empty_user_account) { FactoryGirl.create(:active_user) }
-  let(:gwen) { FactoryGirl.create(:gwen) }
   let(:maryika) { FactoryGirl.create(:maryika, user_account: gwen.user_account) }
   let(:gaby) { FactoryGirl.create(:gaby, user_account: gwen.user_account) }
   let(:new_user) { UserAccount.new(login: 'gwen123', email: 'hvost1@gmail.com', email_confirmation: 'hvost1@gmail.com',
     password: 'secret', password_confirmation: 'secret') }
 
-  subject { user }
-
-  it { should respond_to :login, :email, :email_confirmation, :password, :password_confirmation, :password_digest }
-  it { should respond_to :crew_lead?, :financier?, :gatekeeper?, :admin?, :dev? }
-  it { should respond_to :remember_token, :reset_password_token, :reset_password_expired_at }
-  it { should respond_to :active?, :activation_token, :activation_code, :activated_at }
-  it { should respond_to :created_at, :updated_at }
-  it { should respond_to :name, :crew, :participants }
-  it { should respond_to :authenticate }
   it { should respond_to :activate }
   it { should respond_to :generate_reset_token, :reset }
-
-  it { should be_valid }
 
   it { should_not be_active }
   it { should_not be_crew_lead }
@@ -31,58 +52,9 @@ describe UserAccount do
 
 
   describe "validation" do
-    context "when login" do
-      context "is not entered" do
-        before { user.login = "  " }
-        it { should_not be_valid }
-        it { should have(1).error_on(:login) }
-      end
-
-      context "is nil" do
-        before { user.login = nil }
-        it { should_not be_valid }
-        it { should have(1).error_on(:login) }
-      end
-
-      context "is too short" do
-        before { user.login = 'a' }
-        it { should_not be_valid }
-        it { should have(1).error_on(:login) }
-      end
-
-      context "is duplicated" do
-        before do
-          existing_user = FactoryGirl.create(:active_user)
-          user.login = existing_user.login.upcase
-          user.save
-        end
-        it { should_not be_valid }
-        it { should have(1).error_on(:login) }
-      end
-    end
-
-
     context "when email" do
-      context "is not entered" do
-        before { user.email = "  " }
-        it { should_not be_valid }
-        it { should have(1).error_on(:email) }
-      end
-
-      context "confirmation is not entered" do
-        before { user.email_confirmation = " " }
-        it { should_not be_valid }
-        it { should have(2).errors_on(:email_confirmation) }
-      end
-
       context "does not match confirmation" do
         before { user.email_confirmation = 'mismatch@gmail.com' }
-        it { should_not be_valid }
-        it { should have(1).error_on(:email_confirmation) }
-      end
-
-      context "confirmation is nil" do
-        before { user.email_confirmation = nil }
         it { should_not be_valid }
         it { should have(1).error_on(:email_confirmation) }
       end
@@ -109,16 +81,6 @@ describe UserAccount do
         end
       end
 
-      context "is duplicated" do
-        before do
-          existing_user = FactoryGirl.create(:active_user)
-          user.email = user.email_confirmation = existing_user.email.upcase
-          user.save
-        end
-        it { should_not be_valid }
-        it { user.should have(1).error_on(:email) }
-      end
-
       describe "address with mixed case" do
         let(:mixed_case_email) { "Foo@ExAPMle.CoM" }
 
@@ -132,34 +94,10 @@ describe UserAccount do
 
 
     context "when password" do
-      context "is not entered" do
-        before { user.password = user.password_confirmation = "  " }
-        it { should_not be_valid }
-        it { user.should have(2).errors_on(:password_confirmation) }
-      end
-
-      context "confirmation is not entered" do
-        before { user.password_confirmation = "  " }
-        it { should_not be_valid }
-        it { user.should have(2).errors_on(:password_confirmation) }
-      end
-
       context "does not match confirmation" do
         before { user.password_confirmation = 'mismatch'}
         it { should_not be_valid }
         it { user.should have(1).error_on(:password_confirmation) }
-      end
-
-      context "confirmation is nil" do
-        before { user.password_confirmation = nil }
-        it { should_not be_valid }
-        it { user.should have(1).error_on(:password_confirmation) }
-      end
-
-      context "is too short" do
-        before { user.password = user.password_confirmation = "a" * 5 }
-        it { should_not be_valid }
-        it { user.should have(1).error_on(:password) }
       end
     end
   end
