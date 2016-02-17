@@ -1,5 +1,5 @@
 # Eithery Lab, 2016.
-# Blue Trolley UserAccount model migration.
+# UserAccount model migration.
 # Creates user_accounts data table.
 
 require_relative 'helpers/table_definition'
@@ -14,9 +14,6 @@ class UserAccounts < ActiveRecord::Migration[5.0]
       t.string :password_digest, null: false
       t.string :remember_digest
 
-      t.boolean :crew_lead, null: false, default: false
-      t.boolean :financier, null: false, default: false
-      t.boolean :gatekeeper, null: false, default: false
       t.boolean :admin, null: false, default: false
 
       t.string :activation_digest, index: true

@@ -1,5 +1,5 @@
 # Eithery Lab, 2016.
-# Blue Trolley Crew model migration.
+# Crew model migration.
 # Creates crews data table.
 
 require_relative 'helpers/table_definition'
