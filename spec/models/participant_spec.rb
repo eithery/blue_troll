@@ -1,5 +1,12 @@
 =begin
 
+  it { should respond_to :crew_lead?, :financier?, :gatekeeper?, :admin? }
+
+    it { is_expected.to_not be_a_crew_lead }
+    it { is_expected.to_not be_a_financier }
+    it { is_expected.to_not be_a_gatekeeper }
+
+
 describe Participant do
   let(:gwen) { FactoryGirl.create(:gwen) }
   let(:crew_lead) { FactoryGirl.create(:crew_lead, crew: gwen.crew) }

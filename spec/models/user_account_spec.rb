@@ -1,6 +1,8 @@
 # Eithery Lab, 2016.
 # UserAccount model specs.
 
+require 'rails_helper'
+
 describe UserAccount do
   subject(:user) { FactoryGirl.build :user_account }
 
@@ -9,7 +11,7 @@ describe UserAccount do
 
   it { should respond_to :login, :email, :email_confirmation }
   it { should respond_to :password, :password_confirmation, :password_digest }
-  it { should respond_to :crew_lead?, :financier?, :gatekeeper?, :admin? }
+  it { should respond_to :admin? }
   it { should respond_to :activation_digest, :activated?, :activated_at }
   it { should respond_to :reset_digest, :reset_sent_at }
   it { should respond_to :crew, :participants }
@@ -90,9 +92,6 @@ describe UserAccount do
 
     it { is_expected.to_not be_valid }
     it { is_expected.to_not be_activated }
-    it { is_expected.to_not be_a_crew_lead }
-    it { is_expected.to_not be_a_financier }
-    it { is_expected.to_not be_a_gatekeeper }
     it { is_expected.to_not be_an_admin }
   end
 

@@ -3,7 +3,6 @@ class Participant < ApplicationRecord
   attr_accessor :requested_crew_id
 
   validates :last_name, :first_name, presence: true
-  validates :ticket_code, uniqueness: true, length: { minimum: 10 }
   validates :user_account, presence: true
   validates :age, presence: true, unless: Proc.new { |p| p.adult? }
   validates :age, numericality: true, allow_blank: true
@@ -14,8 +13,8 @@ class Participant < ApplicationRecord
 
 
   def initialize(attributes={})
-    super(attributes)
-    generate_ticket_code
+    super
+#    generate_ticket_code
   end
 
 
