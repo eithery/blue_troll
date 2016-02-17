@@ -27,16 +27,25 @@ ActiveRecord::Schema.define(version: 20160215220902) do
     t.index ["native_name"], name: "index_crews_on_native_name", unique: true
   end
 
+  create_table "event_types", force: :cascade do |t|
+    t.string  "name",                                 null: false
+    t.text    "description"
+    t.boolean "enabled",               default: true, null: false
+    t.integer "ordinal",     limit: 1
+  end
+
   create_table "events", force: :cascade do |t|
-    t.string   "name",        null: false
+    t.integer  "event_type_id", null: false
+    t.string   "name",          null: false
     t.date     "started_on"
     t.date     "finished_on"
     t.string   "address"
     t.text     "notes"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "created_by",  null: false
-    t.string   "updated_by",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "created_by",    null: false
+    t.string   "updated_by",    null: false
+    t.index ["event_type_id"], name: "index_events_on_event_type_id"
     t.index ["name"], name: "index_events_on_name", unique: true
   end
 
