@@ -13,25 +13,25 @@ describe Crew do
   it { should respond_to :native_name }
   it { should respond_to :active? }
   it { should respond_to :location, :notes }
+  it { should respond_to :event_type }
 
   it { should have_db_index(:native_name).unique }
+  it { should have_db_index(:event_type_id) }
+
   it { should validate_presence_of :native_name }
+  it { should validate_presence_of :event_type }
+
   it { should validate_uniqueness_of(:native_name).case_insensitive }
   it { should validate_length_of(:native_name).is_at_most 255 }
   it { should validate_length_of(:location).is_at_most 255 }
+
+  it { should belong_to :event_type }
 end
 
 =begin
   # User accounts.
   let(:crew_lead) { FactoryGirl.create(:crew_lead, crew: gwen.crew) }
   let(:gaby_account) { FactoryGirl.create(:active_user, crew_lead: true, crew: gwen.crew) }
-
-  # Participants.
-  let(:gwen) { FactoryGirl.create(:gwen) }
-  let(:maryika) { FactoryGirl.create(:maryika, user_account: gwen.user_account) }
-  let(:fix) { FactoryGirl.create(:fix, user_account: crew_lead) }
-  let(:gaby) { FactoryGirl.create(:gaby, user_account: gaby_account) }
-
 
   it { should respond_to :user_accounts, :participants }
   it { should respond_to :total_participants, :total_adults, :total_children, :total_babies }

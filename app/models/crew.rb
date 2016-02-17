@@ -5,6 +5,9 @@
 class Crew < ApplicationRecord
   include NameHolder, Trackable
 
+  belongs_to :event_type
+
+  validates :event_type, presence: true
   validates :native_name, presence: true, length: { maximum: 255 }, uniqueness: { case_sensitive: false }
   validates :location, length: { maximum: 255 }
 end
