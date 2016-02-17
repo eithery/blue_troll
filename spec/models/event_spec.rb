@@ -14,6 +14,7 @@ describe Event do
   it { should respond_to :address }
   it { should respond_to :notes }
   it { should respond_to :event_type }
+  it { should respond_to :crews }
 
   it { should validate_presence_of :started_on }
   it { should validate_presence_of :finished_on }
@@ -23,4 +24,5 @@ describe Event do
 
   it { should belong_to :event_type }
   it { should have_db_index :event_type_id }
+  it { should have_many(:crews).class_name EventCrew }
 end
