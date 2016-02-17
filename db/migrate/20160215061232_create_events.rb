@@ -18,6 +18,7 @@ class CreateEvents < ActiveRecord::Migration[5.0]
       t.full_timestamps
 
       t.index :name, unique: true
+      t.foreign_key :event_types
     end
   end
 end
