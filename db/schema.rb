@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20160215220902) do
     t.text    "description"
     t.boolean "enabled",               default: true, null: false
     t.integer "ordinal",     limit: 1
+    t.index ["name"], name: "index_event_types_on_name", unique: true
   end
 
   create_table "events", force: :cascade do |t|

@@ -9,6 +9,8 @@ class CreateEventTypes < ActiveRecord::Migration[5.0]
       t.text :description
       t.boolean :enabled, null: false, default: 1
       t.integer :ordinal, limit: 1
+
+      t.index :name, unique: true
     end
   end
 end
