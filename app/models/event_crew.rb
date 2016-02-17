@@ -1,0 +1,2 @@
+class EventCrew < ApplicationRecord
+end
