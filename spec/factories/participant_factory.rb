@@ -3,7 +3,7 @@
 
 FactoryGirl.define do
   factory :participant do
-    association :user_account
+    association :user_account, factory: :user_with_crew
 
     last_name 'Smith'
     first_name 'John'

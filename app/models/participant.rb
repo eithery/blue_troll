@@ -1,8 +1,13 @@
-class Participant < ApplicationRecord
-  belongs_to :user_account
-  attr_accessor :requested_crew_id
+# Eithery Lab, 2016.
+# Participant model.
+# Represents a participant personal info.
 
-  validates :last_name, :first_name, presence: true
+class Participant < ApplicationRecord
+  include Trackable
+
+  belongs_to :user_account, inverse_of: :participants
+
+  validates :last_name, :first_name, :age_category, presence: true
   validates :user_account, presence: true
   validates :age, presence: true, unless: Proc.new { |p| p.adult? }
   validates :age, numericality: true, allow_blank: true
@@ -12,12 +17,12 @@ class Participant < ApplicationRecord
   enum gender: [:female, :male]
 
 
-  def initialize(attributes={})
-    super
-#    generate_ticket_code
+  def crew
+    user_account.crew
   end
+end
 
-
+=begin
   def full_name
     "#{last_name}, #{first_name}"
   end
@@ -32,16 +37,6 @@ class Participant < ApplicationRecord
     return self[:email] unless self[:email].blank?
     return user_account.email unless user_account.nil?
     nil
-  end
-
-
-  def crew
-    user_account.crew
-  end
-
-
-  def crew_lead?(user)
-    user.crew_lead? && !self.crew.blank? && self.crew.lead?(user)
   end
 
 
@@ -119,4 +114,4 @@ private
   def generate_ticket_code
     self.ticket_code = SecureRandom.hex[0, 10] if self.ticket_code.blank?
   end
-end
+=end

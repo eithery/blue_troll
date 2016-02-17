@@ -1,78 +1,53 @@
-=begin
+# Eithery Lab, 2016.
+# Participant model specs.
 
-  it { should respond_to :crew_lead?, :financier?, :gatekeeper?, :admin? }
-
-    it { is_expected.to_not be_a_crew_lead }
-    it { is_expected.to_not be_a_financier }
-    it { is_expected.to_not be_a_gatekeeper }
-
+require 'rails_helper'
 
 describe Participant do
-  let(:gwen) { FactoryGirl.create(:gwen) }
-  let(:crew_lead) { FactoryGirl.create(:crew_lead, crew: gwen.crew) }
-  let(:financier) { FactoryGirl.create(:financier) }
-  subject { gwen }
+  subject(:participant) { FactoryGirl.build :participant }
+
+  it_behaves_like 'a valid domain model'
+  it_behaves_like 'it has timestamps'
 
   it { should respond_to :user_account, :crew }
   it { should respond_to :last_name, :first_name, :middle_name, :gender, :age_category, :age, :born_on }
-  it { should respond_to :home_phone, :cell_phone, :email, :address }
-  it { should respond_to :ticket_code }
-  it { should respond_to :flagged?, :notes }
-  it { should respond_to :approved?, :approved_at, :approved_by, :registered_at, :registered_by }
-  it { should respond_to :payment_type, :payment_sent_at, :payment_sent_by, :payment_notes }
-  it { should respond_to :payment_sent?, :payment_received?, :payment_confirmed? }
-  it { should respond_to :payment_received_at, :payment_received_by, :payment_confirmed_at, :payment_confirmed_by }
-  it { should respond_to :approve, :send_payment, :receive_payment, :confirm_payment }
-  it { should respond_to :created_by, :updated_by, :created_at, :updated_at }
-  it { should respond_to :full_name, :display_name }
+  it { should respond_to :home_phone, :cell_phone, :email, :address, :notes }
+  it { should respond_to :crew_lead?, :financier?, :gatekeeper? }
 
-  specify { Participant.should respond_to :find_by_ticket }
+  it { should validate_presence_of :user_account }
+  it { should validate_presence_of :last_name }
+  it { should validate_presence_of :first_name }
+  it { should validate_presence_of :age_category }
 
-  it { should be_valid }
+  it { should have_db_index :user_account_id }
+  it { should have_db_index :last_name }
+  it { should have_db_index :email }
 
-  describe "validation" do
-    context "when last_name" do
-      context "is not present" do
-        before { gwen.last_name = "  " }
-        it { should_not be_valid }
-        it { should have(1).error_on(:last_name) }
-      end
-
-      context "is nil" do
-        before { gwen.last_name = nil }
-        it { should_not be_valid }
-        it { should have(1).error_on(:last_name) }
-      end
-    end
+  it { should belong_to(:user_account).inverse_of :participants }
 
 
-    describe "when first name" do
-      context "is not present" do
-        before { gwen.first_name = "  " }
-        it { should_not be_valid }
-        it { should have(1).error_on(:first_name) }
-      end
+  context 'when just created' do
+    subject { Participant.new }
 
-      context "is nil" do
-        before { gwen.first_name = nil }
-        it { should_not be_valid }
-        it { should have(1).error_on(:first_name) }
-      end
-    end
-
-    context "when user account is not set" do
-      before { gwen.user_account = nil }
-      it { should_not be_valid }
-      it { should have(1).error_on(:user_account) }
-    end
+    it { is_expected.to_not be_valid }
+    it { is_expected.to_not be_a_crew_lead }
+    it { is_expected.to_not be_a_financier }
+    it { is_expected.to_not be_a_gatekeeper }
   end
 
 
   describe "#crew" do
-    it "should the same as user account crew" do
-      gwen.crew.should be_equal(gwen.user_account.crew)
+    it "is the same as user account crew" do
+      expect(participant.crew).to_not be_nil
+      expect(participant.crew).to eq participant.user_account.crew
     end
   end
+end
+
+
+=begin
+
+
 
 
   describe "#full_name" do
@@ -112,7 +87,7 @@ describe Participant do
   end
 
 
-  describe "#ticket code" do
+def   describe "#ticket code" do
     context "for new participant" do
       let(:new_participant) { FactoryGirl.build(:gaby) }
       subject { new_participant }
