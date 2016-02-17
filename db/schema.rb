@@ -14,15 +14,17 @@
 ActiveRecord::Schema.define(version: 20160217180647) do
 
   create_table "crews", force: :cascade do |t|
-    t.string   "name",                       null: false
-    t.string   "native_name",                null: false
-    t.boolean  "active",      default: true, null: false
+    t.integer  "event_type_id",                null: false
+    t.string   "name",                         null: false
+    t.string   "native_name",                  null: false
+    t.boolean  "active",        default: true, null: false
     t.string   "location"
     t.text     "notes"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.string   "created_by",                 null: false
-    t.string   "updated_by",                 null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "created_by",                   null: false
+    t.string   "updated_by",                   null: false
+    t.index ["event_type_id"], name: "index_crews_on_event_type_id"
     t.index ["name"], name: "index_crews_on_name", unique: true
     t.index ["native_name"], name: "index_crews_on_native_name", unique: true
   end
