@@ -21,8 +21,8 @@ class CreateEventParticipants < ActiveRecord::Migration[5.0]
 
       t.datetime :approved_at
       t.string :approved_by
-      t.datetime :registered_at
-      t.string :registered_by
+      t.datetime :checked_in_at
+      t.string :checked_in_by
 
       t.integer :payment_type
       t.datetime :payment_sent_at
