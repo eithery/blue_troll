@@ -4,12 +4,12 @@
 require 'rails_helper'
 
 describe EventParticipant do
-  subject { FactoryGirl.build :event_participant }
+  subject { FactoryGirl.build :event_participant, :with_event_crew }
 
   it_behaves_like 'a valid domain model'
   it_behaves_like 'it has timestamps'
 
-  it { should respond_to :event, :crew, :participant }
+  it { should respond_to :event, :event_crew, :participant }
   it { should respond_to :ticket_code }
   it { should respond_to :crew_lead?, :financier?, :gatekeeper? }
   it { should respond_to :flagged?, :notes }
@@ -21,14 +21,11 @@ describe EventParticipant do
   it { should respond_to :approve, :send_payment, :receive_payment, :confirm_payment }
   it { should respond_to :unpaid?, :paid?, :status }
 
-  it { should have_db_index :crew_id }
+  it { should have_db_index :event_crew_id }
   it { should have_db_index :participant_id }
   it { should have_db_index(:ticket_code).unique }
 
-  it { should validate_presence_of :crew }
-  it { should validate_presence_of :participant }
-
-  it { should belong_to(:crew).class_name(EventCrew).inverse_of :participants }
+  it { should belong_to(:event_crew).inverse_of :participants }
   it { should belong_to :participant }
 
 

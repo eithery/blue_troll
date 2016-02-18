@@ -151,7 +151,7 @@ describe UserAccount do
 
 
   describe '#participants' do
-    subject(:user) { FactoryGirl.create(:user_account, :with_participants) }
+    let(:user) { FactoryGirl.create(:user_account, :with_participants) }
 
     it { expect(user).to have(3).participants }
     it { expect(UserAccount.new).to have(:no).participants }
