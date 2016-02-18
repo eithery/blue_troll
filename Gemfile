@@ -36,7 +36,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   gem 'sqlite3'
   gem 'byebug'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '>= 3.5.0.beta1'
   gem 'pry-rails'
 end
 
@@ -60,10 +60,8 @@ group :test do
   gem 'rails-controller-testing'
   gem 'capybara'
   gem 'factory_girl_rails'
-  gem 'factory_girl_rspec'
   gem 'rspec-activemodel-mocks'
   gem 'rspec-collection_matchers'
-  gem 'rspec-its'
   gem 'shoulda-matchers', '~> 3.0'
   gem 'shoulda-kept-respond-with-content-type'
 end
