@@ -7,7 +7,7 @@ require_relative 'helpers/table_definition'
 class CreateEventParticipants < ActiveRecord::Migration[5.0]
   def change
     create_table :event_participants do |t|
-      t.belongs_to :crew, null: false, index: true
+      t.belongs_to :event_crew, null: false, index: true
       t.belongs_to :participant, null: false, index: true
 
       t.string :ticket_code
@@ -37,7 +37,7 @@ class CreateEventParticipants < ActiveRecord::Migration[5.0]
 
       t.index :ticket_code, unique: true
 
-      t.foreign_key :event_crews, column: :crew_id
+      t.foreign_key :event_crews
       t.foreign_key :participants
     end
   end
