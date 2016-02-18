@@ -7,6 +7,7 @@ class EventCrew < ApplicationRecord
 
   belongs_to :crew
   belongs_to :event, inverse_of: :crews
+  has_many :participants, class_name: EventParticipant
 
   validates :event, :crew, presence: true
 end
