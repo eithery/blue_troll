@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20160217180647) do
   end
 
   create_table "event_participants", force: :cascade do |t|
-    t.integer  "event_id",                             null: false
+    t.integer  "crew_id",                              null: false
     t.integer  "participant_id",                       null: false
     t.string   "ticket_code"
     t.boolean  "crew_lead"
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20160217180647) do
     t.datetime "updated_at",                           null: false
     t.string   "created_by",                           null: false
     t.string   "updated_by",                           null: false
-    t.index ["event_id"], name: "index_event_participants_on_event_id"
+    t.index ["crew_id"], name: "index_event_participants_on_crew_id"
     t.index ["participant_id"], name: "index_event_participants_on_participant_id"
     t.index ["ticket_code"], name: "index_event_participants_on_ticket_code", unique: true
   end
