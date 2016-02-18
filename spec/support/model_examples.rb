@@ -4,8 +4,7 @@
 require 'rails_helper'
 
 shared_examples_for 'a valid domain model' do
-  let(:domain_model) { FactoryGirl.build(described_class.to_s.underscore.to_sym) }
-  it { expect(domain_model).to be_valid }
+  it { is_expected.to be_valid }
 end
 
 
