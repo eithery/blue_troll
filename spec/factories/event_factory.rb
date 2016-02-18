@@ -10,5 +10,12 @@ FactoryGirl.define do
     address 'KOA East Stroudsburg PA'
     created_by 'test'
     updated_by 'test'
+
+    trait :with_crews do
+      after(:build) do |event|
+        event.crews << build(:event_crew, event: event, crew: create(:crew))
+        event.crews << build(:event_crew, event: event, crew: create(:crew, name: 'KSPUS spies', native_name: 'Редиски'))
+      end
+    end
   end
 end

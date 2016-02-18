@@ -3,8 +3,8 @@
 
 FactoryGirl.define do
   factory :crew do
-    name 'Mad Hamsters'
-    native_name 'Бешеные Хомяки'
+    name { Faker::Team.name }
+    native_name { Faker::Team.name }
     event_type_id 1
     created_by 'test'
     updated_by 'test'

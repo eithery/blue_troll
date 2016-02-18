@@ -7,8 +7,10 @@ FactoryGirl.define do
     created_by 'test'
     updated_by 'test'
 
-    after(:build) do |ep|
-      ep.crew = build(:event_crew, crew: ep.participant.crew)
+    trait :with_event_crew do
+      after(:build) do |ep|
+        ep.event_crew = build(:event_crew, crew: ep.participant.crew)
+      end
     end
   end
 end

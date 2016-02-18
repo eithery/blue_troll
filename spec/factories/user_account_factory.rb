@@ -3,9 +3,9 @@
 
 FactoryGirl.define do
   factory :user_account do
-    login 'gwen'
-    email 'gwen@gmail.com'
-    email_confirmation 'gwen@gmail.com'
+    login { Faker::Lorem.characters(10) }
+    email { Faker::Internet.email }
+    email_confirmation { email }
     password 'secret'
     password_confirmation 'secret'
     activated true
