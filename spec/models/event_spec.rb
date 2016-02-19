@@ -17,6 +17,8 @@ describe Event do
   it { should respond_to :event_type }
   it { should respond_to :crews, :participants }
   it { should respond_to :participant_by_ticket }
+  it { should respond_to :crew_leads, :financiers, :gatekeepers }
+  it { should respond_to :statistics }
 
   it { should validate_presence_of :started_on }
   it { should validate_presence_of :finished_on }
@@ -61,6 +63,15 @@ describe Event do
   describe '#crews' do
     it { expect(event_with_crews).to have(2).crews }
     it { expect(Event.new).to have(:no).crews }
+
+    it 'does not allow to be deleted when has assigned crews' do
+      expect { event_with_crews.destroy }.to raise_error ActiveRecord::DeleteRestrictionError
+    end
+
+    it 'can be deleted if no crews assigned' do
+      event_with_crews.crews.destroy_all
+      expect { event_with_crews.destroy }.to change { Event.count }.by -1
+    end
   end
 
 
@@ -73,5 +84,21 @@ describe Event do
 
 
   describe '#participant_by_ticket' do
+  end
+
+
+  describe '#crew_leads' do
+  end
+
+
+  describe '#financiers' do
+  end
+
+
+  describe '#gatekeepers' do
+  end
+
+
+  describe '#statistics' do
   end
 end

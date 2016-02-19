@@ -1,6 +1,6 @@
 # Eithery Lab, 2016.
 # Event model.
-# Represents Blue Trolley event.
+# Represents the organizational event (Blue Trolley, party, concert).
 
 class Event < ApplicationRecord
   include NameHolder, Trackable
@@ -19,6 +19,21 @@ class Event < ApplicationRecord
     participants.find { |p| p.ticket_code.to_i(16).to_s == ticket_code.strip }
   end
 
+
+  def crew_leads
+  end
+
+
+  def financiers
+  end
+
+
+  def gatekeepers
+  end
+
+
+  def statistics
+  end
 
 private
 

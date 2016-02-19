@@ -1,5 +1,5 @@
 # Eithery Lab, 2016.
-# Blue Trolley Event model migration.
+# Event model migration.
 # Creates events data table.
 
 require_relative 'helpers/table_definition'
