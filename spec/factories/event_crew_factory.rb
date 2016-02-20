@@ -4,7 +4,7 @@
 FactoryGirl.define do
   factory :event_crew do
     association :event
-    association :crew
+    association :prototype, factory: :crew
     created_by 'test'
     updated_by 'test'
   end

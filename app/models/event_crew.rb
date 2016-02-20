@@ -5,11 +5,19 @@
 class EventCrew < ApplicationRecord
   include Trackable
 
-  belongs_to :crew
+  belongs_to :prototype, class_name: Crew, foreign_key: :crew_id
   belongs_to :event, inverse_of: :crews
   has_many :participants, class_name: EventParticipant
 
-  validates :event, :crew, presence: true
+
+  def name
+    prototype.name
+  end
+
+
+  def to_file_name
+    name.gsub(/\s/, '_').downcase
+  end
 
 
   def leads
@@ -20,8 +28,7 @@ class EventCrew < ApplicationRecord
   end
 
 
-  def to_file_name
-    name.gsub(/\s/, '_').downcase
+  def lead_emails
   end
 
 
