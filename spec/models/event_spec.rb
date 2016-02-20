@@ -18,6 +18,7 @@ describe Event do
   it { should respond_to :crews, :participants }
   it { should respond_to :participant_by_ticket }
   it { should respond_to :crew_leads, :financiers, :gatekeepers }
+  it { should respond_to :crew_lead_emails, :financier_emails }
   it { should respond_to :statistics }
 
   it { should validate_presence_of :started_on }
@@ -91,7 +92,15 @@ describe Event do
   end
 
 
+  describe '#crew_lead_emails' do
+  end
+
+
   describe '#financiers' do
+  end
+
+
+  describe '#financier_emails' do
   end
 
 

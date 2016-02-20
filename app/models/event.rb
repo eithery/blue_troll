@@ -24,7 +24,15 @@ class Event < ApplicationRecord
   end
 
 
+  def crew_lead_emails
+  end
+
+
   def financiers
+  end
+
+
+  def financier_emails
   end
 
 
