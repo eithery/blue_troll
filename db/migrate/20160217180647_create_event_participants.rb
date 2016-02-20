@@ -12,9 +12,9 @@ class CreateEventParticipants < ActiveRecord::Migration[5.0]
 
       t.string :ticket_code
 
-      t.boolean :crew_lead
-      t.boolean :financier
-      t.boolean :gatekeeper
+      t.boolean :crew_lead, null: false, default: false
+      t.boolean :financier, null: false, default: false
+      t.boolean :gatekeeper, null: false, default: false
 
       t.boolean :flagged, null: false, default: false
       t.text :notes

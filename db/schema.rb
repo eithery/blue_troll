@@ -45,9 +45,9 @@ ActiveRecord::Schema.define(version: 20160217180647) do
     t.integer  "event_crew_id",                        null: false
     t.integer  "participant_id",                       null: false
     t.string   "ticket_code"
-    t.boolean  "crew_lead"
-    t.boolean  "financier"
-    t.boolean  "gatekeeper"
+    t.boolean  "crew_lead",            default: false, null: false
+    t.boolean  "financier",            default: false, null: false
+    t.boolean  "gatekeeper",           default: false, null: false
     t.boolean  "flagged",              default: false, null: false
     t.text     "notes"
     t.datetime "approved_at"
@@ -95,12 +95,12 @@ ActiveRecord::Schema.define(version: 20160217180647) do
   end
 
   create_table "participants", force: :cascade do |t|
-    t.integer  "user_account_id",                 null: false
-    t.string   "last_name",                       null: false
-    t.string   "first_name",                      null: false
+    t.integer  "user_account_id",             null: false
+    t.string   "last_name",                   null: false
+    t.string   "first_name",                  null: false
     t.string   "middle_name"
     t.integer  "gender"
-    t.integer  "age_category",    default: 0,     null: false
+    t.integer  "age_category",    default: 0, null: false
     t.integer  "age"
     t.date     "born_on"
     t.string   "home_phone"
@@ -108,39 +108,32 @@ ActiveRecord::Schema.define(version: 20160217180647) do
     t.string   "email"
     t.text     "address"
     t.text     "notes"
-    t.boolean  "crew_lead",       default: false, null: false
-    t.boolean  "financier",       default: false, null: false
-    t.boolean  "gatekeeper",      default: false, null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.string   "created_by",                      null: false
-    t.string   "updated_by",                      null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "created_by",                  null: false
+    t.string   "updated_by",                  null: false
     t.index ["email"], name: "index_participants_on_email"
     t.index ["last_name"], name: "index_participants_on_last_name"
     t.index ["user_account_id"], name: "index_participants_on_user_account_id"
   end
 
   create_table "user_accounts", force: :cascade do |t|
-    t.integer  "crew_id"
     t.string   "login",                             null: false
     t.string   "email",                             null: false
     t.string   "password_digest",                   null: false
     t.string   "remember_digest"
-    t.boolean  "admin",             default: false, null: false
-    t.string   "activation_digest"
-    t.boolean  "activated",         default: false, null: false
-    t.datetime "activated_at"
+    t.string   "activation_digest",                 null: false
     t.string   "reset_digest"
+    t.datetime "activated_at"
     t.datetime "reset_sent_at"
+    t.boolean  "admin",             default: false, null: false
+    t.boolean  "activated",         default: false, null: false
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.string   "created_by",                        null: false
     t.string   "updated_by",                        null: false
-    t.index ["activation_digest"], name: "index_user_accounts_on_activation_digest"
-    t.index ["crew_id"], name: "index_user_accounts_on_crew_id"
     t.index ["email"], name: "index_user_accounts_on_email", unique: true
     t.index ["login"], name: "index_user_accounts_on_login", unique: true
-    t.index ["reset_digest"], name: "index_user_accounts_on_reset_digest"
   end
 
 end

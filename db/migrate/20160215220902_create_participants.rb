@@ -23,10 +23,6 @@ class CreateParticipants < ActiveRecord::Migration[5.0]
       t.text :address
       t.text :notes
 
-      t.boolean :crew_lead, null: false, default: false
-      t.boolean :financier, null: false, default: false
-      t.boolean :gatekeeper, null: false, default: false
-
       t.full_timestamps
 
       t.foreign_key :user_accounts
