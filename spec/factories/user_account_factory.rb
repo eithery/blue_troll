@@ -13,12 +13,8 @@ FactoryGirl.define do
     created_by 'test'
     updated_by 'test'
 
-    factory :user_with_crew do
-      association :crew
-    end
-
     trait :with_participants do
-      after(:create) do |user|
+      after(:build) do |user|
         user.participants << [
           build(:participant, user_account: user),
           build(:participant, user_account: user),

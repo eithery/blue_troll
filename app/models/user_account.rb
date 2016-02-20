@@ -5,11 +5,14 @@
 class UserAccount < ApplicationRecord
   include Trackable
 
-  attr_accessor :remember_token
+  attr_accessor :remember_token, :activation_token
 
   has_secure_password
   has_many :participants, dependent: :destroy
-  belongs_to :crew, required: false
+  alias_method :persons, :participants
+
+  before_save :downcase_credentials
+  before_create :create_activation_digest
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :login, presence: true, uniqueness: { case_sensitive: false }
@@ -21,9 +24,10 @@ class UserAccount < ApplicationRecord
   validates :password, presence: true
   validates :password, length: 6..72, allow_blank: true
 
-  before_save do
-    self.login.downcase!
-    self.email.downcase!
+
+  def self.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
   end
 
 
@@ -55,63 +59,33 @@ class UserAccount < ApplicationRecord
   end
 
 
-private
-
-  def self.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
-    BCrypt::Password.create(string, cost: cost)
+  def can_approve?(participant)
+#    !participant.approved? && (lead_of?(participant.crew) || admin?)
   end
 
+
+  def can_confirm_payment?(participant)
+#    return false if participant.payment_confirmed?
+#    return true if self.financier? || self.admin?
+#    !participant.payment_received? && participant.crew_lead?(self)
+  end
+
+
+private
 
   def self.new_token
     SecureRandom.urlsafe_base64
   end
+
+
+  def create_activation_digest
+    self.activation_token = UserAccount.new_token
+    self.activation_digest = UserAccount.digest(activation_token)
+  end
+
+
+  def downcase_credentials
+    self.login.downcase!
+    self.email.downcase!
+  end
 end
-
-=begin
-  def activate(code_or_token)
-    (self.activation_code == code_or_token || self.activation_token == code_or_token) &&
-      update_attributes!(email_confirmation: email, active: true, activated_at: Time.now)
-  end
-
-  def generate_reset_token
-    self.reset_password_token = SecureRandom.urlsafe_base64
-    self.reset_password_expired_at = Time.now
-    save(validate: false)
-  end
-
-  def reset
-    self.reset_password_token = nil
-    self.reset_password_expired_at = nil
-    save(validate: false)
-  end
-
-
-  def can_approve?(participant, event)
-    (lead_of?(participant.crew) || admin?) && !participant.approved?
-  end
-
-  def can_confirm_payment?(participant)
-    return false if participant.payment_confirmed?
-    return true if self.financier? || self.admin?
-    !participant.payment_received? && participant.crew_lead?(self)
-  end
-
-
-  def send_payment(payment)
-    payment.payees.each { |payee| payee.send_payment(payment) }
-  end
-
-
-  def self.financier_emails
-    financiers = UserAccount.where(financier: true)
-    return financiers.map { |fin| fin.email }
-  end
-
-
-private
-  def generate_activation_tokens
-    self.activation_code = SecureRandom.hex[0, 6].to_i(16).to_s if self.activation_code.blank?
-    self.activation_token = SecureRandom.urlsafe_base64 if self.activation_token.blank?
-  end
-=end

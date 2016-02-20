@@ -5,6 +5,7 @@ require 'rails_helper'
 
 describe UserAccount do
   subject(:user) { FactoryGirl.build :user_account }
+  let(:new_user) { UserAccount.new }
 
   it_behaves_like 'a valid domain model'
   it_behaves_like 'it has timestamps'
@@ -12,24 +13,24 @@ describe UserAccount do
   it { should respond_to :login, :email, :email_confirmation }
   it { should respond_to :password, :password_confirmation, :password_digest }
   it { should respond_to :admin? }
-  it { should respond_to :activation_digest, :activated?, :activated_at }
-  it { should respond_to :reset_digest, :reset_sent_at }
-  it { should respond_to :crew, :participants }
-  it { should respond_to :name, :to_file_name }
   it { should respond_to :authenticate, :authenticated? }
   it { should respond_to :remember_digest, :remember_token, :remember, :forget }
+  it { should respond_to :activation_digest, :activated?, :activated_at }
+  it { should respond_to :reset_digest, :reset_sent_at }
+  it { should respond_to :participants, :persons }
+  it { should respond_to :name, :to_file_name }
+  it { should respond_to :can_approve?, :can_confirm_payment? }
+  it { expect(UserAccount).to respond_to :digest }
 
-  it { should have_db_index :crew_id }
   it { should have_db_index(:login).unique }
   it { should have_db_index(:email).unique }
-  it { should have_db_index :activation_digest }
-  it { should have_db_index :reset_digest }
 
   it { should validate_presence_of :login }
   it { should validate_presence_of :email }
   it { should validate_presence_of :email_confirmation }
 
   it { should have_secure_password }
+
   it { should validate_confirmation_of :email }
   it { should validate_confirmation_of :password }
 
@@ -39,7 +40,6 @@ describe UserAccount do
   it { should validate_uniqueness_of(:login).case_insensitive }
   it { should validate_uniqueness_of(:email).case_insensitive }
 
-  it { should belong_to :crew }
   it { should have_many(:participants).dependent :destroy }
 
 
@@ -64,11 +64,6 @@ describe UserAccount do
       end
     end
 
-    context 'when a crew is not specified' do
-      before { user.crew = nil }
-      it { expect(user).to be_valid }
-    end
-
     context 'with a blank password' do
       before { user.password = '  ' }
       it 'expected to not be valid' do
@@ -88,7 +83,7 @@ describe UserAccount do
 
 
   context 'when just created' do
-    subject { UserAccount.new }
+    subject { new_user }
 
     it { is_expected.to_not be_valid }
     it { is_expected.to_not be_activated }
@@ -142,19 +137,11 @@ describe UserAccount do
   end
 
 
-  describe '#crew' do
-    context 'for newly saved user' do
-      before { user.save! }
-      it { expect(user.reload.crew).to be_blank }
-    end
-  end
-
-
-  describe '#participants' do
+  describe '#participants, #persons' do
     let(:user) { FactoryGirl.create(:user_account, :with_participants) }
 
-    it { expect(user).to have(3).participants }
-    it { expect(UserAccount.new).to have(:no).participants }
+    it { expect(user).to have(3).persons }
+    it { expect(UserAccount.new).to have(:no).persons }
   end
 
 
@@ -165,8 +152,8 @@ describe UserAccount do
       user.remember
       new_token = user.remember_token
       new_digest = user.remember_digest
-      expect(user.remember_token).to_not be nil
-      expect(user.remember_digest).to_not be nil
+      expect(user.remember_token).to_not be_blank
+      expect(user.remember_digest).to_not be_blank
       user.reload
       expect(user.remember_token).to eq new_token
       expect(user.remember_digest).to eq new_digest
@@ -179,7 +166,6 @@ describe UserAccount do
       user.save!
       user.remember
     end
-
 
     it 'clears a remember token and digest' do
       user.forget
@@ -210,80 +196,31 @@ describe UserAccount do
       it { expect(user.authenticated? nil).to be false }
     end
   end
+
+
+  describe '#activation_token, #activation_digest' do
+    context 'for a new user account' do
+      it { expect(new_user.activation_token).to be nil }
+      it { expect(new_user.activation_digest).to be nil }
+    end
+
+    context 'for the first-time saved user account' do
+      before { user.save! }
+
+      it { expect(user.activation_token).to_not be_blank }
+      it { expect(user.activation_digest).to_not be_blank }
+    end
+  end
+
+
+  describe '.digest' do
+  end
+
+
+  describe '#can_approve?' do
+  end
+
+
+  describe '#can_confirm_payment?' do
+  end
 end
-
-
-=begin
-  describe "#activate" do
-    context "wnen provided activation code or token is invalid" do
-      let(:invalid_code_or_token) { '123456789' }
-      before { user.activate(invalid_code_or_token) }
-
-      it { should_not be_active }
-      its(:activated_at) { should be_nil }
-    end
-
-    context "by valid code" do
-      before { user.activate(user.activation_code) }
-      it { should be_active }
-      its(:activated_at) { should_not be_nil }
-    end
-
-    context "by valid activation token" do
-      before { user.activate(user.activation_token) }
-      it { should be_active }
-      its(:activated_at) { should_not be_nil }
-    end
-  end
-
-
-  describe "#activation_token" do
-    subject { new_user.activation_token }
-
-    context "for new user account" do
-      it { should be_blank }
-    end
-
-    context "for saved user account" do
-      before { new_user.save }
-      it { should_not be_blank }
-    end
-  end
-
-
-  describe "#activation_code" do
-    subject { new_user.activation_code }
-
-    context "for new user account" do
-      it { should be_blank }
-    end
-
-    context "for saved user account" do
-      before { new_user.save }
-
-      it { should_not be_blank }
-      it { should have_at_least(6).digits }
-    end
-  end
-
-
-  describe "#generate_reset_token" do
-    subject { gwen.user_account }
-    before { gwen.user_account.generate_reset_token }
-
-    its(:reset_password_token) { should_not be_blank }
-    its(:reset_password_expired_at) { should_not be_blank }
-  end
-
-
-  describe "#reset" do
-    subject { gwen.user_account }
-    before do
-      gwen.user_account.generate_reset_token
-      gwen.user_account.reset
-    end
-
-    its(:reset_password_token) { should be_nil }
-    its(:reset_password_expired_at) { should be_nil }
-  end
-=end
