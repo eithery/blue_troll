@@ -10,4 +10,21 @@ class EventCrew < ApplicationRecord
   has_many :participants, class_name: EventParticipant
 
   validates :event, :crew, presence: true
+
+
+  def leads
+  end
+
+
+  def emails
+  end
+
+
+  def to_file_name
+    name.gsub(/\s/, '_').downcase
+  end
+
+
+  def statistics
+  end
 end
