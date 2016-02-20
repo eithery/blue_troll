@@ -3,13 +3,13 @@
 
 FactoryGirl.define do
   factory :event_participant do
-    association :participant
+    association :person, factory: :participant
     created_by 'test'
     updated_by 'test'
 
     trait :with_event_crew do
       after(:build) do |ep|
-        ep.event_crew = build(:event_crew, crew: ep.participant.crew)
+        ep.crew = build(:event_crew, prototype: ep.crew)
       end
     end
   end

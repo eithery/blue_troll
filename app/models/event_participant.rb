@@ -5,8 +5,8 @@
 class EventParticipant < ApplicationRecord
   include Trackable
 
-  belongs_to :event_crew, inverse_of: :participants
-  belongs_to :participant
+  belongs_to :crew, class_name: EventCrew, foreign_key: :event_crew_id, inverse_of: :participants
+  belongs_to :person, class_name: Participant, foreign_key: :participant_id
 
   validates :ticket_code, uniqueness: true, length: { is: 10 }, if: ->(p){ p.approved? }
 

@@ -8,13 +8,13 @@ shared_context 'prepared event' do
     event = FactoryGirl.create(:event)
     3.times do |n|
       crew = FactoryGirl.create(:crew)
-      event.crews << FactoryGirl.create(:event_crew, event: event, crew: crew)
+      event.crews << FactoryGirl.create(:event_crew, event: event, prototype: crew)
     end
 
     user = FactoryGirl.create(:user_account)
     5.times do |n|
       participant = FactoryGirl.create(:participant, user_account: user)
-      FactoryGirl.create(:event_participant, participant: participant, event_crew: event.crews.first)
+      FactoryGirl.create(:event_participant, person: participant, crew: event.crews.first)
     end
 
     event.save!

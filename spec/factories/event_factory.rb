@@ -13,8 +13,8 @@ FactoryGirl.define do
 
     trait :with_crews do
       after(:build) do |event|
-        event.crews << build(:event_crew, event: event, crew: create(:crew))
-        event.crews << build(:event_crew, event: event, crew: create(:crew, name: 'KSPUS spies', native_name: 'Редиски'))
+        event.crews << build(:event_crew, event: event, prototype: create(:crew))
+        event.crews << build(:event_crew, event: event, prototype: create(:crew))
       end
     end
   end

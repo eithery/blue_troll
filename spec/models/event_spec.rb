@@ -85,6 +85,17 @@ describe Event do
 
 
   describe '#participant_by_ticket' do
+    context "when a ticket code is valid" do
+      it "returns a participant for specified ticket code" do
+#        valid_ticket_code = gwen.ticket_code.to_i(16).to_s
+#        Participant.find_by_ticket(valid_ticket_code).should == gwen
+      end
+    end
+
+    context "when a ticket code is not valid" do
+#      invalid_ticket_code = '1234567890'
+#      Participant.find_by_ticket(invalid_ticket_code).should be_nil
+    end
   end
 
 
