@@ -13,6 +13,10 @@ FactoryGirl.define do
     created_by 'test'
     updated_by 'test'
 
+    factory :admin do
+      admin true
+    end
+
     trait :with_participants do
       after(:build) do |user|
         user.participants << [
