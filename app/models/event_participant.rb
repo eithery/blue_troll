@@ -29,6 +29,11 @@ class EventParticipant < ApplicationRecord
   end
 
 
+  def user
+    person.user_account
+  end
+
+
   def approved?
     !approved_at.nil?
   end
