@@ -8,7 +8,6 @@ class Participant < ApplicationRecord
   belongs_to :user_account, inverse_of: :participants
 
   validates :last_name, :first_name, :age_category, presence: true
-  validates :user_account, presence: true
   validates :age, presence: true, unless: Proc.new { |p| p.adult? }
   validates :age, numericality: true, allow_blank: true
   validates :email, format: { with: UserAccount::VALID_EMAIL_REGEX }, allow_blank: true

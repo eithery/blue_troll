@@ -27,6 +27,12 @@ describe Participant do
 
 
   describe 'validation' do
+    context 'when a user account is not set' do
+      before { participant.user_account = nil }
+
+      it { is_expected.to_not be_valid }
+      it { is_expected.to have(1).error_on :user_account }
+    end
   end
 
 
@@ -45,18 +51,37 @@ describe Participant do
 
 
   describe '#email' do
-#    it_behaves_like 'performing email format check'
+    let(:other_email) { 'other_email@gmail.com' }
+    it_behaves_like 'it performs email format validation'
 
     context 'when email is not set for a participant' do
+      before { participant.email = nil }
+
+      it { expect(participant.email).to_not be_blank }
+      it { expect(participant.email).to eq participant.user_account.email }
     end
 
     context 'when email differs from the user account email' do
+      before { participant.email = other_email }
+
+      it { expect(participant.email).to_not be_blank }
+      it { expect(participant.email).to eq other_email }
     end
 
     context 'when email is the same as the user account email' do
+      before { participant.email = participant.user_account.email }
+
+      it { expect(participant.email).to_not be_blank }
+      it { expect(participant.email).to eq participant.user_account.email }
     end
 
     context 'when the user account email is blank' do
+      before do
+        participant.email = nil
+        participant.user_account.email = nil
+      end
+
+      it { expect(participant.email).to be nil }
     end
   end
 end

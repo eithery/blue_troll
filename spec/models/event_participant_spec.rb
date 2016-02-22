@@ -59,7 +59,7 @@ describe EventParticipant do
 
 
   describe '#ticket_code' do
-    context 'for a just created participant' do
+    context 'for a new participant' do
       it { expect(participant.ticket_code).to be nil }
     end
 
@@ -179,7 +179,7 @@ describe EventParticipant do
   describe '#approve' do
     include_context 'upcoming event'
 
-    context 'for newly created participant' do
+    context 'for a newly created participant' do
       it { expect(participant).to_not be_approved }
       it { expect(participant.approved_at).to be nil }
       it { expect(participant.approved_by).to be nil }
@@ -216,7 +216,7 @@ describe EventParticipant do
   describe '#send_payment' do
     include_context 'upcoming event'
 
-    context 'for newly created participant' do
+    context 'for a newly created participant' do
       it { expect(participant).to_not be_payment_sent }
       it { expect(participant.payment_sent_at).to be nil }
       it { expect(participant.payment_sent_by).to be nil }
@@ -242,7 +242,7 @@ describe EventParticipant do
   describe '#receive_payment' do
     include_context 'upcoming event'
 
-    context 'for newly created participant' do
+    context 'for a newly created participant' do
       it { expect(participant).to_not be_payment_received }
       it { expect(participant.payment_received_at).to be nil }
       it { expect(participant.payment_received_by).to be nil }
@@ -279,7 +279,7 @@ describe EventParticipant do
   describe '#confirm_payment' do
     include_context 'upcoming event'
 
-    context 'for newly created participant' do
+    context 'for a newly created participant' do
       it { expect(participant).to_not be_payment_confirmed }
       it { expect(participant.payment_confirmed_at).to be nil }
       it { expect(participant.payment_confirmed_by).to be nil }

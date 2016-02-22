@@ -7,4 +7,7 @@ module Exceptions
 
   class InvalidFinancierError < StandardError
   end
+
+  class EmailNotDefinedError < StandardError
+  end
 end

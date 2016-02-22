@@ -25,3 +25,7 @@ shared_examples_for 'it has timestamps' do
   it { should validate_presence_of :created_by }
   it { should validate_presence_of :updated_by }
 end
+
+
+shared_examples_for 'it performs email format validation' do
+end
