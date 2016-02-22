@@ -60,14 +60,37 @@ class UserAccount < ApplicationRecord
 
 
   def can_approve?(participant)
-#    !participant.approved? && (lead_of?(participant.crew) || admin?)
+    !participant.approved? && (admin? || crew_lead_for?(participant))
   end
 
 
-  def can_confirm_payment?(participant)
-#    return false if participant.payment_confirmed?
-#    return true if self.financier? || self.admin?
-#    !participant.payment_received? && participant.crew_lead?(self)
+  def can_receive_payment_of?(participant)
+    !participant.payment_received? && (admin? || financier_for?(participant) || crew_lead_for?(participant))
+  end
+
+
+  def can_confirm_payment_of?(participant)
+    !participant.payment_confirmed? && (admin? || financier_for?(participant))
+  end
+
+
+  def financier_of?(event)
+    event.financiers.any? { |fin| fin.user == self }
+  end
+
+
+  def financier_for?(participant)
+    financier_of? participant.event
+  end
+
+
+  def crew_lead_of?(crew)
+    crew.leads.any? { |lead| lead.user == self }
+  end
+
+
+  def crew_lead_for?(participant)
+    crew_lead_of? participant.crew
   end
 
 

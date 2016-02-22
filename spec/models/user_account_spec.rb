@@ -5,7 +5,7 @@ require 'rails_helper'
 
 describe UserAccount do
   subject(:user) { FactoryGirl.build :user_account }
-  let(:new_user) { UserAccount.new }
+  let(:admin) { FactoryGirl.build :admin }
 
   it_behaves_like 'a valid domain model'
   it_behaves_like 'it has timestamps'
@@ -22,7 +22,8 @@ describe UserAccount do
   it { should respond_to :reset_digest, :reset_sent_at }
   it { should respond_to :participants, :persons }
   it { should respond_to :name, :to_file_name }
-  it { should respond_to :can_approve?, :can_confirm_payment? }
+  it { should respond_to :crew_lead_of?, :crew_lead_for?, :financier_of?, :financier_for? }
+  it { should respond_to :can_approve?, :can_receive_payment_of?, :can_confirm_payment_of? }
   it { expect(UserAccount).to respond_to :digest }
 
   it { should have_db_index(:login).unique }
@@ -66,11 +67,9 @@ describe UserAccount do
 
 
   context 'when just created' do
-    subject { new_user }
-
-    it { is_expected.to_not be_valid }
-    it { is_expected.to_not be_activated }
-    it { is_expected.to_not be_an_admin }
+    it { expect(UserAccount.new).to_not be_valid }
+    it { expect(UserAccount.new).to_not be_activated }
+    it { expect(UserAccount.new).to_not be_an_admin }
   end
 
 
@@ -183,8 +182,8 @@ describe UserAccount do
 
   describe '#activation_token, #activation_digest' do
     context 'for a new user account' do
-      it { expect(new_user.activation_token).to be nil }
-      it { expect(new_user.activation_digest).to be nil }
+      it { expect(user.activation_token).to be nil }
+      it { expect(user.activation_digest).to be nil }
     end
 
     context 'for the first-time saved user account' do
@@ -192,18 +191,130 @@ describe UserAccount do
 
       it { expect(user.activation_token).to_not be_blank }
       it { expect(user.activation_digest).to_not be_blank }
+      it { expect(user.activation_digest).to have_at_least(20).characters }
+      it { expect(user.activation_token).to have(22).characters }
     end
   end
 
 
   describe '.digest' do
+    it { expect(UserAccount.digest('some_string')).to_not be_blank }
+    it { expect(UserAccount.digest('some_string')).to have_at_least(20).characters }
+  end
+
+
+  describe '#financier_of' do
+  end
+
+
+  describe '#financier_for' do
+    include_context 'upcoming event'
+  end
+
+
+  describe '#crew_lead_of' do
+  end
+
+
+  describe '#crew_lead_for' do
+    include_context 'upcoming event'
   end
 
 
   describe '#can_approve?' do
+    include_context 'upcoming event'
+
+    context 'when a participant is already approved' do
+      before { participant.approved_at = Time.now }
+      it { expect(crew_lead.user.can_approve? participant).to be false }
+    end
+
+    context 'when a user is not a crew lead' do
+      it { expect(other_participant.user.can_approve? participant).to be false }
+    end
+
+    context 'when a user is a crew lead of an other crew' do
+      it { expect(other_crew_lead.user.can_approve? participant).to be false }
+    end
+
+    context 'when a user is a valid crew lead' do
+      it { expect(crew_lead.user.can_approve? participant).to be true }
+    end
+
+    context 'when a user is a crew lead but not at this event' do
+      it { expect(other_event_crew_lead.user.can_approve? participant).to be false }
+    end
+
+    context 'when a user is an admin' do
+      it { expect(admin.can_approve? participant).to be true }
+    end
+  end
+
+
+  describe '#can_receive_payment?' do
+    include_context 'upcoming event'
+
+    context 'when payment is already received' do
+      before { participant.payment_received_at = Time.now }
+      it { expect(crew_lead.user.can_receive_payment_of? participant).to be false }
+    end
+
+    context 'when a user is not a crew lead' do
+      it { expect(other_participant.user.can_receive_payment_of? participant).to be false }
+    end
+
+    context 'when a user is a crew lead of an other crew' do
+      it { expect(other_crew_lead.user.can_receive_payment_of? participant).to be false }
+    end
+
+    context 'when a user us a valid crew lead' do
+      it { expect(crew_lead.user.can_receive_payment_of? participant).to be true }
+    end
+
+    context 'when a user is a crew lead but not at this event' do
+      it { expect(other_event_crew_lead.user.can_receive_payment_of? participant).to be false }
+    end
+
+    context 'when a user is a financier' do
+      it { expect(financier.user.can_receive_payment_of? participant).to be true }
+    end
+
+    context 'when a user is a financier but not at this event' do
+      it { expect(other_financier.user.can_receive_payment_of? participant).to be false}
+    end
+
+    context 'when a user is an admin' do
+      it { expect(admin.can_receive_payment_of? participant).to be true }
+    end
   end
 
 
   describe '#can_confirm_payment?' do
+    include_context 'upcoming event'
+
+    context 'when payment is already confirmed' do
+      before { participant.payment_confirmed_at = Time.now }
+      it { expect(financier.user.can_confirm_payment_of? participant).to be false }
+    end
+
+    context 'when a user is not a crew lead' do
+      it { expect(other_participant.user.can_confirm_payment_of? participant).to be false }
+    end
+
+    context 'when a user us a valid crew lead' do
+      it { expect(crew_lead.user.can_confirm_payment_of? participant).to be false }
+    end
+
+    context 'when a user is a financier' do
+      it { expect(financier.user.can_confirm_payment_of? participant).to be true }
+    end
+
+    context 'when a user is a financier but not at this event' do
+      it { expect(other_financier.user.can_confirm_payment_of? participant).to be false}
+    end
+
+    context 'when a user is an admin' do
+      it { expect(admin.can_confirm_payment_of? participant).to be true }
+    end
   end
 end
