@@ -9,6 +9,9 @@ describe UserAccount do
 
   it_behaves_like 'a valid domain model'
   it_behaves_like 'it has timestamps'
+  it_behaves_like 'it performs email format validation' do
+    let(:email_holder) { user }
+  end
 
   it { should respond_to :login, :email, :email_confirmation }
   it { should respond_to :password, :password_confirmation, :password_digest }
@@ -44,26 +47,6 @@ describe UserAccount do
 
 
   describe 'validation' do
-    context 'when email has an invalid format' do
-      it 'is expected to not be valid' do
-        %w[user@foo,com user_at_foo.org example.user@foo.foo@bar_baz.com foo_bar+baz.com].each do |invalid_email|
-          user.email = user.email_confirmation = invalid_email
-          expect(user).to_not be_valid
-          expect(user).to have(1).error_on :email
-        end
-      end
-    end
-
-    context 'when email has a valid format' do
-      it 'is expected to be valid' do
-        %w[user@foo.COM A_US-ER@f.b.org first.last@foo.jp a+b@baz.cn].each do |valid_email|
-          user.email = user.email_confirmation = valid_email
-          expect(user).to be_valid
-          expect(user).to have(:no).errors
-        end
-      end
-    end
-
     context 'with a blank password' do
       before { user.password = '  ' }
       it 'expected to not be valid' do

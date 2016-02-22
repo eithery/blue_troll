@@ -28,4 +28,25 @@ end
 
 
 shared_examples_for 'it performs email format validation' do
+  context 'when email has an invalid format' do
+    it 'is expected to not be valid' do
+      %w[user@foo,com user_at_foo.org example.user@foo.foo@bar_baz.com foo_bar+baz.com].each do |invalid_email|
+        email_holder.email = invalid_email
+        email_holder.email_confirmation = invalid_email if email_holder.respond_to? :email_confirmation
+        expect(email_holder).to_not be_valid
+        expect(email_holder).to have(1).error_on :email
+      end
+    end
+  end
+
+  context 'when email has a valid format' do
+    it 'is expected to be valid' do
+      %w[user@foo.COM A_US-ER@f.b.org first.last@foo.jp a+b@baz.cn].each do |valid_email|
+        email_holder.email = valid_email
+        email_holder.email_confirmation = valid_email if email_holder.respond_to? :email_confirmation
+        expect(email_holder).to be_valid
+        expect(email_holder).to have(:no).errors
+      end
+    end
+  end
 end

@@ -9,6 +9,9 @@ describe Participant do
 
   it_behaves_like 'a valid domain model'
   it_behaves_like 'it has timestamps'
+  it_behaves_like 'it performs email format validation' do
+    let(:email_holder) { participant }
+  end
 
   it { should respond_to :user_account }
   it { should respond_to :last_name, :first_name, :middle_name, :gender, :age_category, :age, :born_on }
@@ -52,7 +55,6 @@ describe Participant do
 
   describe '#email' do
     let(:other_email) { 'other_email@gmail.com' }
-    it_behaves_like 'it performs email format validation'
 
     context 'when email is not set for a participant' do
       before { participant.email = nil }
