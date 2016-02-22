@@ -24,7 +24,7 @@ class CreateEventParticipants < ActiveRecord::Migration[5.0]
       t.datetime :checked_in_at
       t.string :checked_in_by
 
-      t.integer :payment_type
+      t.integer :payment_type, limit: 1
       t.datetime :payment_sent_at
       t.string :payment_sent_by
       t.string :payment_notes
