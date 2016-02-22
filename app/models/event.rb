@@ -29,6 +29,7 @@ class Event < ApplicationRecord
 
 
   def financiers
+    participants.select { |p| p.financier? }
   end
 
 

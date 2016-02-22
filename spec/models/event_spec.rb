@@ -77,9 +77,9 @@ describe Event do
 
 
   describe '#participants' do
-    include_context 'prepared event'
+    include_context 'upcoming event'
 
-    it { expect(event).to have(5).participants }
+    it { expect(event).to have(8).participants }
     it { expect(Event.new).to have(:no).participants }
   end
 

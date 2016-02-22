@@ -21,6 +21,7 @@ class EventCrew < ApplicationRecord
 
 
   def leads
+    participants.select { |p| p.crew_lead? }
   end
 
 

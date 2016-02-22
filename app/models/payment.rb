@@ -1,7 +1,11 @@
 class Payment
   attr_reader :payer, :payees, :payment_type, :amount, :notes
 
-#  enum payment_type: [:paypal, :check, :cash, :other]
+  PAYPAL = EventParticipant.payment_types[:paypal]
+  CHECK = EventParticipant.payment_types[:check]
+  CASH = EventParticipant.payment_types[:cash]
+  OTHER = EventParticipant.payment_types[:other]
+
 
   def initialize(payer, payment_options)
     @payer = payer
@@ -10,8 +14,8 @@ class Payment
     @notes = payment_options[:notes]
     @payee_id = payment_options[:payee]
 
-    @payees = @payer.participants.to_a.select { |p| p.unpaid? }
-    @payees = @payees.select { |p| p.id == @payee_id } unless @payee_id.blank?
+#    @payees = @payer.participants.to_a.select { |p| p.unpaid? }
+#    @payees = @payees.select { |p| p.id == @payee_id } unless @payee_id.blank?
   end
 
 
