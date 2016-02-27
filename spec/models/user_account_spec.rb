@@ -22,7 +22,7 @@ describe UserAccount do
   it { should respond_to :reset_digest, :reset_sent_at }
   it { should respond_to :participants, :persons }
   it { should respond_to :name, :to_file_name }
-  it { should respond_to :crew_lead_of?, :crew_lead_for?, :financier_of?, :financier_for? }
+  it { should respond_to :crew_lead_of?, :crew_lead_for?, :financier_at?, :financier_for? }
   it { should respond_to :can_approve?, :can_receive_payment_of?, :can_confirm_payment_of? }
   it { expect(UserAccount).to respond_to :digest }
 
@@ -203,21 +203,103 @@ describe UserAccount do
   end
 
 
-  describe '#financier_of' do
-  end
-
-
-  describe '#financier_for' do
+  describe '#financier_at?' do
     include_context 'upcoming event'
+
+    context 'when a user is a financier at the event' do
+      it { expect(financier.user.financier_at? event).to be true }
+    end
+
+    context 'when a user is not a financier' do
+      it { expect(participant.user.financier_at? event).to be false }
+    end
+
+    context 'when a user is a financier but at another event' do
+      it { expect(other_financier.user.financier_at? event).to be false }
+      it { expect(financier.user.financier_at? other_event).to be false }
+    end
+
+    context 'when a user is an admin or a crew lead' do
+      it { expect(admin.financier_at? event).to be false }
+      it { expect(crew_lead.user.financier_at? event).to be false }
+    end
   end
 
 
-  describe '#crew_lead_of' do
-  end
-
-
-  describe '#crew_lead_for' do
+  describe '#financier_for?' do
     include_context 'upcoming event'
+
+    context 'when a user is not a financier' do
+      it { expect(participant.user.financier_for? participant).to be false }
+    end
+
+    context 'when a user is a financier' do
+      it { expect(financier.user.financier_for? participant).to be true }
+    end
+
+    context 'when a user is a financier but not at this event' do
+      it { expect(other_financier.user.financier_for? participant).to be false}
+    end
+
+    context 'when a user is an admin or a crew lead' do
+      it { expect(admin.financier_for? participant).to be false }
+      it { expect(crew_lead.user.financier_for? participant).to be false }
+    end
+  end
+
+
+  describe '#crew_lead_of?' do
+    include_context 'upcoming event'
+
+    context 'when a user is a valid crew lead' do
+      it { expect(crew_lead.user.crew_lead_of? crew).to be true }
+      it { expect(other_event_crew_lead.user.crew_lead_of? other_event_crew).to be true }
+    end
+
+    context 'when a user is not a crew lead' do
+      it { expect(participant.user.crew_lead_of? crew).to be false }
+    end
+
+    context 'when a user is a crew lead of another crew' do
+      it { expect(other_crew_lead.user.crew_lead_of? crew).to be false }
+      it { expect(crew_lead.user.crew_lead_of? other_crew).to be false }
+    end
+
+    context 'when a user is a crew lead but not at the current event' do
+      it { expect(other_event_crew_lead.user.crew_lead_of? crew).to be false }
+      it { expect(crew_lead.user.crew_lead_of? other_event_crew).to be false }
+    end
+
+    context 'when a user is an admin or a financier' do
+      it { expect(admin.crew_lead_of? crew).to be false }
+      it { expect(financier.user.crew_lead_of? crew).to be false }
+    end
+  end
+
+
+  describe '#crew_lead_for?' do
+    include_context 'upcoming event'
+
+    context 'when a user is a valid crew lead' do
+      it { expect(crew_lead.user.crew_lead_for? participant).to be true }
+    end
+
+    context 'when a user is not a crew lead' do
+      it { expect(other_participant.user.crew_lead_for? participant).to be false }
+    end
+
+    context 'when a user is a crew lead of another crew' do
+      it { expect(other_crew_lead.user.crew_lead_for? participant).to be false }
+    end
+
+    context 'when a user is a crew lead but not at the current event' do
+      it { expect(other_event_crew_lead.user.crew_lead_for? participant).to be false }
+    end
+
+    context 'when a user is an admin or a financier' do
+      it { expect(admin.crew_lead_for? participant).to be false }
+      it { expect(financier.user.crew_lead_for? participant).to be false }
+    end
   end
 
 
@@ -229,7 +311,7 @@ describe UserAccount do
       it { expect(crew_lead.user.can_approve? participant).to be false }
     end
 
-    context 'when a user is not a crew lead' do
+    context 'for a regular user' do
       it { expect(other_participant.user.can_approve? participant).to be false }
     end
 
@@ -259,7 +341,7 @@ describe UserAccount do
       it { expect(crew_lead.user.can_receive_payment_of? participant).to be false }
     end
 
-    context 'when a user is not a crew lead' do
+    context 'for a regular user' do
       it { expect(other_participant.user.can_receive_payment_of? participant).to be false }
     end
 
@@ -297,7 +379,7 @@ describe UserAccount do
       it { expect(financier.user.can_confirm_payment_of? participant).to be false }
     end
 
-    context 'when a user is not a crew lead' do
+    context 'for a regular user' do
       it { expect(other_participant.user.can_confirm_payment_of? participant).to be false }
     end
 

@@ -74,13 +74,13 @@ class UserAccount < ApplicationRecord
   end
 
 
-  def financier_of?(event)
+  def financier_at?(event)
     event.financiers.any? { |fin| fin.user == self }
   end
 
 
   def financier_for?(participant)
-    financier_of? participant.event
+    financier_at? participant.event
   end
 
 
