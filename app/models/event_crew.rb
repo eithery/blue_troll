@@ -26,13 +26,16 @@ class EventCrew < ApplicationRecord
 
 
   def emails
+    participants.map { |p| p.person.email }.uniq
   end
 
 
   def lead_emails
+    leads.map { |lead| lead.person.email }.uniq
   end
 
 
   def statistics
+    @statistics ||= Statistics.new
   end
 end

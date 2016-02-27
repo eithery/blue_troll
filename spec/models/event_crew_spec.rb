@@ -5,6 +5,8 @@ require 'rails_helper'
 
 describe EventCrew do
   subject(:crew) { FactoryGirl.build :event_crew }
+  let(:populated_crew) { FactoryGirl.build :event_crew, :with_participants }
+  let(:email) { email = 'test@gmail.com' }
 
   it_behaves_like 'a valid domain model'
   it_behaves_like 'it has timestamps'
@@ -55,17 +57,40 @@ describe EventCrew do
 
 
   describe '#leads' do
+    it 'returns all crew leads at the event' do
+      expect(populated_crew).to have(6).participants
+      expect(populated_crew.leads).to have(2).persons
+    end
   end
 
 
   describe '#emails' do
+    it 'returns all event participant emails' do
+      expect(populated_crew).to have(6).emails
+    end
+
+    it 'does not contain duplicates' do
+      populated_crew.participants[0..2].each { |p| p.person.email = email }
+      expect(populated_crew).to have(4).emails
+      expect(populated_crew.emails).to include email
+    end
   end
 
 
   describe '#lead_emails' do
+    it 'returns all crew leads emails' do
+      expect(populated_crew).to have(2).lead_emails
+    end
+
+    it 'does not contain duplicates' do
+      populated_crew.leads.each { |lead| lead.person.email = email }
+      expect(populated_crew).to have(1).lead_emails
+      expect(populated_crew.lead_emails).to include email
+    end
   end
 
 
   describe '#statistics' do
+    it { expect(crew.statistics).to_not be_blank }
   end
 end
