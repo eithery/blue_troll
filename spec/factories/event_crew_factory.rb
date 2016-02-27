@@ -11,8 +11,8 @@ FactoryGirl.define do
 
   trait :with_participants do
     after(:build) do |crew|
-      crew.participants << Array.new(2) { FactoryGirl.build :crew_lead }
-      crew.participants << Array.new(4) { FactoryGirl.build :event_participant }
+      crew.participants << Array.new(2) { build :crew_lead }
+      crew.participants << Array.new(4) { build :event_participant }
     end
   end
 end

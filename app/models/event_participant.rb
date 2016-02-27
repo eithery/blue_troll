@@ -34,6 +34,11 @@ class EventParticipant < ApplicationRecord
   end
 
 
+  def email
+    person.email
+  end
+
+
   def approved?
     !approved_at.nil?
   end

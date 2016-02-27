@@ -9,7 +9,7 @@ describe EventParticipant do
   it_behaves_like 'a valid domain model'
   it_behaves_like 'it has timestamps'
 
-  it { should respond_to :event, :crew, :person, :name, :user }
+  it { should respond_to :event, :crew, :person, :name, :user, :email }
   it { should respond_to :ticket_code }
   it { should respond_to :crew_lead?, :financier?, :gatekeeper? }
   it { should respond_to :flagged?, :notes }
@@ -60,6 +60,11 @@ describe EventParticipant do
 
   describe '#user' do
     it { expect(participant.user).to eq participant.person.user_account }
+  end
+
+
+  describe '#email' do
+    it { expect(participant.email).to eq participant.person.email }
   end
 
 
