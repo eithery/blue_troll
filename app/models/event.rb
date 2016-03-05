@@ -22,10 +22,12 @@ class Event < ApplicationRecord
 
 
   def crew_leads
+    participants.select { |p| p.crew_lead? }
   end
 
 
   def crew_lead_emails
+    crew_leads.map { |lead| lead.email }
   end
 
 
@@ -35,10 +37,12 @@ class Event < ApplicationRecord
 
 
   def financier_emails
+    financiers.map { |fin| fin.email }
   end
 
 
   def gatekeepers
+    participants.select { |p| p.gatekeeper? }
   end
 
 

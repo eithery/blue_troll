@@ -22,13 +22,15 @@ FactoryGirl.define do
       after(:build) do |event|
         event.crews.each do |crew|
           crew.participants << [
-            build(:event_participant, crew: crew),
-            build(:event_participant, crew: crew),
+            build(:event_participant, crew: crew, gatekeeper: true),
+            build(:event_participant, crew: crew, gatekeeper: true),
             build(:event_participant, crew: crew),
             build(:crew_lead, crew: crew),
-            build(:financier, crew: crew)
           ]
         end
+
+        crew = event.crews.first
+        crew.participants << build(:financier, crew: crew)
       end
     end
   end

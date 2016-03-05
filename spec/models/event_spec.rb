@@ -81,9 +81,7 @@ describe Event do
 
 
   describe '#participants' do
-    include_context 'upcoming event'
-
-    it { expect(event).to have(5).participants }
+    it { expect(populated_event).to have(9).participants }
     it { expect(Event.new).to have(:no).participants }
   end
 
@@ -109,22 +107,42 @@ describe Event do
 
 
   describe '#crew_leads' do
+    it 'returns all crew leads at the event' do
+      expect(populated_event).to have(2).crew_leads
+      populated_event.crew_leads.each { |lead| expect(lead).to be_crew_lead }
+    end
   end
 
 
   describe '#crew_lead_emails' do
+    it 'returns all crew_lead emails' do
+      expect(populated_event).to have(2).crew_lead_emails
+      populated_event.crew_lead_emails.each { |email| expect(email).to_not be_blank }
+    end
   end
 
 
   describe '#financiers' do
+    it 'returns all financiers at the event' do
+      expect(populated_event).to have(1).financiers
+      populated_event.financiers.each { |fin| expect(fin).to be_financier }
+    end
   end
 
 
   describe '#financier_emails' do
+    it 'returns all financier emails' do
+      expect(populated_event).to have(1).financier_emails
+      populated_event.financier_emails.each { |email| expect(email).to_not be_blank }
+    end
   end
 
 
   describe '#gatekeepers' do
+    it 'returns all gatekeepers at the event' do
+      expect(populated_event).to have(4).gatekeepers
+      populated_event.gatekeepers.each { |p| expect(p).to be_gatekeeper }
+    end
   end
 
 
