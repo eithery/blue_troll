@@ -57,7 +57,7 @@ describe EventCrew do
 
 
   describe '#leads' do
-    it 'returns all crew leads at the event' do
+    it 'returns all crew leads of the crew' do
       expect(populated_crew).to have(6).participants
       expect(populated_crew.leads).to have(2).persons
     end
@@ -65,7 +65,7 @@ describe EventCrew do
 
 
   describe '#emails' do
-    it 'returns all event participant emails' do
+    it 'returns all crew participants emails' do
       expect(populated_crew).to have(6).emails
     end
 
