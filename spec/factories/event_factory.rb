@@ -17,5 +17,19 @@ FactoryGirl.define do
         event.crews << build(:event_crew, event: event, prototype: create(:crew))
       end
     end
+
+    trait :with_participants do
+      after(:build) do |event|
+        event.crews.each do |crew|
+          crew.participants << [
+            build(:event_participant, crew: crew),
+            build(:event_participant, crew: crew),
+            build(:event_participant, crew: crew),
+            build(:crew_lead, crew: crew),
+            build(:financier, crew: crew)
+          ]
+        end
+      end
+    end
   end
 end
