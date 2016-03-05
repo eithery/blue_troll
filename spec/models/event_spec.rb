@@ -6,6 +6,10 @@ require 'rails_helper'
 describe Event do
   subject(:event) { FactoryGirl.build :event }
   let(:event_with_crews) { FactoryGirl.create :event, :with_crews }
+  let(:populated_event) { FactoryGirl.create :event, :with_crews, :with_participants }
+  let(:crew) { populated_event.crews.first }
+  let(:crew_lead) { crew.leads.first }
+  let(:participant) { crew.participants.first }
 
   it_behaves_like 'a valid domain model'
   it_behaves_like 'it has a required unique name'
@@ -85,16 +89,21 @@ describe Event do
 
 
   describe '#participant_by_ticket' do
+    before { participant.approve crew_lead }
+
     context "when a ticket code is valid" do
       it "returns a participant for specified ticket code" do
-#        valid_ticket_code = gwen.ticket_code.to_i(16).to_s
-#        Participant.find_by_ticket(valid_ticket_code).should == gwen
+        valid_ticket = participant.ticket_code.to_i(16).to_s
+        expect(participant.ticket_code).to_not be_blank
+        expect(populated_event.participant_by_ticket valid_ticket).to eq participant
       end
     end
 
     context "when a ticket code is not valid" do
-#      invalid_ticket_code = '1234567890'
-#      Participant.find_by_ticket(invalid_ticket_code).should be_nil
+      let(:invalid_ticket) { SecureRandom.hex[0,10] }
+
+      it { expect(populated_event.participant_by_ticket invalid_ticket).to be nil }
+      it { expect(populated_event.participant_by_ticket nil).to be nil }
     end
   end
 
@@ -120,5 +129,6 @@ describe Event do
 
 
   describe '#statistics' do
+    it { expect(event.statistics).to_not be_blank }
   end
 end

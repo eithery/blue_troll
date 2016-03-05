@@ -16,7 +16,8 @@ class Event < ApplicationRecord
 
 
   def participant_by_ticket(ticket_code)
-    participants.find { |p| p.ticket_code.to_i(16).to_s == ticket_code.strip }
+    return nil if ticket_code.blank?
+    participants.find { |p| !p.ticket_code.blank? && p.ticket_code.to_i(16).to_s == ticket_code.strip }
   end
 
 
@@ -42,6 +43,7 @@ class Event < ApplicationRecord
 
 
   def statistics
+    @statistics ||= Statistics.new
   end
 
 private
