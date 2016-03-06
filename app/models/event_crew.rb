@@ -3,7 +3,7 @@
 # Represents a crew in the particular event.
 
 class EventCrew < ApplicationRecord
-  include Trackable
+  include Trackable, Statistics
 
   belongs_to :prototype, class_name: Crew, foreign_key: :crew_id
   belongs_to :event, inverse_of: :crews
@@ -32,10 +32,5 @@ class EventCrew < ApplicationRecord
 
   def lead_emails
     leads.map { |lead| lead.email }.uniq
-  end
-
-
-  def statistics
-    @statistics ||= Statistics.new
   end
 end

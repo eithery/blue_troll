@@ -10,11 +10,12 @@ describe EventCrew do
 
   it_behaves_like 'a valid domain model'
   it_behaves_like 'it has timestamps'
+  it_behaves_like 'it provides statistics'
 
   it { should respond_to :prototype, :event }
   it { should respond_to :notes }
   it { should respond_to :name, :to_file_name }
-  it { should respond_to :leads, :lead_emails, :emails, :statistics }
+  it { should respond_to :leads, :lead_emails, :emails }
 
   it { should have_db_index :event_id }
   it { should have_db_index :crew_id }
@@ -87,10 +88,5 @@ describe EventCrew do
       expect(populated_crew).to have(1).lead_emails
       expect(populated_crew.lead_emails).to include email
     end
-  end
-
-
-  describe '#statistics' do
-    it { expect(crew.statistics).to_not be_blank }
   end
 end

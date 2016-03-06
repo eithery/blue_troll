@@ -50,3 +50,12 @@ shared_examples_for 'it performs email format validation' do
     end
   end
 end
+
+
+shared_examples_for 'it provides statistics' do
+  it { should respond_to :adults_total, :adults_paid_total, :adults_onsite_total }
+  it { should respond_to :children_total, :children_paid_total, :children_onsite_total }
+  it { should respond_to :babies_total, :babies_paid_total, :babies_onsite_total }
+  it { should respond_to :participants_total, :participants_paid_total, :participants_onsite_total }
+  it { should respond_to :flagged_total, :participants_expected_total }
+end
