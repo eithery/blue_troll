@@ -1,3 +1,7 @@
+# Eithery Lab, 2016.
+# Payment model.
+# Represents a payment.
+
 class Payment
   attr_reader :payer, :payees, :payment_type, :amount, :notes
 
@@ -7,22 +11,19 @@ class Payment
   OTHER = EventParticipant.payment_types[:other]
 
 
-  def initialize(payer, payment_options)
+  def initialize(payer:, payment_type:, payees: [], amount: 0, notes: nil)
     @payer = payer
-    @payment_type = payment_options[:payment_type]
-    @amount = payment_options[:amount]
-    @notes = payment_options[:notes]
-    @payee_id = payment_options[:payee]
-
-#    @payees = @payer.participants.to_a.select { |p| p.unpaid? }
-#    @payees = @payees.select { |p| p.id == @payee_id } unless @payee_id.blank?
+    @payment_type = payment_type
+    @payees = payees
+    @amount = amount
+    @notes = notes
   end
 
 
   def payment_type_string
-    "Pay Pal" if payment_type.to_i == 0
-    "Check" if payment_type.to_i == 1
-    "Cash" if payment_type.to_i == 2
-    "Other"
+    return 'Pay Pal' if payment_type == PAYPAL
+    return 'Check' if payment_type == CHECK
+    return 'Cash' if payment_type == CASH
+    return 'Other'
   end
 end
