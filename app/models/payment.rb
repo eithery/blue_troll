@@ -11,7 +11,7 @@ class Payment
   OTHER = EventParticipant.payment_types[:other]
 
 
-  def initialize(payer:, payment_type:, payees: [], amount: 0, notes: nil)
+  def initialize(payer, payment_type, amount: 0, payees: [], notes: nil)
     @payer = payer
     @payment_type = payment_type
     @payees = payees

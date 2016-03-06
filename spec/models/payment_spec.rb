@@ -6,10 +6,9 @@ require 'rails_helper'
 describe Payment do
   let(:payer) { FactoryGirl.build(:user_account) }
   subject(:payment) do
-    Payment.new payer: payer,
-      payment_type: Payment::CASH,
-      payees: Array.new(3) { FactoryGirl.build(:event_participant) },
+    Payment.new payer, Payment::CASH,
       amount: 60,
+      payees: Array.new(3) { FactoryGirl.build(:event_participant) },
       notes: 'He owes more money'
   end
 
@@ -31,8 +30,8 @@ describe Payment do
         Payment::CHECK => 'Check',
         Payment::CASH => 'Cash',
         Payment::OTHER => 'Other'
-      }.each do |type, value|
-        payment = Payment.new payer: payer, payment_type: type
+      }.each do |payment_type, value|
+        payment = Payment.new payer, payment_type
         expect(payment.payment_type_string).to eq value
       end
     end

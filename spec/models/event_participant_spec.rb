@@ -233,10 +233,10 @@ describe EventParticipant do
     end
 
     context 'when a payment is sent' do
-      let(:payer) { participant }
+      let(:payer) { participant.user }
 
       before do
-        payment = Payment.new payer, amount: 45.0, payment_type: Payment::CASH
+        payment = Payment.new payer, Payment::CASH, amount: 45.0
         participant.send_payment payment
         participant.reload
       end
