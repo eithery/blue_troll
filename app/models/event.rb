@@ -3,7 +3,7 @@
 # Represents the organizational event (Blue Trolley, party, concert).
 
 class Event < ApplicationRecord
-  include NameHolder, Trackable
+  include NameHolder, Trackable, Statistics
 
   belongs_to :event_type
   has_many :crews, class_name: EventCrew, dependent: :restrict_with_exception
@@ -43,11 +43,6 @@ class Event < ApplicationRecord
 
   def gatekeepers
     participants.select { |p| p.gatekeeper? }
-  end
-
-
-  def statistics
-    @statistics ||= Statistics.new
   end
 
 private

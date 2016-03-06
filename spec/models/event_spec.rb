@@ -14,6 +14,7 @@ describe Event do
   it_behaves_like 'a valid domain model'
   it_behaves_like 'it has a required unique name'
   it_behaves_like 'it has timestamps'
+  it_behaves_like 'it provides statistics'
 
   it { should respond_to :started_on, :finished_on }
   it { should respond_to :address }
@@ -23,7 +24,6 @@ describe Event do
   it { should respond_to :participant_by_ticket }
   it { should respond_to :crew_leads, :financiers, :gatekeepers }
   it { should respond_to :crew_lead_emails, :financier_emails }
-  it { should respond_to :statistics }
 
   it { should validate_presence_of :started_on }
   it { should validate_presence_of :finished_on }
@@ -143,10 +143,5 @@ describe Event do
       expect(populated_event).to have(4).gatekeepers
       populated_event.gatekeepers.each { |p| expect(p).to be_gatekeeper }
     end
-  end
-
-
-  describe '#statistics' do
-    it { expect(event.statistics).to_not be_blank }
   end
 end
