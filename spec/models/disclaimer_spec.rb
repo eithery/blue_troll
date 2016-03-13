@@ -4,10 +4,21 @@
 require 'rails_helper'
 
 describe Disclaimer do
-  subject(:disclaimer) { Disclaimer.new }
-  it { should respond_to :to_pdf, :file_name }
+  let(:participant) { FactoryGirl.build :event_participant }
+  subject(:disclaimer) { Disclaimer.new participant }
+
+  it { should respond_to :participant, :to_pdf, :file_name }
+
+
+  describe '#participant' do
+    it { expect(disclaimer.participant).to be participant }
+  end
 
 
   describe '#file_name' do
+  end
+
+
+  describe '#to_pdf' do
   end
 end
