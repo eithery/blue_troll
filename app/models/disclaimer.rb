@@ -24,16 +24,14 @@ class Disclaimer < Prawn::Document
     liability_section
     signature_section
     address_section
-
-    return self
+    self
   end
 
 
   def file_name
-    return "unknown_participant.pdf" if @participant_name == @unknown
-    first_name, last_name = @participant_name.split
-    first_name = first_name.delete('/')
-    "#{last_name}_#{first_name}_#{year}.pdf".downcase
+    first_name = participant.person.first_name
+    last_name = participant.person.last_name
+    "#{last_name}_#{first_name}_#{event_year}.pdf".downcase
   end
 
 
