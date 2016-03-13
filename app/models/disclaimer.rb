@@ -107,7 +107,7 @@ private
 
 
   def participant_address
-    participant.person.address.gsub(/\s+/, ' ').strip
+    participant.person.address&.gsub(/\s+/, ' ')&.strip
   end
 
 
@@ -222,7 +222,7 @@ private
   def address_section
     move_down participant_address.blank? ? 30 : 15
     indent 40 do
-      text participant_address, size: 12
+      text participant_address.to_s, size: 12
     end
     stroke do
       horizontal_line 40, 490, at: cursor

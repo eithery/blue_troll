@@ -28,5 +28,6 @@ describe Disclaimer do
 
   describe '#to_pdf' do
     it { expect(disclaimer.to_pdf).to be_a Disclaimer }
+    it { expect(disclaimer.to_pdf).to be_kind_of Prawn::Document }
   end
 end

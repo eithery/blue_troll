@@ -17,7 +17,7 @@ FactoryGirl.define do
 
     trait :with_event_crew do
       after(:build) do |ep|
-        ep.crew = build(:event_crew, prototype: ep.crew)
+        ep.crew = build(:event_crew)
       end
     end
   end
