@@ -35,6 +35,60 @@ class Disclaimer < Prawn::Document
   end
 
 
+  def ticket_code
+    participant.ticket_code || '0000000000'
+  end
+
+
+  def crew_name
+    participant.crew.name
+  end
+
+
+  def crew_native_name
+    participant.crew.native_name
+  end
+
+
+  def age_category
+    age = participant.person.age
+    age_label = age.nil? || age == 0 ? '____' : age.to_s
+
+    return "A" if participant.person.adult?
+    return "C #{age_label}" if participant.person.child?
+    return "B #{age_label}" if participant.person.baby?
+  end
+
+
+  def event_title
+    participant.event.name
+  end
+
+
+  def event_address
+    participant.event.address&.gsub(/\s+/, ' ')&.strip || ''
+  end
+
+
+  def event_dates
+    started_on = participant.event.started_on.to_date
+    finished_on = participant.event.finished_on.to_date
+    start_label = started_on.strftime "%A, %B %d"
+    end_label = finished_on.strftime "%A, %B %d"
+    started_on != finished_on ? "#{start_label} - #{end_label}" : start_label
+  end
+
+
+  def event_year
+    participant.event.started_on.strftime "%Y"
+  end
+
+
+  def participant_address
+    participant.person.address&.gsub(/\s+/, ' ')&.strip || ''
+  end
+
+
 private
 
   def register_fonts
@@ -57,60 +111,6 @@ private
   end
 
 
-  def ticket_code
-    participant.ticket_code || '0000000000'
-  end
-
-
-  def crew_name
-    participant.crew.name
-  end
-
-
-  def crew_native_name
-    participant.crew.native_name
-  end
-
-
-  def age_category_label
-    age = participant.person.age
-    age_label = age.nil? || age == 0 ? '____' : age.to_s
-
-    return "A" if participant.person.adult?
-    return "C #{age_label}" if participant.person.child?
-    return "B #{age_label}" if participant.person.baby?
-  end
-
-
-  def event_title
-    participant.event.name
-  end
-
-
-  def event_address
-    participant.event.address
-  end
-
-
-  def event_dates
-    started_on = participant.event.started_on.to_date
-    finished_on = participant.event.finished_on.to_date
-    start_label = started_on.strftime "%A, %B %d"
-    end_label = finished_on.strftime "%A, %B %d"
-    started_on != finished_on ? "#{start_label} - #{end_label}" : start_label
-  end
-
-
-  def event_year
-    participant.event.started_on.strftime "%Y"
-  end
-
-
-  def participant_address
-    participant.person.address&.gsub(/\s+/, ' ')&.strip
-  end
-
-
   def bar_code_section
     move_down 80
     bounding_box [30, cursor+20], width: 400 do
@@ -127,7 +127,7 @@ private
       text crew_name, size: 20, :align => :right
       text crew_native_name, size: 16, :align => :right
       text participant.name, size: 20, :align => :right
-      text age_category_label, size: 24, :align => :right
+      text age_category, size: 24, :align => :right
     end
   end
 
