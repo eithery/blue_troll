@@ -15,6 +15,11 @@ class EventCrew < ApplicationRecord
   end
 
 
+  def native_name
+    prototype.native_name
+  end
+
+
   def to_file_name
     name.gsub(/\s/, '_').downcase
   end

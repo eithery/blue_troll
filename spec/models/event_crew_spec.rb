@@ -14,7 +14,7 @@ describe EventCrew do
 
   it { should respond_to :prototype, :event }
   it { should respond_to :notes }
-  it { should respond_to :name, :to_file_name }
+  it { should respond_to :name, :native_name, :to_file_name }
   it { should respond_to :leads, :lead_emails, :emails }
 
   it { should have_db_index :event_id }
@@ -44,6 +44,13 @@ describe EventCrew do
   describe '#name' do
     it 'returns the crew prototype name' do
       expect(crew.name).to eq crew.prototype.name
+    end
+  end
+
+
+  describe '#native_name' do
+    it 'returns the crew prototype native name' do
+      expect(crew.native_name).to eq crew.prototype.native_name
     end
   end
 
