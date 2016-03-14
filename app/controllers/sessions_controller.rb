@@ -1,3 +1,7 @@
+# Eithery Lab, 2016.
+# SessionsController.
+# Performs session related operations.
+
 class SessionsController < ApplicationController
   def new
   end
@@ -5,33 +9,28 @@ class SessionsController < ApplicationController
 
   def create
     login = session_params[:login].downcase
-    user = UserAccount.find_by_login(login) || UserAccount.find_by_email(login)
-    return invalid_login_password unless user
+    user = UserAccount.find_by(login: login) || UserAccount.find_by(email: login)
 
-    if(user.authenticate(session_params[:password]))
-      sign_in user
+    if(user && user.authenticate(session_params[:password]))
+      log_in user
       flash[:warning] = "User account is not activated." unless user.active?
       redirect_to user
     else
-      invalid_login_password
+      flash.now[:danger] = "Invalid login/password combination."
+      render :new
     end
   end
 
 
   def destroy
-    sign_out
+    log_out
     redirect_to root_path
   end
 
 
 private
+
   def session_params
     params.require(:session).permit(:login, :password)
-  end
-
-
-  def invalid_login_password
-    flash.now[:warning] = "Invalid login/password combination."
-    render 'new'
   end
 end
