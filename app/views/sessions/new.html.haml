@@ -1,8 +1,8 @@
-= provide(:title, "Sign in")
+= provide(:title, "Log in")
 .shadowed-form
   = form_for(:session, url: sessions_path, html: { class: "form-horizontal well" }) do |f|
     %fieldset
-      %legend Sign in
+      %legend Log in
 
       .form-group
         = f.label :login, 'Login or Email', class: "control-label col-sm-3"
@@ -17,6 +17,6 @@
       %br
       .form-group
         .col-sm-offset-3.col-sm-7
-          = f.submit "Sign in", class: "btn btn-primary"
+          = f.submit "Log In", class: "btn btn-primary"
           = link_to "Register new", signup_path, class: "btn btn-info"
           = link_to "Can't access?", cant_access_path, class: "btn btn-warning"

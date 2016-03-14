@@ -1,5 +1,20 @@
-require 'spec_helper'
+# Eithery Lab, 2016.
+# User login feature specs.
 
+require 'rails_helper'
+
+feature 'User login', type: :feature do
+  scenario 'with invalid information' do
+    visit login_path
+    expect(page).to have_title 'Log in'
+    expect(page).to have_button 'Log In'
+
+    click_button 'Log In'
+  end
+end
+
+
+=begin
 describe "Sign in operation" do
   subject { page }
   let(:user) { FactoryGirl.create(:active_user) }
@@ -85,3 +100,4 @@ private
     click_button 'Sign in'
   end
 end
+=end

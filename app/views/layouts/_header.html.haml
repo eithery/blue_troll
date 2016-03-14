@@ -4,8 +4,8 @@
       = link_to "Blue Trolley", root_path, id: 'logo', class: "navbar-brand"
       %nav
         %ul.nav.navbar-nav.pull-right
-          - unless signed_in?
-            %li= link_to "Sign in", signin_path
+          - unless logged_in?
+            %li= link_to "Log in", login_path
 
           - else
             - if current_user.crew_lead? && !current_user.crew.blank?
@@ -39,4 +39,4 @@
               = form_for(:search, url: search_participants_path, html: { class: "navbar-form navbar-left" }) do |f|
                 = f.search_field :pattern, class: "form-control col-sm-4", placeholder: 'Search'
 
-            %li= link_to "Sign out", signout_path, method: 'delete'
+            %li= link_to "Sign out", logout_path, method: 'delete'
