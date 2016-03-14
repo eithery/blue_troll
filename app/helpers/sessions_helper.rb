@@ -1,11 +1,16 @@
+# Eithery Lab, 2016.
+# SessionsHelper.
+# Represents a helper class for sessions related views.
+
 module SessionsHelper
-  def sign_in(user)
+  def log_in(user)
+    session[:user_id] = user.id
     cookies.permanent[:remember_token] = user.remember_token
     self.current_user = user
   end
 
 
-  def sign_out
+  def log_out
     self.current_user = nil
     cookies.delete(:remember_token)
   end
