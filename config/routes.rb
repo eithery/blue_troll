@@ -1,7 +1,14 @@
 BlueTroll::Application.routes.draw do
+  resources :sessions, only: [:new, :create, :destroy]
+
+  get 'login' => 'sessions#new'
+  post 'login' => 'sessions#create'
+  delete 'logout' => 'sessions#destroy'
+
+
   resources :user_accounts, only: [:new, :create, :show]
   resources :crews, only: [:index, :show]
-  resources :sessions, only: [:new, :create, :destroy]
+
 
   resources :participants, except: [:show] do
     collection do
@@ -52,8 +59,5 @@ BlueTroll::Application.routes.draw do
   end
 
   get 'signup', to: 'user_accounts#new'
-  get 'signin', to: 'sessions#new'
-  match 'signout', to: 'sessions#destroy', via: :delete
-
   root 'static_pages#home'
 end
