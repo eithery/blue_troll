@@ -3,6 +3,8 @@
 # Performs session related operations.
 
 class SessionsController < ApplicationController
+  include SessionsHelper
+
   def new
   end
 
@@ -13,18 +15,19 @@ class SessionsController < ApplicationController
 
     if(user && user.authenticate(session_params[:password]))
       log_in user
-      flash[:warning] = "User account is not activated." unless user.active?
+      remember user
+      flash[:warning] = 'User account is not activated' unless user.activated?
       redirect_to user
     else
-      flash.now[:danger] = "Invalid login/password combination."
+      flash.now[:danger] = 'Invalid login/password combination'
       render :new
     end
   end
 
 
   def destroy
-    log_out
-    redirect_to root_path
+    log_out if logged_in?
+    redirect_to root_url
   end
 
 
