@@ -1,5 +1,5 @@
 # Eithery Lab, 2016.
-# Provides RSpec shared examples.
+# Provides RSpec shared examples for models.
 
 require 'rails_helper'
 
