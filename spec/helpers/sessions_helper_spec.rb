@@ -1,60 +1,100 @@
-require 'spec_helper'
+# Eithery Lab, 2016.
+# SessionsHelper specs.
+
+require 'rails_helper'
 
 describe SessionsHelper do
-  subject { helper }
-  let(:remember_token) { SecureRandom.urlsafe_base64 }
-  let(:user) { mock_user_account remember_token: remember_token }
+  let(:user) { FactoryGirl.create :user_account }
 
-  describe "#sign_in" do
-    it "creates permanent cookie" do
-      sign_in(user)
-      cookies.permanent[:remember_token].should_not be_empty
-    end
+  describe '#log_in' do
+    before { log_in user }
 
-    it "uses remember token to save it in cookie" do
-      user.should_receive(:remember_token).and_return(remember_token)
-      sign_in(user)
-    end
-
-    it "sets current user" do
-      sign_in(user)
-      current_user.should eq(user)
-    end
+    it { expect(session[:user_id]).to eq user.id }
+    it { expect(current_user).to eq user }
   end
 
 
-  describe "#sign_out" do
+  describe '#log_out' do
     before do
-      sign_in(user)
-      sign_out
+      log_in user
+      remember user
+      log_out
     end
 
-    it "resets current user" do
-      current_user.should be_nil
+    it { expect(session[:user_id]).to be nil }
+    it { expect(cookies.permanent[:remember_token]).to be nil }
+    it { expect(current_user).to be nil }
+  end
+
+
+  describe '#remember' do
+    before { remember user }
+
+    it { expect(user.remember_token).to_not be_blank }
+    it { expect(cookies.permanent[:user_id]).to_not be_blank }
+    it { expect(cookies.permanent[:remember_token]).to_not be_blank }
+  end
+
+
+  describe '#forget' do
+    before do
+      remember user
+      forget user
     end
 
-    it "deletes permanent cookie" do
-      cookies.permanent[:remember_token].should be_nil
+    it { expect(user.remember_token).to be nil }
+    it { expect(cookies.permanent[:user_id]).to be nil }
+    it { expect(cookies.permanent[:remember_token]).to be nil }
+  end
+
+
+  describe '#current_user?' do
+    context 'when user is logged in' do
+      let(:other_user) { FactoryGirl.create :user_account }
+      before { log_in user }
+
+      it { expect(current_user? user).to be true }
+      it { expect(current_user? other_user).to be false }
+    end
+
+    context 'when user is not logged in' do
+      before { log_out }
+      it { expect(current_user? user).to be false }
     end
   end
 
 
-  describe "#current_user" do
-    it "retrieves current user by remember token" do
-      UserAccount.should_receive(:find_by_remember_token).with(nil)
-      current_user
+  describe '#current_user' do
+    context 'when user is logged in' do
+      before { log_in user }
+
+      it { expect(current_user).to eq user }
+
+      context 'but session is expired' do
+        before do
+          remember user
+          session.delete :user_id
+        end
+        it { expect(current_user).to eq user }
+      end
+    end
+
+    context 'when user is not logged in' do
+      before { log_out }
+      it { expect(current_user).to be nil }
     end
   end
 
 
-  describe "#signed_in?" do
-    context "when user is signed in" do
-      before { sign_in(user) }
-      it { should be_signed_in }
+  describe '#logged_in?' do
+    context 'when user is logged in' do
+      before { log_in user }
+      it { expect(logged_in?).to be true }
     end
 
-    context "when user is not signed in" do
-      it { should_not be_signed_in }
+    context 'when user is not logged in' do
+      before { log_out }
+      it { expect(logged_in?).to be false }
     end
   end
 end
