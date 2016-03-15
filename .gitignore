@@ -16,3 +16,6 @@
 /.idea
 /*.sublime*
 /new_features.txt
+
+#Ignore OSX folder info files.
+.DS_Store
