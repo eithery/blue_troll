@@ -1,5 +1,7 @@
+# Eithery Lab, 2016.
+# AccountActivationsController specs.
+
 require 'rails_helper'
 
-RSpec.describe AccountActivationsController, type: :controller do
-
+describe AccountActivationsController do
 end
