@@ -16,7 +16,7 @@ namespace :db do
         password_confirmation: password,
         crew: crew,
         active: true,
-        activated_at: Time.now
+        activated_at: Time.zone.now
       )
 
       Participant.create!(
@@ -29,7 +29,7 @@ namespace :db do
         cell_phone: Faker::PhoneNumber.cell_phone,
         email: Faker::Internet.email,
         address: address,
-        approved_at: Time.now,
+        approved_at: Time.zone.now,
         approved_by: 'admin',
         created_by: 'admin',
         updated_by: 'admin'
