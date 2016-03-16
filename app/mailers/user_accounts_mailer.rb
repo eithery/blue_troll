@@ -1,34 +1,38 @@
-class UserAccountsMailer < ActionMailer::Base
-  include MailersHelper
+# Eithery Lab, 2016.
+# UserAccountsMailer.
+# Represents a mailer to send activation, password reset and other notifications to users.
 
-  # Sends email when user created the new account in the system.
-  # The email contains the link to activate the user account.
+class UserAccountsMailer < ApplicationMailer
+
+  def account_activation(user)
+    mail_to user, 'Account activation'
+  end
+
+
   def registered(user)
     mail_to user, registered_subject
   end
 
 
-  # Sends confirmation email when user activated her account.
   def activated(user)
     mail_to user, activated_subject
   end
 
 
-  # Sends email contaning the link to reset user's password.
   def password_reset(user)
     mail_to user, password_reset_subject
   end
 
 
-  # Sends notification email when password is changed.
   def password_changed(user)
     mail_to user, password_changed_subject
   end
 
 
 private
+
   def mail_to(user, subject)
     @user = user
-    mail to: @user.email, from: "Blue_Trolley <#{club_email}>", subject: "#{sender}: #{subject}"
+    mail to: @user.email, from: "Blue_Trolley <#{CLUB_EMAIL}>", subject: "Blue Trolley: #{subject}"
   end
 end
