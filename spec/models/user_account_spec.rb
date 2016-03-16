@@ -19,6 +19,7 @@ describe UserAccount do
   it { should respond_to :authenticate, :authenticated? }
   it { should respond_to :remember_digest, :remember_token, :remember, :forget }
   it { should respond_to :activation_digest, :activated?, :activated_at }
+  it { should respond_to :activate, :send_activation_email }
   it { should respond_to :reset_digest, :reset_sent_at }
   it { should respond_to :participants, :persons }
   it { should respond_to :name, :to_file_name }
@@ -159,23 +160,37 @@ describe UserAccount do
 
 
   describe '#authenticated?' do
-    before do
-      user.remember
-      @remember_token = user.remember_token
+    context 'when user is not remembered' do
+      before do
+        user.remember
+        user.forget
+      end
+      it { expect(user.authenticated? :remember, user.remember_token).to be false }
     end
 
-    context 'when the user is not remembered' do
-      before { user.forget }
-      it { expect(user.authenticated? @remember_token).to be false }
+    context 'when user is remembered' do
+      before { user.remember }
+      it { expect(user.authenticated? :remember, user.remember_token).to be true }
     end
 
-    context 'when the user is remembered' do
-      it { expect(user.authenticated? @remember_token).to be true }
+    context 'when incorrect remember token passed' do
+      it { expect(user.authenticated? :remember, '123456').to be false }
+      it { expect(user.authenticated? :remember, nil).to be false }
     end
 
-    context 'when the incorrect remember token passed' do
-      it { expect(user.authenticated? '123456').to be false }
-      it { expect(user.authenticated? nil).to be false }
+    context 'when user is not activated' do
+      before { user.activated = false }
+      it { expect(user.authenticated? :activation, user.activation_token).to be false }
+    end
+
+    context 'when user is activated' do
+      before { user.activate }
+      it { expect(user.authenticated? :activation, user.activation_token).to be true }
+    end
+
+    context 'when incorrect activation token passed' do
+      it { expect(user.authenticated? :activation, '123456').to be false }
+      it { expect(user.authenticated? :activation, nil).to be false }
     end
   end
 
@@ -194,6 +209,25 @@ describe UserAccount do
       it { expect(user.activation_digest).to have_at_least(20).characters }
       it { expect(user.activation_token).to have(22).characters }
     end
+  end
+
+
+  describe '#activate' do
+    before do
+      user.activated = false
+      user.activated_at = nil
+    end
+
+    it { expect { user.activate }.to change { user.activated? }.from(false).to(true) }
+    it 'sets a date when user was activated' do
+      user.activate
+      expect(user.activated_at).to_not be nil
+    end
+  end
+
+
+  describe '#send_activation_email' do
+    it { expect { user.send_activation_email }.to change { UserAccountsMailer.deliveries.count }.by 1 }
   end
 
 
