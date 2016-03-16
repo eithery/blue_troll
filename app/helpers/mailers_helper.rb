@@ -1,20 +1,4 @@
 module MailersHelper
-  def club_email
-    'bluetrolley.app@gmail.com'
-  end
-
-  def admin_email
-    'michael.protsenko@gmail.com'
-  end
-
-  def club_url
-    "https://bluetrolley2015.herokuapp.com"
-  end
-
-  def registered_subject
-    'club account activation'
-  end
-
   def activated_subject
     'account has been activated'
   end
@@ -49,9 +33,5 @@ module MailersHelper
 
   def payment_confirmed_subject
     'payment confirmed'
-  end
-
-  def sender
-    'Blue Trolley'
   end
 end

@@ -1,21 +1,24 @@
+# Eithery Lab, 2016.
+# RSpec mailer matchers.
+
 module MailerMatchers
   RSpec::Matchers.define :have_subject do |subject|
     match do |mail|
-      mail.subject.should == subject
+      expect(mail.subject).to eq subject
     end
   end
 
 
   RSpec::Matchers.define :be_sent_to do |address|
     match do |mail|
-      mail.to.include?(address).should be_true
+      expect(mail.to).to include address
     end
   end
 
 
   RSpec::Matchers.define :be_sent_from do |address|
     match do |mail|
-      mail.from.include?(address).should be_true
+      expect(mail.from).to include address
     end
   end
 

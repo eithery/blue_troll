@@ -1,23 +1,31 @@
-require "spec_helper"
-include MailersHelper
+# Eithery Lab, 2016.
+# UserAccounts mailer specs.
 
-shared_examples_for "user accounts mailer" do
-  it { should be_sent_to user.email }
-  it { should be_sent_from club_email }
+require 'rails_helper'
+
+shared_examples_for 'user accounts mailer' do
+  it { expect(mail).to be_sent_to user.email }
+  it { expect(mail).to be_sent_from UserAccountsMailer::CLUB_EMAIL }
+  it { expect { mail.deliver_now }.to change { UserAccountsMailer.deliveries.count }.by 1 }
 end
 
 
 describe UserAccountsMailer do
-  let(:user) { mock_user_account email: 'gwen@gmail1.com' }
-  subject { mail }
+  include MailerMatchers
 
-  describe "#registered" do
-    let(:mail) { UserAccountsMailer.registered(user) }
-    it { should have_subject "#{sender}: #{registered_subject}" }
-    it_behaves_like "user accounts mailer"
+  let(:user) { FactoryGirl.build :user_account, email: 'gwen@gmail.com' }
+
+  it { should respond_to :account_activation }
+
+  describe '#account_activation' do
+    let(:mail) { UserAccountsMailer.account_activation user }
+
+    it_behaves_like 'user accounts mailer'
+    it { expect(mail).to have_subject 'Blue Trolley: Account activation' }
   end
+end
 
-
+=begin
   describe "#activated" do
     let(:mail) { UserAccountsMailer.activated(user) }
     it { should have_subject "#{sender}: #{activated_subject}" }
@@ -37,4 +45,4 @@ describe UserAccountsMailer do
     it { should have_subject "#{sender}: #{password_changed_subject}" }
     it_behaves_like "user accounts mailer"
   end
-end
+=end
