@@ -3,10 +3,6 @@ module MailersHelper
     'account has been activated'
   end
 
-  def password_reset_subject
-    'password reset'
-  end
-
   def password_changed_subject
     'password has been changed'
   end

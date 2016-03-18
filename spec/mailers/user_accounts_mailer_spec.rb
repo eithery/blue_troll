@@ -13,15 +13,23 @@ end
 describe UserAccountsMailer do
   include MailerMatchers
 
-  let(:user) { FactoryGirl.build :user_account, email: 'gwen@gmail.com' }
+  let(:user) { FactoryGirl.create :user_account, email: 'gwen@gmail.com' }
 
-  it { should respond_to :account_activation }
+  it { should respond_to :account_activation, :password_reset }
 
   describe '#account_activation' do
     let(:mail) { UserAccountsMailer.account_activation user }
 
     it_behaves_like 'user accounts mailer'
     it { expect(mail).to have_subject 'Blue Trolley: Account activation' }
+  end
+
+
+  describe '#password_reset' do
+    let(:mail) { UserAccountsMailer.password_reset user }
+
+    it_behaves_like 'user accounts mailer'
+    it { expect(mail).to have_subject 'Blue Trolley: Password reset' }
   end
 end
 

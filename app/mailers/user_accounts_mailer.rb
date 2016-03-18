@@ -9,6 +9,11 @@ class UserAccountsMailer < ApplicationMailer
   end
 
 
+  def password_reset(user)
+    mail_to user, 'Password reset'
+  end
+
+
   def registered(user)
     mail_to user, registered_subject
   end
@@ -16,11 +21,6 @@ class UserAccountsMailer < ApplicationMailer
 
   def activated(user)
     mail_to user, activated_subject
-  end
-
-
-  def password_reset(user)
-    mail_to user, password_reset_subject
   end
 
 
