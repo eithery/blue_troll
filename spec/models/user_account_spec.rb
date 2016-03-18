@@ -259,7 +259,7 @@ describe UserAccount do
 
 
   describe '#send_password_reset_email' do
-    before { user.save! }
+    before { user.create_reset_digest }
     it { expect { user.send_password_reset_email }.to change { UserAccountsMailer.deliveries.count }.by 1 }
   end
 
