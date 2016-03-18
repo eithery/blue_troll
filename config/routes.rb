@@ -7,6 +7,8 @@ BlueTroll::Application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
+  root 'shell#landing'
+
 
   resources :user_accounts, only: [:new, :create, :show]
   resources :crews, only: [:index, :show]
@@ -60,5 +62,4 @@ BlueTroll::Application.routes.draw do
   end
 
   get 'signup', to: 'user_accounts#new'
-  root 'static_pages#home'
 end
