@@ -1,7 +1,7 @@
 BlueTroll::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :account_activations, only: [:edit]
-  resources :reset_passwords, only: [:new, :create, :edit, :update]
+  resources :password_resets, only: [:new, :create, :edit, :update]
 
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
