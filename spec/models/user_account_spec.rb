@@ -18,9 +18,10 @@ describe UserAccount do
   it { should respond_to :admin? }
   it { should respond_to :authenticate, :authenticated? }
   it { should respond_to :remember_digest, :remember_token, :remember, :forget }
-  it { should respond_to :activation_digest, :activated?, :activated_at }
+  it { should respond_to :activation_token, :activation_digest, :activated?, :activated_at }
   it { should respond_to :activate, :send_activation_email }
-  it { should respond_to :reset_digest, :reset_sent_at }
+  it { should respond_to :reset_token, :reset_digest, :reset_sent_at }
+  it { should respond_to :create_reset_digest, :send_password_reset_email }
   it { should respond_to :participants, :persons }
   it { should respond_to :name, :to_file_name }
   it { should respond_to :crew_lead_of?, :crew_lead_for?, :financier_at?, :financier_for? }
@@ -133,13 +134,14 @@ describe UserAccount do
       expect(user.remember_token).to be nil
       expect(user.remember_digest).to be nil
       user.remember
-      new_token = user.remember_token
-      new_digest = user.remember_digest
       expect(user.remember_token).to_not be_blank
       expect(user.remember_digest).to_not be_blank
+
+      token = user.remember_token
+      digest = user.remember_digest
       user.reload
-      expect(user.remember_token).to eq new_token
-      expect(user.remember_digest).to eq new_digest
+      expect(user.remember_token).to eq token
+      expect(user.remember_digest).to eq digest
     end
   end
 
@@ -227,7 +229,38 @@ describe UserAccount do
 
 
   describe '#send_activation_email' do
+    before { user.save! }
     it { expect { user.send_activation_email }.to change { UserAccountsMailer.deliveries.count }.by 1 }
+  end
+
+
+  describe '#create_reset_digest' do
+    it 'generates a new reset token and digest' do
+      expect(user.reset_token).to be nil
+      expect(user.reset_digest).to be nil
+      user.create_reset_digest
+      expect(user.reset_token).to_not be_blank
+      expect(user.reset_digest).to_not be_blank
+
+      token = user.reset_token
+      digest = user.reset_digest
+      user.reload
+      expect(user.reset_token).to eq token
+      expect(user.reset_digest).to eq digest
+    end
+
+    it 'remembers the time when the password reset was sent' do
+      expect(user.reset_sent_at).to be nil
+      user.create_reset_digest
+      expect(user.reset_sent_at).to_not be nil
+      expect(user.reset_sent_at).to be < Time.zone.now
+    end
+  end
+
+
+  describe '#send_password_reset_email' do
+    before { user.save! }
+    it { expect { user.send_password_reset_email }.to change { UserAccountsMailer.deliveries.count }.by 1 }
   end
 
 

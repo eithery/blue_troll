@@ -5,7 +5,7 @@
 class UserAccount < ApplicationRecord
   include Trackable
 
-  attr_accessor :remember_token, :activation_token
+  attr_accessor :remember_token, :activation_token, :reset_token
 
   has_secure_password
   has_many :participants, dependent: :destroy
@@ -43,13 +43,13 @@ class UserAccount < ApplicationRecord
 
   def remember
     self.remember_token = UserAccount.new_token
-    update_attribute(:remember_digest, UserAccount.digest(remember_token))
+    update_attribute :remember_digest, UserAccount.digest(remember_token)
   end
 
 
   def forget
     self.remember_token = nil
-    update_attribute(:remember_digest, nil)
+    update_attribute :remember_digest, nil
   end
 
 
@@ -59,8 +59,20 @@ class UserAccount < ApplicationRecord
   end
 
 
+  def create_reset_digest
+    self.reset_token = UserAccount.new_token
+    update_attribute :reset_digest, UserAccount.digest(reset_token)
+    update_attribute :reset_sent_at, Time.zone.now
+  end
+
+
   def send_activation_email
     UserAccountsMailer.account_activation(self).deliver_now
+  end
+
+
+  def send_password_reset_email
+    UserAccountsMailer.password_reset(self).deliver_now
   end
 
 
