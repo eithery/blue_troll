@@ -1,22 +1,55 @@
 !!!
 %html
   %head
+    %meta{ charset: 'utf-8' }
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
+
     %title= full_title(yield(:title))
+
     = stylesheet_link_tag 'application', media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
     = render 'layouts/shim'
 
   %body
-    = render 'layouts/header'
+    #wrapper
+      %nav.navbar-default.navbar-static-side{ role: 'navigation' }
+        .sidebar-collapse
+          %ul.nav.metismenu#side-menu
+            %li.nav-header{ style: 'margin-top: 2px;' }
+              .dropdown.profile-element
+                %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' }}
+                  %span.clear
+                    %span.block.m-t-xs
+                      %strong.font-bold Alex Shaykevish
+                    %span.text-muted.text-xs.block
+                      Zavhoz
+                      %b.caret
 
-    .container
-      - flash.each do |key, value|
-        = content_tag(:div, class: "alert alert-dismissable alert-#{key} bt-alert") do
-          = value
-          %button.close{ type: 'button', data: { dismiss: 'alert' }} ×
+                %ul.dropdown-menu.animated.fadeInRight.m-t-xs
+                  %li
+                    %a{ href: '#'} Logout
 
-    .container
-      = yield
-      = render 'layouts/footer'
-      = debug(params) if Rails.env.development?
+              .logo-element BT+
+
+            %li
+              %a{ href: '#' }
+                %i.fa.fa-th-large
+                %span.nav-label Main view
+
+      #page-wrapper.gray-bg
+        = render 'layouts/header'
+
+        .wrapper.wrapper-content.animated.fadeInRight
+          .container
+            - flash.each do |key, value|
+              = content_tag(:div, class: "alert alert-dismissable alert-#{key} bt-alert") do
+                = value
+                %button.close{ type: 'button', data: { dismiss: 'alert' }} ×
+
+          .row
+            .col-lg-12
+              = yield
+
+        = render 'layouts/footer'
+        -#= debug(params) if Rails.env.development?

@@ -3,17 +3,19 @@
 %h1 16th Blue Trolley event is coming!
 %br
 %p
-  %strong When:
-  Friday, June 3, 2016 3:00 pm to Sunday, June 5, 2016.
-  %br
-  %strong Where:
-  Delaware Water Gap Campground KOA (120 miles from NYC).
-
-%p
-  Any questions? Please contact
-  = link_to 'bluetrolleyclub@yahoo.com', "mailto:bluetrolleyclub@yahoo.com"
+  %h4
+    %strong When:
+    2016 Friday, June 3, 3 pm - Sunday, June 5, 2pm.
+    %br
+  %h4
+    %strong Where:
+    Delaware Water Gap Campground KOA (120 miles from NYC).
 
 %br
-  = link_to "Register for NEW users", signup_path, class: "btn btn-primary btn-lg"
-  = link_to "Register for EXISTING users", login_path, class: "btn btn-success btn-lg"
-  = link_to "Event announcement", announcement_path, target: '_blank',  class: "btn btn-info btn-lg"
+  = link_to signup_path, class: "btn btn-primary btn-lg" do
+    %i.fa.fa-plus
+    Register for NEW users
+
+  = link_to login_path, class: "btn btn-success btn-lg" do
+    %i.fa.fa-sign-in
+    Log In for EXISTING users
