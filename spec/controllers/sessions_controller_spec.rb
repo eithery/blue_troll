@@ -23,11 +23,7 @@ describe SessionsController do
 
   describe 'GET :new' do
     before { get :new }
-
-    it { is_expected.to respond_with :ok }
-    it { is_expected.to respond_with_content_type :html }
-    it { is_expected.to render_with_layout :application }
-    it { is_expected.to render_template :new }
+    it_behaves_like 'it renders HTML teplate', :new
   end
 
 
