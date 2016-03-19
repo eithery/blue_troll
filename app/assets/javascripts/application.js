@@ -11,10 +11,8 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
-//= require turbolinks
-//= require_tree .
-//= require bootstrap
+//= require bootstrap-sprockets
 //= require metisMenu/jquery.metisMenu.js
 //= require pace/pace
 //= require slimscroll/jquery.slimscroll.min.js
+//= require_tree .
