@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap
+//= require metisMenu/jquery.metisMenu.js
 //= require pace/pace
