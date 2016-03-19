@@ -1,0 +1,21 @@
+/*
+  Eithery Lab, 2016.
+  Contains common SCSS styles for Blue Trolley web app.
+*/
+
+@import 'bootstrap';
+
+
+#bt-main-menu > .navbar-right {
+  margin-right: 10px;
+}
+
+
+.debug_dump {
+  margin: 20px 40px 20px 40px;
+}
+
+
+.footer {
+  margin: 10px 44px 20px 40px;
+}
