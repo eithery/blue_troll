@@ -5,6 +5,8 @@
 class SessionsController < ApplicationController
   include SessionsHelper
 
+  layout 'blank'
+
   def new
   end
 

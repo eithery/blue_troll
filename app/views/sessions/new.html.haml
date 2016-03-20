@@ -1,22 +1,23 @@
-= provide(:title, "Log in")
-.shadowed-form
-  = form_for(:session, url: sessions_path, html: { class: "form-horizontal well" }) do |f|
-    %fieldset
-      %legend Log in
+= provide(:title, "Login")
+.middle-box.text-center.loginscreen.animated.fadeInDown
+  = image_tag 'tarakan_gray'
+  %h3 Welcome to BLUE TROLLEY Club
+  = form_for(:session, url: sessions_path, html: { class: 'm-t', role: 'form' }) do |f|
 
-      .form-group
-        = f.label :login, 'Login or Email', class: "control-label col-sm-3"
-        .col-sm-4
-          = f.text_field :login, class: "form-control", maxlength: 64, autofocus: true, required: true
+    .form-group
+      = f.text_field :login, placeholder: "Login or email address", maxlength: 64, autofocus: true, required: true, class: 'form-control'
 
-      .form-group
-        = f.label :password, class: "control-label col-sm-3"
-        .col-sm-4
-          = f.password_field :password, class: "form-control", maxlength: 16, required: true
+    .form-group
+      = f.password_field :password, placeholder: 'Password', maxlength: 16, required: true, class: 'form-control'
 
-      %br
-      .form-group
-        .col-sm-offset-3.col-sm-7
-          = f.submit "Log In", class: "btn btn-primary"
-          = link_to "Register new", signup_path, class: "btn btn-info"
-          = link_to "Can't access?", cant_access_path, class: "btn btn-warning"
+    = f.submit 'Login', class: 'btn btn-primary block full-width m-b'
+    = link_to 'Forgot password?', cant_access_path
+
+    %br
+    %br
+    %p.text-muted.text-center
+      %small Do not have an account?
+    = link_to 'Create an account', signup_path, class: 'btn btn-sm btn-white btn-block'
+
+  %p.m-t
+    %small Blue Trolley Club &copy; 2009-2016
