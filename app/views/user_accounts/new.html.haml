@@ -1,36 +1,25 @@
-= provide(:title, 'New User Account')
-.shadowed-form
-  = form_for(@user, html: { class: "form-horizontal well" }) do |f|
-    %fieldset
-      %legend New User Account Registration
-      = render 'shared/error_messages', errors: @user.errors, entity_name: 'user account'
-      .form-group
-        = f.label :login, class: "control-label col-sm-3"
-        .col-sm-4
-          = f.text_field :login, class: "form-control", maxlength: 20, autofocus: true
+= provide(:title, 'Register')
+.middle-box.text-center.loginscreen.animated.fadeInDown
+  = image_tag 'tarakan_bw'
 
-      .form-group
-        = f.label :password, class: "control-label col-sm-3"
-        .col-sm-4
-          = f.password_field :password, class: "form-control", maxlength: 16
+  %h3 Register to BLUE TROLLEY Club
+  = form_for(@user, html: { class: 'm-t', role: 'form' }) do |f|
+    .form-group
+      = f.text_field :login, placeholder: "User login", maxlength: 20, autofocus: true, required: true, class: 'form-control'
+    .form-group
+      = f.password_field :password, placeholder: 'Password', maxlength: 16, required: true, class: 'form-control'
+    .form-group
+      = f.password_field :password_confirmation, placeholder: 'Password confirmation', maxlength: 16, required: true, class: 'form-control'
+    .form-group
+      = f.email_field :email, class: "form-control", maxlength: 64, required: true, placeholder: 'Email address'
+    .form-group
+      = f.email_field :email_confirmation, class: "form-control", maxlength: 64, required: true, placeholder: 'Email address confirmation'
 
-      .form-group
-        = f.label :password_confirmation, 'Password Confirmation', class: "control-label col-sm-3"
-        .col-sm-4
-          = f.password_field :password_confirmation, class: "form-control", maxlength: 16
+    = f.submit 'Register', class: 'btn btn-primary block full-width m-b'
 
-      .form-group
-        = f.label :email, class: "control-label col-sm-3"
-        .col-sm-7
-          = f.email_field :email, class: "form-control", maxlength: 64
+    %p.text-muted.text-center
+      %small Already have an account?
+    = link_to 'Login', login_path, class: 'btn btn-sm btn-white btn-block'
 
-      .form-group
-        = f.label :email_confirmation, 'Email Confirmation', class: "control-label col-sm-3"
-        .col-sm-7
-          = f.email_field :email_confirmation, class: "form-control", maxlength: 64
-
-      %br
-      .form-group
-        .col-sm-offset-3.col-sm-7
-          = f.submit "Create my account", class: "btn btn-primary"
-          = link_to "Can't access my account?", cant_access_path, class: "btn btn-warning"
+  %p.m-t
+    %small Blue Trolley Club &copy; 2009-2016

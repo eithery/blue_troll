@@ -6,7 +6,7 @@
   = form_for(:session, url: sessions_path, html: { class: 'm-t', role: 'form' }) do |f|
 
     .form-group
-      = f.text_field :login, placeholder: "Login or email address", maxlength: 64, autofocus: true, required: true, class: 'form-control'
+      = f.text_field :login, placeholder: "User login or email address", maxlength: 64, autofocus: true, required: true, class: 'form-control'
 
     .form-group
       = f.password_field :password, placeholder: 'Password', maxlength: 16, required: true, class: 'form-control'

@@ -12,6 +12,7 @@ class UserAccountsController < ApplicationController
 
   def new
     @user = UserAccount.new
+    render layout: 'blank'
   end
 
 
