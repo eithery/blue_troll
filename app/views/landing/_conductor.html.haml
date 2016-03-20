@@ -1,0 +1,22 @@
+- avatar ||= 'avatar'
+- title ||= ''
+- email ||= '#'
+- facebook ||= '#'
+- linkedin ||= '#'
+- small = local_assigns[:small].nil?
+- small_class = small.nil? || small ? ' img-small' : ''
+
+= image_tag "landing/#{avatar}.jpg", class: "img-responsive img-circle#{small_class}"
+%h4
+  = name
+%p= title
+%ul.list-inline.social-icon
+  %li
+    = link_to "mailto: #{email}" do
+      %i.fa.fa-at
+  %li
+    = link_to facebook, target: '_blank' do
+      %i.fa.fa-facebook
+  %li
+    = link_to linkedin, target: '_blank' do
+      %i.fa.fa-linkedin

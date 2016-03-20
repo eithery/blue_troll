@@ -7,50 +7,13 @@
     .row
       .col-sm-4.wow.animated.fadeInLeft
         .team-member
-          = image_tag 'landing/avatar.jpg', class: 'img-responsive img-circle img-small'
-          %h4
-            Marina Gurevich
-          %ul.list-inline.social-icon
-            %li
-              %a{ href: '#'}
-                %i.fa.fa-at
-            %li
-              %a{ href: '#' }
-                %i.fa.fa-facebook
-            %li
-              %a{ href: '#' }
-                %i.fa.fa-linkedin
+          = render 'conductor', name: 'Marina Gurevich', email: 'marina_gur@yahoo.com'
 
       .col-sm-4
         .team-member.wow.animated.zoomIn
-          = image_tag 'landing/mister_fix.jpg', class: 'img-responsive img-circle'
-          %h4
-            Alex Shaykevich
-          %p Zavhoz
-          %ul.list-inline.social-icon
-            %li
-              %a{ href: '#'}
-                %i.fa.fa-at
-            %li
-              %a{ href: 'https://www.facebook.com/aleksandr.shaykevich', target: '_blank' }
-                %i.fa.fa-facebook
-            %li
-              %a{ href: '#' }
-                %i.fa.fa-linkedin
+          = render 'conductor', name: 'Alex Shaykevich', avatar: 'mister_fix', small: false, title: 'Zavhoz',
+            facebook: 'https://www.facebook.com/aleksandr.shaykevich', email: 'alexshayk@yahoo.com'
 
       .col-sm-4.wow.animated.fadeInRight
         .team-member
-          = image_tag 'landing/avatar.jpg', class: 'img-responsive img-circle img-small'
-          %h4
-            Rita Yeliseyev
-          %p Financier
-          %ul.list-inline.social-icon
-            %li
-              %a{ href: '#'}
-                %i.fa.fa-at
-            %li
-              %a{ href: '#' }
-                %i.fa.fa-facebook
-            %li
-              %a{ href: '#' }
-                %i.fa.fa-linkedin
+          = render 'conductor', name: 'Rita Yeliseyev', title: 'Financier', email: 'ryeliseyev@gmail.com'
