@@ -7,7 +7,7 @@ BlueTroll::Application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
-  root 'shell#landing'
+  root 'landing#index'
 
 
   resources :user_accounts, only: [:new, :create, :show]
