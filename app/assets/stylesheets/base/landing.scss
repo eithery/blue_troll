@@ -20,7 +20,6 @@
   -moz-transition: width 1s;
   -o-transition: width 1s;
   transition: width 1s;
-
 }
 
 .pace-inactive {
@@ -199,10 +198,10 @@ body.landing-page {
     width: 100%;
   }
   .header-back.one {
-    background: image-url("landing/header_2.png")  50% 0 no-repeat;
+    background: image-url("landing/header_one.jpg") 50% 0 no-repeat;
   }
   .header-back.two {
-    background: image-url("landing/header_1.jpg") 50% 0 no-repeat;
+    background: image-url("landing/header_two.jpg") 50% 0 no-repeat;
   }
   /* CUSTOMIZE THE CAROUSEL
   -------------------------------------------------- */
@@ -282,7 +281,7 @@ body.landing-page {
   .carousel-image {
     position: absolute;
     right: 10px;
-    top: 150px;
+    top: 110px;
   }
   .carousel-indicators {
     padding-right: 60px;
