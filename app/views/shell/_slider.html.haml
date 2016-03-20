@@ -1,0 +1,24 @@
+#inSlider.carousel.carousel-fade{ data: { ride: 'carousel' }}
+  .carousel-inner{ role: 'listbox' }
+    .item.active
+      .container
+        .carousel-caption
+          %h1 16th Blue Trolley event is coming!
+          %p
+            2016 Friday, June 3, 3 pm - Sunday, June 5, 2pm.
+            %br
+            Delaware Water Gap Campground KOA (120 miles from NYC).
+          %br
+          %br
+            = link_to signup_path, class: "btn btn-info btn-lg" do
+              %i.fa.fa-plus
+              Register for NEW users
+            &nbsp;&nbsp;&nbsp;
+
+            = link_to login_path, class: "btn btn-success btn-lg" do
+              %i.fa.fa-sign-in
+              Log In for EXISTING users
+        .carousel-image.wow.zoomIn
+          = image_tag 'landing/tarakan_small_less_blue.png', style: 'opacity: 1;'
+
+      .header-back.two
