@@ -15,22 +15,21 @@
           %br
           East Stroudsburg, PA 18302
           %br
-          %strong
-            =link_to 'Get Google Directions', "https://www.google.com/maps/dir/''/koa+campground+delaware+water+gap/@41.0497396,-75.14573,12z/data=!3m1!4b1!4m8!4m7!1m0!1m5!1m1!1s0x89c4846ec4d7b2c3:0x614fa6c6947013e7!2m2!1d-75.0756901!2d41.0497608", target: '_blank'
+          %strong= link_to 'Get Google Directions', direction_to_koa, target: '_blank'
 
     .row
       .col-lg-12.text-center
-        %a.btn.btn-primary{ href: 'mailto:bluetrolleyclub@yahoo.com' } Send us mail
+        = link_to 'Send us email', blue_trolley_email, class: 'btn btn-primary'
         %p.m-t-sm Or follow us on social platform
         %ul.list-inline.social-icon
           %li
-            %a{ href: '#'}
+            = link_to '#', target: '_blank' do
               %i.fa.fa-twitter
           %li
-            %a{ href: 'https://www.facebook.com/groups/215693651825858/', target: '_blank' }
+            = link_to blue_trolley_facebook, target: '_blank' do
               %i.fa.fa-facebook
           %li
-            %a{ href: '#' }
+            = link_to '#', target: '_blank' do
               %i.fa.fa-linkedin
 
       .row
