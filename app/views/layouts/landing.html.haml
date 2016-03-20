@@ -1,0 +1,66 @@
+!!!
+%html
+  %head
+    %meta{ charset: 'utf-8' }
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
+
+    %title= full_title(yield(:title))
+
+    = stylesheet_link_tag 'application', media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+    = render 'layouts/shim'
+
+  %body#page-top.landing-page
+    #inSlider.carousel.carousel-fade{ data: { ride: 'carousel' }}
+      %ol.carousel-indicators
+        %li.active{ data: { target: '#inSlider', slide: { to: 0 }}}
+        %li{ data: { target: '#inSlider', slide: { to: 1 }}}
+
+      .carousel-inner{ role: 'listbox' }
+        .item.active
+          .container
+            .carousel-caption
+              %h1 16th Blue Trolley event is coming!
+              %p
+                2016 Friday, June 3, 3 pm - Sunday, June 5, 2pm.
+                %br
+                Delaware Water Gap Campground KOA (120 miles from NYC).
+              %br
+                = link_to signup_path, class: "btn btn-info btn-lg" do
+                  %i.fa.fa-plus
+                  Register for NEW users
+                &nbsp;&nbsp;&nbsp;
+
+                = link_to login_path, class: "btn btn-success btn-lg" do
+                  %i.fa.fa-sign-in
+                  Log In for EXISTING users
+
+          .header-back.one
+
+        .item
+          .container
+            .carousel-caption
+              %h1 16th Blue Trolley event is coming!
+              %p
+                2016 Friday, June 3, 3 pm - Sunday, June 5, 2pm.
+                %br
+                Delaware Water Gap Campground KOA (120 miles from NYC).
+              %br
+                = link_to signup_path, class: "btn btn-info btn-lg" do
+                  %i.fa.fa-plus
+                  Register for NEW users
+                &nbsp;&nbsp;&nbsp;
+
+                = link_to login_path, class: "btn btn-success btn-lg" do
+                  %i.fa.fa-sign-in
+                  Log In for EXISTING users
+
+          .header-back.two
+
+      %a.left.carousel-control{ href: '#inSlider', role: 'button', data: { slide: 'prev' }}
+        %span.glyphicon.glyphicon-chevron-left{ aria: { hidden: true }}
+        %span.sr-only Previous
+      %a.right.carousel-control{ href: '#inSlider', role: 'button', data: { slide: 'next' }}
+        %span.glyphicon.glyphicon-chevron-right{ aria: { hidden: true }}
+        %span.sr-only Next
