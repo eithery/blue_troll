@@ -19,7 +19,6 @@ gem 'bootstrap-sass'
 gem 'bootstrap-will_paginate'
 gem 'font-awesome-rails'
 gem 'pace-rails'
-gem 'toastr_rails'
 gem 'kaminari'
 
 gem 'pundit'
