@@ -13,39 +13,39 @@
 @import "bootstrap";
 
 // Variables, Mixins
-@import "base/variables";
-@import "base/mixins";
+@import "inspinia/variables";
+@import "inspinia/mixins";
 
 // INSPINIA Theme Elements
-@import "base/typography";
-@import "base/navigation";
-@import "base/top_navigation";
-@import "base/buttons";
-@import "base/badgets_labels";
-@import "base/elements";
-@import "base/sidebar";
-@import "base/base";
-@import "base/pages";
-@import "base/chat";
-@import "base/metismenu";
-@import "base/spinners";
+@import "inspinia/typography";
+@import "inspinia/navigation";
+@import "inspinia/top_navigation";
+@import "inspinia/buttons";
+@import "inspinia/badgets_labels";
+@import "inspinia/elements";
+@import "inspinia/sidebar";
+@import "inspinia/base";
+@import "inspinia/pages";
+@import "inspinia/chat";
+@import "inspinia/metismenu";
+@import "inspinia/spinners";
 
 // Landing page
-@import "base/landing";
+@import "inspinia/landing";
 
 // For demo only - config box style
-@import "base/theme-config";
+@import "inspinia/theme-config";
 
 // INSPINIA Skins
-@import "base/skins";
-@import "base/md-skin";
+@import "inspinia/skins";
+@import "inspinia/md-skin";
 
 // Media query style
-@import "base/media";
+@import "inspinia/media";
 
 // Custom style
 // Your custom style to override base style
-@import "base/custom";
+@import "inspinia/custom";
 
 
 
