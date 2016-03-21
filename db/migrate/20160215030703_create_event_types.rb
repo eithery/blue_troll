@@ -7,7 +7,7 @@ class CreateEventTypes < ActiveRecord::Migration[5.0]
     create_table :event_types do |t|
       t.string :name, null: false
       t.text :description
-      t.boolean :enabled, null: false, default: 1
+      t.boolean :enabled, null: false, default: true
       t.integer :ordinal, limit: 1
 
       t.index :name, unique: true
