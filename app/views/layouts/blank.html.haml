@@ -12,5 +12,7 @@
     = render 'layouts/shim'
 
   %body.gray-bg
-    =yield
 
+    .wrapper.wrapper-content.animated.fadeInRight
+      = render 'layouts/flash'
+    =yield

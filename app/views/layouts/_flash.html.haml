@@ -1,0 +1,5 @@
+.container
+  - flash.each do |key, value|
+    = content_tag(:div, class: "alert alert-dismissable alert-#{key} bt-alert") do
+      = value
+      %button.close{ type: 'button', data: { dismiss: 'alert' }} ×
