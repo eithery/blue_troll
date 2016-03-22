@@ -18,6 +18,7 @@ gem 'sass-rails'
 gem 'bootstrap-sass'
 gem 'bootstrap-will_paginate'
 gem 'font-awesome-rails'
+gem 'formvalidation-rails'
 gem 'pace-rails'
 gem 'kaminari'
 
