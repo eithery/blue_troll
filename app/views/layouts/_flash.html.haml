@@ -1,5 +1,8 @@
 - unless flash.empty?
   %script{ type: 'text/javascript' }
+    = "toastr.options.closeButton = true"
+    = "toastr.options.newestOnTop = true"
+
     - flash .each do |f|
       - type = f[0].to_s.gsub('danger', 'error').gsub('notice', 'info')
       = "toastr['#{type}']('#{f[1]}');"
