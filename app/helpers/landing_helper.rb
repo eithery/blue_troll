@@ -1,6 +1,6 @@
 # Eithery Lab, 2016.
 # LandingHelper.
-# Represents a helper class for landing views.
+# Represents a helper module for landing views.
 
 module LandingHelper
   def blue_trolley_email

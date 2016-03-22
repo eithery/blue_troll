@@ -1,3 +1,7 @@
+# Eithery Lab, 2016.
+# ApplicationHelper.
+# Provides helper methods mixed in and used within the app.
+
 module ApplicationHelper
   def full_title(page_title)
     base_title = "Blue Trolley"
@@ -17,16 +21,6 @@ module ApplicationHelper
 
   def checked_in_image(participant)
     image_tag participant.registered_at.blank? ? 'bulb_off.png' : 'bulb_on.png'
-  end
-
-
-  def forum_url
-    "http://www.nashslet.com/ДоброПожаловать/Форум/tabid/36/language/en-US/Default.aspx"
-  end
-
-
-  def old_club_url
-    "http://bluetrolleyclub.com"
   end
 
 
