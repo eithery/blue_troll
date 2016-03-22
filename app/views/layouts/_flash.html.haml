@@ -1,5 +1,5 @@
-.container
-  - flash.each do |key, value|
-    = content_tag(:div, class: "alert alert-dismissable alert-#{key} bt-alert") do
-      = value
-      %button.close{ type: 'button', data: { dismiss: 'alert' }} ×
+- unless flash.empty?
+  %script{ type: 'text/javascript' }
+    - flash .each do |f|
+      - type = f[0].to_s.gsub('danger', 'error').gsub('notice', 'info')
+      = "toastr['#{type}']('#{f[1]}');"
