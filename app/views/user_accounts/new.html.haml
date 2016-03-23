@@ -5,15 +5,15 @@
   %h3 Register to BLUE TROLLEY Club
   = form_for(@user, html: { class: 'm-t', role: 'form' }) do |f|
     .form-group
-      = f.text_field :login, placeholder: "User login", maxlength: 20, autofocus: true, required: true, class: 'form-control'
+      = f.text_field :login, placeholder: "User login", maxlength: 20, autofocus: true, class: 'form-control'
     .form-group
-      = f.password_field :password, placeholder: 'Password', maxlength: 16, required: true, class: 'form-control'
+      = f.password_field :password, placeholder: 'Password', maxlength: 16, class: 'form-control'
     .form-group
-      = f.password_field :password_confirmation, placeholder: 'Password confirmation', maxlength: 16, required: true, class: 'form-control'
+      = f.password_field :password_confirmation, placeholder: 'Password confirmation', maxlength: 16, class: 'form-control'
     .form-group
-      = f.email_field :email, class: "form-control", maxlength: 64, required: true, placeholder: 'Email address'
+      = f.text_field :email, class: "form-control", maxlength: 64, placeholder: 'Email address'
     .form-group
-      = f.email_field :email_confirmation, class: "form-control", maxlength: 64, required: true, placeholder: 'Email address confirmation'
+      = f.text_field :email_confirmation, class: "form-control", maxlength: 64, placeholder: 'Email address confirmation'
 
     = f.submit 'Register', class: 'btn btn-primary block full-width m-b'
 
