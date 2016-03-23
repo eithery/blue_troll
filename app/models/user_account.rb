@@ -16,13 +16,13 @@ class UserAccount < ApplicationRecord
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :login, presence: true, uniqueness: { case_sensitive: false }
-  validates :login, length: 4..255, allow_blank: true
+  validates :login, length: 6..255, allow_blank: true
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :email, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
   validates :email, confirmation: true
   validates :email_confirmation, presence: true
   validates :password, presence: true
-  validates :password, length: 6..72, allow_blank: true
+  validates :password, length: 8..72, allow_blank: true
 
 
   def self.digest(string)
