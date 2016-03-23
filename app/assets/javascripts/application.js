@@ -16,4 +16,6 @@
 //= require pace/pace
 //= require slimscroll/jquery.slimscroll.min.js
 //= require toastr/toastr.js
+//= require formvalidation.min
+//= require formvalidation/framework/bootstrap.min
 //= require_tree .
