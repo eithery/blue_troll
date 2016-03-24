@@ -97,4 +97,72 @@ describe SessionsHelper do
       it { expect(logged_in?).to be false }
     end
   end
+
+
+  describe '#has_validation_errors?' do
+    context 'when flash is empty' do
+      before { flash.clear }
+      it { expect(has_validation_errors?).to be false }
+    end
+
+    context 'when flash contains only success messages' do
+      before { flash[:success] = "everything OK" }
+      it { expect(has_validation_errors?).to be false }
+    end
+
+    context 'when flash contains warning messages' do
+      before { flash[:warning] = 'account is not activated' }
+      it { expect(has_validation_errors?).to be true }
+    end
+
+    context 'when flash contains error messages' do
+      before { flash[:danger] = 'validation error occurs' }
+      it { expect(has_validation_errors?).to be true }
+    end
+  end
+
+
+  describe '#flash_error_message' do
+    context 'when flash is empty' do
+      before { flash.clear }
+      it { expect(flash_error_message).to be_blank }
+    end
+
+    context 'when flash contains only success messages' do
+      before { flash[:success] = "everything OK" }
+      it { expect(flash_error_message).to be_blank }
+    end
+
+    context 'when flash contains warning messages' do
+      before { flash[:warning] = 'Account is not activated' }
+      it { expect(flash_error_message).to eq 'Account is not activated' }
+    end
+
+    context 'when flash contains error messages' do
+      before { flash[:danger] = 'Invalid login/password' }
+      it { expect(flash_error_message).to eq 'Invalid login/password' }
+    end
+
+    context 'when flash contains multiple error and warning messages' do
+      before do
+        flash[:danger] = 'Invalid login/password'
+        flash[:warning] = 'Account is not activated'
+        flash[:danger] = 'Bad thing happens'
+      end
+      it { expect(flash_error_message).to eq 'Bad thing happens' }
+    end
+  end
+
+
+  describe '#animated_form_class' do
+    context 'when the form does not contain errors' do
+      before { flash.clear }
+      it { expect(animated_form_class).to eq 'animated fadeInDown' }
+    end
+
+    context 'when the form contains errors messages' do
+      before { flash[:danger] = 'Bad thing happens' }
+      it { expect(animated_form_class).to be_empty }
+    end
+  end
 end
