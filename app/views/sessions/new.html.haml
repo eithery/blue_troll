@@ -1,10 +1,9 @@
 = provide(:title, "Login")
-.middle-box.text-center.loginscreen.animated.fadeInDown
+.middle-box.text-center.loginscreen{ class: animated_form_class }
   = image_tag 'tarakan.png'
 
   %h3 Welcome to BLUE TROLLEY Club
   = form_for(:session, url: sessions_path, html: { id: 'new_session', class: 'm-t', role: 'form' }) do |f|
-
     .form-group
       = f.text_field :login, placeholder: "User login or email address", maxlength: 64, autofocus: true, class: 'form-control'
 
@@ -22,3 +21,11 @@
 
   %p.m-t
     %small Blue Trolley Club &copy; 2009-2016
+
+
+- if has_validation_errors?
+  :coffeescript
+    $(document).ready ->
+      fv = $('#new_session').data 'formValidation'
+      fv.updateMessage 'session[login]', 'blank', "#{flash_error_message}"
+      fv.updateStatus 'session[login]', 'INVALID', 'blank'

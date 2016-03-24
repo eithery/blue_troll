@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
       flash[:warning] = 'User account is not activated' unless user.activated?
       redirect_to user
     else
-      flash.now[:danger] = 'Invalid login/password combination'
+      flash.now[:danger] = "Your user login or password is incorrect. Please try again"
       render :new
     end
   end

@@ -11,6 +11,7 @@ $(document).ready ->
         validators:
           notEmpty:
             message: 'User login/email field is required and cannot be empty'
+          blank: {}
 
       'session[password]':
         validators:
