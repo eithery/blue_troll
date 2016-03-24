@@ -6,8 +6,8 @@ FactoryGirl.define do
     login { Faker::Lorem.characters(10) }
     email { Faker::Internet.email }
     email_confirmation { email }
-    password 'secret'
-    password_confirmation 'secret'
+    password 'supersecret'
+    password_confirmation 'supersecret'
     activated true
     activated_at Time.zone.now
     created_by 'test'
