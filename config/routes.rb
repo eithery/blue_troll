@@ -3,6 +3,7 @@ BlueTroll::Application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
 
+  get 'signup' => 'user_accounts#new'
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
@@ -60,6 +61,4 @@ BlueTroll::Application.routes.draw do
     get 'checkin', action: :checkin, as: 'checkin'
     post 'checkin', action: :checkin_ticket, as: 'checkin_ticket'
   end
-
-  get 'signup', to: 'user_accounts#new'
 end
