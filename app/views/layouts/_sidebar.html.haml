@@ -3,17 +3,20 @@
     %ul.nav.metismenu#side-menu
       %li.nav-header{ style: 'margin-top: 2px;' }
         .dropdown.profile-element
+          %span= gravatar_for current_user
           %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' }}
             %span.clear
               %span.block.m-t-xs
-                %strong.font-bold Alex Shaykevish
+                %strong.font-bold
+                  = current_user.name
               %span.text-muted.text-xs.block
-                Zavhoz
+                = current_user.email
                 %b.caret
 
           %ul.dropdown-menu.animated.fadeInRight.m-t-xs
-            %li
-              %a{ href: '#'} Logout
+            %li= link_to 'Profile', current_user
+            %li.divider
+            %li= link_to 'Logout', logout_path
 
         .logo-element BT+
 

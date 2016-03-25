@@ -1,21 +1,23 @@
-require 'spec_helper'
+# Eithery Lab, 2016.
+# UserAccountsHelper specs.
+
+require 'rails_helper'
 
 describe UserAccountsHelper do
-  describe "gravatar_for" do
-    let(:email) { 'gwen@gmail1.com' }
-    let(:user) { mock_user_account email: email }
+  describe '#gravatar_for' do
+    let(:user) { mock_model(UserAccount, email: 'gwen@gmail.com').as_null_object }
 
     it "returns image tag" do
-      gravatar_for(user).should have_selector("img.gravatar")
+      expect(gravatar_for user).to have_selector 'img'
     end
 
     it "loads image from gravatar web site" do
-      gravatar_for(user).should =~ /http:\/\/www.gravatar.com\/avatar/
+      expect(gravatar_for user).to match /http:\/\/www.gravatar.com\/avatar/
     end
 
     it "uses email to load image" do
-      user.should_receive(:email).twice.and_return(email)
-      gravatar_for(user)
+      expect(user).to receive(:email).once.and_return('gwen@mail.com')
+      gravatar_for user
     end
   end
 end
