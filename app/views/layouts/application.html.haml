@@ -13,29 +13,7 @@
 
   %body
     #wrapper
-      %nav.navbar-default.navbar-static-side{ role: 'navigation' }
-        .sidebar-collapse
-          %ul.nav.metismenu#side-menu
-            %li.nav-header{ style: 'margin-top: 2px;' }
-              .dropdown.profile-element
-                %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' }}
-                  %span.clear
-                    %span.block.m-t-xs
-                      %strong.font-bold Alex Shaykevish
-                    %span.text-muted.text-xs.block
-                      Zavhoz
-                      %b.caret
-
-                %ul.dropdown-menu.animated.fadeInRight.m-t-xs
-                  %li
-                    %a{ href: '#'} Logout
-
-              .logo-element BT+
-
-            %li
-              %a{ href: '#' }
-                %i.fa.fa-th-large
-                %span.nav-label Main view
+      = render 'layouts/sidebar'
 
       #page-wrapper.gray-bg
         = render 'layouts/header'
