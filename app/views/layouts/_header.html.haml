@@ -9,15 +9,15 @@
 
     -#= link_to "Blue Trolley", root_path, id: 'logo', class: "navbar-brand"
     %ul.nav.navbar-top-links.navbar-right
-      - if current_user.crew_lead? && !current_user.crew.blank?
+      -#- if current_user.crew_lead? && !current_user.crew.blank?
         %li= link_to 'My Crew', crew_path(current_user.crew)
 
       %li= link_to "My Profile", user_account_path(current_user)
 
-      - if current_user.admin? || current_user.financier?
+      -#- if current_user.admin? || current_user.financier?
         %li= link_to 'All Crews', crews_path
 
-      - if current_user.admin? || current_user.gatekeeper?
+      -#- if current_user.admin? || current_user.gatekeeper?
         %li= link_to "Check in", checkin_path
 
       - if current_user.admin?
@@ -36,7 +36,7 @@
             %li= link_to 'All awaiting participants', awaiting_participants_export_path
             %li= link_to 'All participants with emails', participants_with_email_export_path
 
-      - if current_user.admin? || current_user.gatekeeper? || current_user.financier?
+      -#- if current_user.admin? || current_user.gatekeeper? || current_user.financier?
         = form_for(:search, url: search_participants_path, html: { class: "navbar-form navbar-left" }) do |f|
           = f.search_field :pattern, class: "form-control col-sm-4", placeholder: 'Search'
 
