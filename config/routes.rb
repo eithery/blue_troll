@@ -1,5 +1,6 @@
 BlueTroll::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
+  resources :user_accounts
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
 
@@ -11,7 +12,6 @@ BlueTroll::Application.routes.draw do
   root 'landing#index'
 
 
-  resources :user_accounts, only: [:new, :create, :show]
   resources :crews, only: [:index, :show]
 
   resources :participants, except: [:show] do
