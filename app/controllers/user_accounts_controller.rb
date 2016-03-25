@@ -1,11 +1,8 @@
-# Eithery Lab., 2015.
-# Class UserAccountsController
-# UserAccounts controller.
+# Eithery Lab., 2016.
+# UserAccountsController
 # Performs operations with user accounts.
 
 class UserAccountsController < ApplicationController
-  include SessionsHelper
-
   before_filter :signed_in_user, only: [:show, :update_crew]
   before_filter :correct_user, only: [:show, :update_crew]
 

@@ -1,30 +1,19 @@
-# Eithery Lab., 2015.
+# Eithery Lab., 2016.
 # UserAccountsController specs.
 
-require 'spec_helper'
+require 'rails_helper'
 
 describe UserAccountsController do
-  let(:name) { 'gwen' }
-  let(:email) { 'gwen@gmail1.com' }
-  let(:user) { mock_user_account(name: name, email: email) }
-
-  shared_examples_for "get OK HTML response" do
-    it { is_expected.to respond_with :ok }
-    it { is_expected.to respond_with_content_type :html }
-    it { is_expected.to render_with_layout :application }
+  describe 'GET :new' do
+    before { get :new }
+    it_behaves_like 'it renders HTML template', :new, :blank
   end
+end
 
+
+=begin
 #  let(:congratulation) { "Congratulation, #{name}! Your account has been successfully activated." }
-
-#  before { UserAccount.stub(:find).and_return(user) }
-
   describe 'GET #new' do
-    describe "controller response and rendered templates" do
-      before { get :new }
-
-      it_behaves_like "get OK HTML response"
-      it { is_expected.to render_template(:new) }
-    end
 
     describe "assigned instance variables" do
       let(:new_user_account) { double('user_account') }
@@ -103,7 +92,6 @@ describe UserAccountsController do
 #    end
   end
 
-=begin
   describe "GET request_to_activate" do
     it "finds user account by account_id" do
       UserAccount.should_receive(:find).with("#{user.id}").and_return(user)
@@ -283,7 +271,6 @@ describe UserAccountsController do
       response.should redirect_to(user)
     end
   end
-=end
 
 private
 
@@ -297,7 +284,6 @@ private
     end
 
 
-=begin
     def get_request_to_activate
       get :request_to_activate, account_id: user.id
     end
@@ -322,4 +308,3 @@ private
       put :update_crew, id: user.id, user: { crew_id: crew_id }
     end
 =end
-end

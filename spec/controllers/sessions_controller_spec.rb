@@ -23,7 +23,7 @@ describe SessionsController do
 
   describe 'GET :new' do
     before { get :new }
-    it_behaves_like 'it renders HTML teplate', :new
+    it_behaves_like 'it renders HTML template', :new
   end
 
 
