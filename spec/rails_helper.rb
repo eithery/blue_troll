@@ -3,6 +3,7 @@ ENV['RAILS_ENV'] ||= 'test'
 require 'spec_helper'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
+require 'capybara/rails'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'shoulda/matchers'
@@ -44,9 +45,6 @@ RSpec.configure do |config|
   config.include Rails::Controller::Testing::TemplateAssertions
   config.include Rails::Controller::Testing::Integration
 
-  # Includes Capybara domain specific language.
-  config.include Capybara::DSL
-
   config.include DomainModelMocks
   config.include DomainModelMatchers
   config.include FlashMatchers
@@ -62,4 +60,11 @@ Shoulda::Matchers.configure do |config|
     with.test_framework :rspec
     with.library :rails
   end
+end
+
+
+Capybara.javascript_driver = :webkit
+
+Capybara::Webkit.configure do |config|
+  config.allow_url("fonts.googleapis.com")
 end

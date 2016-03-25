@@ -3,7 +3,7 @@
 
 require 'rails_helper'
 
-feature 'User login' do
+feature 'User login', js: true do
   let(:valid_user) { FactoryGirl.create :user_account }
 
   scenario 'User does not enter credentials' do
@@ -14,8 +14,8 @@ feature 'User login' do
     click_button 'Login'
 
     expect(page).to have_title 'Login'
-#    expect(page).to have_text 'User login/email is required'
-#    expect(page).to have_text 'The password is required'
+    expect(page).to have_text 'User login/email field is required'
+    expect(page).to have_text 'The password is required'
   end
 
 
@@ -27,8 +27,10 @@ feature 'User login' do
     fill_in 'session_login', with: 'Invalid login'
     fill_in 'session_password', with: 'Invalid password'
 
+    click_button 'Login'
+
     expect(page).to have_title 'Login'
- #   expect(page).to have_text 'User login or password is incorrect'
+    expect(page).to have_text 'login or password is incorrect'
   end
 
 
@@ -39,6 +41,8 @@ feature 'User login' do
 
     fill_in 'session_login', with: valid_user.login
     fill_in 'session_password', with: valid_user.password
+
+    click_button 'Login'
 
     expect(page).to have_title 'Hello'
   end
