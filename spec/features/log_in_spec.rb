@@ -1,22 +1,51 @@
 # Eithery Lab, 2016.
-# User login feature specs.
+# User login specs.
 
 require 'rails_helper'
 
 feature 'User login' do
-  scenario 'with invalid information' do
-    visit login_path
-    expect(page).to have_title 'Log in'
-    expect(page).to have_button 'Log In'
+  let(:valid_user) { FactoryGirl.create :user_account }
 
-    click_button 'Log In'
+  scenario 'User does not enter credentials' do
+    visit login_path
+    expect(page).to have_title 'Login'
+    expect(page).to have_button 'Login'
+
+    click_button 'Login'
+
+    expect(page).to have_title 'Login'
+#    expect(page).to have_text 'User login/email is required'
+#    expect(page).to have_text 'The password is required'
+  end
+
+
+  scenario 'User enters invalid credentials' do
+    visit login_path
+    expect(page).to have_title 'Login'
+    expect(page).to have_button 'Login'
+
+    fill_in 'session_login', with: 'Invalid login'
+    fill_in 'session_password', with: 'Invalid password'
+
+    expect(page).to have_title 'Login'
+ #   expect(page).to have_text 'User login or password is incorrect'
+  end
+
+
+  scenario 'User enter valid credentials' do
+    visit login_path
+    expect(page).to have_title 'Login'
+    expect(page).to have_button 'Login'
+
+    fill_in 'session_login', with: valid_user.login
+    fill_in 'session_password', with: valid_user.password
+
+    expect(page).to have_title 'Hello'
   end
 end
 
 
 =begin
-describe "Sign in operation" do
-  subject { page }
   let(:user) { FactoryGirl.create(:active_user) }
 
   before do

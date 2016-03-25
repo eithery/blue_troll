@@ -4,6 +4,8 @@
 # Performs operations with user accounts.
 
 class UserAccountsController < ApplicationController
+  include SessionsHelper
+
   before_filter :signed_in_user, only: [:show, :update_crew]
   before_filter :correct_user, only: [:show, :update_crew]
 
