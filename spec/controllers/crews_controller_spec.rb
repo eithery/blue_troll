@@ -1,17 +1,39 @@
-# Eithery Lab., 2015.
+# Eithery Lab, 2016.
 # CrewsController specs.
 
-require 'spec_helper'
+require 'rails_helper'
 
 describe CrewsController do
-
-  shared_examples_for "get OK HTML response" do
-    it { is_expected.to respond_with :ok }
-    it { is_expected.to respond_with_content_type :html }
-    it { is_expected.to render_with_layout :application }
+  describe 'GET :index' do
   end
 
 
+  describe 'GET :show' do
+  end
+
+
+  describe 'GET :new' do
+  end
+
+
+  describe 'POST :create' do
+  end
+
+
+  describe 'GET :edit' do
+  end
+
+
+  describe 'PATCH :update' do
+  end
+
+
+  describe 'DELETE :destroy' do
+  end
+end
+
+
+=begin
   describe 'GET #index' do
     context "when user is logged in" do
       with :user
@@ -109,3 +131,4 @@ private
     cookies[:remember_token] = user.remember_token
   end
 end
+=end

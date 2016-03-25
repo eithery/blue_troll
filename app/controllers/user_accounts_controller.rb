@@ -1,10 +1,18 @@
-# Eithery Lab., 2016.
+# Eithery Lab, 2016.
 # UserAccountsController
 # Performs operations with user accounts.
 
 class UserAccountsController < ApplicationController
-  before_filter :signed_in_user, only: [:show, :update_crew]
-  before_filter :correct_user, only: [:show, :update_crew]
+#  before_filter :signed_in_user, only: [:show, :update_crew]
+#  before_filter :correct_user, only: [:show, :update_crew]
+
+  def index
+  end
+
+
+  def show
+    @user = UserAccount.find(params[:id])
+  end
 
 
   def new
@@ -25,7 +33,11 @@ class UserAccountsController < ApplicationController
   end
 
 
-  def show
+  def update
+  end
+
+
+  def destroy
   end
 
 

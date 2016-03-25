@@ -1,13 +1,12 @@
-# Eithery Lab., 2015.
-# Class CrewsController
-# Crews controller.
+# Eithery Lab, 2016.
+# CrewsController
 # Performs operations with crews.
 
 class CrewsController < ApplicationController
   include CrewsHelper
 
-  before_filter :signed_in_user
-  before_filter :privileged_user, only: [:show]
+#  before_filter :signed_in_user
+#  before_filter :privileged_user, only: [:show]
 
 
   def index
@@ -16,6 +15,26 @@ class CrewsController < ApplicationController
 
 
   def show
+  end
+
+
+  def new
+  end
+
+
+  def create
+  end
+
+
+  def edit
+  end
+
+
+  def update
+  end
+
+
+  def destroy
   end
 
 private

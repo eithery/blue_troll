@@ -8,6 +8,10 @@ describe EventsController do
   end
 
 
+  describe 'GET :show' do
+  end
+
+
   describe 'GET :new' do
   end
 

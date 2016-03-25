@@ -1,12 +1,36 @@
-# Eithery Lab., 2016.
+# Eithery Lab, 2016.
 # UserAccountsController specs.
 
 require 'rails_helper'
 
 describe UserAccountsController do
+  describe 'GET :index' do
+  end
+
+
+  describe 'GET :show' do
+  end
+
+
   describe 'GET :new' do
     before { get :new }
     it_behaves_like 'it renders HTML template', :new, :blank
+  end
+
+
+  describe 'POST :create' do
+  end
+
+
+  describe 'GET :edit' do
+  end
+
+
+  describe 'PATCH :update' do
+  end
+
+
+  describe 'DELETE :destroy' do
   end
 end
 
