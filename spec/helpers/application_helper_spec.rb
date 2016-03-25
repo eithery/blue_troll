@@ -1,23 +1,27 @@
-require 'spec_helper'
+# Eithery Lab, 2016.
+# ApplicationHelper specs.
+
+require 'rails_helper'
 
 describe ApplicationHelper do
-  let(:participant) { mock_participant }
-
   describe "#full_title" do
-    it "should include the page title" do
-      full_title('foo').should =~ /| foo/
+    it "includes the page title" do
+      expect(full_title 'foo').to match /| foo/
     end
 
-    it "should include the base title" do
-      full_title('foo').should =~ /Blue Troll/
+    it "includes a base title" do
+      expect(full_title 'foo').to match /Blue Trolley/
     end
 
-    it "should not include a bar for an empty page title" do
-      full_title('').should_not =~ /\|/
+    it "does not include a bar for an empty page title" do
+      expect(full_title '').to_not match /\|/
     end
   end
+end
 
 
+=begin
+  let(:participant) { mock_participant }
   describe "#baby_image" do
     it "returns image tag for baby participants" do
       participant.stub(category: AgeCategory::BABY)
@@ -71,4 +75,4 @@ describe ApplicationHelper do
       checked_in_image participant
     end
   end
-end
+=end

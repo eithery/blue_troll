@@ -1,5 +1,28 @@
-require 'spec_helper'
+# Eithery Lab, 2016.
+# User login specs.
 
+require 'rails_helper'
+
+feature 'New user registration' do
+  scenario 'Verify signup page layout' do
+    visit signup_path
+
+    expect(page).to have_title 'Registration'
+    expect(page).to have_text 'Register to BLUE TROLLEY Club'
+    expect(page).to have_field 'User login'
+    expect(page).to have_field 'Password'
+    expect(page).to have_field 'Password confirmation'
+    expect(page).to have_field 'Email address'
+    expect(page).to have_field 'Email address confirmation'
+    expect(page).to have_button 'Register'
+    expect(page).to have_text 'Already have an account?'
+    expect(page).to have_link 'Login', href: login_path
+    expect(page).to have_text 'Blue Trolley Club'
+  end
+end
+
+
+=begin
 describe "New user account registration" do
   let(:user) { FactoryGirl.build(:inactive_user) }
 
@@ -89,4 +112,4 @@ private
   def submit_registration_form
     click_button 'Create my account'
   end
-end
+=end

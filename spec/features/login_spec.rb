@@ -3,14 +3,26 @@
 
 require 'rails_helper'
 
-feature 'User login', js: true do
+feature 'User login' do
   let(:valid_user) { FactoryGirl.create :user_account }
 
-  scenario 'User does not enter credentials' do
+  scenario 'Verify login page layout' do
     visit login_path
-    expect(page).to have_title 'Login'
-    expect(page).to have_button 'Login'
 
+    expect(page).to have_title 'Login'
+    expect(page).to have_text 'Welcome to BLUE TROLLEY Club'
+    expect(page).to have_field 'User login or email address'
+    expect(page).to have_field 'Password'
+    expect(page).to have_button 'Login'
+    expect(page).to have_link 'Forgot password'
+    expect(page).to have_text 'Do not have an account?'
+    expect(page).to have_link 'Create an account', href: signup_path
+    expect(page).to have_text 'Blue Trolley Club'
+  end
+
+
+  scenario 'User does not enter credentials', js: true do
+    visit login_path
     click_button 'Login'
 
     expect(page).to have_title 'Login'
@@ -19,14 +31,11 @@ feature 'User login', js: true do
   end
 
 
-  scenario 'User enters invalid credentials' do
+  scenario 'User enters invalid credentials', js: true do
     visit login_path
-    expect(page).to have_title 'Login'
-    expect(page).to have_button 'Login'
 
     fill_in 'session_login', with: 'Invalid login'
     fill_in 'session_password', with: 'Invalid password'
-
     click_button 'Login'
 
     expect(page).to have_title 'Login'
@@ -34,14 +43,11 @@ feature 'User login', js: true do
   end
 
 
-  scenario 'User enter valid credentials' do
+  scenario 'User enter valid credentials', js: true do
     visit login_path
-    expect(page).to have_title 'Login'
-    expect(page).to have_button 'Login'
 
     fill_in 'session_login', with: valid_user.login
     fill_in 'session_password', with: valid_user.password
-
     click_button 'Login'
 
     expect(page).to have_title 'Hello'
