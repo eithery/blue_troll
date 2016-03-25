@@ -1,3 +1,7 @@
+# Eithery Lab, 2016.
+# UserAccounts coffee scripts
+# Performs client-side operations with user accounts.
+
 $(document).ready ->
   $('#new_user_account').formValidation
     framework: 'bootstrap'
@@ -27,13 +31,23 @@ $(document).ready ->
         validators:
           notEmpty:
             message: 'The password confirmation is required'
+          identical:
+            field: 'user_account[password]'
+            message: 'The password and its confirmation are not the same'
 
       'user_account[email]':
         validators:
           notEmpty:
             message: 'The email address is required and cannot be empty'
+          emailAddress:
+            message: 'The value is not a valid email address'
 
       'user_account[email_confirmation]':
         validators:
           notEmpty:
             message: 'The email confirmation is required'
+          emailAddress:
+            message: 'The value is not a valid email address'
+          identical:
+            field: 'user_account[email]'
+            message: 'The email address and its confirmation are not the same'

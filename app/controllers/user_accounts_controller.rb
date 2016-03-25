@@ -70,7 +70,7 @@ class UserAccountsController < ApplicationController
 private
 
   def user_account_params
-    params.require(:user_account).permit(:id, :login, :email, :email_confirmation, :password, :password_confirmation)
+    params.require(:user_account).permit(:login, :email, :email_confirmation, :password, :password_confirmation)
   end
 
 
