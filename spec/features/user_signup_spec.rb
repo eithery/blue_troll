@@ -19,37 +19,46 @@ feature 'New user registration' do
     expect(page).to have_link 'Login', href: login_path
     expect(page).to have_text 'Blue Trolley Club'
   end
+
+
+  scenario 'Failed submit' do
+    visit signup_path
+    click_button 'Register'
+
+    expect { click_button 'Register' }.to_not change { UserAccount.count }
+  end
+
+
+  scenario 'User submits empty form', js: true do
+    visit signup_path
+    click_button 'Register'
+
+    expect(page).to have_title 'Registration'
+    expect(page).to have_text 'User login is required and cannot be empty'
+    expect(page).to have_text 'password is required and cannot be empty'
+    expect(page).to have_text 'password confirmation is required'
+    expect(page).to have_text 'email address is required'
+    expect(page).to have_text 'email confirmation is required'
+  end
+
+
+  scenario 'User submits all valid information', js: true do
+    visit signup_path
+
+    fill_in :login, with: 'gwendukan'
+    fill_in :email, with: 'gwen@email.com'
+    fill_in :email_confirmation, with: 'gwen@email.com'
+    fill_in :password, with: 'supersecret'
+    fill_in :password_confirmation, with: 'supersecret'
+    click_button 'Register'
+
+    expect(page).to have_title 'gwendukan'
+  end
 end
 
 
 =begin
-describe "New user account registration" do
-  let(:user) { FactoryGirl.build(:inactive_user) }
-
-  shared_examples_for "new user account is created" do
-    specify { expect { submit_registration_form }.to change{ UserAccount.count }.by(1) }
-  end
-
-  shared_examples_for "new user account is not created" do
-    specify { expect { submit_registration_form }.not_to change{ UserAccount.count } }
-  end
-
-  subject { page }
-  before do
-    visit root_path
-    click_link 'Register now!'
-  end
-
-  it { should be_navigated_to new_user_account_page }
-
-  describe "when user is not registered yet and enters all valid info" do
-    before { fill_registration_form }
-
-    it_behaves_like "new user account is created"
-
     context "and submits registration form" do
-      before { submit_registration_form }
-
       it { should be_navigated_to activation_page(user) }
       it { should display_message "New user account for #{user.login} has been created" }
     end
