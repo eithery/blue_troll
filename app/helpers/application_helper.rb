@@ -9,6 +9,12 @@ module ApplicationHelper
   end
 
 
+  def validation_result_for(obj, field)
+    msg = obj.errors[field].any? ? "#{field.to_s.humanize} #{obj.errors[field].first}" : ''
+    { validation_message: msg }
+  end
+
+
   def baby_image(participant)
     image_tag("baby.png", class: "bt-img-reduced") if participant.category == AgeCategory::BABY
   end
