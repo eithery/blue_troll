@@ -1,12 +1,12 @@
 - provide(:title, @user.name)
-= render 'account_details'
-= render 'crew_selector'
-= render 'payment'
+-#= render 'account_details'
+-#= render 'crew_selector'
+-#= render 'payment'
 
-%h4 Registered Participants
-= render 'shared/participants', participants: user_participants, show_crew: false
+-#%h4 Registered Participants
+-#= render 'shared/participants', participants: user_participants, show_crew: false
 
-- if @user.active?
+-#- if @user.active?
   = link_to 'Register for the upcoming event', new_participant_path(user_account_id: @user.id),
     id: "new_participant", class: "btn btn-primary", style: visible_unless { @user.crew.blank? }
 
@@ -21,5 +21,5 @@
 
   = link_to 'Change password', '#', class: "btn btn-warning", style: visible_if { false }
 
-- else
+-#- else
   = link_to 'Activate my account', request_to_activate_path(account_id: @user.id), class: "btn btn-warning"
