@@ -23,7 +23,7 @@ $(document).ready ->
       'user_account[password]':
         validators:
           notEmpty:
-            message: 'The password is reqired and cannot be empty'
+            message: 'The password is required and cannot be empty'
           stringLength:
             min: 8
             message: 'The password should contain at least 8 symbols'
