@@ -1,3 +1,7 @@
+# Eithery Lab, 2016.
+# Sessions coffee scripts
+# Performs client-side operations with user sessions.
+
 $(document).ready ->
   $('#new_session').formValidation
     framework: 'bootstrap'

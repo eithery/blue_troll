@@ -18,6 +18,7 @@ $(document).ready ->
           stringLength:
             min: 6
             message: 'User login should contain at least 6 symbols'
+          blank: {}
 
       'user_account[password]':
         validators:
@@ -41,6 +42,7 @@ $(document).ready ->
             message: 'The email address is required and cannot be empty'
           emailAddress:
             message: 'The value is not a valid email address'
+          blank: {}
 
       'user_account[email_confirmation]':
         validators:
@@ -51,3 +53,11 @@ $(document).ready ->
           identical:
             field: 'user_account[email]'
             message: 'The email address and its confirmation are not the same'
+
+  fv = $('#new_user_account').data 'formValidation'
+  validation_message_attribute = 'data-validation-message'
+  for e in $("[#{validation_message_attribute}]").toArray()
+    msg = e.getAttribute validation_message_attribute
+    unless msg is ''
+      fv.updateMessage e.name, 'blank', msg
+      fv.updateStatus e.name, 'INVALID', 'blank'
