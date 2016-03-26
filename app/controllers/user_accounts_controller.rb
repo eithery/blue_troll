@@ -3,6 +3,8 @@
 # Performs operations with user accounts.
 
 class UserAccountsController < ApplicationController
+  include SessionsHelper
+
 #  before_filter :signed_in_user, only: [:show, :update_crew]
 #  before_filter :correct_user, only: [:show, :update_crew]
 
@@ -23,11 +25,13 @@ class UserAccountsController < ApplicationController
 
   def create
     @user = UserAccount.new(user_account_params)
+    @user.created_by = @user.updated_by = current_user || @user.login
     if @user.save
       UserAccountsMailer.registered(@user).deliver_now
       flash[:success] = "New user account for #{@user.name} has been created."
       redirect_to request_to_activate_path(id: @user.id)
     else
+      flash.now[:danger] = 'New account registration form contains invalid data'
       render :new, layout: 'blank'
     end
   end
