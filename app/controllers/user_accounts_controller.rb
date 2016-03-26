@@ -27,6 +27,7 @@ class UserAccountsController < ApplicationController
     @user = UserAccount.new(user_account_params)
     @user.created_by = @user.updated_by = current_user || @user.login
     if @user.save
+      log_in @user
 #      UserAccountsMailer.registered(@user).deliver_now
       flash[:success] = "New user account for #{@user.name} has been created."
       redirect_to @user

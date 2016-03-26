@@ -132,7 +132,7 @@ private
 
 
   def downcase_credentials
-    self.login.downcase!
+    self.login = login.downcase
     self.email.downcase!
   end
 end
