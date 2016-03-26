@@ -17,6 +17,43 @@ describe ApplicationHelper do
       expect(full_title '').to_not match /\|/
     end
   end
+
+
+  describe '#validation_result_for' do
+    let(:user) { FactoryGirl.build :user_account }
+
+    context 'when the model contains one validation error' do
+      before do
+        user.login = ''
+        user.valid?
+      end
+
+      it { expect(user.errors[:login]).to have(1).error }
+      it { expect(validation_result_for user, :login).to eq ({ validation_message: "Login can't be blank" })}
+    end
+
+
+    context 'when the model contains multiple validation errors' do
+      before do
+        user.login = ''
+        user.valid?
+        user.errors[:login] << 'cannot exist'
+      end
+
+      it { expect(user.errors[:login]).to have(2).errors }
+      it { expect(validation_result_for user, :login).to eq ({ validation_message: "Login can't be blank" })}
+    end
+
+
+    context 'when the model does not have validation errors' do
+      before do
+        user.login = 'gwendos'
+        user.valid?
+      end
+      it { expect(user.errors[:login]).to have(:no).errors }
+      it { expect(validation_result_for user, :login).to eq ({ validation_message: '' })}
+    end
+  end
 end
 
 

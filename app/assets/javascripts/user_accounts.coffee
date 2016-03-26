@@ -54,6 +54,7 @@ $(document).ready ->
             field: 'user_account[email]'
             message: 'The email address and its confirmation are not the same'
 
+
   fv = $('#new_user_account').data 'formValidation'
   validation_message_attribute = 'data-validation-message'
   for e in $("[#{validation_message_attribute}]").toArray()
