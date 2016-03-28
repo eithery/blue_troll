@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 
     if(user && user.authenticate(session_params[:password]))
       log_in user
-      remember user
+      session_params[:remember_me] == '1' ? remember(user) : forget(user)
       flash[:warning] = 'User account is not activated' unless user.activated?
       redirect_to user
     else
@@ -36,6 +36,6 @@ class SessionsController < ApplicationController
 private
 
   def session_params
-    params.require(:session).permit(:login, :password)
+    params.require(:session).permit(:login, :password, :remember_me)
   end
 end
