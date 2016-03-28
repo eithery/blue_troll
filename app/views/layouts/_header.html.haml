@@ -41,6 +41,6 @@
           = f.search_field :pattern, class: "form-control col-sm-4", placeholder: 'Search'
 
       %li
-        = link_to logout_path, method: 'delete' do
+        = link_to logout_path, method: :delete do
           %i.fa.fa-sign-out
           Log out
