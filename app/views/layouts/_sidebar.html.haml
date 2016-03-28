@@ -18,9 +18,34 @@
             %li.divider
             %li= link_to 'Logout', logout_path
 
-        .logo-element BT+
+        .logo-element BT
+
+      %li.active
+        = link_to '#' do
+          %i.fa.fa-edit
+          %span.nav-label My Profile
 
       %li
-        %a{ href: '#' }
-          %i.fa.fa-th-large
-          %span.nav-label Main view
+        = link_to '#' do
+          %i.fa.fa-calendar
+          %span.nav-label Events
+
+      %li
+        = link_to '#' do
+          %i.fa.fa-user
+          %span.nav-label User Accounts
+
+      %li
+        = link_to '#' do
+          %i.fa.fa-group
+          %span.nav-label Crews
+
+      %li
+        = link_to '#' do
+          %i.fa.fa-cogs
+          %span.nav-label Administration
+
+      %li
+        = link_to '#' do
+          %i.fa.fa-download
+          %span.nav-label Export Data
