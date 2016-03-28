@@ -1,0 +1,15 @@
+.navbar-wrapper
+  .navbar.navbar-default.navbar-fixed-top{ role: 'navigation' }
+    .container
+      .navbar-header.page-scroll
+        %button.navbar-toggle.collapsed{ type: 'button', data: { toggle: 'collapse', target: '#navbar' }}
+          %span.sr-only Toggle navigation
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        = link_to 'My Profile', current_user, class: 'navbar-brand' if logged_in?
+      -##navbar.navbar-collapse.collapse
+        %ul.nav.navbar-nav.navbar-right
+          %li= link_to 'Home', '#page-top', class: 'page-scroll'
+          %li= link_to 'Our Conductors', '#team', class: 'page-scroll'
+          %li= link_to 'Contact us', '#contact', class: 'page-scroll'

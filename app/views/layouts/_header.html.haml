@@ -7,8 +7,9 @@
         .form-group
           %input.form-control#top-search{ type: 'text', placeholder: 'Search for something...', name: 'top-search' }
 
-    -#= link_to "Blue Trolley", root_path, id: 'logo', class: "navbar-brand"
     %ul.nav.navbar-top-links.navbar-right
+      %li= link_to 'Home', root_path
+
       -#- if current_user.crew_lead? && !current_user.crew.blank?
         %li= link_to 'My Crew', crew_path(current_user.crew)
 
