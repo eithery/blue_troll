@@ -5,8 +5,8 @@ module ParticipantsHelper
 
 
   def form_header
-    crew = @participant.requested_crew_id.blank? ? @participant.crew : Crew.find(@participant.requested_crew_id)
-    "#{@participant.new_record? ? "New" : "Edit"} Participant - #{crew.display_name}"
+#    crew = @participant.requested_crew_id.blank? ? @participant.crew : Crew.find(@participant.requested_crew_id)
+    "#{@participant.new_record? ? "New" : "Edit"} Participant"
   end
 
 

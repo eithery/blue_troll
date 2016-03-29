@@ -1,15 +1,15 @@
 require 'csv'
 
 class ParticipantsController < ApplicationController
-  before_filter :signed_in_user
-	before_action :set_participant, only: [:edit, :update, :destroy, :approve]
+#  before_filter :signed_in_user
+#	 before_action :set_participant, only: [:edit, :update, :destroy, :approve]
 
 
   def new
-    user_account_id = params[:user_account_id]
-    crew_id = params[:crew_id]
-    user_account = user_account_id.nil? ? UserAccount.new : UserAccount.find(user_account_id)
-    @participant = Participant.new(user_account: user_account, requested_crew_id: crew_id)
+    user_id = params[:user_id]
+#    crew_id = params[:crew_id]
+    user_account = user_id.nil? ? UserAccount.new : UserAccount.find(user_id)
+    @participant = Participant.new user_account: user_account
   end
 
 
@@ -226,7 +226,7 @@ private
 
 
   def participant_params
-    params.require(:participant).permit(:user_account_id, :requested_crew_id, :last_name, :first_name,
+    params.require(:participant).permit(:crew_id, :last_name, :first_name,
       :ticket_code, :email, :address_line_1, :age_category, :age, :cell_phone, :sent, :sent_by,
       :registered_at, :registered_by, :flagged, :notes)
   end
