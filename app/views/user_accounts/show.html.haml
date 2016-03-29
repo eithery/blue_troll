@@ -3,23 +3,23 @@
 -#= render 'crew_selector'
 -#= render 'payment'
 
--#%h4 Registered Participants
--#= render 'shared/participants', participants: user_participants, show_crew: false
+%h4 My family
+= render 'shared/participants', participants: user_participants, show_crew: false
 
--#- if @user.active?
-  = link_to 'Register for the upcoming event', new_participant_path(user_account_id: @user.id),
-    id: "new_participant", class: "btn btn-primary", style: visible_unless { @user.crew.blank? }
+- if @user.activated?
+  = link_to 'Register to the upcoming event', new_participant_path(user_id: @user.id),
+    id: 'new_participant', class: 'btn btn-primary'
 
-  = link_to 'Select crew', '#', class: "btn btn-primary", data: { toggle: 'modal', target: "#crew-selector" },
+  -#= link_to 'Select crew', '#', class: "btn btn-primary", data: { toggle: 'modal', target: "#crew-selector" },
     style: visible_unless { @user.participants.any? { |p| p.approved? }}
 
-  = link_to 'Payments', '#', class: "btn btn-info", data: { toggle: 'modal', target: "#payment" },
+  -#= link_to 'Payments', '#', class: "btn btn-info", data: { toggle: 'modal', target: "#payment" },
     style: visible_if { !@user.crew.blank? && @user.active? && @user.participants.any? { |p| p.approved? && p.unpaid? }}
 
-  = link_to 'Download my tickets', user_tickets_download_path(@user), method: :post, class: "btn btn-info",
+  -#= link_to 'Download my tickets', user_tickets_download_path(@user), method: :post, class: "btn btn-info",
     style: visible_if { @user.participants.any? { |p| p.payment_confirmed? }}
 
-  = link_to 'Change password', '#', class: "btn btn-warning", style: visible_if { false }
+  -#= link_to 'Change password', '#', class: "btn btn-warning", style: visible_if { false }
 
 -#- else
   = link_to 'Activate my account', request_to_activate_path(account_id: @user.id), class: "btn btn-warning"
