@@ -3,6 +3,12 @@ BlueTroll::Application.routes.draw do
   resources :user_accounts
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
+  resources :crews
+  resources :participants, except: [:show] do
+    collection do
+      post :search
+    end
+  end
 
   get 'signup' => 'user_accounts#new'
   get 'login' => 'sessions#new'
@@ -10,19 +16,6 @@ BlueTroll::Application.routes.draw do
   delete 'logout' => 'sessions#destroy'
 
   root 'landing#index'
-
-
-  resources :crews, only: [:index, :show]
-
-  resources :participants, except: [:show] do
-    collection do
-      post :search
-      get :adults, :children, :babies
-      get :adults_onsite, :children_onsite, :babies_onsite
-      get :total_registered, :total_onsite
-      get :expected, :flagged
-    end
-  end
 
 
   scope controller: :participants, path: 'export' do
