@@ -15,7 +15,6 @@ class ParticipantsController < ApplicationController
 
   def create
     @participant = Participant.new(participant_params)
-
     if @participant.user_account_id.blank?
       crew = Crew.find(participant_params[:requested_crew_id])
       email = participant_params[:email]
@@ -43,8 +42,8 @@ class ParticipantsController < ApplicationController
 
     if @participant.save
       flash[:success] = "#{@participant.display_name} has been successfully registered as Blue Trolley event participant."
-      ParticipantsMailer.created(@participant).deliver
-      ParticipantsMailer.approval_requested(@participant).deliver
+#      ParticipantsMailer.created(@participant).deliver
+#      ParticipantsMailer.approval_requested(@participant).deliver
       redirect_to @participant.requested_crew_id.blank? ? @participant.user_account : @participant.crew
     else
       render :new
@@ -220,14 +219,14 @@ class ParticipantsController < ApplicationController
 
 
 private
+
   def set_participant
     @participant = Participant.find(params[:id])
   end
 
 
   def participant_params
-    params.require(:participant).permit(:crew_id, :last_name, :first_name,
-      :ticket_code, :email, :address_line_1, :age_category, :age, :cell_phone, :sent, :sent_by,
-      :registered_at, :registered_by, :flagged, :notes)
+    params.require(:participant).permit(:last_name, :first_name, :age_category, :age, :email,
+      :home_phone, :cell_phone, :address)
   end
 end

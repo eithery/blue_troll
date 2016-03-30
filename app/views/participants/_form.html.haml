@@ -17,7 +17,7 @@
   .ibox-content
     .row
       .col-sm-6.b-r
-        = form_for(@participant) do |f|
+        = form_for(@participant, html: { role: 'form' }) do |f|
           = f.hidden_field :user_account_id
 
           .form-group
@@ -43,7 +43,7 @@
               %label{ for: 'participant_age_category_2' } Child (0 - 6 years)
 
           .form-group
-            = f.label :age, 'Age (under 16 only)', class: 'control-label'
+            = f.label :age, 'Age (under 16 only)'
             = f.text_field :age, class: 'form-control', maxlength: 2, style: 'max-width: 50px;'
 
           .form-group
