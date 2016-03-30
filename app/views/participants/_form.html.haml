@@ -31,16 +31,16 @@
           .form-group
             = f.label 'Age Category', style: 'margin-bottom: 0;'
             .radio.radio-info
-              = f.radio_button :age_category, Participant::ADULT
-              %label{ for: 'participant_age_category_0' } Adult
+              = f.radio_button :age_category, :adult
+              %label{ for: 'participant_age_category_adult' } Adult
 
             .radio.radio-info
-              = f.radio_button :age_category, Participant::CHILD
-              %label{ for: 'participant_age_category_1' } Child (more than 6 years)
+              = f.radio_button :age_category, :child
+              %label{ for: 'participant_age_category_child' } Child (more than 6 years)
 
             .radio.radio-info
-              = f.radio_button :age_category, Participant::BABY
-              %label{ for: 'participant_age_category_2' } Child (0 - 6 years)
+              = f.radio_button :age_category, :baby
+              %label{ for: 'participant_age_category_baby' } Child (0 - 6 years)
 
           .form-group
             = f.label :age, 'Age (under 16 only)'
