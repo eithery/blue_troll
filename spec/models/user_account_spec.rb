@@ -6,7 +6,7 @@ require 'rails_helper'
 describe UserAccount do
   subject(:user) { FactoryGirl.build :user_account }
   let(:admin) { FactoryGirl.build :admin }
-  let(:rita) { FactoryGirl.build :financier }
+  let(:rita) { FactoryGirl.build :rita }
 
   it_behaves_like 'a valid domain model'
   it_behaves_like 'it has timestamps'
@@ -42,7 +42,7 @@ describe UserAccount do
   it { should validate_confirmation_of :password }
 
   it { should validate_length_of(:login).is_at_least(4).is_at_most(255) }
-  it { should validate_length_of(:password).is_at_least(6).is_at_most(72) }
+  it { should validate_length_of(:password).is_at_least(8).is_at_most(72) }
 
   it { should validate_uniqueness_of(:login).case_insensitive }
   it { should validate_uniqueness_of(:email).case_insensitive }

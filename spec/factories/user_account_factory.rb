@@ -17,7 +17,7 @@ FactoryGirl.define do
       admin true
     end
 
-    factory :financier do
+    factory :rita do
       financier true
     end
 
