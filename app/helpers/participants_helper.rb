@@ -52,13 +52,6 @@ module ParticipantsHelper
   end
 
 
-  def edit_tag(participant)
-    link_to image_tag('edit.png', alt: 'Edit participant', class: "bt-img"),
-      edit_participant_path(participant), title: "Click here to edit #{participant.display_name} profile",
-      rel: 'tooltip'
-  end
-
-
   def delete_tag(participant)
     if !participant.payment_confirmed? || current_user.admin?
       link_to image_tag('delete.png', alt: 'Delete participant', class: "bt-img"),

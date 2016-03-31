@@ -16,8 +16,12 @@
 %td
   -#= participant.status
 %td
-  -#= edit_tag participant
-  -#= delete_tag participant
+  = link_to edit_participant_path(participant), title: "Click here to edit #{participant.display_name} profile" do
+    %i.fa.fa-edit
+  = link_to participant_path(participant), method: :delete, title: "Click here to delete #{participant.display_name}",
+    data: { confirm: "Are you sure to delete #{participant.display_name} from the participants list?" } do
+    %i.fa.fa-trash
+
   -#= download_ticket_tag participant
   -#= send_ticket_link_tag participant
   -#= send_payment_tag participant
