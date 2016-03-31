@@ -1,6 +1,7 @@
 require 'csv'
 
 class ParticipantsController < ApplicationController
+  include SessionsHelper
 #  before_filter :signed_in_user
 #	 before_action :set_participant, only: [:edit, :update, :destroy, :approve]
 
@@ -15,6 +16,7 @@ class ParticipantsController < ApplicationController
 
   def create
     @participant = Participant.new(participant_params)
+    @participant.created_by = @participant.updated_by = current_user
     if @participant.user_account_id.blank?
       crew = Crew.find(participant_params[:requested_crew_id])
       email = participant_params[:email]
@@ -41,11 +43,13 @@ class ParticipantsController < ApplicationController
     end
 
     if @participant.save
-      flash[:success] = "#{@participant.display_name} has been successfully registered as Blue Trolley event participant."
+      flash[:success] = "#{@participant.display_name} has been successfully created."
 #      ParticipantsMailer.created(@participant).deliver
 #      ParticipantsMailer.approval_requested(@participant).deliver
-      redirect_to @participant.requested_crew_id.blank? ? @participant.user_account : @participant.crew
+      redirect_to @participant.user_account
+#      redirect_to @participant.requested_crew_id.blank? ? @participant.user_account : @participant.crew
     else
+      flash.now[:danger] = 'New participant form contains invalid data'
       render :new
     end
   end
@@ -226,7 +230,7 @@ private
 
 
   def participant_params
-    params.require(:participant).permit(:last_name, :first_name, :age_category, :age, :email,
+    params.require(:participant).permit(:user_account_id, :last_name, :first_name, :age_category, :age, :email,
       :home_phone, :cell_phone, :address)
   end
 end
