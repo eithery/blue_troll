@@ -99,7 +99,7 @@ class UserAccount < ApplicationRecord
 
 
   def financier_at?(event)
-    event.financiers.any? { |fin| fin.user == self }
+    financier? || event.financiers.any? { |fin| fin.user == self }
   end
 
 

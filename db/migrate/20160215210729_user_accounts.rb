@@ -19,6 +19,7 @@ class UserAccounts < ActiveRecord::Migration[5.0]
       t.datetime :reset_sent_at
 
       t.boolean :admin, null: false, default: false
+      t.boolean :financier, null: false, default: false
       t.boolean :activated, null: false, default: false
 
       t.full_timestamps

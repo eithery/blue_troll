@@ -17,6 +17,10 @@ FactoryGirl.define do
       admin true
     end
 
+    factory :financier do
+      financier true
+    end
+
     trait :with_participants do
       after(:build) do |user|
         user.participants << [

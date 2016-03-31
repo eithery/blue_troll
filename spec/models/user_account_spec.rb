@@ -6,6 +6,7 @@ require 'rails_helper'
 describe UserAccount do
   subject(:user) { FactoryGirl.build :user_account }
   let(:admin) { FactoryGirl.build :admin }
+  let(:rita) { FactoryGirl.build :financier }
 
   it_behaves_like 'a valid domain model'
   it_behaves_like 'it has timestamps'
@@ -15,7 +16,7 @@ describe UserAccount do
 
   it { should respond_to :login, :email, :email_confirmation }
   it { should respond_to :password, :password_confirmation, :password_digest }
-  it { should respond_to :admin? }
+  it { should respond_to :admin?, :financier? }
   it { should respond_to :authenticate, :authenticated? }
   it { should respond_to :remember_digest, :remember_token, :remember, :forget }
   it { should respond_to :activation_token, :activation_digest, :activated?, :activated_at }
@@ -273,6 +274,10 @@ describe UserAccount do
   describe '#financier_at?' do
     include_context 'upcoming event'
 
+    context 'when a user is a Blue Trolley financier' do
+      it { expect(rita.financier_at? event).to be true }
+    end
+
     context 'when a user is a financier at the event' do
       it { expect(financier.user.financier_at? event).to be true }
     end
@@ -295,6 +300,10 @@ describe UserAccount do
 
   describe '#financier_for?' do
     include_context 'upcoming event'
+
+    context 'when a user is a Blue Trolley financier' do
+      it { expect(rita.financier_for? participant).to be true }
+    end
 
     context 'when a user is not a financier' do
       it { expect(participant.user.financier_for? participant).to be false }
