@@ -14,5 +14,5 @@
 
     %tbody
       - participants.each.with_index do |participant, idx|
-        %tr{ id: "participant_#{participant.id.to_s}", class: participant_class(participant) }
+        %tr{ id: "participant_#{participant.id.to_s}" }
           = render 'shared/participant', participant: participant, index: idx, show_crew: show_crew
