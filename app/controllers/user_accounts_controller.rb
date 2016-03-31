@@ -3,17 +3,15 @@
 # Performs operations with user accounts.
 
 class UserAccountsController < ApplicationController
-  include SessionsHelper
-
-#  before_filter :signed_in_user, only: [:show, :update_crew]
-#  before_filter :correct_user, only: [:show, :update_crew]
+  before_filter :assert_authenticated_user, only: [:index, :show, :edit, :update, :destroy]
+  before_action :retrieve_user_account, only: [:show]
 
   def index
   end
 
 
   def show
-    @user = UserAccount.find(params[:id])
+    redirect_to root_path unless current_user? @user
   end
 
 
@@ -35,6 +33,10 @@ class UserAccountsController < ApplicationController
       flash.now[:danger] = 'New account registration form contains invalid data'
       render :new, layout: 'blank'
     end
+  end
+
+
+  def edit
   end
 
 
@@ -76,6 +78,11 @@ private
 
   def user_account_params
     params.require(:user_account).permit(:login, :email, :email_confirmation, :password, :password_confirmation)
+  end
+
+
+  def retrieve_user_account
+    @user = UserAccount.find(params[:id])
   end
 
 

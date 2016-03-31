@@ -1,21 +1,14 @@
+# Eithery Lab, 2016.
+# ApplicationController.
+# Represents a base class for all controllers within the application.
+
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
+  include SessionsHelper
   protect_from_forgery with: :exception
 
 private
-  def set_user_account
-    @user = UserAccount.find(params[:id])
-  end
 
-
-  def signed_in_user
-    redirect_to signin_path unless signed_in?
-  end
-
-
-  def correct_user
-    set_user_account
-    redirect_to root_path unless current_user?(@user)
+  def assert_authenticated_user
+    redirect_to login_path unless logged_in?
   end
 end

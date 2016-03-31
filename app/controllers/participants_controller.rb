@@ -1,9 +1,12 @@
+# Eithery Lab, 2016.
+# ParticipantsController.
+# Performs participants related operations.
+
 require 'csv'
 
 class ParticipantsController < ApplicationController
-  include SessionsHelper
-#  before_filter :signed_in_user
-#	 before_action :set_participant, only: [:edit, :update, :destroy, :approve]
+  before_filter :assert_authenticated_user
+  before_action :retrieve_participant, only: [:edit, :update, :destroy]
 
 
   def new
@@ -64,6 +67,7 @@ class ParticipantsController < ApplicationController
       flash[:success] = "#{@participant.display_name} profile has been successfully updated."
       redirect_to @participant.user_account
     else
+      flash.now[:danger] = 'New participant form contains invalid data'
       render :edit
     end
   end
@@ -72,7 +76,7 @@ class ParticipantsController < ApplicationController
   def destroy
     user_account = @participant.user_account
     @participant.destroy
-    flash[:success] = "#{@participant.display_name} has been deleted from Blue Trolley participants list."
+    flash[:success] = "#{@participant.display_name} has been deleted"
     redirect_to user_account
   end
 
@@ -108,67 +112,6 @@ class ParticipantsController < ApplicationController
   def flagged
     @participants = Participant.order(:last_name, :first_name).select do |p|
       p.flagged?
-    end
-  end
-
-
-  def adults
-    @participants = Participant.order(:last_name, :first_name).select do |p|
-      p.age_category == AgeCategory::ADULT
-    end
-  end
-
-
-  def adults_onsite
-    @participants = Participant.order(:last_name, :first_name).select do |p|
-      p.age_category == AgeCategory::ADULT && !p.registered_at.nil?
-    end
-  end
-
-
-  def children
-    @participants = Participant.order(:last_name, :first_name).select do |p|
-      p.age_category == AgeCategory::CHILD
-    end
-  end
-
-
-  def children_onsite
-    @participants = Participant.order(:last_name, :first_name).select do |p|
-      p.age_category == AgeCategory::CHILD && !p.registered_at.nil?
-    end
-  end
-
-
-  def babies
-    @participants = Participant.order(:last_name, :first_name).select do |p|
-      p.age_category == AgeCategory::BABY
-    end
-  end
-
-
-  def babies_onsite
-    @participants = Participant.order(:last_name, :first_name).select do |p|
-      p.age_category == AgeCategory::BABY && !p.registered_at.nil?
-    end
-  end
-
-
-  def total_registered
-    @participants = Participant.order(:last_name, :first_name)
-  end
-
-
-  def total_onsite
-    @participants = Participant.order(:last_name, :first_name).select do |p|
-      !p.registered_at.nil?
-    end
-  end
-
-
-  def expected
-    @participants = Participant.order(:last_name, :first_name).select do |p|
-      p.registered_at.nil?
     end
   end
 
@@ -224,7 +167,7 @@ class ParticipantsController < ApplicationController
 
 private
 
-  def set_participant
+  def retrieve_participant
     @participant = Participant.find(params[:id])
   end
 
