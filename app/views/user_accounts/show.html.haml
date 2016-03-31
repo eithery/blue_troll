@@ -1,10 +1,30 @@
 - provide(:title, @user.name)
+.ibox.float-e-margins
+  .ibox-title
+    %h5 My Family
+    .ibox-tools
+      %a.collapse-link
+        %i.fa.fa-chevron-up
+      %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' }}
+        %i.fa.fa-wrench
+      %ul.dropdown-menu.dropdown-user
+        %li= link_to 'Config option 1', '#'
+        %li= link_to 'Config option 1', '#'
+      %a.close-link
+        %i.fa.fa-times
+  .ibox-content
+    = render 'shared/participants', participants: user_participants, show_crew: false
+
+
+
+
+
+
+
 -#= render 'account_details'
 -#= render 'crew_selector'
 -#= render 'payment'
 
-%h4 My family
-= render 'shared/participants', participants: user_participants, show_crew: false
 
 - if @user.activated?
   = link_to new_participant_path(user_id: @user.id), class: 'btn btn-primary' do

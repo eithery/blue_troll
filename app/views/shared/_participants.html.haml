@@ -1,16 +1,16 @@
-.shadowed-form
-  %table.table.table-bordered.table-striped.table-hover.table-condensed
+.table-responsive
+  %table#participants.hover.order-column.row-border.stripe
     %thead
       %tr
-        %th.bt-col-2 #
-        %th.bt-col-4 Name
-        %th.bt-col-4 Email
+        %th #
+        %th Name
+        %th Email
         - if show_crew
-          %th.bt-col-4 Crew
+          %th Crew
 
-        %th.bt-col-1 Age
+        %th Age
         %th Status
-        %th.bt-col-3 Actions
+        %th Actions
 
     %tbody
       - participants.each.with_index do |participant, idx|
