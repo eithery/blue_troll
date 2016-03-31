@@ -1,7 +1,9 @@
 - provide(:title, @user.name)
 .ibox.float-e-margins
   .ibox-title
-    %h5 My Family
+    %h5
+      My Participants
+      %small &nbsp;may contain family members, friends, and all persons belong to the user account
     .ibox-tools
       %a.collapse-link
         %i.fa.fa-chevron-up
@@ -15,8 +17,10 @@
   .ibox-content
     = render 'shared/participants', participants: user_participants, show_crew: false
 
-
-
+    - if @user.activated?
+      = link_to new_participant_path(user_id: @user.id), class: 'btn btn-primary' do
+        %i.fa.fa-user-plus
+        New Participant
 
 
 
@@ -24,12 +28,6 @@
 -#= render 'account_details'
 -#= render 'crew_selector'
 -#= render 'payment'
-
-
-- if @user.activated?
-  = link_to new_participant_path(user_id: @user.id), class: 'btn btn-primary' do
-    %i.fa.fa-user-plus
-    New Participant
 
   -#= link_to 'Select crew', '#', class: "btn btn-primary", data: { toggle: 'modal', target: "#crew-selector" },
     style: visible_unless { @user.participants.any? { |p| p.approved? }}
