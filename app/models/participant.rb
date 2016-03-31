@@ -15,12 +15,6 @@ class Participant < ApplicationRecord
   enum age_category: [:adult, :child, :baby]
   enum gender: [:female, :male]
 
-  ADULT = age_categories[:adult]
-  CHILD = age_categories[:child]
-  BABY = age_categories[:baby]
-  FEMALE = genders[:female]
-  MALE = genders[:male]
-
   def full_name
     "#{last_name}, #{first_name}"
   end
