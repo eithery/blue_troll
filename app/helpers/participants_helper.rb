@@ -85,10 +85,10 @@ module ParticipantsHelper
 
   def age_category(participant)
     age = participant.age || 0
-    age = participant.age_category == AgeCategory::BABY ? '?' : '' if age == 0
+    age = participant.baby? ? '?' : '' if age == 0
 
-    return "B#{age}" if participant.age_category == AgeCategory::BABY
-    return "C#{age}" if participant.age_category == AgeCategory::CHILD
+    return "B#{age}" if participant.baby?
+    return "C#{age}" if participant.child?
     return "A#{age}"
   end
 
