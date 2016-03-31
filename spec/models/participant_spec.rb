@@ -13,9 +13,9 @@ describe Participant do
     let(:email_holder) { participant }
   end
 
-  it { should respond_to :user_account }
+  it { should respond_to :user_account, :principal? }
   it { should respond_to :last_name, :first_name, :middle_name, :gender, :age_category, :age, :born_on }
-  it { should respond_to :home_phone, :cell_phone, :email, :address, :notes }
+  it { should respond_to :phone, :email, :address, :notes }
   it { should respond_to :full_name, :display_name }
 
   it { should validate_presence_of :last_name }

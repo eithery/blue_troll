@@ -42,7 +42,7 @@ $(document).ready ->
           emailAddress:
             message: 'The value is not a valid email address'
 
-      'participant[cell_phone]':
+      'participant[phone]':
         validators:
           phone:
             country: 'US'
