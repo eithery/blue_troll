@@ -7,8 +7,9 @@
 = render 'shared/participants', participants: user_participants, show_crew: false
 
 - if @user.activated?
-  = link_to 'Register to the upcoming event', new_participant_path(user_id: @user.id),
-    id: 'new_participant', class: 'btn btn-primary'
+  = link_to new_participant_path(user_id: @user.id), class: 'btn btn-primary' do
+    %i.fa.fa-user-plus
+    New Participant
 
   -#= link_to 'Select crew', '#', class: "btn btn-primary", data: { toggle: 'modal', target: "#crew-selector" },
     style: visible_unless { @user.participants.any? { |p| p.approved? }}

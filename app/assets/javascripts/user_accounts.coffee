@@ -16,8 +16,8 @@ $(document).ready ->
           notEmpty:
             message: 'User login is required and cannot be empty'
           stringLength:
-            min: 6
-            message: 'User login should contain at least 6 symbols'
+            min: 4
+            message: 'User login should contain at least 4 symbols'
           blank: {}
 
       'user_account[password]':
