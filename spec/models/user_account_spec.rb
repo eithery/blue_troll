@@ -5,6 +5,7 @@ require 'rails_helper'
 
 describe UserAccount do
   subject(:user) { FactoryGirl.build :user_account }
+  let(:populated_account) { FactoryGirl.create(:user_account, :with_participants) }
   let(:admin) { FactoryGirl.build :admin }
   let(:rita) { FactoryGirl.build :rita }
 
@@ -16,6 +17,7 @@ describe UserAccount do
 
   it { should respond_to :login, :email, :email_confirmation }
   it { should respond_to :password, :password_confirmation, :password_digest }
+  it { should respond_to :principal }
   it { should respond_to :admin?, :financier? }
   it { should respond_to :authenticate, :authenticated? }
   it { should respond_to :remember_digest, :remember_token, :remember, :forget }
@@ -113,20 +115,44 @@ describe UserAccount do
 
 
   describe '#name' do
-    it { expect(user.name).to be user.login }
+    context 'when user account contains at least one principal' do
+      before { populated_account.participants.first.principal = true }
+      it { expect(populated_account.name).to eq populated_account.principal.display_name }
+    end
+
+    context 'when user account contains no principals' do
+      it { expect(user.name).to be user.login }
+    end
   end
 
 
   describe '#to_file_name' do
-    it { expect(user.to_file_name).to be user.name }
+    it { expect(user.to_file_name).to be user.login }
   end
 
 
   describe '#participants, #persons' do
-    let(:user) { FactoryGirl.create(:user_account, :with_participants) }
-
-    it { expect(user).to have(3).persons }
+    it { expect(populated_account).to have(3).persons }
     it { expect(UserAccount.new).to have(:no).persons }
+  end
+
+
+  describe '#principal' do
+    context 'when user account is empty' do
+      it { expect(user.principal).to be nil }
+    end
+
+    context 'when user account contains at least one principal' do
+      before { populated_account.participants.first.principal = true }
+
+      it { expect(populated_account.principal).to be_instance_of Participant }
+      it { expect(populated_account.principal).to be populated_account.participants.first }
+    end
+
+    context 'when user account contains no principals' do
+      before { populated_account.participants.each { |p| p.principal = false }}
+      it { expect(populated_account.principal).to be nil }
+    end
   end
 
 

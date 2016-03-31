@@ -32,12 +32,17 @@ class UserAccount < ApplicationRecord
 
 
   def name
-    login
+    principal&.display_name || login
   end
 
 
   def to_file_name
-    name
+    login
+  end
+
+
+  def principal
+    participants.find { |p| p.principal? }
   end
 
 
