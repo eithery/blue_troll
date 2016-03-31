@@ -47,3 +47,9 @@ $(document).ready ->
           phone:
             country: 'US'
             message: 'The value is not a valid phone number'
+
+
+  $('#participants').DataTable
+    paging: false
+    searching: false
+    info: false
