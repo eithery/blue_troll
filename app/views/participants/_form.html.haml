@@ -55,11 +55,10 @@
             = f.text_field :phone, class: 'form-control', style: 'max-width: 160px;', placeholder: 'Phone number'
 
           .form-group
-            = f.label :address, 'Address'
+            = f.label :address
             = f.text_area :address, class: 'form-control', rows: 5, placeholder: 'Home address'
 
           %br
-          .pull-right
-            = f.submit class: 'btn btn-primary m-t-n-xs'
-            &nbsp;
-            = link_to "Cancel", @participant.user_account, class: 'btn btn-default m-t-n-xs'
+          = f.submit class: 'btn btn-primary m-t-n-xs'
+          &nbsp;
+          = link_to 'Cancel', @participant.user_account, class: 'btn btn-default m-t-n-xs'

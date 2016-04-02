@@ -1,0 +1,40 @@
+.ibox.float-e-margins
+  .ibox-title
+    %h5
+      New Event
+      %small &nbsp;Can be Blue Trolley event, party, concert, or other
+    .ibox-tools
+      %a.collapse-link
+        %i.fa.fa-chevron-up
+      %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' }}
+        %i.fa.fa-wrench
+      %ul.dropdown-menu.dropdown-user
+      %a.close-link
+        %i.fa.fa-times
+
+  .ibox-content
+    .row
+      .col-sm-6.b-r
+        = form_for(@event, html: { role: 'form' }) do |f|
+          .form-group
+            = f.label :name
+            = f.text_field :name, class: 'form-control', autofocus: true, placeholder: 'Event name'
+          .form-group
+            = f.label :event_type
+            = collection_select :event, :event_type_id, EventType.all, :id, :name, {}, { class: 'form-control' }
+          .form-group
+            = f.label :started_on, 'Start Date'
+            = f.date_field :started_on, class: 'form-control', style: 'max-width: 200px;'
+          .form-group
+            = f.label :finished_on, 'End Date'
+            = f.date_field :finished_on, class: 'form-control', style: 'max-width: 200px;'
+          .form-group
+            = f.label :address
+            = f.text_area :address, class: 'form-control', rows: 2, placeholder: 'Event address'
+          .form-group
+            = f.label :notes
+            = f.text_area :notes, class: 'form-control', rows: 3, placeholder: 'Notes'
+          %br
+          = f.submit class: 'btn btn-primary m-t-n-xs'
+          &nbsp;
+          = link_to 'Cancel', events_path, class: 'btn btn-default m-t-n-xs'
