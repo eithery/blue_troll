@@ -1,3 +1,19 @@
 = provide(:title, 'Crews')
-%h4 Blue Trolley Crews
-= render 'crews'
+.ibox.float-e-margins
+  .ibox-title
+    %h5
+      Blue Trolley Crews
+    .ibox-tools
+      %a.collapse-link
+        %i.fa.fa-chevron-up
+      %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' }}
+        %i.fa.fa-wrench
+      %ul.dropdown-menu.dropdown-user
+      %a.close-link
+        %i.fa.fa-times
+
+  .ibox-content
+    = render 'crews'
+    = link_to new_crew_path, class: 'btn btn-primary' do
+      %i.fa.fa-user-plus
+      New Crew
