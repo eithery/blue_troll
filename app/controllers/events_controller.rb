@@ -1,9 +1,10 @@
-# Eithery Lab., 2016.
+# Eithery Lab, 2016.
 # EventsController
 # Performs operations with private club events.
 
 class EventsController < ApplicationController
   def index
+    @events = Event.order :started_on
   end
 
 
