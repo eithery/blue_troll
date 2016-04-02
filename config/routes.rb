@@ -3,6 +3,7 @@ BlueTroll::Application.routes.draw do
   resources :user_accounts
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
+  resources :events
   resources :crews
   resources :participants, except: [:show] do
     collection do
