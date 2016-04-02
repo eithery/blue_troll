@@ -21,22 +21,22 @@
         .logo-element BT
 
       %li.active
-        = link_to '#' do
+        = link_to current_user do
           %i.fa.fa-edit
           %span.nav-label My Profile
 
       %li
-        = link_to '#' do
+        = link_to events_path do
           %i.fa.fa-calendar
           %span.nav-label Events
 
       %li
-        = link_to '#' do
+        = link_to user_accounts_path do
           %i.fa.fa-user
           %span.nav-label User Accounts
 
       %li
-        = link_to '#' do
+        = link_to crews_path do
           %i.fa.fa-group
           %span.nav-label Crews
 
