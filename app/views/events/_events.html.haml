@@ -5,9 +5,8 @@
         %th Event Name
         %th Start Date
         %th Event Type
-        %th Address
         %th Actions
 
     %tbody
       - @events.each do |e|
-        %tr= render event, event: e
+        %tr= render 'event', event: e

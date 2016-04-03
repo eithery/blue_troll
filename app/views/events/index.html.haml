@@ -15,4 +15,6 @@
 
   .ibox-content
     = render 'events'
-    = link_to 'New Event', new_event_path, class: 'btn btn-primary'
+    = link_to new_event_path, class: 'btn btn-primary' do
+      %i.fa.fa-plus-circle
+      New Event
