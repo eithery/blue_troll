@@ -71,7 +71,12 @@ class UserAccount < ApplicationRecord
   end
 
 
-  def send_activation_email
+  def send_activation_email(with_new_link: false)
+    if with_new_link
+      create_activation_digest
+      update_attribute :activation_digest, activation_digest
+    end
+
     UserAccountsMailer.account_activation(self).deliver_now
   end
 
