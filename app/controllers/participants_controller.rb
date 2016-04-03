@@ -67,7 +67,7 @@ class ParticipantsController < ApplicationController
       flash[:success] = "#{@participant.display_name} profile has been successfully updated."
       redirect_to @participant.user_account
     else
-      flash.now[:danger] = 'New participant form contains invalid data'
+      flash.now[:danger] = 'Edit participant form contains invalid data'
       render :edit
     end
   end
