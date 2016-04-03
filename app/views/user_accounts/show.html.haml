@@ -1,4 +1,15 @@
 - provide(:title, @user.name)
+
+- unless current_user.activated?
+  .alert.alert-danger.alert-dismissable{ role: 'alert' }
+    %button.close{ type: 'button', data: { dismiss: 'alert' }}
+      %span &times;
+    You account is not activated
+    %p
+      %small
+        Please verify your email address. You should receive the email with activation link.
+        Please click the link to activate your Blue Trolley account.
+
 .ibox.float-e-margins
   .ibox-title
     %h5
@@ -10,8 +21,6 @@
       %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' }}
         %i.fa.fa-wrench
       %ul.dropdown-menu.dropdown-user
-        %li= link_to 'Config option 1', '#'
-        %li= link_to 'Config option 1', '#'
       %a.close-link
         %i.fa.fa-times
   .ibox-content
@@ -21,6 +30,9 @@
       = link_to new_participant_path(user_id: @user.id), class: 'btn btn-primary' do
         %i.fa.fa-user-plus
         New Participant
+    - else
+      = link_to 'Resend Activation Email', '#', class: 'btn btn-warning'
+
 
 
 
@@ -39,6 +51,3 @@
     style: visible_if { @user.participants.any? { |p| p.payment_confirmed? }}
 
   -#= link_to 'Change password', '#', class: "btn btn-warning", style: visible_if { false }
-
--#- else
-  = link_to 'Activate my account', request_to_activate_path(account_id: @user.id), class: "btn btn-warning"
