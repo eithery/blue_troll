@@ -1,7 +1,7 @@
 BlueTroll::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :user_accounts
-  resources :account_activations, only: [:edit]
+  resources :account_activations, only: [:new, :edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :events
   resources :crews
@@ -27,13 +27,9 @@ BlueTroll::Application.routes.draw do
 
 
   get 'approve', to: 'participants#approve'
-  get 'request_to_activate', to: 'user_accounts#request_to_activate'
-  get 'activate', to: 'user_accounts#activate_by_link'
-  post 'activate', to: 'user_accounts#activate'
   get 'change_password', to: 'user_accounts#change_password'
   put 'change_password', to: 'user_accounts#update_password'
   put 'select_crew', to: 'user_accounts#update_crew'
-
   put 'send_payment', to: 'payments#send_payment'
   post 'confirm_payment', to: 'payments#confirm_payment'
 
