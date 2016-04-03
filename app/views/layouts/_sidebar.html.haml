@@ -10,42 +10,43 @@
                 %strong.font-bold
                   = current_user.name
               %span.text-muted.text-xs.block
-                = current_user.email
+                %small= current_user.email
                 %b.caret
 
           %ul.dropdown-menu.animated.fadeInRight.m-t-xs
             %li= link_to 'Profile', current_user
             %li.divider
-            %li= link_to 'Logout', logout_path
+            %li= link_to 'Logout', logout_path, method: :delete
 
         .logo-element BT
 
-      %li.active
+      %li
         = link_to current_user do
           %i.fa.fa-edit
           %span.nav-label My Profile
 
-      %li
-        = link_to events_path do
-          %i.fa.fa-calendar
-          %span.nav-label Events
+      - if current_user.admin?
+        %li
+          = link_to events_path do
+            %i.fa.fa-calendar
+            %span.nav-label Events
 
-      %li
-        = link_to user_accounts_path do
-          %i.fa.fa-user
-          %span.nav-label User Accounts
+        %li
+          = link_to user_accounts_path do
+            %i.fa.fa-user
+            %span.nav-label User Accounts
 
-      %li
-        = link_to crews_path do
-          %i.fa.fa-group
-          %span.nav-label Crews
+        %li
+          = link_to crews_path do
+            %i.fa.fa-group
+            %span.nav-label Crews
 
-      %li
-        = link_to '#' do
-          %i.fa.fa-cogs
-          %span.nav-label Administration
+        %li
+          = link_to '#' do
+            %i.fa.fa-cogs
+            %span.nav-label Administration
 
-      %li
-        = link_to '#' do
-          %i.fa.fa-download
-          %span.nav-label Export Data
+        %li
+          = link_to '#' do
+            %i.fa.fa-download
+            %span.nav-label Export Data
