@@ -1,9 +1,11 @@
-%h1 Blue Trolley
+%h3 Blue Trolley
 
 %p= "Hi #{@user.name},"
 
 %p
   Thank you for registering in the Blue Trolley club.
+  %br
   Please click on the link below to activate your account:
+  %br
 
-=link_to 'Activate account', edit_account_activation_url(@user.activation_token, email: @user.email)
+= link_to 'Activate account', edit_account_activation_url(@user.activation_token, email: @user.email)
