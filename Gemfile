@@ -61,6 +61,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'capybara'
   gem 'capybara-webkit'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'rspec-activemodel-mocks'
   gem 'rspec-collection_matchers'
