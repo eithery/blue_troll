@@ -4,7 +4,7 @@
 require 'rails_helper'
 
 feature 'User login' do
-  let(:valid_user) { FactoryGirl.create :user_account }
+  let!(:valid_user) { FactoryGirl.build :user_account, login: 'gwen' }
 
   scenario 'Verify login page layout' do
     visit login_path
@@ -13,6 +13,7 @@ feature 'User login' do
     expect(page).to have_text 'Welcome to BLUE TROLLEY Club'
     expect(page).to have_field 'User login or email address'
     expect(page).to have_field 'Password'
+    expect(page).to have_unchecked_field 'Remember me on this computer'
     expect(page).to have_button 'Login'
     expect(page).to have_link 'Forgot password'
     expect(page).to have_text 'Do not have an account?'
@@ -40,6 +41,7 @@ feature 'User login' do
 
     expect(page).to have_title 'Login'
     expect(page).to have_text 'login or password is incorrect'
+    expect(page).to have_text 'Please try again'
   end
 
 
@@ -50,18 +52,15 @@ feature 'User login' do
     fill_in 'session_password', with: valid_user.password
     click_button 'Login'
 
-    expect(page).to have_title 'Hello'
+    expect(page).to_not have_text 'login or password is incorrect'
+    expect(page).to have_title 'gwen'
+    expect(page).to have_text 'My Participants'
   end
 end
 
 
 =begin
   let(:user) { FactoryGirl.create(:active_user) }
-
-  before do
-    visit root_path
-    click_link 'Sign in'
-  end
 
   user { should_be_signed_out }
   it { should be_navigated_to signin_page }
