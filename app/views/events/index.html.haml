@@ -1,20 +1,7 @@
 = provide :title, 'Events'
-.ibox.float-e-margins
-  .ibox-title
-    %h5
-      Blue Trolley Events
-      %small &nbsp;The list of all available events
-    .ibox-tools
-      %a.collapse-link
-        %i.fa.fa-chevron-up
-      %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' }}
-        %i.fa.fa-wrench
-      %ul.dropdown-menu.dropdown-user
-      %a.close-link
-        %i.fa.fa-times
+= render 'events'
 
-  .ibox-content
-    = render 'events'
-    = link_to new_event_path, class: 'btn btn-primary' do
-      %i.fa.fa-plus-circle
-      New Event
+%br
+= link_to new_event_path, class: 'btn btn-primary' do
+  %i.fa.fa-plus-circle
+  New Event

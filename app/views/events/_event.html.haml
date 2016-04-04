@@ -1,4 +1,15 @@
-%td= event.name
-%td= event.started_on
-%td= event.event_type.name
-%td
+.col-lg-6
+  .widget.white-bg.p-x1
+    %h2.text-navy
+      = event.name
+    %ul.list-unstyled.m-t-md
+      %li
+        %span.fa.fa-calendar.m-r-xs
+        %label When:&nbsp;
+        = event.started_on
+      %li
+        %span.fa.fa-home.m-r-xs
+        %label Address:&nbsp;
+        = event.address
+    = link_to 'Register', '#', class: 'btn btn-success btn-sm'
+    = link_to 'Delete Event', destroy_event_path, class: 'btn btn-danger btn-sm' if current_user.admin?

@@ -1,12 +1,3 @@
-.table-responsive
-  %table#events.hover.order-column.row-border.stripe
-    %thead
-      %tr
-        %th Event Name
-        %th Start Date
-        %th Event Type
-        %th Actions
-
-    %tbody
-      - @events.each do |e|
-        %tr= render 'event', event: e
+.row
+  - @events.each do |e|
+    = render 'event', event: e

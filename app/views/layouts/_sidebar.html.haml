@@ -26,16 +26,11 @@
           %span.nav-label My Profile
 
       %li
-        = link_to '#' do
+        = link_to events_path do
           %i.fa.fa-calendar-check-o
           %span.nav-label My Events
 
       - if current_user.admin?
-        %li
-          = link_to events_path do
-            %i.fa.fa-calendar
-            %span.nav-label Events
-
         %li
           = link_to user_accounts_path do
             %i.fa.fa-user
