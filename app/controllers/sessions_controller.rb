@@ -3,8 +3,6 @@
 # Performs session related operations.
 
 class SessionsController < ApplicationController
-  include SessionsHelper
-
   layout 'blank'
 
   def new

@@ -1,0 +1,13 @@
+= provide(:title, 'Forgot Password')
+.middle-box.text-center.loginscreen{ class: animated_form_class }
+  = image_tag 'tarakan.png'
+
+  %h3 Forgot password
+  %p
+    Please enter your email address below and the special link will be sent to you with the details to access your user account
+
+  = form_for(:password_reset, url: password_resets_path, html: { id: 'new_password_reset', class: 'm-t', role: 'form' }) do |f|
+    .form-group
+      = f.text_field :email, class: 'form-control', maxlength: 64, autofocus: true, placeholder: 'Email address'
+
+    = f.submit 'Send Password Reset Email', class: 'btn btn-primary block full-width m-b'
