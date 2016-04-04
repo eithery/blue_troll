@@ -12,6 +12,9 @@
 /data/tickets/*.zip
 /data/export
 
+# Ignore local environment vars
+/config/local_env.yml
+
 # Ignore all RubyMine and Sublime Text related files.
 /.idea
 /*.sublime*
