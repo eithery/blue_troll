@@ -25,6 +25,11 @@
           %i.fa.fa-edit
           %span.nav-label My Profile
 
+      %li
+        = link_to '#' do
+          %i.fa.fa-calendar-check-o
+          %span.nav-label My Events
+
       - if current_user.admin?
         %li
           = link_to events_path do
