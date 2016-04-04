@@ -71,6 +71,11 @@ class UserAccount < ApplicationRecord
   end
 
 
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
+
+
   def send_activation_email(with_new_link: false)
     if with_new_link
       create_activation_digest

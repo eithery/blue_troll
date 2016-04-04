@@ -1,0 +1,14 @@
+= provide(:title, 'Reset Password')
+.middle-box.text-center.loginscreen{ class: animated_form_class }
+  = image_tag 'tarakan.png'
+
+  %h3 Reset password
+  = form_for(@user, url: password_reset_path(params[:id]), html: { id: 'edit_password_reset', class: 'm-t', role: 'form' }) do |f|
+    = hidden_field_tag :email, @user.email
+
+    .form-group
+      = f.password_field :password, placeholder: 'New password', maxlength: 16, class: 'form-control'
+    .form-group
+      = f.password_field :password_confirmation, placeholder: 'New password confirmation', maxlength: 16, class: 'form-control'
+
+    = f.submit 'Update Password', class: 'btn btn-primary block full-width m-b'
