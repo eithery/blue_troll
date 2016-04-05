@@ -1,6 +1,6 @@
 .col-lg-6
-  .widget.white-bg.p-x1
-    %h2.text-navy
+  .widget.p-x1{ class: background }
+    %h2
       = event.name
     %ul.list-unstyled.m-t-md
       %li
@@ -11,5 +11,13 @@
         %span.fa.fa-home.m-r-xs
         %label Address:&nbsp;
         = event.address
-    = link_to 'Register', '#', class: 'btn btn-success btn-sm'
-    = link_to 'Delete Event', destroy_event_path, class: 'btn btn-danger btn-sm' if current_user.admin?
+
+    = link_to 'Register', '#', class: 'btn btn-success', title: 'Click here to register to this event'
+    &nbsp;
+    = link_to 'My Participants', '#', class: 'btn btn-success', title: 'Click here to see event participants'
+    -# if current_user.admin?
+    = link_to event_path(event), method: :delete, title: 'Click here to delete event',
+      data: { confirm: "Are you sure to delete '#{event.name}' event?" } do
+      %i.fa.fa-trash-o.fa-lg.fa-pull-right{ style: 'margin-top: 20px;' }
+    = link_to edit_event_path(event), titlte: 'Click here to edit event properties' do
+      %i.fa.fa-edit.fa-lg.fa-pull-right{ style: 'margin-top: 21px;' }
