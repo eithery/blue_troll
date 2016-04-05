@@ -86,10 +86,12 @@ ActiveRecord::Schema.define(version: 20160217180647) do
   create_table "events", force: :cascade do |t|
     t.integer  "event_type_id", null: false
     t.string   "name",          null: false
+    t.string   "short_name",    null: false
     t.date     "started_on"
     t.date     "finished_on"
     t.string   "address"
     t.text     "notes"
+    t.string   "tag"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "created_by",    null: false
@@ -98,10 +100,12 @@ ActiveRecord::Schema.define(version: 20160217180647) do
 
   add_index "events", ["event_type_id"], name: "index_events_on_event_type_id"
   add_index "events", ["name"], name: "index_events_on_name", unique: true
+  add_index "events", ["short_name"], name: "index_events_on_short_name", unique: true
 
   create_table "participants", force: :cascade do |t|
     t.integer  "user_account_id",                 null: false
     t.boolean  "principal",       default: false, null: false
+    t.boolean  "crew_lead",       default: false, null: false
     t.string   "last_name",                       null: false
     t.string   "first_name",                      null: false
     t.string   "middle_name"
