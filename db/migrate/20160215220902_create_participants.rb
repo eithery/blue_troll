@@ -9,6 +9,7 @@ class CreateParticipants < ActiveRecord::Migration[5.0]
     create_table :participants do |t|
       t.belongs_to :user_account, null: false, index: true
       t.boolean :principal, null: false, default: false
+      t.boolean :crew_lead, null: false, default: false
 
       t.string :last_name, null: false, index: true
       t.string :first_name, null: false
