@@ -9,6 +9,7 @@ class Event < ApplicationRecord
   has_many :crews, class_name: EventCrew, dependent: :restrict_with_exception
   has_many :participants, through: :crews, class_name: EventParticipant
 
+  validates :short_name, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 20 }
   validates :started_on, :finished_on, presence: true
   validates :address, presence: true, length: { maximum: 255 }
 

@@ -4,6 +4,7 @@
 FactoryGirl.define do
   factory :event do
     name { Faker::Hipster.sentence(3) }
+    short_name { Faker::Lorem.word }
     event_type_id 1
     started_on Date.new(2016, 6, 3)
     finished_on Date.new(2016, 6, 5)

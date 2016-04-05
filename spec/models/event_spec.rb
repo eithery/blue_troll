@@ -16,22 +16,27 @@ describe Event do
   it_behaves_like 'it has timestamps'
   it_behaves_like 'it provides statistics'
 
+  it { should respond_to :short_name }
   it { should respond_to :started_on, :finished_on }
   it { should respond_to :address }
-  it { should respond_to :notes }
+  it { should respond_to :notes, :tag }
   it { should respond_to :event_type }
   it { should respond_to :crews, :participants }
   it { should respond_to :participant_by_ticket }
   it { should respond_to :crew_leads, :financiers, :gatekeepers }
   it { should respond_to :crew_lead_emails, :financier_emails }
 
+  it { should validate_presence_of :short_name }
   it { should validate_presence_of :started_on }
   it { should validate_presence_of :finished_on }
   it { should validate_presence_of :address }
+  it { should validate_length_of(:short_name).is_at_most 20 }
   it { should validate_length_of(:address).is_at_most 255 }
+  it { should validate_uniqueness_of(:short_name).case_insensitive }
 
   it { should belong_to :event_type }
   it { should have_db_index :event_type_id }
+  it { should have_db_index(:short_name).unique }
   it { should have_many(:crews).class_name(EventCrew).dependent :restrict_with_exception }
   it { should have_many(:participants).through(:crews).class_name EventParticipant }
 
