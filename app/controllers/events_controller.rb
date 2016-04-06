@@ -63,6 +63,6 @@ private
 
 
   def event_params
-    params.require(:event).permit(:name, :event_type_id, :started_on, :finished_on, :address, :notes)
+    params.require(:event).permit(:name, :short_name, :event_type_id, :started_on, :finished_on, :address, :notes)
   end
 end
