@@ -3,7 +3,7 @@
 # Performs client-side operations with user accounts.
 
 $(document).ready ->
-  $('#new_user_account').formValidation
+  $('.new_user_account, .edit_user_account').formValidation
     framework: 'bootstrap'
     icon:
       valid: 'glyphicon glyphicon-ok'
@@ -55,7 +55,7 @@ $(document).ready ->
             message: 'The email address and its confirmation are not the same'
 
 
-  fv = $('#new_user_account').data 'formValidation'
+  fv = $('.new_user_account, .edit_user_account').data 'formValidation'
   validation_message_attribute = 'data-validation-message'
   for e in $("[#{validation_message_attribute}]").toArray()
     msg = e.getAttribute validation_message_attribute

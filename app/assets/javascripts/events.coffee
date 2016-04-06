@@ -3,7 +3,7 @@
 # Performs client-side operations with events.
 
 $(document).ready ->
-  $('#new_event').formValidation
+  $('.new_event, .edit_event').formValidation
     framework: 'bootstrap'
     icon:
       valid: 'glyphicon glyphicon-ok'
@@ -49,7 +49,7 @@ $(document).ready ->
             message: 'Event address is required and cannot be empty'
 
 
-  fv = $('#new_event').data 'formValidation'
+  fv = $('.new_event, .edit_event').data 'formValidation'
   validation_message_attribute = 'data-validation-message'
   for e in $("[#{validation_message_attribute}]").toArray()
     msg = e.getAttribute validation_message_attribute
