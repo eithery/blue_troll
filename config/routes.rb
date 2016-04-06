@@ -5,11 +5,9 @@ BlueTroll::Application.routes.draw do
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :events
   resources :crews
-  resources :participants, except: [:show] do
-    collection do
-      post :search
-    end
-  end
+  resources :participants, except: [:show]
+  resources :event_crews, only: [:index, :create, :update, :destroy]
+  resources :event_participants, only: [:index, :create, :update, :destroy]
 
   get 'signup' => 'user_accounts#new'
   get 'login' => 'sessions#new'
@@ -27,12 +25,9 @@ BlueTroll::Application.routes.draw do
 
 
   get 'approve', to: 'participants#approve'
-  get 'change_password', to: 'user_accounts#change_password'
-  put 'change_password', to: 'user_accounts#update_password'
   put 'select_crew', to: 'user_accounts#update_crew'
   put 'send_payment', to: 'payments#send_payment'
   post 'confirm_payment', to: 'payments#confirm_payment'
-
   get 'statistics', to: 'static_pages#statistics'
   get 'announcement', to: 'static_pages#event_announcement'
 
