@@ -3,7 +3,7 @@
 # Performs client-side operations with participants.
 
 $(document).ready ->
-  $('.new_participant, .edit_participant').formValidation
+  $('.bt-validation.participant form').formValidation
     framework: 'bootstrap'
     icon:
       valid: 'glyphicon glyphicon-ok'

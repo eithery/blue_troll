@@ -3,7 +3,7 @@
 # Performs client-side operations with user accounts.
 
 $(document).ready ->
-  $('.new_user_account, .edit_user_account').formValidation
+  $('.bt-validation.user_account form').formValidation
     framework: 'bootstrap'
     icon:
       valid: 'glyphicon glyphicon-ok'
@@ -55,10 +55,11 @@ $(document).ready ->
             message: 'The email address and its confirmation are not the same'
 
 
-  fv = $('.new_user_account, .edit_user_account').data 'formValidation'
-  validation_message_attribute = 'data-validation-message'
-  for e in $("[#{validation_message_attribute}]").toArray()
-    msg = e.getAttribute validation_message_attribute
-    unless msg is ''
-      fv.updateMessage e.name, 'blank', msg
-      fv.updateStatus e.name, 'INVALID', 'blank'
+  fv = $('.bt-validation form').data 'formValidation'
+  if fv?
+    validation_message_attribute = 'data-validation-message'
+    for e in $("[#{validation_message_attribute}]").toArray()
+      msg = e.getAttribute validation_message_attribute
+      unless msg is ''
+        fv.updateMessage e.name, 'blank', msg
+        fv.updateStatus e.name, 'INVALID', 'blank'
