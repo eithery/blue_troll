@@ -3,7 +3,7 @@
     .navbar-header
       %a.navbar-minimalize.minimalize-styl-2.btn.btn-primary{ href: '#'}
         %i.fa.fa-bars
-      = form_for(:search, url: search_participants_path, html: { class: 'navbar-form-custom', role: 'search' }) do |f|
+      = form_for(:search, url: '#', html: { class: 'navbar-form-custom', role: 'search' }) do |f|
         .form-group
           = f.search_field :pattern, id: 'top-search', class: 'form-control', placeholder: 'Search for something ...'
 
