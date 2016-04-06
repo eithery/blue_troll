@@ -13,7 +13,7 @@
 
   %body
     #wrapper
-      = render 'layouts/sidebar'
+      = render 'layouts/sidebar', selected_view: yield(:view)
 
       #page-wrapper.gray-bg
         = render 'layouts/header'
@@ -26,4 +26,4 @@
 
         = render 'layouts/footer'
 
-        = debug(params) if Rails.env.development?
+        -#= debug(params) if Rails.env.development?

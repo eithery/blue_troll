@@ -20,12 +20,12 @@
 
         .logo-element BT
 
-      %li
+      %li{ class: active_if(selected_view, :profile) }
         = link_to current_user do
           %i.fa.fa-edit
           %span.nav-label My Profile
 
-      %li
+      %li{ class: active_if(selected_view, :events) }
         = link_to events_path do
           %i.fa.fa-calendar-check-o
           %span.nav-label My Events

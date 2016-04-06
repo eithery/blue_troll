@@ -15,6 +15,11 @@ module ApplicationHelper
   end
 
 
+  def active_if(selected_view, view)
+    selected_view.to_sym == view.to_sym ? 'active' : ''
+  end
+
+
   def validation_result_for(obj, field)
     msg = obj.errors[field].any? ? "#{field.to_s.humanize} #{obj.errors[field].first}" : ''
     { validation_message: msg }
