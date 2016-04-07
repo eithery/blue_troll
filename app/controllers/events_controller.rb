@@ -41,7 +41,7 @@ class EventsController < ApplicationController
       flash[:success] = "Event '#{@event.name}' has been updated"
       redirect_to events_path
     else
-      flash.now[:danger] = 'New event form contains invalid data'
+      flash.now[:danger] = 'Edit event form contains invalid data'
       render :edit
     end
   end
