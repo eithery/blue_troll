@@ -12,7 +12,7 @@ class CrewsController < ApplicationController
 
 
   def index
-  	@crews = all_crews
+    @crews = Crew.all
   end
 
 
@@ -39,6 +39,10 @@ class CrewsController < ApplicationController
 
 
   def edit
+  end
+
+
+  def update
     if @crew.update(crew_params)
       flash[:success] = "Crew '#{@crew.name}' has been updated"
       redirect_to crews_path
@@ -46,10 +50,6 @@ class CrewsController < ApplicationController
       flash.now[:danger] = 'Edit crew form contains invalid data'
       render :edit
     end
-  end
-
-
-  def update
   end
 
 
