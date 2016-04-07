@@ -4,6 +4,7 @@
 
 class EventCrewsController < ApplicationController
   def index
+    @crews = Crew.all
   end
 
 
