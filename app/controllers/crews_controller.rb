@@ -19,6 +19,7 @@ class CrewsController < ApplicationController
 
 
   def new
+    @crew = Crew.new
   end
 
 

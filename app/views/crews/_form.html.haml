@@ -1,0 +1,37 @@
+.ibox.float-e-margins
+  .ibox-title
+    %h5
+      = form_title_for @crew
+      %small &nbsp;Represents a crew for Blue Trolley event, party, or concert
+    .ibox-tools
+      %a.collapse-link
+        %i.fa.fa-chevron-up
+      %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' }}
+        %i.fa.fa-wrench
+      %ul.dropdown-menu.dropdown-user
+      %a.close-link
+        %i.fa.fa-times
+
+  .ibox-content
+    .row
+      .col-sm-6.b-r.bt-validation.event
+        = form_for(@crew, html: { role: 'form' }) do |f|
+          .form-group
+            = f.label :name
+            = f.text_field :name, class: 'form-control', autofocus: true, placeholder: 'Crew name', data: validation_result_for(@crew, :name)
+          .form-group
+            = f.label :native_name
+            = f.text_field :native_name, class: 'form-control', placeholder: 'Crew native name', data: validation_result_for(@crew, :native_name)
+          .form-group
+            = f.label :location
+            = f.text_field :location, class: 'form-control', placeholder: 'Crew location on the site'
+          .form-group
+            = f.label :notes
+            = f.text_area :notes, class: 'form-control', rows: 3, placeholder: 'Notes'
+          .checkbox.checkbox-success
+            = f.check_box :active
+            %label{ for: 'crew_active' } Available for new events
+
+          %br
+          = f.submit class: 'btn btn-primary m-t-n-xs pull-right', style: 'margin-left: 10px;'
+          = link_to 'Cancel', crews_path, class: 'btn btn-default m-t-n-xs pull-right'
