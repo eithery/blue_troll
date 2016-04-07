@@ -53,3 +53,7 @@ $(document).ready ->
     paging: false
     searching: false
     info: false
+    columnDefs: [
+      orderable: false
+      targets: [0, -1]
+    ]
