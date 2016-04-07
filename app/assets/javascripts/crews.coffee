@@ -22,3 +22,13 @@ $(document).ready ->
           notEmpty:
             message: 'Crew native name is required and cannot be empty'
           blank: {}
+
+
+  $('#crews').DataTable
+    paging: false
+    searching: false
+    info: false
+    columnDefs: [
+      orderable: false
+      targets: [0, -1]
+    ]
