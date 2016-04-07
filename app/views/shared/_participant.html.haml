@@ -1,5 +1,8 @@
 %td= index.to_i + 1
-%td= participant.full_name
+%td
+  = participant.full_name
+  - if participant.baby?
+    %i.fa.fa-child
 %td= link_to participant.email, "mailto:#{participant.email}"
 %td= age_category participant
 
@@ -17,7 +20,6 @@
   -#=%td
     -#= participant.status
   -#= crew_lead_image participant
-  -#= baby_image participant
   -#= download_ticket_tag participant
   -#= send_ticket_link_tag participant
   -#= send_payment_tag participant

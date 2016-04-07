@@ -69,13 +69,6 @@ module ParticipantsHelper
   end
 
 
-  def baby_image(participant)
-    if participant.age_category == AgeCategory::BABY
-      image_tag 'baby.png', class: "bt-img-reduced", style: "margin-left: 0.25em;"
-    end
-  end
-
-
   def age_category(participant)
     age = participant.age || 0
     age = participant.baby? ? '?' : '' if age == 0
