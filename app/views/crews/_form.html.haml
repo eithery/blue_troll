@@ -23,6 +23,9 @@
             = f.label :native_name
             = f.text_field :native_name, class: 'form-control', placeholder: 'Crew native name', data: validation_result_for(@crew, :native_name)
           .form-group
+            = f.label :event_type
+            = collection_select :crew, :event_type_id, EventType.all, :id, :name, {}, { class: 'form-control' }
+          .form-group
             = f.label :location
             = f.text_field :location, class: 'form-control', placeholder: 'Crew location on the site'
           .form-group

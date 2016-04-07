@@ -69,7 +69,7 @@ private
 
 
   def crew_params
-    params.require(:crew).permit(:name, :native_name, :active, :location, :notes)
+    params.require(:crew).permit(:name, :native_name, :event_type_id, :active, :location, :notes)
   end
 
 
