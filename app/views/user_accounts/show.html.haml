@@ -12,18 +12,8 @@
         Please click the link to activate your Blue Trolley account.
 
 .ibox.float-e-margins
-  .ibox-title
-    %h5
-      My Participants
-      %small &nbsp;may contain family members, friends, and all persons belong to the user account
-    .ibox-tools
-      %a.collapse-link
-        %i.fa.fa-chevron-up
-      %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' }}
-        %i.fa.fa-wrench
-      %ul.dropdown-menu.dropdown-user
-      %a.close-link
-        %i.fa.fa-times
+  = render 'shared/panel_header', title: 'My Family', subtitle: 'may contain family members, friends, and all persons belong to the user account'
+
   .ibox-content
     = render 'shared/participants', participants: user_participants, show_crew: false
 

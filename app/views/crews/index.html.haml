@@ -2,17 +2,7 @@
 - provide :title, 'All Crews'
 
 .ibox.float-e-margins
-  .ibox-title
-    %h5
-      Blue Trolley Crews
-    .ibox-tools
-      %a.collapse-link
-        %i.fa.fa-chevron-up
-      %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' }}
-        %i.fa.fa-wrench
-      %ul.dropdown-menu.dropdown-user
-      %a.close-link
-        %i.fa.fa-times
+  = render 'shared/panel_header', title: 'Blue Trolley Crews', subtitle: 'contains all crews for Blue Trolley events, parties, or concerts'
 
   .ibox-content
     = render 'crews'

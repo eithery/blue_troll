@@ -1,0 +1,16 @@
+.ibox-title
+  %h5
+    = title
+    - unless subtitle.blank?
+      %small
+        &nbsp;
+        = subtitle
+
+  .ibox-tools
+    %a.collapse-link
+      %i.fa.fa-chevron-up
+    %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' }}
+      %i.fa.fa-wrench
+    %ul.dropdown-menu.dropdown-user
+    %a.close-link
+      %i.fa.fa-times

@@ -2,17 +2,7 @@
 - provide :title, 'Event Crews'
 
 .ibox.float-e-margins
-  .ibox-title
-    %h5
-      Event Crews
-    .ibox-tools
-      %a.collapse-link
-        %i.fa.fa-chevron-up
-      %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' }}
-        %i.fa.fa-wrench
-      %ul.dropdown-menu.dropdown-user
-      %a.close-link
-        %i.fa.fa-times
+  = render 'shared/panel_header', title: 'Event Crews', subtitle: 'contains crews specific for the event'
 
   .ibox-content
     = render 'crews'
