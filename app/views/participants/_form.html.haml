@@ -59,6 +59,5 @@
             = f.text_area :address, class: 'form-control', rows: 5, placeholder: 'Home address'
 
           %br
-          = f.submit class: 'btn btn-primary m-t-n-xs'
-          &nbsp;
-          = link_to 'Cancel', @participant.user_account, class: 'btn btn-default m-t-n-xs'
+          = f.submit class: 'btn btn-primary m-t-n-xs pull-right', style: 'margin-left: 10px;'
+          = link_to 'Cancel', @participant.user_account, class: 'btn btn-default m-t-n-xs pull-right'

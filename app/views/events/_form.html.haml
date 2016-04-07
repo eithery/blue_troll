@@ -37,7 +37,7 @@
           .form-group
             = f.label :notes
             = f.text_area :notes, class: 'form-control', rows: 3, placeholder: 'Notes'
+
           %br
-          = f.submit class: 'btn btn-primary m-t-n-xs'
-          &nbsp;
-          = link_to 'Cancel', events_path, class: 'btn btn-default m-t-n-xs'
+          = f.submit class: 'btn btn-primary m-t-n-xs pull-right', style: 'margin-left: 10px'
+          = link_to 'Cancel', events_path, class: 'btn btn-default m-t-n-xs pull-right'
