@@ -1,13 +1,13 @@
 BlueTroll::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
-  resources :user_accounts
+  resources :user_accounts, :crews
   resources :account_activations, only: [:new, :edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
-  resources :events
-  resources :crews
   resources :participants, except: [:show]
-  resources :event_crews, only: [:index, :create, :update, :destroy]
-  resources :event_participants, only: [:index, :create, :update, :destroy]
+  resources :events do
+    resources :event_crews, only: [:index, :create, :update, :destroy]
+    resources :event_participants, only: [:index, :create, :update, :destroy]
+  end
 
   get 'signup' => 'user_accounts#new'
   get 'login' => 'sessions#new'
