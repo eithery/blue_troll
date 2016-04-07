@@ -19,8 +19,10 @@
     = link_to event_path(event), method: :delete, title: 'Click here to delete event',
       data: { confirm: "Are you sure to delete '#{event.name}' event?" } do
       %i.fa.fa-trash-o.fa-lg.fa-pull-right{ style: 'margin-top: 20px;' }
-    = link_to edit_event_path(event), titlte: 'Click here to edit event properties' do
+    = link_to edit_event_path(event), title: 'Click here to edit event properties' do
       %i.fa.fa-edit.fa-lg.fa-pull-right{ style: 'margin-top: 21px;' }
+    = link_to event_event_crews_path(event), title: 'Click here to manage crews at the event' do
+      %i.fa.fa-users.fa-lg.fa-pull-right{ style: 'margin-top: 20px;' }
 
 
 .modal.inmodal{ id: "register_participant_to_#{event.id}", role: 'dialog', data: { backdrop: 'static' }}
