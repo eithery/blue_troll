@@ -8,5 +8,4 @@
         %th Actions
 
     %tbody
-      - @crews.each.with_index do |crew, idx|
-        %tr= render 'crew', crew: crew, index: idx
+      = render @crews
