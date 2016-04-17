@@ -4,7 +4,8 @@
 
 class EventCrewsController < ApplicationController
   def index
-    @crews = Crew.all
+    event = Event.find(params[:event_id])
+    @event_crews = event.crews
   end
 
 

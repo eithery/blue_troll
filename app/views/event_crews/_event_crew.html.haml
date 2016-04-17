@@ -1,0 +1,15 @@
+%tr
+  %td
+  %td= event_crew.name
+  %td crew.native_name
+  %td crew_leads crew
+  %td totals crew
+  %td crew.paid_count
+  %td
+    -#= link_to edit_crew_path(crew), titlte: 'Click here to edit crew properties' do
+      %i.fa.fa-edit.fa-lg{ style: 'margin-right: 2px;' }
+    -#= link_to crew_path(crew), method: :delete, title: 'Click here to delete crew', data: { confirm: "Are you sure to delete '#{crew.name}' crew?" } do
+      %i.fa.fa-trash-o.fa-lg
+
+    -#= show_participants_tag crew
+    -#= download_tickets_tag crew
