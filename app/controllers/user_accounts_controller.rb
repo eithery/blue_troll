@@ -12,6 +12,7 @@ class UserAccountsController < ApplicationController
 
   def show
     redirect_to root_path unless current_user? @user
+    @participants = @user.participants.order(:last_name, :first_name)
   end
 
 
