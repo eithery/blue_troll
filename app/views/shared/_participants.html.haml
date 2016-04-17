@@ -9,11 +9,4 @@
         %th Actions
 
     %tbody
-      - participants.each.with_index do |participant, idx|
-        %tr{ id: "participant_#{participant.id.to_s}" }
-          = render 'shared/participant', participant: participant, index: idx, show_crew: show_crew
-
-
-
--# if show_crew
--#%th Crew
+      = render participants

@@ -49,11 +49,19 @@ $(document).ready ->
             message: 'The value is not a valid phone number'
 
 
-  $('#participants').DataTable
+  t = $('#participants').DataTable
     paging: false
     searching: false
     info: false
     columnDefs: [
+      searchable: false
       orderable: false
       targets: [0, -1]
-    ]
+    ],
+    order: [[1, 'asc']]
+
+  t.on 'order.dt search.dt', ->
+    t.column 0, search: 'applied', order: 'applied'
+    .nodes().each (cell, i) ->
+      cell.innerHTML = i + 1
+  .draw()

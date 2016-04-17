@@ -1,0 +1,28 @@
+%tr{ id: "participant_#{participant.id.to_s}" }
+  %td
+  %td
+    = participant.full_name
+    - if participant.baby?
+      %i.fa.fa-child
+  %td= link_to participant.email, "mailto:#{participant.email}"
+  %td= age_category participant
+
+  %td
+    = link_to edit_participant_path(participant), title: "Click here to edit #{participant.display_name} profile" do
+      %i.fa.fa-edit.fa-lg{ style: 'margin-right: 2px;' }
+    = link_to participant_path(participant), method: :delete, title: "Click here to delete #{participant.display_name}",
+      data: { confirm: "Are you sure to delete #{participant.display_name} from the participants list?" } do
+      %i.fa.fa-trash-o.fa-lg
+
+
+
+  -#= image_tag(participant.approved? ? 'approved.png' : 'not_approved.png', class: "bt-img-reduced")
+  -#= image_tag('money.png', class: "bt-img-reduced") if participant.payment_confirmed?
+  -#=%td
+    -#= participant.status
+  -#= crew_lead_image participant
+  -#= download_ticket_tag participant
+  -#= send_ticket_link_tag participant
+  -#= send_payment_tag participant
+  -#= approve_tag participant, index
+  -#= confirm_payment_tag participant, index
