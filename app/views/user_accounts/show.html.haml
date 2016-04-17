@@ -15,7 +15,7 @@
   = render 'shared/panel_header', title: 'My Family', subtitle: 'may contain family members, friends, and all persons belong to the user account'
 
   .ibox-content
-    = render 'shared/participants', participants: user_participants
+    = render 'participants/participants', participants: user_participants
 
     - if @user.activated?
       = link_to new_participant_path(user_id: @user.id), class: 'btn btn-primary' do
