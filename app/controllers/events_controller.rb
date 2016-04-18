@@ -3,7 +3,7 @@
 # Performs operations with private club events.
 
 class EventsController < ApplicationController
-  before_action :retrieve_event, only: [:edit, :update, :destroy]
+  before_action :retrieve_event, only: [:show, :edit, :update, :destroy]
 
   def index
     @events = Event.order :started_on

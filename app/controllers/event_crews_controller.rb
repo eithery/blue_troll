@@ -1,12 +1,11 @@
 # Eithery Lab, 2016.
 # EventCrewsController.
-# Performs crews related operations belongs to event.
+# Performs crews related operations belongs to the event.
 
 class EventCrewsController < ApplicationController
   before_action :retrieve_event, only: [:index, :create, :destroy]
 
   def index
-    @event_crews = @event.crews
   end
 
 

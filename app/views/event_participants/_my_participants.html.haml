@@ -1,0 +1,9 @@
+.ibox.float-e-margins
+  = render 'shared/panel_header', title: "My Participants at #{@event.name}"
+
+  .ibox-content
+    = render 'event_participants/table'
+
+    = link_to new_participant_path, class: 'btn btn-primary' do
+      %i.fa.fa-user-plus
+      New Participant

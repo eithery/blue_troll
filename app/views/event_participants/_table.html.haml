@@ -1,0 +1,11 @@
+.table-responsive
+  %table#event_participants.hover.order-column.row-border.stripe
+    %thead
+      %tr
+        %th #
+        %th Name
+        %th Email
+        %th Actions
+
+    %tbody
+      = render @event.participants
