@@ -4,6 +4,14 @@
   .ibox-content
     = render 'event_participants/table'
 
+    - if remained_participants_for(@event).any?
+      = link_to '#', class: 'btn btn-primary', data: { toggle: 'modal', target: '#register_participants' } do
+        %i.fa.fa-user-plus
+        Register to Event
+      &nbsp;
+
     = link_to new_participant_path, class: 'btn btn-primary' do
       %i.fa.fa-user-plus
       New Participant
+
+    = render 'event_participants/selector'

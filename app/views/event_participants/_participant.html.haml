@@ -1,0 +1,4 @@
+%li.list-group-item
+  .checkbox.checkbox-success{ style: 'margin-top: 0; margin-bottom: 0' }
+    = form.check_box participant.id
+    %label{ for: "selected_participants_#{participant.id}" }= "#{participant.display_name}"

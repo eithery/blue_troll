@@ -1,0 +1,18 @@
+.modal.inmodal{ id: 'register_participants', role: 'dialog', data: { backdrop: 'static' }}
+  .modal-dialog
+    .modal-content.animated.fadeInDown
+      = form_for(:selected_participants, html: { role: 'form' }) do |f|
+        .modal-header
+          %button.close{ type: 'button', data: { dismiss: 'modal' }}
+            %span &times;
+            %span.sr-only
+          %i.fa.fa-calendar.modal-icon
+          %h4.modal-title= @event.name
+          %small.font-bold Please select all participants to be registered to the event from the list below
+        .modal-body
+          %ul.list-group
+            - remained_participants_for(@event).each do |p|
+              = render 'event_participants/participant', form: f, participant: p
+        .modal-footer
+          %button.btn.btn-white{ data: { dismiss: 'modal' }} Close
+          %button.btn.btn-primary Register to Event
