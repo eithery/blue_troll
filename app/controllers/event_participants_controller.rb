@@ -10,6 +10,16 @@ class EventParticipantsController < ApplicationController
 
 
   def create
+    total_selected = 0
+    crew = @event.crews.first
+    params[:selected_participants].each do |id, value|
+      if value.to_i == 1
+        crew.participants.create!(participant_id: id.to_i, created_by: current_user.name, updated_by: current_user.name)
+        total_selected += 1
+      end
+    end
+    flash[:success] = "#{total_selected} #{'participant'.pluralize(total_selected)} registered to the event" if total_selected > 0
+    redirect_to event_path(@event)
   end
 
 

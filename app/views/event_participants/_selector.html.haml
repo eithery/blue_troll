@@ -1,7 +1,7 @@
 .modal.inmodal{ id: 'register_participants', role: 'dialog', data: { backdrop: 'static' }}
   .modal-dialog
     .modal-content.animated.fadeInDown
-      = form_for(:selected_participants, html: { role: 'form' }) do |f|
+      = form_for(:selected_participants, url: event_event_participants_path(@event), html: { role: 'form' }) do |f|
         .modal-header
           %button.close{ type: 'button', data: { dismiss: 'modal' }}
             %span &times;
