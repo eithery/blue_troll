@@ -23,12 +23,12 @@
       %li{ class: active_if(selected_view, :profile) }
         = link_to current_user do
           %i.fa.fa-edit
-          %span.nav-label My Profile
+          %span.nav-label My Family
 
       %li{ class: active_if(selected_view, :events) }
         = link_to events_path do
           %i.fa.fa-calendar-check-o
-          %span.nav-label Events
+          %span.nav-label My Events
           %span.fa.arrow
         - unless active_if(selected_view, :events).blank?
           %ul.nav.nav-second-level
