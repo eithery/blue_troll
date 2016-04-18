@@ -3,7 +3,7 @@
 # Performs crews related operations belongs to event.
 
 class EventCrewsController < ApplicationController
-  before_action :retrieve_event, only: [:index, :create]
+  before_action :retrieve_event, only: [:index, :create, :destroy]
 
   def index
     @event_crews = @event.crews
@@ -28,6 +28,10 @@ class EventCrewsController < ApplicationController
 
 
   def destroy
+    crew = EventCrew.find(params[:id])
+    @event.crews.destroy crew
+    flash[:success] = "The crew has been removed from the #{@event.name} event"
+    redirect_to event_event_crews_path(@event)
   end
 
 

@@ -71,4 +71,9 @@ module Statistics
   def participants_expected_total
     participants.count { |p| p.paid? && !p.checked_in? }
   end
+
+
+  def totals
+    "#{adults_total}/#{children_total}/#{babies_total}"
+  end
 end
