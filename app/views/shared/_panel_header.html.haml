@@ -1,7 +1,7 @@
 .ibox-title
   %h5
     = title
-    - unless subtitle.blank?
+    - unless (subtitle ||= '').blank?
       %small
         &nbsp;
         = subtitle

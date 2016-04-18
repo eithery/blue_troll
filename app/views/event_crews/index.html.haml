@@ -2,10 +2,19 @@
 - provide :title, 'Event Crews'
 
 .ibox.float-e-margins
-  = render 'shared/panel_header', title: 'Event Crews', subtitle: 'contains crews specific for the event'
+  = render 'shared/panel_header', title: "Crews at #{@event.name}"
 
   .ibox-content
     = render 'table'
+
+    - if remained_crews_for(@event).any?
+      = link_to '#', class: 'btn btn-primary', data: { toggle: 'modal', target: '#select_crews' } do
+        %i.fa.fa-user-plus
+        Add Existing Crews
+      &nbsp;
+
     = link_to new_crew_path, class: 'btn btn-primary' do
       %i.fa.fa-user-plus
       New Crew
+
+    = render 'select_crews'

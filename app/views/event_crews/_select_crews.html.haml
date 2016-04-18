@@ -1,0 +1,18 @@
+.modal.inmodal{ id: 'select_crews', role: 'dialog', data: { backdrop: 'static' }}
+  .modal-dialog
+    .modal-content.animated.fadeInDown
+      = form_for(:selected_crews, html: { role: 'form' }) do |f|
+        .modal-header
+          %button.close{ type: 'button', data: { dismiss: 'modal' }}
+            %span &times;
+            %span.sr-only
+          %i.fa.fa-users.modal-icon
+          %h4.modal-title= @event.name
+          %small.font-bold Please select all crews belong to the event from the list below
+        .modal-body
+          %ul.list-group
+            - remained_crews_for(@event).each do |c|
+              = render 'crew', form: f, crew: c
+        .modal-footer
+          %button.btn.btn-white{ data: { dismiss: 'modal' }} Close
+          %button.btn.btn-primary Select Crews

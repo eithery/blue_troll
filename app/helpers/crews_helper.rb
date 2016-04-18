@@ -1,3 +1,7 @@
+# Eithery Lab, 2016.
+# CrewsHelper.
+# Represents a helper class for crews related views.
+
 module CrewsHelper
   def all_crews
     Crew.where(active: true).order(:name)
