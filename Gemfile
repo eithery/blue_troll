@@ -68,3 +68,9 @@ group :test do
   gem 'shoulda-matchers', '~> 3.0'
   gem 'shoulda-kept-respond-with-content-type'
 end
+
+
+gem 'bundler'
+source 'https://rails-assets.org' do
+  gem 'rails-assets-bootstrap-combobox'
+end
