@@ -12,3 +12,12 @@
   margin-right: 20px;
   margin-bottom: 20px;
 }
+
+
+// Bootstrap combobox plugin
+.combobox + .dropdown-menu {
+  font-size: 13px;
+}
+.combobox-container .form-control-feedback {
+  right: -30px;
+}

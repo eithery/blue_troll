@@ -1,7 +1,7 @@
 .modal.inmodal{ id: 'register_participants', role: 'dialog', data: { backdrop: 'static' }}
   .modal-dialog
     .modal-content.animated.fadeInDown
-      = form_for(:selected_participants, url: event_event_participants_path(@event), html: { role: 'form' }) do |f|
+      = form_for(:selected_participants, url: event_event_participants_path(@event), html: { id: 'selected_participants', role: 'form' }) do |f|
         .modal-header
           %button.close{ type: 'button', data: { dismiss: 'modal' }}
             %span &times;
@@ -11,10 +11,11 @@
           %small.font-bold Please select all participants to be registered to the event from the list below
         .modal-body
           .form-group
-            = f.collection_select(:event_crew, @event.crews, :id, :name, { include_blank: 'Select a crew at the event' }, { class: 'form-control combobox' })
+            .combobox-container
+              = f.collection_select(:event_crew, @event.crews, :id, :name, { include_blank: 'Select a crew at the event' }, { class: 'form-control combobox' })
           %ul.list-group
             - remained_participants_for(@event).each do |p|
               = render 'event_participants/participant', form: f, participant: p
         .modal-footer
           %button.btn.btn-white{ data: { dismiss: 'modal' }} Close
-          %button.btn.btn-primary Register to Event
+          = f.submit 'Register to Event', class: 'btn btn-primary'
