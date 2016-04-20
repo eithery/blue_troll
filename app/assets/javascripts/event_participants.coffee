@@ -19,3 +19,5 @@ $(document).ready ->
     .nodes().each (cell, i) ->
       cell.innerHTML = i + 1
   .draw()
+
+  $('.combobox').combobox()

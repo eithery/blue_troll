@@ -21,4 +21,5 @@
 //= require toastr/toastr.js
 //= require formvalidation.min
 //= require formvalidation/framework/bootstrap.min
+//= require bootstrap-combobox
 //= require_tree .

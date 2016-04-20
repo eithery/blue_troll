@@ -10,6 +10,8 @@
           %h4.modal-title= @event.name
           %small.font-bold Please select all participants to be registered to the event from the list below
         .modal-body
+          .form-group
+            = f.collection_select(:event_crew, @event.crews, :id, :name, { include_blank: 'Select a crew at the event' }, { class: 'form-control combobox' })
           %ul.list-group
             - remained_participants_for(@event).each do |p|
               = render 'event_participants/participant', form: f, participant: p
