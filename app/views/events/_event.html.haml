@@ -12,7 +12,7 @@
         %label Address:&nbsp;
         = event.address
 
-    = link_to 'Register', '#', class: 'btn btn-success', data: { toggle: 'modal', target: "#register_participant_to_#{event.id}" }, title: 'Click here to register to this event'
+    = link_to 'Register', '#', class: 'btn btn-success', data: { toggle: 'modal', target: "#register_participants" }, title: 'Click here to register to this event'
     &nbsp;
     = link_to 'My Participants', '#', class: 'btn btn-success', title: 'Click here to see event participants'
     -# if current_user.admin?
@@ -24,18 +24,4 @@
     = link_to event_event_crews_path(event), title: 'Click here to manage crews at the event' do
       %i.fa.fa-users.fa-lg.fa-pull-right{ style: 'margin-top: 20px;' }
 
-
-.modal.inmodal{ id: "register_participant_to_#{event.id}", role: 'dialog', data: { backdrop: 'static' }}
-  .modal-dialog
-    .modal-content.animated.fadeInDown
-      .modal-header
-        %button.close{ type: 'button', data: { dismiss: 'modal' }}
-          %span &times;
-          %span.sr-only
-        %i.fa.fa-calendar.modal-icon
-        %h4.modal-title= event.name
-        %small.font-bold Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      .modal-body
-      .modal-footer
-        %button.btn.btn-white{ data: { dismiss: 'modal' }} Close
-        %button.btn.btn-primary Save changes
+= render 'event_participants/selector', event: event
