@@ -17,6 +17,5 @@ $(document).ready ->
           notEmpty:
             message: 'Crew name is required and cannot be empty'
 
-
-  $('#selected_participants').on 'change', (event) ->
+  $('#selected_participants_event_crew').on 'change', (event) ->
     $('#selected_participants').formValidation 'revalidateField', 'selected_participants[event_crew]'
