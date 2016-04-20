@@ -11,7 +11,7 @@ class EventParticipantsController < ApplicationController
 
   def create
     total_selected = 0
-    crew = @event.crews.first
+    crew = EventCrew.find(params[:selected_participants][:event_crew])
     params[:selected_participants].each do |id, value|
       if value.to_i == 1
         crew.participants.create!(participant_id: id.to_i, created_by: current_user.name, updated_by: current_user.name)
@@ -24,8 +24,8 @@ class EventParticipantsController < ApplicationController
 
 
   def destroy
-    crew = @event.crews.first
     participant = EventParticipant.find(params[:id])
+    crew = participant.crew
     crew.participants.destroy participant
     flash[:success] = "The participation of #{participant.name} at #{@event.name} has been canceled"
     redirect_to event_path(@event)

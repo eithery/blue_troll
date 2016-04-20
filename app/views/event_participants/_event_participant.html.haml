@@ -1,7 +1,8 @@
 %tr
   %td
-  %td= event_participant.name
+  %td= event_participant.person.full_name
   %td= event_participant.email
+  %td= event_participant.crew&.name
   %td
     = link_to event_event_participant_path(@event, event_participant), method: :delete, title: 'Click here to cancel participation in the event', data: { confirm: "Are you sure to cancel '#{event_participant.name}' participation in the event?" } do
       %i.fa.fa-trash-o.fa-lg
