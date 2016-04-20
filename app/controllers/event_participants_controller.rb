@@ -23,11 +23,12 @@ class EventParticipantsController < ApplicationController
   end
 
 
-  def update
-  end
-
-
   def destroy
+    crew = @event.crews.first
+    participant = EventParticipant.find(params[:id])
+    crew.participants.destroy participant
+    flash[:success] = "The participation of #{participant.name} at #{@event.name} has been canceled"
+    redirect_to event_path(@event)
   end
 
 
