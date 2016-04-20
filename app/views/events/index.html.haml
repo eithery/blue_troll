@@ -3,8 +3,9 @@
 = render 'events'
 
 %br
-= link_to new_event_path, class: 'btn btn-primary' do
-  %i.fa.fa-plus-circle
-  New Event
+- if current_user.admin?
+  = link_to new_event_path, class: 'btn btn-primary' do
+    %i.fa.fa-plus-circle
+    New Event
 %br
 %br

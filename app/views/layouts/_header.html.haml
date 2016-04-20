@@ -3,9 +3,10 @@
     .navbar-header
       %a.navbar-minimalize.minimalize-styl-2.btn.btn-primary{ href: '#'}
         %i.fa.fa-bars
-      = form_for(:search, url: '#', html: { class: 'navbar-form-custom', role: 'search' }) do |f|
-        .form-group
-          = f.search_field :pattern, id: 'top-search', class: 'form-control', placeholder: 'Search for something ...'
+      - if current_user.admin?
+        = form_for(:search, url: '#', html: { class: 'navbar-form-custom', role: 'search' }) do |f|
+          .form-group
+            = f.search_field :pattern, id: 'top-search', class: 'form-control', placeholder: 'Search for something ...'
 
     %ul.nav.navbar-top-links.navbar-right
       %li= link_to 'Home', root_path

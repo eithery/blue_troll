@@ -36,12 +36,12 @@
             - Event.all.each do |e|
               %li= link_to e.short_name, e
 
-      %li{ class: active_if(selected_view, :crews) }
-        = link_to crews_path do
-          %i.fa.fa-group
-          %span.nav-label Crews
-
       - if current_user.admin?
+        %li{ class: active_if(selected_view, :crews) }
+          = link_to crews_path do
+            %i.fa.fa-group
+            %span.nav-label Crews
+
         %li
           = link_to user_accounts_path do
             %i.fa.fa-user
