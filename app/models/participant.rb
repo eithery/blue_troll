@@ -6,6 +6,7 @@ class Participant < ApplicationRecord
   include Trackable
 
   belongs_to :user_account, inverse_of: :participants
+  before_destroy :delete_event_participants
 
   validates :last_name, :first_name, :age_category, presence: true
   validates :age, presence: true, unless: Proc.new { |p| p.adult? }
@@ -14,6 +15,7 @@ class Participant < ApplicationRecord
 
   enum age_category: [:adult, :child, :baby]
   enum gender: [:female, :male]
+
 
   def full_name
     "#{last_name}, #{first_name}"
@@ -27,5 +29,12 @@ class Participant < ApplicationRecord
 
   def email
     self[:email].blank? ? user_account&.email : self[:email]
+  end
+
+
+private
+
+  def delete_event_participants
+    EventParticipant.destroy_all(participant_id: id)
   end
 end
