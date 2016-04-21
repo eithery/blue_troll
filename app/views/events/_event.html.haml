@@ -12,9 +12,10 @@
         %label Address:&nbsp;
         = event.address
 
-    = link_to 'Register', '#', class: 'btn btn-success', data: { toggle: 'modal', target: "#event_#{event.id}_participants_selector" }, title: 'Click here to register to this event'
-    &nbsp;
-    = link_to 'My Participants', '#', class: 'btn btn-success', title: 'Click here to see event participants'
+    - if remained_participants_for(event).any?
+      = link_to 'Register', '#', class: 'btn btn-success', data: { toggle: 'modal', target: "#event_#{event.id}_participants_selector" }, title: 'Click here to register to this event'
+      &nbsp;
+    = link_to 'My Participants', event, class: 'btn btn-success', title: 'Click here to see event participants'
     - if current_user.admin?
       = link_to event_path(event), method: :delete, title: 'Click here to delete event',
         data: { confirm: "Are you sure to delete '#{event.name}' event?" } do
