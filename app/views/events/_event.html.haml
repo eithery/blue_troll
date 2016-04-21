@@ -12,7 +12,7 @@
         %label Address:&nbsp;
         = event.address
 
-    = link_to 'Register', '#', class: 'btn btn-success', data: { toggle: 'modal', target: '#register_participants' }, title: 'Click here to register to this event'
+    = link_to 'Register', '#', class: 'btn btn-success', data: { toggle: 'modal', target: "#event_#{event.id}_participants_selector" }, title: 'Click here to register to this event'
     &nbsp;
     = link_to 'My Participants', '#', class: 'btn btn-success', title: 'Click here to see event participants'
     - if current_user.admin?

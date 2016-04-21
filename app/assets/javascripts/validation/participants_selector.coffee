@@ -3,7 +3,7 @@
 # A client-side functionality for participants selector form.
 
 $(document).ready ->
-  $('#selected_participants').formValidation
+  $('.participants-selector').formValidation
     framework: 'bootstrap'
     icon:
       valid: 'glyphicon glyphicon-ok'
@@ -17,5 +17,6 @@ $(document).ready ->
           notEmpty:
             message: 'Crew name is required and cannot be empty'
 
-  $('#selected_participants_event_crew').on 'change', (event) ->
-    $('#selected_participants').formValidation 'revalidateField', 'selected_participants[event_crew]'
+  $('.participants-selector').on 'change', (event) ->
+    console.log event
+    $('.participants-selector').formValidation 'revalidateField', 'selected_participants[event_crew]'

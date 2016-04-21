@@ -5,7 +5,7 @@
     = render 'event_participants/table'
 
     - if remained_participants_for(@event).any?
-      = link_to '#', class: 'btn btn-primary', data: { toggle: 'modal', target: '#register_participants' } do
+      = link_to '#', class: 'btn btn-primary', data: { toggle: 'modal', target: "#event_#{@event.id}_participants_selector" } do
         %i.fa.fa-user-plus
         Register to Event
       &nbsp;
