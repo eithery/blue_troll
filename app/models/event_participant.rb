@@ -10,7 +10,7 @@ class EventParticipant < ApplicationRecord
 
   validates :ticket_code, uniqueness: { case_sensitive: false }, length: { is: 10 }, if: ->(p){ p.approved? }
 
-  AWAITING_APPROVAL = 'Await crew lead approval'
+  AWAITING_APPROVAL = 'Awaiting approval'
   ACCEPTED = 'Accepted'
   PAYMENT_SENT = 'Payment sent'
   PAYMENT_RECEIVED = 'Payment received'
