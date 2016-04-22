@@ -7,11 +7,22 @@
     - if remained_participants_for(@event).any?
       = link_to '#', class: 'btn btn-primary', data: { toggle: 'modal', target: "#event_#{@event.id}_participants_selector" } do
         %i.fa.fa-user-plus
-        Register to Event
+        Register to event
       &nbsp;
 
-    = link_to new_participant_path, class: 'btn btn-primary' do
+    -#= link_to new_participant_path, class: 'btn btn-primary' do
       %i.fa.fa-user-plus
-      New Participant
+      New participant
+      &nbsp;
+
+
+    = link_to '#', class: 'btn btn-success' do
+      %i.fa.fa-credit-card
+      Send payment info
+    &nbsp;
+
+    = link_to '#', class: 'btn btn-info' do
+      %i.fa.fa-download
+      Download my tickets
 
     = render 'event_participants/selector', event: @event

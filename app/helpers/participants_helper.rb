@@ -18,27 +18,11 @@ module ParticipantsHelper
   end
 
 
-  def send_payment_tag(participant)
-    if participant.approved? && participant.unpaid? && !current_user.can_confirm_payment?(participant)
-      link_to 'Pay', '#', class: "btn btn-success btn-xs", data: { toggle: 'modal', target: "#payment" }
-    end
-  end
-
-
   def confirm_payment_tag(participant, index)
     if participant.approved? && current_user.can_confirm_payment?(participant)
       link_to 'Paid', confirm_payment_path(participant_id: participant, index: index),
         class: "btn btn-warning btn-xs", method: :post, remote: true,
         data: { confirm: "Do you want to confirm payment for #{participant.display_name}?" }
-    end
-  end
-
-
-  def download_ticket_tag(participant)
-    if participant.payment_confirmed?
-      link_to image_tag('ticket.png', alt: 'Download ticket', class: "bt-img bt-img-reduced"),
-        ticket_download_path(participant.ticket_code), method: :post,
-        title: "Click here to download a ticket for #{participant.display_name}", rel: 'tooltip'
     end
   end
 

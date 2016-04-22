@@ -5,5 +5,21 @@
   %td= event_participant.crew&.name
   %td= event_participant.status
   %td
-    = link_to event_event_participant_path(@event, event_participant), method: :delete, title: 'Click here to cancel participation in the event', data: { confirm: "Are you sure to cancel '#{event_participant.name}' participation in the event?" } do
-      %i.fa.fa-trash-o.fa-lg
+    = link_to event_event_participant_path(@event, event_participant), method: :delete, title: 'Click here to cancel the event participation', data: { confirm: "Are you sure to cancel '#{event_participant.name}' participation at the event?" }, style: 'margin-right: 2px;' do
+      %i.fa.fa-unlink.fa-lg
+
+    - if can_send_payment?(event_participant)
+      = link_to '#', data: { toggle: 'modal', target: "#payment" }, title: 'Click here to send a payment info', style: 'margin-right: 2px;' do
+        %i.fa.fa-credit-card.fa-lg
+
+    - if can_download_ticket?(event_participant)
+      = link_to '#', method: :post, title: "Click here to download a ticket for #{event_participant.name}" do
+        %i.fa.fa-ticket.fa-lg
+
+  -#ticket_download_path(event_participant.ticket_code
+  -#= image_tag(participant.approved? ? 'approved.png' : 'not_approved.png')
+  -#= image_tag('money.png') if participant.payment_confirmed?
+  -#= crew_lead_image participant
+  -#= send_ticket_link_tag participant
+  -#= approve_tag participant, index
+  -#= confirm_payment_tag participant, index

@@ -13,16 +13,3 @@
     = link_to participant_path(participant), method: :delete, title: "Click here to delete #{participant.display_name}",
       data: { confirm: "Are you sure to delete #{participant.display_name} from the participants list?" } do
       %i.fa.fa-trash-o.fa-lg
-
-
-
-  -#= image_tag(participant.approved? ? 'approved.png' : 'not_approved.png', class: "bt-img-reduced")
-  -#= image_tag('money.png', class: "bt-img-reduced") if participant.payment_confirmed?
-  -#=%td
-    -#= participant.status
-  -#= crew_lead_image participant
-  -#= download_ticket_tag participant
-  -#= send_ticket_link_tag participant
-  -#= send_payment_tag participant
-  -#= approve_tag participant, index
-  -#= confirm_payment_tag participant, index
