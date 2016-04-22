@@ -1,5 +1,8 @@
-class ParticipantsMailer < ActionMailer::Base
-  include MailersHelper
+# Eithery Lab, 2016.
+# EventParticipantsMailer.
+# Represents a mailer to send event participant related notifications.
+
+class EventParticipantsMailer < ApplicationMailer
 
   def created(participant)
     set_members participant
