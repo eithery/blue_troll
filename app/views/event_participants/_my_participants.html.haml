@@ -15,14 +15,15 @@
       New participant
       &nbsp;
 
+    - if send_payment_available_at?(@event)
+      = link_to '#', class: 'btn btn-success' do
+        %i.fa.fa-credit-card
+        Send payment info
+      &nbsp;
 
-    = link_to '#', class: 'btn btn-success' do
-      %i.fa.fa-credit-card
-      Send payment info
-    &nbsp;
-
-    = link_to '#', class: 'btn btn-info' do
-      %i.fa.fa-download
-      Download my tickets
+    - if tickets_available_at?(@event)
+      = link_to '#', class: 'btn btn-info' do
+        %i.fa.fa-download
+        Download my tickets
 
     = render 'event_participants/selector', event: @event

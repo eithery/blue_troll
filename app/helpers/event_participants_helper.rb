@@ -16,7 +16,17 @@ module EventParticipantsHelper
   end
 
 
+  def send_payment_available_at?(event)
+    current_user.event_participants_at(event).any? { |p| can_send_payment?(p) }
+  end
+
+
   def can_download_ticket?(event_participant)
     event_participant.payment_confirmed?
+  end
+
+
+  def tickets_available_at?(event)
+    current_user.event_participants_at(event).any? { |p| can_download_ticket?(p) }
   end
 end
