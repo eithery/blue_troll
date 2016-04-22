@@ -26,6 +26,7 @@ describe UserAccount do
   it { should respond_to :reset_token, :reset_digest, :reset_sent_at }
   it { should respond_to :create_reset_digest, :send_password_reset_email }
   it { should respond_to :participants, :persons }
+  it { should respond_to :event_participants_at }
   it { should respond_to :name, :to_file_name }
   it { should respond_to :crew_lead_of?, :crew_lead_for?, :financier_at?, :financier_for? }
   it { should respond_to :can_approve?, :can_receive_payment_of?, :can_confirm_payment_of? }
@@ -134,6 +135,12 @@ describe UserAccount do
   describe '#participants, #persons' do
     it { expect(populated_account).to have(3).persons }
     it { expect(UserAccount.new).to have(:no).persons }
+  end
+
+
+  describe '#event_participants_at' do
+    it 'returns all user\'s participants at the event'
+    it 'does not contain any other event participants'
   end
 
 

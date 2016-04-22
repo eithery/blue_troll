@@ -133,6 +133,11 @@ class UserAccount < ApplicationRecord
   end
 
 
+  def event_participants_at(event)
+    event.participants.select { |p| self.participants.include?(p.person) }
+  end
+
+
 private
 
   def self.new_token

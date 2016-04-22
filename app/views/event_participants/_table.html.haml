@@ -10,4 +10,4 @@
         %th Actions
 
     %tbody
-      = render @event.participants
+      = render current_user.event_participants_at(@event)
