@@ -3,8 +3,14 @@
 # Represents a base class for all mailers.
 
 class ApplicationMailer < ActionMailer::Base
-  CLUB_EMAIL = 'bluetrolley.app@gmail.com'
+  APP_EMAIL = 'bluetrolley.app@gmail.com'
+  NO_REPLY_EMAIL = 'no-reply@bluetrolley.com'
 
-  default from: CLUB_EMAIL
+  default from: "Blue Trolley <#{NO_REPLY_EMAIL}>", bcc: APP_EMAIL
   layout 'mailer'
+
+
+  def mail_to(recipient, subject)
+    mail to: recipient, subject: "Blue Trolley: #{subject} <No Reply>"
+  end
 end

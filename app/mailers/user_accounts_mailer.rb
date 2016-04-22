@@ -3,36 +3,31 @@
 # Represents a mailer to send activation, password reset and other notifications to users.
 
 class UserAccountsMailer < ApplicationMailer
-
   def account_activation(user)
-    mail_to user, 'Account activation'
+    @user = user
+    mail_to user.email, 'Account activation'
   end
 
 
   def password_reset(user)
-    mail_to user, 'Password reset'
+    @user = user
+    mail_to user.email, 'Password reset'
   end
 
 
   def registered(user)
-    mail_to user, registered_subject
+    @user = user
+    mail_to user.email, registered_subject
   end
 
 
   def activated(user)
-    mail_to user, activated_subject
+    @user = user
+    mail_to user.email, activated_subject
   end
 
 
   def password_changed(user)
-    mail_to user, password_changed_subject
-  end
-
-
-private
-
-  def mail_to(user, subject)
-    @user = user
-    mail to: @user.email, from: "Blue_Trolley <#{CLUB_EMAIL}>", subject: "Blue Trolley: #{subject}"
+    mail_to user.email, password_changed_subject
   end
 end
