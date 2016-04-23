@@ -1,4 +1,7 @@
 - provide :view, :events
 - provide :title, @event.name
 
+.widget.p-x1{ class: background_class_of(@event) }
+  %h2= @event.name
+
 = render 'event_participants/my_participants'

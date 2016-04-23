@@ -1,6 +1,8 @@
 - provide :view, :events
 - provide :title, 'Events'
-= render 'events'
+
+.row
+  = render @events
 
 %br
 - if current_user.admin?

@@ -1,7 +1,6 @@
 .col-lg-6
-  .widget.p-x1{ class: background }
-    %h2
-      = event.name
+  .widget.p-x1{ class: background_class_of(event) }
+    %h2= event.name
     %ul.list-unstyled.m-t-md
       %li
         %span.fa.fa-calendar.m-r-xs
