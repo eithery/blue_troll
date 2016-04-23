@@ -15,6 +15,7 @@ class UserAccountsMailer < ApplicationMailer
   end
 
 
+=begin
   def registered(user)
     @user = user
     mail_to user.email, registered_subject
@@ -30,4 +31,5 @@ class UserAccountsMailer < ApplicationMailer
   def password_changed(user)
     mail_to user.email, password_changed_subject
   end
+=end
 end

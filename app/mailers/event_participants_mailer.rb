@@ -4,6 +4,9 @@
 
 class EventParticipantsMailer < ApplicationMailer
 
+
+
+=begin
   def created(participant)
     set_members participant
     mail to: target, from: "Blue_Trolley <#{club_email}>",
@@ -41,4 +44,5 @@ private
   def target
     [@participant.user_account.email, @participant.email].uniq
   end
+=end
 end
