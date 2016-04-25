@@ -1,4 +1,4 @@
-# Eithery Lab., 2015.
+# Eithery Lab., 2016.
 # Class UserAccountsController
 # UserAccounts controller.
 # Performs operations with user accounts.
