@@ -53,7 +53,7 @@ class Disclaimer < Prawn::Document
 		move_down 20
 		fill_color '000000'
 		font 'calibri-bold'
-		text "Delaware Water Gap KOA, 233 Hollow Road, East Stroudsburg, PA 18301\nFriday, September 23, 2016 - Sunday, September 25, 2016.",
+		text "Deerpark Campground KOA, 108 Guymard Turnpike, Cuddebackville, NY 12729\nFriday, June 9, 2017 - Sunday, June 11, 2017.",
 			size: 14, :align => :center
 
 		move_down 12
@@ -90,7 +90,7 @@ class Disclaimer < Prawn::Document
 
 		move_down 10
 		bounding_box([40, cursor], width: 460) do
-			text "On this day of ____________________, 2016, I, ___________________________________________ ,\n" +
+			text "On this day of ____________________, 2017, I, ___________________________________________ ,\n" +
 				"of my own free will, have read, understand and acknowledge the risks and liability for myself " +
 				"and on behalf of all persons for who I am the legal guardian during the Event."
 		end
@@ -138,7 +138,7 @@ class Disclaimer < Prawn::Document
 		return "unknown_participant.pdf" if @participant_name == @unknown
 		first_name, last_name = @participant_name.split
 		first_name = first_name.delete('/')
-		"#{last_name}_#{first_name}_2016.pdf".downcase
+		"#{last_name}_#{first_name}_2017.pdf".downcase
 	end
 
 
