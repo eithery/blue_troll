@@ -53,7 +53,7 @@ class Disclaimer < Prawn::Document
 		move_down 20
 		fill_color '000000'
 		font 'calibri-bold'
-		text "Deerpark Campground KOA, 108 Guymard Turnpike, Cuddebackville, NY 12729\nFriday, September 15, 2017 - Sunday, September 17, 2017.",
+		text "Deerpark Campground KOA, 108 Guymard Turnpike, Cuddebackville, NY 12729\nFriday, June 15, 2018 - Sunday, June 17, 2018.",
 			size: 14, :align => :center
 
 		move_down 12
@@ -64,7 +64,7 @@ class Disclaimer < Prawn::Document
 		move_down 12
 		bounding_box([40, cursor], width: 450) do
 			font_size 11
-			text "\u2022 I understand and am fully aware of the fact that participation in the Event" +
+			text "\u2022 I understand and am fully aware of the fact that participation in the Event " +
 				"involves potential risk of injury."
 			move_down 4
 			text "\u2022 I understand and acknowledge that all of the program activities in this Event are strictly voluntary. " +
@@ -90,7 +90,7 @@ class Disclaimer < Prawn::Document
 
 		move_down 10
 		bounding_box([40, cursor], width: 460) do
-			text "On this day of ____________________, 2017, I, ___________________________________________ ,\n" +
+			text "On this day of ____________________, 2018, I, ___________________________________________ ,\n" +
 				"of my own free will, have read, understand and acknowledge the risks and liability for myself " +
 				"and on behalf of all persons for who I am the legal guardian during the Event."
 		end
