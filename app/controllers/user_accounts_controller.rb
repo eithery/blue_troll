@@ -5,8 +5,8 @@
 
 class UserAccountsController < ApplicationController
 
-  before_filter :signed_in_user, only: [:show, :update_crew]
-  before_filter :correct_user, only: [:show, :update_crew]
+  before_action :signed_in_user, only: [:show, :update_crew]
+  before_action :correct_user, only: [:show, :update_crew]
   before_action :set_user_account, only: [:request_to_activate, :change_password, :update_password]
 
 

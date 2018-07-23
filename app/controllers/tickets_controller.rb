@@ -1,8 +1,8 @@
 require 'zip'
 
 class TicketsController < ApplicationController
-  before_filter :signed_in_user, only: [:download_for_crew, :download_for_user, :send_link]
-  before_filter :correct_crew_lead, only: [:download_for_crew]
+  before_action :signed_in_user, only: [:download_for_crew, :download_for_user, :send_link]
+  before_action :correct_crew_lead, only: [:download_for_crew]
 
 
   def download_for_crew

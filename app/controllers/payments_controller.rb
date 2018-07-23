@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
-  before_filter :signed_in_user, only: [:send_payment, :confirm_payment]
-  before_filter :correct_user, only: [:send_payment]
+  before_action :signed_in_user, only: [:send_payment, :confirm_payment]
+  before_action :correct_user, only: [:send_payment]
 
 
   def send_payment

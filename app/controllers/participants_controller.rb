@@ -1,7 +1,7 @@
 require 'csv'
 
 class ParticipantsController < ApplicationController
-  before_filter :signed_in_user
+  before_action :signed_in_user
 	before_action :set_participant, only: [:edit, :update, :destroy, :approve]
 
 

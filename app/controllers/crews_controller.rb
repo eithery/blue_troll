@@ -6,8 +6,8 @@
 class CrewsController < ApplicationController
   include CrewsHelper
 
-  before_filter :signed_in_user
-  before_filter :privileged_user, only: [:show]
+  before_action :signed_in_user
+  before_action :privileged_user, only: [:show]
 
 
   def index
