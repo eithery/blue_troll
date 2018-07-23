@@ -14,7 +14,7 @@ BlueTroll::Application.routes.draw do
   end
 
 
-  controller :participants, path: 'export' do
+  scope controller: :participants, path: 'export' do
     post 'crew/:crew_id/participants/paid', action: :export_paid_by_crew, as: 'crew_paid_participants_export'
     get 'participants/awaiting', action: :export_awaiting_participants, as: 'awaiting_participants_export'
     get 'participants/with_email', action: :export_participants_with_email, as: 'participants_with_email_export'
@@ -39,7 +39,7 @@ BlueTroll::Application.routes.draw do
   get 'statistics', to: 'static_pages#statistics'
   get 'announcement', to: 'static_pages#event_announcement'
 
-  controller :tickets, path: 'tickets/download' do
+  scope controller: :tickets, path: 'tickets/download' do
     post 'crew/:crew_id', action: :download_for_crew, as: 'crew_tickets_download'
     post 'user/:user_account_id', action: :download_for_user, as: 'user_tickets_download'
     match ':ticket_code', action: :download, as: 'ticket_download', via: [:get, :post]
