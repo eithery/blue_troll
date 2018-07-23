@@ -1,4 +1,4 @@
-class PopulateCrewLeads < ActiveRecord::Migration
+class PopulateCrewLeads < ActiveRecord::Migration[5.2]
   def up
     @crews = [
       { name: 'Bells', native_name: 'Звон Вечерний' },

@@ -1,4 +1,4 @@
-class ChangeCrewLead < ActiveRecord::Migration
+class ChangeCrewLead < ActiveRecord::Migration[5.2]
   def up
 #    prev_lead = UserAccount.find_by_login('abelyaev')
 #    prev_lead.crew_lead = false

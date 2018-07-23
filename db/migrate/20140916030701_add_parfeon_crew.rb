@@ -1,4 +1,4 @@
-class AddParfeonCrew < ActiveRecord::Migration
+class AddParfeonCrew < ActiveRecord::Migration[5.2]
   def up
     crew = Crew.create!(name: 'Parfeon', native_name: 'Парфеон')
 

@@ -1,4 +1,4 @@
-class AddGoldenKeyCrew < ActiveRecord::Migration
+class AddGoldenKeyCrew < ActiveRecord::Migration[5.2]
   def up
     crew = Crew.create!(name: 'Golden Key', native_name: 'Золотой Ключик')
 

@@ -1,4 +1,4 @@
-class AddLastChanceCrew < ActiveRecord::Migration
+class AddLastChanceCrew < ActiveRecord::Migration[5.2]
   def up
     crew = Crew.create!(name: 'Last Chance', native_name: 'Последний Шанс')
 

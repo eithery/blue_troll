@@ -1,4 +1,4 @@
-class AddFallCrews < ActiveRecord::Migration
+class AddFallCrews < ActiveRecord::Migration[5.2]
   def up
     crew = Crew.create!(name: 'El-Tor-2', native_name: 'Эль Тор 2')
 

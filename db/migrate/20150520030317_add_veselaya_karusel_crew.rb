@@ -1,4 +1,4 @@
-class AddVeselayaKaruselCrew < ActiveRecord::Migration
+class AddVeselayaKaruselCrew < ActiveRecord::Migration[5.2]
   def up
     crew = Crew.create!(name: 'Veselaya Karusel', native_name: 'Веселая Карусель')
 

@@ -1,4 +1,4 @@
-class CreateParticipants < ActiveRecord::Migration
+class CreateParticipants < ActiveRecord::Migration[5.2]
   def change
     create_table :participants do |t|
       # User account info.
