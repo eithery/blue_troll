@@ -8,11 +8,24 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+!/log/.keep
+!/tmp/.keep
 /data/tickets/*.pdf
 /data/tickets/*.zip
 /data/export
+
+# Ignore uploaded files in development
+/storage/*
+
+/node_modules
+/yarn-error.log
+/public/assets
+.byebug_history
 
 # Ignore all RubyMine and Sublime Text related files.
 /.idea
 /*.sublime*
 /new_features.txt
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
