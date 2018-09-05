@@ -72,7 +72,7 @@ Rails.application.configure do
     domain: "gmail.com",
     authentication: "plain",
     user_name: "bluetrolley.app",
-    password: "sin_troll_2015_spring",
+    password: ENV['EMAIL_PWD'],
     enable_starttls_auto: true
   }
 
