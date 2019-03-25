@@ -71,7 +71,7 @@ private
   def download_for(entity)
     file_name = entity.to_file_name
     base_folder = "data/tickets"
-    zipfile_name = "#{file_name}_2018.zip"
+    zipfile_name = "#{file_name}_2019.zip"
     zipfile_path = "#{base_folder}/#{zipfile_name}"
     tickets_path = "#{base_folder}/#{file_name}"
 
