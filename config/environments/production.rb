@@ -69,7 +69,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: ENV['MAILGUN_SMTP_SERVER'],
     port: ENV['MAILGUN_SMTP_PORT'],
-    domain: 'bluetrolley2019.herokuapp.com',
+    domain: 'mg.bluetrolley2019.herokuapp.com',
     authentication: 'plain',
     user_name: ENV['MAILGUN_SMTP_LOGIN'],
     password: ENV['MAILGUN_SMTP_PASSWORD'],
