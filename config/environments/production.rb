@@ -67,12 +67,12 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :mailhopper
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: 587,
-    domain: "gmail.com",
-    authentication: "plain",
-    user_name: "bluetrolley.app",
-    password: ENV['EMAIL_PWD'],
+    address: ENV['MAILGUN_SMTP_SERVER'],
+    port: ENV['MAILGUN_SMTP_PORT'],
+    domain: 'bluetrolley2019.herokuapp.com',
+    authentication: 'plain',
+    user_name: ENV['MAILGUN_SMTP_LOGIN'],
+    password: ENV['MAILGUN_SMTP_PASSWORD'],
     enable_starttls_auto: true
   }
 
