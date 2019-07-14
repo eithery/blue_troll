@@ -53,7 +53,7 @@ class Disclaimer < Prawn::Document
 		move_down 20
 		fill_color '000000'
 		font 'calibri-bold'
-		text "Deerpark Campground KOA, 108 Guymard Turnpike, Cuddebackville, NY 12729\nFriday, June 7, 2019 - Sunday, June 9, 2019.",
+		text "Deerpark Campground KOA, 108 Guymard Turnpike, Cuddebackville, NY 12729\nFriday, September 13, 2019 - Sunday, September 15, 2019.",
 			size: 14, :align => :center
 
 		move_down 12
