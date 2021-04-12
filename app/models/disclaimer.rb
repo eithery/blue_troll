@@ -37,7 +37,7 @@ class Disclaimer < Prawn::Document
       text @age_category, size: 24, align: :right
     end
 
-    move_down 5
+    move_down 4
     fill_color '17365D'
     indent 30 do
       text 'Blue Trolley', size: 40
@@ -49,48 +49,51 @@ class Disclaimer < Prawn::Document
     end
 
 
-    move_down 20
+    move_down 15
     fill_color '000000'
     font 'calibri-bold'
     text "Deerpark Campground KOA, 108 Guymard Turnpike, Cuddebackville, NY 12729\nFriday, June 11, 2021 - Sunday, June 13, 2021.",
       size: 14, align: :center
 
-    move_down 12
+    move_down 10
     font 'arial', size: 12 do
       text 'INFORMED CONSENT / LIABILITY RELEASE', align: :center
     end
 
-    move_down 12
+    move_down 10
     bounding_box([40, cursor], width: 450) do
       font_size 11
-      text "\u2022 I understand and am fully aware of the fact that participation in the Event " +
+      text "\u2022 COVID-19 Warning. We have taken enhanced health and safety measures. " \
+        'An inherent risk of exposure to COVID-19 exists in any public place where people are present.'
+      move_down 4
+      text "\u2022 I understand and am fully aware of the fact that participation in the Event " \
         'involves potential risk of injury.'
       move_down 4
-      text "\u2022 I understand and acknowledge that all of the program activities in this Event are strictly voluntary. " +
-        'I will participate in these activities to whatever degree I deem appropriate of my own free choice ' +
+      text "\u2022 I understand and acknowledge that all of the program activities in this Event are strictly voluntary. " \
+        'I will participate in these activities to whatever degree I deem appropriate of my own free choice ' \
         'and only after due consideration of my own health, physical abilities and medical condition.'
       move_down 4
       text "\u2022 I agree that I am solely responsible for my own participation and emotional well-being."
       move_down 4
-      text "\u2022 I agree that I am fully responsible for well-being of all persons, whom I am the legal guardian " +
+      text "\u2022 I agree that I am fully responsible for well-being of all persons, whom I am the legal guardian " \
         'for during the Event.'
       move_down 4
-      text "\u2022 I willingly and knowingly assume for myself and all persons whom I am responsible for, " +
-        'all risk of physical injury and emotional upset, which may occur during or after participating ' +
+      text "\u2022 I willingly and knowingly assume for myself and all persons whom I am responsible for, " \
+        'all risk of physical injury and emotional upset, which may occur during or after participating ' \
         'in any aspect of the Event.'
       move_down 4
-      text "\u2022 I agree to hold the Venue and the Event organizers harmless of any liability arising " +
+      text "\u2022 I agree to hold the Venue and the Event organizers harmless of any liability arising " \
         'out of my participation in the Event.'
       move_down 4
-      text "\u2022 Should the Venue, Event organizers or any party acting on their behalf be required to " +
-        'incur attorney’s fees, or any other costs to enforce this agreement, I agree to indemnity and hold the Venue, ' +
+      text "\u2022 Should the Venue, Event organizers or any party acting on their behalf be required to " \
+        'incur attorney’s fees, or any other costs to enforce this agreement, I agree to indemnity and hold the Venue, ' \
         'the Event organizers or any party acting on their behalf, harmless for all such fees and costs.'
     end
 
     move_down 10
     bounding_box([40, cursor], width: 460) do
-      text "On this day of ____________________, 2021, I, ___________________________________________ ,\n" +
-        'of my own free will, have read, understand and acknowledge the risks and liability for myself ' +
+      text "On this day of ____________________, 2021, I, ___________________________________________ ,\n" \
+        'of my own free will, have read, understand and acknowledge the risks and liability for myself ' \
         'and on behalf of all persons for who I am the legal guardian during the Event.'
     end
 
