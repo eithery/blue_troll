@@ -8,7 +8,7 @@ module MailersHelper
   end
 
   def club_url
-    "https://bluetrolley2020.herokuapp.com"
+    "https://bluetrolley.herokuapp.com"
   end
 
   def registered_subject
