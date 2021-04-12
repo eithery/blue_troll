@@ -65,39 +65,39 @@ class Disclaimer < Prawn::Document
       font_size 11
       text "\u2022 COVID-19 Warning. We have taken enhanced health and safety measures. " \
         'An inherent risk of exposure to COVID-19 exists in any public place where people are present.'
-      move_down 4
+      move_down 3
       text "\u2022 I understand and am fully aware of the fact that participation in the Event " \
         'involves potential risk of injury.'
-      move_down 4
+      move_down 3
       text "\u2022 I understand and acknowledge that all of the program activities in this Event are strictly voluntary. " \
         'I will participate in these activities to whatever degree I deem appropriate of my own free choice ' \
         'and only after due consideration of my own health, physical abilities and medical condition.'
-      move_down 4
+      move_down 3
       text "\u2022 I agree that I am solely responsible for my own participation and emotional well-being."
-      move_down 4
+      move_down 3
       text "\u2022 I agree that I am fully responsible for well-being of all persons, whom I am the legal guardian " \
         'for during the Event.'
-      move_down 4
+      move_down 3
       text "\u2022 I willingly and knowingly assume for myself and all persons whom I am responsible for, " \
         'all risk of physical injury and emotional upset, which may occur during or after participating ' \
         'in any aspect of the Event.'
-      move_down 4
+      move_down 3
       text "\u2022 I agree to hold the Venue and the Event organizers harmless of any liability arising " \
         'out of my participation in the Event.'
-      move_down 4
+      move_down 3
       text "\u2022 Should the Venue, Event organizers or any party acting on their behalf be required to " \
         'incur attorney’s fees, or any other costs to enforce this agreement, I agree to indemnity and hold the Venue, ' \
         'the Event organizers or any party acting on their behalf, harmless for all such fees and costs.'
     end
 
-    move_down 10
+    move_down 7
     bounding_box([40, cursor], width: 460) do
       text "On this day of ____________________, 2021, I, ___________________________________________ ,\n" \
         'of my own free will, have read, understand and acknowledge the risks and liability for myself ' \
         'and on behalf of all persons for who I am the legal guardian during the Event.'
     end
 
-    move_down 30
+    move_down 25
     stroke do
       stroke_color '000000'
       horizontal_line 40, 240, at: cursor
@@ -108,7 +108,7 @@ class Disclaimer < Prawn::Document
       text 'Participant Signature'
     end
 
-    move_down 30
+    move_down 25
     stroke do
       horizontal_line 40, 240, at: cursor
       horizontal_line 290, 490, at: cursor
@@ -119,7 +119,7 @@ class Disclaimer < Prawn::Document
       text 'Parent/Guardian Signature' + spaces(75) + 'Printed Parent/Guardian Name'
     end
 
-    move_down @address.blank? ? 30 : 15
+    move_down @address.blank? ? 25 : 15
     indent 40 do
       text @address, size: 12
     end
