@@ -26,7 +26,7 @@ module ApplicationHelper
 
 
   def old_club_url
-    "http://bluetrolleyclub.com"
+    "http://bluetrolley.org"
   end
 
 

@@ -52,7 +52,7 @@ class Disclaimer < Prawn::Document
     move_down 15
     fill_color '000000'
     font 'calibri-bold'
-    text "Deerpark Campground KOA, 108 Guymard Turnpike, Cuddebackville, NY 12729\nFriday, September 24, 2021 - Sunday, September 26, 2021.",
+    text "Deerpark Campground KOA, 108 Guymard Turnpike, Cuddebackville, NY 12729\nFriday, June 10, 2022 - Sunday, June 12, 2022.",
       size: 14, align: :center
 
     move_down 10
@@ -92,7 +92,7 @@ class Disclaimer < Prawn::Document
 
     move_down 7
     bounding_box([40, cursor], width: 460) do
-      text "On this day of ____________________, 2021, I, ___________________________________________ ,\n" \
+      text "On this day of ____________________, 2022, I, ___________________________________________ ,\n" \
         'of my own free will, have read, understand and acknowledge the risks and liability for myself ' \
         'and on behalf of all persons for who I am the legal guardian during the Event.'
     end
@@ -140,7 +140,7 @@ class Disclaimer < Prawn::Document
 
     first_name, last_name = @participant_name.split
     first_name = first_name.delete('/')
-    "#{last_name}_#{first_name}_2021.pdf".downcase
+    "#{last_name}_#{first_name}_2022.pdf".downcase
   end
 
 
