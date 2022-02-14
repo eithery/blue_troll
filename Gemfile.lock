@@ -197,7 +197,7 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rdoc (6.3.0)
+    rdoc (6.3.1)
     regexp_parser (2.1.1)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
@@ -248,8 +248,6 @@ GEM
       ffi (~> 1.9)
     sassc (2.4.0-x64-mingw32)
       ffi (~> 1.9)
-    sdoc (2.1.0)
-      rdoc (>= 5.0)
     sexp_processor (4.15.2)
     shoulda-kept-respond-with-content-type (1.1.0)
       shoulda-matchers (>= 2.1.0)
@@ -323,13 +321,13 @@ DEPENDENCIES
   rails (~> 5.2)
   rails_12factor
   rails_stdout_logging
+  rdoc (= 6.3.1)
   rspec-activemodel-mocks
   rspec-collection_matchers
   rspec-its
   rspec-rails
   rubyzip
   sass-rails (~> 5.0)
-  sdoc
   shoulda-kept-respond-with-content-type
   shoulda-matchers
   spring

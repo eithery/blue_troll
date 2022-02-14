@@ -31,7 +31,7 @@ gem 'prawn'
 gem 'rubyzip'
 
 gem 'tzinfo-data'
-gem 'sdoc', group: :doc
+gem 'rdoc', '6.3.1'
 
 
 group :development do
