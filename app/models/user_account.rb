@@ -1,7 +1,7 @@
 class UserAccount < ActiveRecord::Base
   has_secure_password
   has_many :participants, dependent: :destroy
-  belongs_to :crew
+  belongs_to :crew, optional: true
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :login, presence: true, uniqueness: { case_sensitive: false }
