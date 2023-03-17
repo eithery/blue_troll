@@ -27,12 +27,12 @@
           .radio
             %label
               = f.radio_button :age_category, AgeCategory::CHILD
-              Child (more than 6 years)
-            
+              Child (3 - 16 years)
+
           .radio
             %label
               = f.radio_button :age_category, AgeCategory::BABY
-              Child (0 - 6 years)
+              Baby (under 3 years)
 
       .form-group
         = f.label :age, 'Age (under 16 only)', class: "control-label col-sm-3"

@@ -4,8 +4,8 @@ shared_examples_for "participant form" do
   it { should have_selector("input[value='#{participant.user_account_id}'][type='hidden']") }
   it { should have_selector("input[type='radio']", count: 3) }
   it { should have_selector("div.radio", text: 'Adult') }
-  it { should have_selector("div.radio", text: 'Child (more than 6 years)') }
-  it { should have_selector("div.radio", text: 'Child (0 - 6 years)') }
+  it { should have_selector("div.radio", text: 'Child (3 - 16 years)') }
+  it { should have_selector("div.radio", text: 'Child (under 3 years)') }
   it { should have_link('Cancel', href: user_account_path(participant.user_account)) }
 end
 
