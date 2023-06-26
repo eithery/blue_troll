@@ -52,7 +52,7 @@ class Disclaimer < Prawn::Document
     move_down 15
     fill_color '000000'
     font 'calibri-bold'
-    text "Deerpark Campground KOA, 108 Guymard Turnpike, Goddefroy, NY 12729\nFriday, June 9, 2023 - Sunday, June 11, 2023.",
+    text "Neversink River Resort, 108 Guymard Turnpike, Goddefroy, NY 12729\nFriday, September 22, 2023 - Sunday, September 24, 2023.",
       size: 14, align: :center
 
     move_down 10
