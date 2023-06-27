@@ -61,7 +61,6 @@ class UserAccount < ActiveRecord::Base
 
   def can_approve?(participant)
     !participant.approved? && (participant.crew_lead?(self) || self.admin?)
-    !participant.approved? && self.admin?
   end
 
 
