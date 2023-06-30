@@ -67,10 +67,10 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :mailhopper
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.smtp_settings = {
-    address: ENV['MAILGUN_SMTP_SERVER'],
-    port: ENV['MAILGUN_SMTP_PORT'],
-    user_name: ENV['MAILGUN_SMTP_LOGIN'],
-    password: ENV['MAILGUN_SMTP_PASSWORD'],
+    address: 'smtp.sendgrid.net',
+    port: 587,
+    user_name: ENV['SENDGRID_USERNAME'],
+    password: ENV['SENDGRID_PASSWORD'],
     authentication: 'plain',
     enable_starttls_auto: true
   }
