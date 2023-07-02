@@ -34,8 +34,6 @@ gem 'rubyzip'
 gem 'tzinfo-data'
 gem 'rdoc', '6.3.1'
 
-gem 'sendgrid-ruby'
-
 
 group :development do
   gem 'web-console', '>= 3.3.0'

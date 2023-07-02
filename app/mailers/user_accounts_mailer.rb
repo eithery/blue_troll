@@ -29,6 +29,6 @@ class UserAccountsMailer < ActionMailer::Base
 private
   def mail_to(user, subject)
     @user = user
-    mail to: @user.email, from: "Blue_Trolley <#{club_email}>", subject: "#{sender}: #{subject}"
+    mail to: @user.email, from: "Blue Trolley <#{club_email}>", subject: "#{sender}: #{subject}"
   end
 end
