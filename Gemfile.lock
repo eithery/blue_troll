@@ -241,6 +241,7 @@ GEM
       rspec-support (~> 3.10)
     rspec-support (3.12.1)
     ruby_dep (1.5.0)
+    ruby_http_client (3.5.5)
     rubyzip (2.3.2)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
@@ -257,6 +258,8 @@ GEM
       ffi (~> 1.9)
     sassc (2.4.0-x64-mingw32)
       ffi (~> 1.9)
+    sendgrid-ruby (6.6.2)
+      ruby_http_client (~> 3.4)
     shoulda-kept-respond-with-content-type (1.1.0)
       shoulda-matchers (>= 2.1.0)
     shoulda-matchers (5.3.0)
@@ -340,6 +343,7 @@ DEPENDENCIES
   rspec-rails
   rubyzip
   sass-rails (~> 5.0)
+  sendgrid-ruby
   shoulda-kept-respond-with-content-type
   shoulda-matchers
   spring

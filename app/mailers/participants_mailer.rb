@@ -1,5 +1,9 @@
+require 'sendgrid-ruby'
+
 class ParticipantsMailer < ActionMailer::Base
   include MailersHelper
+  include SendGrid
+
 
   def created(participant)
     set_members participant
@@ -24,8 +28,20 @@ class ParticipantsMailer < ActionMailer::Base
 
   def send_ticket_to(participant)
     @participant = participant
-    mail to: target, from: "Blue_Trolley <#{club_email}>",
+    mail to: target, from: "notifications@bluetrolley.club",
       subject: "#{sender}: download ticket link"
+
+    # from = Email.new(email: 'notifications@bluetrolley.club')
+    # to = Email.new(email: 'michael.protsenko@gmail.com')
+    # subject = "Download ticket link"
+    # content = Content.new(type: 'text/plain', value: 'Hello from SendGrid')
+    # mail = Mail.new(from, subject, to, content)
+
+    # sg = SendGrid::API.new(api_key: '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')
+    # response = sg.client.mail._('send').post(request_body: mail.to_json)
+    # puts response.status_code
+    # puts response.body
+    # puts response.headers
   end
 
 
