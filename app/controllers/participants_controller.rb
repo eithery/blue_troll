@@ -57,6 +57,11 @@ class ParticipantsController < ApplicationController
 
 
   def update
+    if @participant,paid?
+      flash.now[:error] = "Cannot update personal info for paid participants."
+      render: edit
+      return
+    end
     if @participant.update(participant_params)
       flash[:success] = "#{@participant.display_name} profile has been successfully updated."
       redirect_to @participant.user_account
