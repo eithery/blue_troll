@@ -57,7 +57,7 @@ class ParticipantsController < ApplicationController
 
 
   def update
-    if @participant,paid?
+    if @participant.paid?
       flash.now[:error] = "Cannot update personal info for paid participants."
       render: edit
       return
