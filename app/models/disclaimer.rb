@@ -52,7 +52,7 @@ class Disclaimer < Prawn::Document
     move_down 15
     fill_color '000000'
     font 'calibri-bold'
-    text "Neversink River Resort, 108 Guymard Turnpike, Goddefroy, NY 12729\nFriday, September 22, 2023 - Sunday, September 24, 2023.",
+    text "Neversink River Resort, 108 Guymard Turnpike, Goddefroy, NY 12729\nFriday, June 7, 2024 - Sunday, June 9, 2024.",
       size: 14, align: :center
 
     move_down 10
@@ -92,7 +92,7 @@ class Disclaimer < Prawn::Document
 
     move_down 7
     bounding_box([40, cursor], width: 460) do
-      text "On this day of ____________________, 2023, I, ___________________________________________ ,\n" \
+      text "On this day of ____________________, 2024, I, ___________________________________________ ,\n" \
         'of my own free will, have read, understand and acknowledge the risks and liability for myself ' \
         'and on behalf of all persons for who I am the legal guardian during the Event.'
     end
@@ -140,7 +140,7 @@ class Disclaimer < Prawn::Document
 
     first_name, last_name = @participant_name.split
     first_name = first_name.delete('/')
-    "#{last_name}_#{first_name}_2023.pdf".downcase
+    "#{last_name}_#{first_name}_2024.pdf".downcase
   end
 
 
