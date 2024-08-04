@@ -52,7 +52,7 @@ class Disclaimer < Prawn::Document
     move_down 10
     fill_color '000000'
     font 'calibri'
-    text 'Friday, September 20, 2024 - Sunday, September 22, 2024.', size: 12, align: :center
+    text 'Friday, September 27, 2024 - Sunday, September 29, 2024.', size: 12, align: :center
 
     move_down 8
     font 'arial', size: 10 do
