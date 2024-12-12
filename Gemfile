@@ -5,7 +5,7 @@ ruby '2.7.6'
 
 gem 'rails', '~> 5.2'
 gem 'addressable', '2.8.0'
-gem 'puma', '~> 4.3'
+gem 'puma', '~> 5.6'
 
 gem 'haml'
 gem 'haml-rails', group: :development
