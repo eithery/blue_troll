@@ -52,7 +52,7 @@ class Disclaimer < Prawn::Document
     move_down 10
     fill_color '000000'
     font 'calibri'
-    text 'Friday, September 27, 2024 - Sunday, September 29, 2024.', size: 12, align: :center
+    text 'Friday, June 6, 2025 - Sunday, June 8, 2025.', size: 12, align: :center
 
     move_down 8
     font 'arial', size: 10 do
@@ -123,7 +123,7 @@ class Disclaimer < Prawn::Document
 
     move_down 5
     bounding_box([25, cursor], width: 520) do
-      text "On this day of ____________________, 2024, I, ___________________________________________ , " \
+      text "On this day of ____________________, 2025, I, ___________________________________________ , " \
         'of my own free will, have read, understand and acknowledge the risks and liability for myself ' \
         'and on behalf of all persons for who I am the legal guardian during the Event.'
     end
@@ -158,7 +158,7 @@ class Disclaimer < Prawn::Document
 
     first_name, last_name = @participant_name.split
     first_name = first_name.delete('/')
-    "#{last_name}_#{first_name}_2024.pdf".downcase
+    "#{last_name}_#{first_name}_2025.pdf".downcase
   end
 
 
