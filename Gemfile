@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.3.8'
 
+gem 'concurrent-ruby', '1.3.4'
 gem 'rails', '~> 6.1'
 gem 'addressable', '2.8.0'
 gem 'puma', '~> 4.3'
