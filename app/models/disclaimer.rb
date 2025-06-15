@@ -52,7 +52,7 @@ class Disclaimer < Prawn::Document
     move_down 10
     fill_color '000000'
     font 'calibri'
-    text 'Friday, June 6, 2025 - Sunday, June 8, 2025.', size: 12, align: :center
+    text 'Friday, September 19, 2025 - Sunday, September 21, 2025.', size: 12, align: :center
 
     move_down 8
     font 'arial', size: 10 do
