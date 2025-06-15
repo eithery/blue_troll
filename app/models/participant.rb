@@ -94,23 +94,23 @@ class Participant < ActiveRecord::Base
 
 
   def approve(crew_lead)
-    update_attributes(approved_at: Time.now, approved_by: crew_lead.login)
+    update(approved_at: Time.now, approved_by: crew_lead.login)
   end
 
 
   def send_payment(payment)
-    update_attributes(payment_sent_at: Time.now, payment_sent_by: self.user_account.login,
+    update(payment_sent_at: Time.now, payment_sent_by: self.user_account.login,
       payment_type: payment.payment_type, payment_notes: payment.notes)
   end
 
 
   def receive_payment(amount, crew_lead)
-    update_attributes(payment_received_at: Time.now, payment_received_by: crew_lead.login)
+    update(payment_received_at: Time.now, payment_received_by: crew_lead.login)
   end
 
 
   def confirm_payment(amount, financier)
-    update_attributes(payment_confirmed_at: Time.now, payment_confirmed_by: financier.login)
+    update(payment_confirmed_at: Time.now, payment_confirmed_by: financier.login)
   end
 
 

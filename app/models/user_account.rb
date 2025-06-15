@@ -31,7 +31,7 @@ class UserAccount < ActiveRecord::Base
 
   def activate(code_or_token)
     (self.activation_code == code_or_token || self.activation_token == code_or_token) &&
-      update_attributes!(email_confirmation: email, active: true, activated_at: Time.now)
+      update!(email_confirmation: email, active: true, activated_at: Time.now)
   end
 
 
