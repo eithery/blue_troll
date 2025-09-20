@@ -216,7 +216,7 @@ class ParticipantsController < ApplicationController
     CSV.open(all_participants_with_email_path, 'w') do |csv|
       csv << ['Participant', 'Crew', 'User Account Email', 'Participant Email']
       Participant.all.order(:last_name, :first_name).each do |p|
-        csv << [p.full_name, p.crew.name, p.user_account.email, p.email] unless p.email.nil?
+        csv << [p.full_name, p.crew&.name || 'Undefined', p.user_account.email, p.email] unless p.email.nil?
       end
     end
 
