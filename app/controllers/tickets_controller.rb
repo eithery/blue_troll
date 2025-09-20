@@ -75,7 +75,7 @@ private
     zipfile_path = "#{base_folder}/#{zipfile_name}"
     tickets_path = "#{base_folder}/#{file_name}"
 
-    Dir.mkdir(tickets_path) unless Dir.exists?(tickets_path)
+    Dir.mkdir(tickets_path) unless Dir.exist?(tickets_path)
 
     entity.participants.each do |participant|
       if participant.payment_confirmed?

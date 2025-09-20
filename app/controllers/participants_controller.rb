@@ -178,7 +178,7 @@ class ParticipantsController < ApplicationController
   def export_paid_by_crew
     crew = Crew.find(params[:crew_id])
     export_folder = 'data/export'
-    Dir.mkdir(export_folder) unless Dir.exists?(export_folder)
+    Dir.mkdir(export_folder) unless Dir.exist?(export_folder)
     paid_participants_path = "#{export_folder}/#{crew.to_file_name}_paid.csv"
 
     CSV.open(paid_participants_path, 'w') do |csv|
@@ -194,7 +194,7 @@ class ParticipantsController < ApplicationController
 
   def export_awaiting_participants
     export_folder = 'data/export'
-    Dir.mkdir(export_folder) unless Dir.exists?(export_folder)
+    Dir.mkdir(export_folder) unless Dir.exist?(export_folder)
     awaiting_participants_path = "#{export_folder}/awaiting_participants.csv"
 
     CSV.open(awaiting_participants_path, 'w') do |csv|
@@ -210,7 +210,7 @@ class ParticipantsController < ApplicationController
 
   def export_participants_with_email
     export_folder = 'data/export'
-    Dir.mkdir(export_folder) unless Dir.exists?(export_folder)
+    Dir.mkdir(export_folder) unless Dir.exist?(export_folder)
     all_participants_with_email_path = "#{export_folder}/all_participants_with_email.csv"
 
     CSV.open(all_participants_with_email_path, 'w') do |csv|
